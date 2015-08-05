@@ -9,7 +9,6 @@ pages:
     - 'Next Steps': 'next_steps.md'
   - 'CloudSlang':
     - 'Hello World Example': 'hello_world.md'
-    - 'Tutorial': 'tutorial.md'
     - 'YAML Overview': 'yaml_overview.md'
     - 'DSL Reference': 'cloudslang_dsl_reference.md'
     - 'Examples': 'cloudslang_examples.md'
