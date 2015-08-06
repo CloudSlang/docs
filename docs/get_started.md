@@ -23,6 +23,12 @@ run --f ../content/io/cloudslang/base/print/print_text.sl --i text=Hi
 run --f ../content/io/cloudslang/base/print/print_text.sl --i text=Hi
 ```
 
+Or, to run the flow without the prompt:
+
+```bash
+docker run --rm -ti cloudslang run --f ../content/io/cloudslang/base/print/print_text.sl --i text=first_flow
+```
+
 + The CLI will run the ready-made `print_text` operation that will print the value passed to the variable `text` to the screen.
 
 
