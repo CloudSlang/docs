@@ -6,7 +6,6 @@ pages:
   - 'Overview':
     - 'The CloudSlang Project': 'index.md'
     - 'Get Started': 'get_started.md'
-    - 'Next Steps': 'next_steps.md'
   - 'CloudSlang':
     - 'Hello World Example': 'hello_world.md'
     - 'YAML Overview': 'yaml_overview.md'
