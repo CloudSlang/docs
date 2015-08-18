@@ -8,7 +8,7 @@ To ease the CloudSlang coding process you can use our Sublime Text snippets.
 2. Download the [slang-sublime package](https://github.com/orius123/slang-sublime/releases/tag/0.1.1). 
 3. Copy the downloaded package file into C:\Users\&lt;User&gt;\AppData\Roaming\Sublime Text 2\Installed Packages
 4. Restart Sublime Text.
-5. New files with the .sl extension will be recognized as CloudSlang files. For existing files you may have to change the language manually.
+5. New files with the **.sl** extension will be recognized as CloudSlang files. For existing files you may have to change the language manually.
 
 To use the templates start typing the template name and press enter when it appears on the screen. 
 

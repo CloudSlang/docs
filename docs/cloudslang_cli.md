@@ -67,7 +67,7 @@ To pass the value **"Hello" World** to a flow:
 cslang>run --f c:/.../your_flow.sl --i "input1=\"Hello\" World"
 ```
 
-Alternatively, inputs made be loaded from a file. Input files are written in flat [YAML](http://www.yaml.org), containing a map of names to values. Input files end with the .yaml  or .yml extensions. If multiple input files are being used and they contain an input with the same name, the input in the file that is loaded last will overwrite the others with the same name. 
+Alternatively, inputs made be loaded from a file. Input files are written in flat [YAML](http://www.yaml.org), containing a map of names to values. Input files end with the **.yaml**  or **.yml** extensions. If multiple input files are being used and they contain an input with the same name, the input in the file that is loaded last will overwrite the others with the same name. 
 
 **Example - inputs file**
 
