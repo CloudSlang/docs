@@ -83,7 +83,7 @@ input_map:
   three: c
 ``` 
 
-Input files can be loaded automatically if placed in a folder named `inputs` in the directory from which the CLI is run. If the flow requires an input file that is not loaded automatically, use the `--if` flag and a comma-separated list of file paths. Inputs passed with the `--i` flag will override the inputs passed using a file. 
+Input files that contain `inputs` in their name can be loaded automatically if placed in a folder named `inputs` in the directory from which the CLI is run. If the flow requires an input file that is not loaded automatically, use the `--if` flag and a comma-separated list of file paths. Inputs passed with the `--i` flag will override the inputs passed using a file. 
 
 ```bash
 cslang>run --f c:/.../your_flow.sl --if c:/.../inputs.yaml --i input1=value1
