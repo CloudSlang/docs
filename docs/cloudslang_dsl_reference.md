@@ -193,7 +193,9 @@ action:
 1. In the action's Pyton script, import the `sys` module.
 2. Use `sys.path.append()` to add the path to the desired module.
 3. Import the module and use it. 
-    **Example - takes path as input parameter, adds it to sys.path and imports desired module **
+    
+**Example - takes path as input parameter, adds it to sys.path and imports desired module **
+
 ```yaml
 inputs:
   - path
@@ -204,7 +206,6 @@ action:
     import module_to_import
     print module_to_import.something()
 ```
-
 
 ###Importing Python Scripts
 To import a Python script in a `python_script` action:
@@ -603,12 +604,13 @@ namespace: examples.hello_world
 ```
 
 **Example - using a namespace in an imports definition**
+
 ```yaml
 imports:
   ops: examples.hello_world
 ```
 
-**Note:** if the imported file resides in a folder that is different from the folder in which the importing file resides, the imported file's directory must be added using the `--cp` flag when running from the CLI (see [Run with Dependencies](cloudslang_cli.md#run-with-dependencies)). 
+**Note:** If the imported file resides in a folder that is different from the folder in which the importing file resides, the imported file's directory must be added using the `--cp` flag when running from the CLI (see [Run with Dependencies](cloudslang_cli.md#run-with-dependencies)). 
 
 ##navigate
 The key `navigate` is a property of a [task](#task) name.

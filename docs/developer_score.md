@@ -176,6 +176,7 @@ There are several ways Score can populate an action method's arguments:
 + From the execution context that is passed to the [TriggeringProperties](#triggeringproperties) when the [ExecutionPlan](#executionplan) is triggered.
   
   When a method such as `public void doSomething(String argName)` is encountered, Score will attempt to populate the argument `argName` with a value mapped to the key `argName` in the execution context. If the key `argName` does not exist in the map, the argument will be populated with `null`.
+
 + From data values set in the [ExecutionSteps](#executionstep) during the creation of the [ExecutionPlan](#executionplan).
 
 	Data can be set using the `setActionData` and `setNavigationData` methods.
@@ -184,14 +185,17 @@ There are several ways Score can populate an action method's arguments:
 
   There are some argument names that have a special meaning when used as control action or navigation action method arguments:
 
-  +  **executionRuntimeServices** - Score will populate this argument with the [ExecutionRuntimeServices](#executionruntimeservices) object. 
-  ```java
-  public void doWithServices(ExecutionRuntimeServices executionRuntimeServices)
-  ```
-  +  **executionContext** - Score will populate this argument with the context tied to the ExecutionPlan during its triggering through the [TriggeringProperties](#triggeringproperties).
-  ```java
-  public void doWithContext(Map<String, Serializable> executionContext) 
-  ```
+    +  **executionRuntimeServices** - Score will populate this argument with the [ExecutionRuntimeServices](#executionruntimeservices) object. 
+  
+    ```java
+    public void doWithServices(ExecutionRuntimeServices    executionRuntimeServices)
+    ```
+    +  **executionContext** - Score will populate this argument with the context tied to the ExecutionPlan during its triggering through the [TriggeringProperties](#triggeringproperties).
+  
+    ```java
+    public void doWithContext(Map<String, Serializable> executionContext) 
+    ```
+
 If an argument is present in both the [ExecutionStep](#executionstep) data and the execution context, the value from the execution context will be used.
 
 ###Action Method Return Values
@@ -267,4 +271,4 @@ Event Data Keys:
 + systemContext
 + EXECUTION_CONTEXT
 
-A language built upon Score can add events during run time using the [ExecutionRuntimeServices](#executionruntimeservices) API. An example of this usage can be seen in CloudSlang's addition of [Slang events](developer_cloudslang.md#slang-events).
+A language built upon Score can add events during runtime using the [ExecutionRuntimeServices](#executionruntimeservices) API. An example of this usage can be seen in CloudSlang's addition of [Slang events](developer_cloudslang.md#slang-events).

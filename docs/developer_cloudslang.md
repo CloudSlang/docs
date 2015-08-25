@@ -229,7 +229,7 @@ Event types from CloudSlang are listed in the table below along with the event d
 All Slang events contain the data in the following list. Additional event data is listed in the table below alongside the event type. The event data map keys are enclosed in square brackets - [KEYNAME].
 
 - [DESCRIPTION] - event description
-- [TIMESTAMP] - event time-stamp
+- [TIMESTAMP] - event timestamp
 - [EXECUTIONID] - event execution id
 - [PATH] - event path: increased when entering a subflow or operation
 

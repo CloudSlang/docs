@@ -82,7 +82,7 @@ operation:
 ```
 
 ##Example 2 - Default Navigation
-In this example the flow takes in two inputs, one of which determines the success of it's first task. 
+In this example the flow takes in two inputs, one of which determines the success of its first task. 
 
 + If the first task succeeds, the flow continues with the default navigation sequentially by performing the next task. That task returns a default result of `SUCCESS` and therefore skips the `on_failure` task, ending the flow with a result of `SUCCESS`.
 + If the first task fails, the flow moves to the `on_failure` task by default navigation. When the `on_failure` task is done, the flow ends with a default result of `FAILURE`.
@@ -162,7 +162,7 @@ operation:
       print 'Email sent to ' + recipient + ' with subject - ' + subject
 ```
 
-##Example3 - Subflow
+##Example 3 - Subflow
 This example uses the flow from **Example 1** as a subflow. It takes in four numbers (or uses default ones) to call `division_flow` twice. If either division returns the `ILLEGAL` result, navigation is routed to the `on_failure` task and the flow ends with a result of `FAILURE`. If both divisions are successful, the `on_failure` task is skipped and the flow ends with a result of `SUCCESS`.
 
 **Note:** To run this flow, the files from **Example 1** should be placed in the same folder as this flow file or use the `--cp` flag at the command line.
