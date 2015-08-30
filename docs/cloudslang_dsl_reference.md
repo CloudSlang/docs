@@ -2,6 +2,9 @@ CloudSlang is a [YAML](http://www.yaml.org) (version 1.2) based language for des
 
 This reference begins with a brief introduction to CloudSlang files and their structure, an alphabetical listing of CloudSlang keywords and concepts, and several examples, including one from which many of the code snippets below are taken.
 
+Note: CloudSlang's usage of YAML differs slightly from the official specification in its handling of quoted strings. This is to avoid the need to enclose certain values in two sets of quotes. See the [Strings](yaml_overview.md#strings) section below.
+
+
 #CloudSlang Files 
 CloudSlang files are written using [YAML](http://www.yaml.org). The recommended extension for CloudSlang files is **.sl**, but **.sl.yaml** and **.sl.yml** will work as well. 
 
@@ -324,9 +327,9 @@ The expression's value will be passed to the [flow](#flow) or [operation](#opera
 ```yaml
 inputs:
   - str_literal:
-	  default: "'default value'"
+	  default: 'default value'
   - int_exp:
-      default: '5 + 6'
+      default: 5 + 6
   - from_variable:
 	  default: variable_name
 ```
@@ -336,8 +339,8 @@ A default value can also be defined inline by entering it as the value to the [i
 **Example - inline default values**
 ```yaml
 inputs:
-  - str_literal: "'default value'"
-  - int_exp: '5 + 6'
+  - str_literal: 'default value'
+  - int_exp: 5 + 6
   - from_variable: variable_name
 ```
 
@@ -433,7 +436,7 @@ When iterating through a list, the `for` key is mapped to an iteration variable 
 ```yaml
 - print_values:
     loop:
-      for: value in "1,2,3"
+      for: value in 1,2,3
       do:
         print:
           - text: value
@@ -524,7 +527,7 @@ flow:
     - print_hi:
         do:
           ops.print:
-            - text: "'Hi'"
+            - text: 'Hi'
 ```
 
 ##inputs
@@ -547,7 +550,7 @@ Property|Required|Default|Value Type|Description|More info
 ```yaml
 inputs:
   - input1:
-      default: "'default value'"
+      default: 'default value'
       overridable: false
   - input2
 ```
@@ -569,7 +572,7 @@ Property|Required|Default|Value Type|Description|More Info
 ```yaml
  - custom3:
 	 loop:
-	   for: value in "1,2,3,4,5"
+	   for: value in 1,2,3,4,5
 	   do:
 	     custom3:
 	       - text: value
@@ -704,7 +707,7 @@ A value of `false` will ensure that the [input](#inputs) parameter's [default](#
 ```yaml
 inputs:
   - text:
-      default: "'default text'"
+      default: 'default text'
       overridable: false
 ```
 

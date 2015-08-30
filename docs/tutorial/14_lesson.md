@@ -91,7 +91,7 @@ Finally, we need to change the body of the email to include our new fancy text.
                 system_property: tutorials.hiring.system_address
             - to:
                 system_property: tutorials.hiring.hr_address
-            - subject: "'New Hire: ' + first_name + ' ' + last_name"
+            - subject: 'New Hire: ' + first_name + ' ' + last_name
             - body: >
                 fancy_text + '<br>' +
                 'Created address: ' + address + ' for: ' + first_name + ' ' + last_name + '<br>' +
@@ -130,7 +130,7 @@ flow:
         required: false
     - last_name
     - missing:
-        default: "''"
+        default: ''
         overridable: false
     - total_cost:
         default: 0
@@ -142,7 +142,7 @@ flow:
     - print_start:
         do:
           base.print:
-            - text: "'Starting new hire process'"
+            - text: 'Starting new hire process'
 
     - create_email_address:
         loop:
@@ -203,7 +203,7 @@ flow:
                 system_property: tutorials.hiring.system_address
             - to:
                 system_property: tutorials.hiring.hr_address
-            - subject: "'New Hire: ' + first_name + ' ' + last_name"
+            - subject: 'New Hire: ' + first_name + ' ' + last_name
             - body: >
                 fancy_text + '<br>' +
                 'Created address: ' + address + ' for: ' + first_name + ' ' + last_name + '<br>' +
@@ -216,7 +216,7 @@ flow:
       - print_fail:
           do:
             base.print:
-              - text: "'Failed to create address for: ' + first_name + ' ' + last_name"
+              - text: 'Failed to create address for: ' + first_name + ' ' + last_name
 ```
 
 **fancy_text.sl**

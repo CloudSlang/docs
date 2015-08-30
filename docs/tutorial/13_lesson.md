@@ -33,11 +33,11 @@ First, we'll add a system property to the inputs of `generate_user_email` by add
   inputs:
     - first_name
     - middle_name:
-        default: "''"
+        default: ''
     - last_name
     - domain:
         system_property: tutorials.hiring.domain
-        default: "'acompany.com'"
+        default: 'acompany.com'
         overridable: false
     - attempt
 ``` 
@@ -71,7 +71,7 @@ The second place we'll add system properties is to the `new_hire` flow, in the `
                 system_property: tutorials.hiring.system_address
             - to:
                 system_property: tutorials.hiring.hr_address
-            - subject: "'New Hire: ' + first_name + ' ' + last_name"
+            - subject: 'New Hire: ' + first_name + ' ' + last_name
             - body: >
                 'Created address: ' + address + ' for: ' + first_name + ' ' + last_name + '<br>' +
                 'Missing items: ' + missing + ' Cost of ordered items: ' + str(total_cost)
@@ -111,7 +111,7 @@ flow:
         required: false
     - last_name
     - missing:
-        default: "''"
+        default: ''
         overridable: false
     - total_cost:
         default: 0
@@ -123,7 +123,7 @@ flow:
     - print_start:
         do:
           base.print:
-            - text: "'Starting new hire process'"
+            - text: 'Starting new hire process'
 
     - create_email_address:
         loop:
@@ -177,7 +177,7 @@ flow:
                 system_property: tutorials.hiring.system_address
             - to:
                 system_property: tutorials.hiring.hr_address
-            - subject: "'New Hire: ' + first_name + ' ' + last_name"
+            - subject: 'New Hire: ' + first_name + ' ' + last_name
             - body: >
                 'Created address: ' + address + ' for: ' + first_name + ' ' + last_name + '<br>' +
                 'Missing items: ' + missing + ' Cost of ordered items:' + str(total_cost)
@@ -189,7 +189,7 @@ flow:
       - print_fail:
           do:
             base.print:
-              - text: "'Failed to create address for: ' + first_name + ' ' + last_name"
+              - text: 'Failed to create address for: ' + first_name + ' ' + last_name
 ```
 
 **generate_user_email.sl**
@@ -203,11 +203,11 @@ operation:
   inputs:
     - first_name
     - middle_name:
-        default: "''"
+        default: ''
     - last_name
     - domain:
         system_property: tutorials.hiring.domain
-        default: "'acompany.com'"
+        default: 'acompany.com'
         overridable: false
     - attempt
 

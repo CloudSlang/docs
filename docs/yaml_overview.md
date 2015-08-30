@@ -1,5 +1,7 @@
 Before writing CloudSlang code it helps to have a good working knowledge of YAML. The following is a brief overview of some of the YAML specification. See the full [YAML specification](http://www.yaml.org/spec/1.2/spec.html) for more information.
 
+Note: CloudSlang's usage of YAML differs slightly from the official specification in its handling of quoted strings. This is to avoid the need to enclose certain values in two sets of quotes. See the [Strings](#strings) section below.
+
 #Whitespace
 Unlike many programming, markup, and data serialization languages, whitespace is syntactically significant. Indentation is used to denote scope and is always achieved using spaces. Never use tabs.
 
@@ -39,22 +41,24 @@ navigate:
 ```
 
 #Strings
-Strings can be denoted in several ways: unquoted, single quoted and double quoted. The best method for any given string depends on whether it includes any special characters, leading or trailing whitespace, spans multiple lines, along with other factors.
+Strings can be denoted in several ways. The best method for any given string depends on whether it includes any special characters, leading or trailing whitespace, spans multiple lines, along with other factors.
 
 Strings that span multiple lines can be written using a pipe (`|`) to preserve line breaks or a greater than symbol (`>`) where each line break will be converted to a space.
 
-**Example:  a name of a CloudSlang flow is defined using the unquoted style** 
+Note: To comply with the official YAML specification, certain cases of passing string values in CloudSlang would require two sets of quotes. For example, a string with the value `Hello` would need to be passed to an input named `text` like this: `- text: "'Hello'"`. One set of quotes would indicate the value is a Python string and the other set of quotes would indicate that the Python string is itself a YAML string. To avoid the complication of all the extra quotes, CloudSlang deviates from the YAML specification and only requires one set of quotes. 
+
+**Example:  a name of a CloudSlang flow is defined using the YAML unquoted style** 
 ```yaml
 flow:
   name: hello_world
 ```
 
-**Example:  the single or double quoted style is used in CloudSlang to pass a Python string, which is quoted using the other style, to an input parameter** 
+**Example:  passing a string to an input parameter** 
 ```yaml
 - sayHi:
     do:
       print:
-        - text: "'Hello, World'"
+        - text: 'Hello, World'
 ```
 
 **Example:  the pipe is used in CloudSlang to indicate a multi-line Python script** 

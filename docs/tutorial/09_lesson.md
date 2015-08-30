@@ -145,7 +145,7 @@ All that's left now is to change the text of the messages sent in the `print_fin
     - print_finish:
         do:
           base.print:
-            - text: "'Created address: ' + address + ' for: ' + first_name + ' ' + last_name"
+            - text: 'Created address: ' + address + ' for: ' + first_name + ' ' + last_name
 ```
 
 ```bash
@@ -153,7 +153,7 @@ All that's left now is to change the text of the messages sent in the `print_fin
       - print_fail:
           do:
             base.print:
-              - text: "'Failed to create address for: ' + first_name + ' ' + last_name"
+              - text: 'Failed to create address for: ' + first_name + ' ' + last_name
 
 ```
 
@@ -191,7 +191,7 @@ flow:
     - print_start:
         do:
           base.print:
-            - text: "'Starting new hire process'"
+            - text: 'Starting new hire process'
 
     - create_email_address:
         do:
@@ -211,13 +211,13 @@ flow:
     - print_finish:
         do:
           base.print:
-            - text: "'Created address: ' + address + ' for: ' + first_name + ' ' + last_name"
+            - text: 'Created address: ' + address + ' for: ' + first_name + ' ' + last_name
 
     - on_failure:
       - print_fail:
           do:
             base.print:
-              - text: "'Failed to create address for: ' + first_name + ' ' + last_name"
+              - text: 'Failed to create address for: ' + first_name + ' ' + last_name
 ```
 
 **create\_user\_email**

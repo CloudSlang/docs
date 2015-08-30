@@ -18,7 +18,7 @@ flow:
     - sayHi:
         do:
           print:
-            - text: "'Hello, World'"
+            - text: 'Hello, World'
 ```
 **print.sl**
 ```yaml
@@ -46,7 +46,7 @@ Execution id: 101600001, duration: 0:00:00.790
 ```
 
 #Explanation
-The CLI runs the [flow](cloudslang_dsl_reference.md#flow) in the file we have passed to it, namely **hello_world.sl**. The [flow](cloudslang_dsl_reference.md#flow) begins with an [import](cloudslang_dsl_reference.md#imports) of the operations file, **print.sl**, using its [namespace](cloudslang_dsl_reference.md#namespace) as the value for the [imports](cloudslang_dsl_reference.md#imports) key. Next, we enter the [flow](cloudslang_dsl_reference.md#flow) named `hello_world` and begin its [workflow](cloudslang_dsl_reference.md#workflow). The [workflow](cloudslang_dsl_reference.md#workflow) has one [task](cloudslang_dsl_reference.md#task) named `sayHi` which calls the `print` [operation](cloudslang_dsl_reference.md#operation) from the operations file that was imported. The [flow](cloudslang_dsl_reference.md#flow) passes the string `"'Hello, World'"` to the `print` [operation's](cloudslang_dsl_reference.md#operation) `text` [input](cloudslang_dsl_reference.md#inputs). The print [operation](cloudslang_dsl_reference.md#operation) performs its [action](cloudslang_dsl_reference.md#action), which is a simple Python script that prints the [input](cloudslang_dsl_reference.md#inputs), and then returns a [result](cloudslang_dsl_reference.md#results) of `SUCCESS`. Since the flow does not contain any more [tasks](cloudslang_dsl_reference.md#task) the [flow](cloudslang_dsl_reference.md#flow) finishes with a [result](cloudslang_dsl_reference.md#results) of `SUCCESS`.
+The CLI runs the [flow](cloudslang_dsl_reference.md#flow) in the file we have passed to it, namely **hello_world.sl**. The [flow](cloudslang_dsl_reference.md#flow) begins with an [import](cloudslang_dsl_reference.md#imports) of the operations file, **print.sl**, using its [namespace](cloudslang_dsl_reference.md#namespace) as the value for the [imports](cloudslang_dsl_reference.md#imports) key. Next, we enter the [flow](cloudslang_dsl_reference.md#flow) named `hello_world` and begin its [workflow](cloudslang_dsl_reference.md#workflow). The [workflow](cloudslang_dsl_reference.md#workflow) has one [task](cloudslang_dsl_reference.md#task) named `sayHi` which calls the `print` [operation](cloudslang_dsl_reference.md#operation) from the operations file that was imported. The [flow](cloudslang_dsl_reference.md#flow) passes the string `'Hello, World'` to the `print` [operation's](cloudslang_dsl_reference.md#operation) `text` [input](cloudslang_dsl_reference.md#inputs). The print [operation](cloudslang_dsl_reference.md#operation) performs its [action](cloudslang_dsl_reference.md#action), which is a simple Python script that prints the [input](cloudslang_dsl_reference.md#inputs), and then returns a [result](cloudslang_dsl_reference.md#results) of `SUCCESS`. Since the flow does not contain any more [tasks](cloudslang_dsl_reference.md#task) the [flow](cloudslang_dsl_reference.md#flow) finishes with a [result](cloudslang_dsl_reference.md#results) of `SUCCESS`.
 
 #More
 For a more comprehensive walkthrough of the CloudSlang language's features, see the [New Hire tutorial](http://cloudslang-tutorials.readthedocs.org).

@@ -42,9 +42,8 @@ A task can contain several parts, but we'll start with a simple task with the on
 ```yaml
         do:
           base.print:
-            - text: "'Starting new hire process'"
+            - text: 'Starting new hire process'
 ```
-Notice the use of both single quotes (') and double quotes (") around the string input value. Both are required, although which pair are on the inside and which are on the outside generally doesn't make a difference. Both pairs are needed to denote that a Python string is inside of a YAML string.
 
 ##Run It
 Now our flow is all ready to run. To do so, save the file and enter the following at the prompt.
@@ -75,5 +74,5 @@ flow:
     - print_start:
         do:
           base.print:
-            - text: "'Starting new hire process'"
+            - text: 'Starting new hire process'
 ```
