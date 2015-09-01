@@ -116,7 +116,7 @@ flow:
           do:
             send_email_mock:
               - recipient: email_recipient
-              - subject: "'Flow failure'"
+              - subject: 'Flow failure'
 ```
 
 **Operation - produce_default_navigation.sl**
@@ -176,10 +176,10 @@ flow:
   name: master_divider
 
   inputs:
-    - dividend1: "'3'"
-    - divisor1: "'2'"
-    - dividend2: "'1'"
-    - divisor2: "'0'"
+    - dividend1: '3'
+    - divisor1: '2'
+    - dividend2: '1'
+    - divisor2: '0'
 
   workflow:
     - division1:
@@ -245,7 +245,7 @@ flow:
           break: []
     - custom3:
         loop:
-          for: value in "1,2,3,4,5"
+          for: value in 1,2,3,4,5
           do:
             custom3:
               - text: value
@@ -257,7 +257,7 @@ flow:
     - skip_this:
         do:
           print:
-            - text: "'This will not run.'"
+            - text: 'This will not run.'
     - aggregate:
         loop:
           for: value in range(1,6)

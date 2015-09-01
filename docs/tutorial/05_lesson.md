@@ -39,10 +39,8 @@ We'll add one more task to our flow for now to demonstrate the default navigatio
     - print_finish:
         do:
           base.print:
-            - text: "'Availability for address ' + address + ' is: ' + str(availability)"
+            - text: 'Availability for address ' + address + ' is: ' + str(availability)
 ```
-
-Once again take note of the quoting that is necessary. The double quotes (") encompass a Python expression which uses single quotes (') for its string literals and no additional quotes for the variable names.
 
 ##Run It
 Let's save our files and run the flow and see what happens based on the output and results of the `generate_user_mail` operation. Once again, make sure to run it a few times so we can see what happens when the operation returns a result of `SUCCESS` and what happens when the result is `FAILURE`.
@@ -76,7 +74,7 @@ flow:
     - print_start:
         do:
           base.print:
-            - text: "'Starting new hire process'"
+            - text: 'Starting new hire process'
 
     - check_address:
         do:
@@ -88,5 +86,5 @@ flow:
     - print_finish:
         do:
           base.print:
-            - text: "'Availability for address ' + address + ' is: ' + str(availability)"
+            - text: 'Availability for address ' + address + ' is: ' + str(availability)
 ```

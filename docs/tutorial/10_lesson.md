@@ -125,7 +125,7 @@ flow:
     - print_start:
         do:
           base.print:
-            - text: "'Starting new hire process'"
+            - text: 'Starting new hire process'
 
     - create_email_address:
         loop:
@@ -150,11 +150,11 @@ flow:
     - print_finish:
         do:
           base.print:
-            - text: "'Created address: ' + address + ' for: ' + first_name + ' ' + last_name"
+            - text: 'Created address: ' + address + ' for: ' + first_name + ' ' + last_name
 
     - on_failure:
       - print_fail:
           do:
             base.print:
-              - text: "'Failed to create address for: ' + first_name + ' ' + last_name"
+              - text: 'Failed to create address for: ' + first_name + ' ' + last_name
 ```

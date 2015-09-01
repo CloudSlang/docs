@@ -59,11 +59,11 @@ Then, all we really need to do is create a task in our flow that will call the `
     - send_mail:
         do:
           mail.send_mail:
-            - hostname: "'<host>'"
-            - port: "'<port>'"
-            - from: "'<from>'"
-            - to: "'<to>'"
-            - subject: "'New Hire: ' + first_name + ' ' + last_name"
+            - hostname: '<host>'
+            - port: '<port>'
+            - from: '<from>'
+            - to: '<to>'
+            - subject: 'New Hire: ' + first_name + ' ' + last_name
             - body: >
                 'Created address: ' + address + ' for: ' + first_name + ' ' + last_name + '<br>' +
                 'Missing items: ' + missing + ' Cost of ordered items: ' + str(total_cost)
@@ -100,7 +100,7 @@ flow:
         required: false
     - last_name
     - missing:
-        default: "''"
+        default: ''
         overridable: false
     - total_cost:
         default: 0
@@ -112,7 +112,7 @@ flow:
     - print_start:
         do:
           base.print:
-            - text: "'Starting new hire process'"
+            - text: 'Starting new hire process'
 
     - create_email_address:
         loop:
@@ -158,11 +158,11 @@ flow:
     - send_mail:
         do:
           mail.send_mail:
-            - hostname: "'<host>'"
-            - port: "'<port>'"
-            - from: "'<from>'"
-            - to: "'<to>'"
-            - subject: "'New Hire: ' + first_name + ' ' + last_name"
+            - hostname: '<host>'
+            - port: '<port>'
+            - from: '<from>'
+            - to: '<to>'
+            - subject: 'New Hire: ' + first_name + ' ' + last_name
             - body: >
                 'Created address: ' + address + ' for: ' + first_name + ' ' + last_name + '<br>' +
                 'Missing items: ' + missing + ' Cost of ordered items: ' + str(total_cost)
@@ -174,7 +174,7 @@ flow:
       - print_fail:
           do:
             base.print:
-              - text: "'Failed to create address for: ' + first_name + ' ' + last_name"
+              - text: 'Failed to create address for: ' + first_name + ' ' + last_name
 ```
 
 

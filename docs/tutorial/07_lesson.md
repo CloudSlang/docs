@@ -59,7 +59,7 @@ flow:
     - print_start:
         do:
           base.print:
-            - text: "'Starting new hire process'"
+            - text: 'Starting new hire process'
 
     - check_address:
         do:
@@ -74,13 +74,13 @@ flow:
     - print_finish:
         do:
           base.print:
-            - text: "'Availability for address ' + address + ' is: ' + str(availability)"
+            - text: 'Availability for address ' + address + ' is: ' + str(availability)
 
     - on_failure:
       - print_fail:
           do:
             base.print:
-              - text: "'Failed to create address: ' + address"
+              - text: 'Failed to create address: ' + address
 ```
 
 **check\_availability.sl**

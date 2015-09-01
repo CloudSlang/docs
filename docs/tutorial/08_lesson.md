@@ -127,7 +127,7 @@ operation:
   inputs:
     - first_name
     - middle_name:
-        default: "''"
+        default: ''
     - last_name
     - domain
     - attempt
@@ -149,10 +149,10 @@ operation:
   inputs:
     - first_name
     - middle_name:
-        default: "''"
+        default: ''
     - last_name
     - domain:
-        default: "'acompany.com'"
+        default: 'acompany.com'
         overridable: false
     - attempt
 ```
@@ -217,7 +217,7 @@ flow:
     - print_start:
         do:
           base.print:
-            - text: "'Starting new hire process'"
+            - text: 'Starting new hire process'
 
     - generate_address:
         do:
@@ -243,13 +243,13 @@ flow:
     - print_finish:
         do:
           base.print:
-            - text: "'Availability for address ' + address + ' is: ' + str(availability)"
+            - text: 'Availability for address ' + address + ' is: ' + str(availability)
 
     - on_failure:
       - print_fail:
           do:
             base.print:
-              - text: "'Failed to create address: ' + address"
+              - text: 'Failed to create address: ' + address
 ```
 
 **generate_user_email.sl**
@@ -262,10 +262,10 @@ operation:
   inputs:
     - first_name
     - middle_name:
-        default: "''"
+        default: ''
     - last_name
     - domain:
-        default: "'acompany.com'"
+        default: 'acompany.com'
         overridable: false
     - attempt
 
