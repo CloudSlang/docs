@@ -15,7 +15,7 @@ CloudSlang content can be run from inside an existing Java application using Mav
 <dependency>
   <groupId>io.cloudslang.lang</groupId>
   <artifactId>cloudslang-all</artifactId>
-  <version>0.7.2</version>
+  <version>0.8.0.1</version>
 </dependency>
 
 <dependency>
