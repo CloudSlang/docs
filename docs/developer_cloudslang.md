@@ -9,7 +9,7 @@ CloudSlang content can be run from inside an existing Java application using Mav
 <dependency>
   <groupId>io.cloudslang</groupId>
   <artifactId>score-all</artifactId>
-  <version>0.1.271</version>
+  <version>0.2.2</version>
 </dependency>
 
 <dependency>
