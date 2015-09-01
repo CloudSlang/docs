@@ -22,7 +22,7 @@ CloudSlang test files are written in YAML with the .inputs.yaml extension and co
 Each test case begins with a unique key that is the test case name. The name is mapped to the following test case properties:
 
 Property|Required|Value Type|Description
----|---|---
+---|---|---|---
 `inputs`|no|list of key:value pairs|inputs to pass to the flow or operation being tested
 `systemPropertiesFile`|no|string|path to the system properties file for the flow or operation - `${project_path}` can be used for specifying a path relative to the project path (e.g. systemPropertiesFile: `${project_path}\content\base\properties.yaml`)
 `description`|no|string|description of test case
