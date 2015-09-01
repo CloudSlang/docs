@@ -9,7 +9,7 @@ The CloudSlang Orchestration Engine (Score) can be embedded inside an existing J
 <dependency>
   <groupId>io.cloudslang</groupId>
   <artifactId>score-all</artifactId>
-  <version>0.2.2</version>
+  <version>0.1.271</version>
 </dependency>
 
 <dependency>
