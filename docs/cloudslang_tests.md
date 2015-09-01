@@ -14,7 +14,7 @@ Tests declare which test suites they are a part of, if any, using the `testSuite
 
 If no test suites are defined for a given test case, the test will run unless `!default` is passed to the [CloudSlang Build Tool](cloudslang_build_tool.md).
 
-**Note:** When using Linux, the exclamation mark (`!`) needs to be escaped with a preceding backslash ('\'). So, to ignore default tests, pass '\!default' to the CloudSlang Build Tool.
+**Note:** When using Linux, the exclamation mark (`!`) needs to be escaped with a preceding backslash (`\`). So, to ignore default tests, pass `\!default` to the CloudSlang Build Tool.
 
 #Test Case Syntax
 CloudSlang test files are written in YAML with the .inputs.yaml extension and contain one or more test cases.   
