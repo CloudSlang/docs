@@ -14,13 +14,15 @@ Tests declare which test suites they are a part of, if any, using the `testSuite
 
 If no test suites are defined for a given test case, the test will run unless `!default` is passed to the [CloudSlang Build Tool](cloudslang_build_tool.md).
 
+**Note:** When using Linux, the exclamation mark (`!`) needs to be escaped with a preceding backslash (`\`). So, to ignore default tests, pass `\!default` to the CloudSlang Build Tool.
+
 #Test Case Syntax
 CloudSlang test files are written in YAML with the .inputs.yaml extension and contain one or more test cases.   
 
 Each test case begins with a unique key that is the test case name. The name is mapped to the following test case properties:
 
 Property|Required|Value Type|Description
----|---|---
+---|---|---|---
 `inputs`|no|list of key:value pairs|inputs to pass to the flow or operation being tested
 `systemPropertiesFile`|no|string|path to the system properties file for the flow or operation - `${project_path}` can be used for specifying a path relative to the project path (e.g. systemPropertiesFile: `${project_path}\content\base\properties.yaml`)
 `description`|no|string|description of test case
