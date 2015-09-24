@@ -347,14 +347,27 @@ inputs:
 The key `do` is a property of a [task](#task) name, a [loop](#loop), or an [async_loop](#async_loop).
 It is mapped to a property that references an [operation](#operation) or [flow](#flow).
 
-Calls an [operation](#operation) or [flow](#flow) and passes in relevant [input](#inputs). The [input](#inputs) list may contain [input](#inputs) properties. The [operation](#operation) or [flow](#flow) is called by its qualified name using an alias created in the [imports](#imports) parameter.
+Calls an [operation](#operation) or [flow](#flow) and passes in relevant [input](#inputs). The [operation](#operation) or [flow](#flow) may be called by its qualified name using an alias created in the [imports](#imports) parameter.
 
-**Example - call to a divide operation with inputs**
+Arguments may be passed to a [task](#task) in one of two ways:
+
++ list of argument names and optional mapped expressions
++ comma-separated `argument_name = optional_expression` pairs 
+ 
+Expression values will supersede values bound to flow [inputs](#inputs) with the same name. 
+
+**Example - call to a divide operation with list of mapped task arguments**
 ```yaml
 do:
   divide:
     - dividend: input1
     - divisor: input2
+```
+
+**Example - call to a divide operation with comma-separated pairs**
+```yaml
+do:
+  divide: dividend = input1, divisor = input2
 ```
 
 ##flow

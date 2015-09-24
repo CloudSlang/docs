@@ -197,6 +197,14 @@ flow:
         overridable: false
     - order_map: >
         {'laptop': 1000, 'docking station':200, 'monitor': 500, 'phone': 100}
+    - hostname:
+        system_property: tutorials.hiring.hostname
+    - port:
+        system_property: tutorials.hiring.port
+    - from:
+        system_property: tutorials.hiring.system_address
+    - to:
+        system_property: tutorials.hiring.hr_address
 
   workflow:
     - print_start:
@@ -210,8 +218,7 @@ flow:
           do:
             create_user_email:
               - first_name
-              - middle_name:
-                  required: false
+              - middle_name
               - last_name
               - attempt
           publish:
@@ -255,14 +262,10 @@ flow:
     - send_mail:
         do:
           mail.send_mail:
-            - hostname:
-                system_property: tutorials.hiring.hostname
-            - port:
-                system_property: tutorials.hiring.port
-            - from:
-                system_property: tutorials.hiring.system_address
-            - to:
-                system_property: tutorials.hiring.hr_address
+            - hostname
+            - port
+            - from
+            - to
             - subject: "'New Hire: ' + first_name + ' ' + last_name"
             - body: >
                 fancy_text + '<br>' +

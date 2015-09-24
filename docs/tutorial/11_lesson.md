@@ -158,8 +158,7 @@ flow:
           do:
             create_user_email:
               - first_name
-              - middle_name:
-                  required: false
+              - middle_name
               - last_name
               - attempt
           publish:
