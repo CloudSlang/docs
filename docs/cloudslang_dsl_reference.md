@@ -121,7 +121,9 @@ public Map<String, String> doMyAction(
 
 ###python_script
 The key `python_script` is a property of [action](#action).  
-It is mapped to a value containing a Python version 2.7 script.
+It is mapped to a value containing a Python script.
+
+**Note:** CloudSlang uses the [Jython](http://www.jython.org/) implementation of Python 2.7. For information on Jython's limitations, see the [Jython FAQ](https://wiki.python.org/jython/JythonFaq).
 
 **Example - action with Python script that divides two numbers**
 
