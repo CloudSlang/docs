@@ -41,6 +41,8 @@ Finally, we've reached the core of the operation, the action. There are two type
     python_script: print text
 ```
 
+**Note:** CloudSlang uses the [Jython](http://www.jython.org/) implementation of Python 2.7. Therefore, scripts that depend on Python 3 or CPython are not supported.
+
 ##Run It
 That's it. Our operation is all ready. Our next step will be to create a flow that uses the operation we just wrote, but we can actually just run the operation as is.
 

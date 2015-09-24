@@ -64,6 +64,8 @@ operation:
     - fancy
 ```
 
+**Note:** CloudSlang uses the [Jython](http://www.jython.org/) implementation of Python 2.7. Therefore, scripts that depend on Python 3 or CPython are not supported.
+
 ##Task 
 Now we can create a task in the `new_hire` flow to send some text to the `fancy_text` operation and publish the output so we can use it in our email. We'll put the new task between `print_finish` and `send_mail`.
 
