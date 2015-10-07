@@ -118,8 +118,7 @@ namespace: tutorials.hiring
 
 imports:
   base: tutorials.base
-  hiring: tutorials.hiring
-  mail: org.openscore.slang.base.mail
+  mail: io.cloudslang.base.mail
 
 flow:
   name: new_hire
@@ -156,7 +155,7 @@ flow:
         loop:
           for: attempt in range(1,5)
           do:
-            hiring.create_user_email:
+            create_user_email:
               - first_name
               - middle_name:
                   required: false
@@ -174,9 +173,9 @@ flow:
 
     - get_equipment:
         loop:
-          for: item, price in order_map.items()
+          for: item, price in order_map
           do:
-            hiring.order:
+            order:
               - item
               - price
           publish:
