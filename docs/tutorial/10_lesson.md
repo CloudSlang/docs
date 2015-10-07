@@ -17,8 +17,7 @@ An iterative task looks very similar to a standard task that only runs once. To 
           do:
             create_user_email:
               - first_name
-              - middle_name:
-                  required: false
+              - middle_name
               - last_name
               - attempt
           publish:
@@ -73,8 +72,7 @@ Now that we understand what happens in the default case, let's put in a custom b
           do:
             create_user_email:
               - first_name
-              - middle_name:
-                  required: false
+              - middle_name
               - last_name
               - attempt
           publish:
@@ -133,8 +131,7 @@ flow:
           do:
             create_user_email:
               - first_name
-              - middle_name:
-                  required: false
+              - middle_name
               - last_name
               - attempt
           publish:

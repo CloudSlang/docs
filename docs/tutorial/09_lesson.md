@@ -32,8 +32,7 @@ Next let's create a `workflow` section and copy the `generate_address` and `chec
         do:
           generate_user_email:
             - first_name
-            - middle_name:
-                required: false
+            - middle_name
             - last_name
             - attempt
         publish:
@@ -75,8 +74,7 @@ For the `generate_address` task, whose operation returns `SUCCESS` or `FAILURE`,
         do:
           generate_user_email:
             - first_name
-            - middle_name:
-                required: false
+            - middle_name
             - last_name
             - attempt
         publish:
@@ -127,8 +125,7 @@ We'll call our new task `create_email_address`. It will pass along the flow inpu
         do:
           create_user_email:
             - first_name
-            - middle_name:
-                required: false
+            - middle_name
             - last_name
             - attempt
         publish:
@@ -197,8 +194,7 @@ flow:
         do:
           create_user_email:
             - first_name
-            - middle_name:
-                required: false
+            - middle_name
             - last_name
             - attempt
         publish:
@@ -239,8 +235,7 @@ flow:
         do:
           generate_user_email:
             - first_name
-            - middle_name:
-                required: false
+            - middle_name
             - last_name
             - attempt
         publish:

@@ -86,7 +86,7 @@ run --f <folder path>/tutorials/hiring/new_hire.sl --cp <folder path>/tutorials/
 ```
 
 ##Required
-By default all flow and operation inputs are required. We can change that behavior by setting the `required` property of an input to false. Let's make the `middle_name` optional. We'll have to set its `required` property to `false` in both the flow's inputs and the `generate_address` task's input list.
+By default all flow and operation inputs are required. We can change that behavior by setting the `required` property of an input to false. Let's make the `middle_name` optional. We'll have to set its `required` property to `false` in both the flow's inputs and the `generate_user_email` operation's inputs.
 
 ```yaml
 flow:
@@ -102,17 +102,16 @@ flow:
 ```  
 
 ```yaml
-    - generate_address:
-        do:
-          generate_user_email:
-            - first_name
-            - middle_name:
-                required: false
-            - last_name
-            - domain
-            - attempt
-        publish:
-          - address: email_address
+operation:
+  name: generate_user_email
+
+  inputs:
+    - first_name
+    - middle_name:
+        required: false
+    - last_name
+    - domain
+    - attempt
 ```
 
 >YAML Note: Don't forget to add a colon (:) to the input name before adding its properties.
@@ -127,6 +126,7 @@ operation:
   inputs:
     - first_name
     - middle_name:
+        required: false
         default: "''"
     - last_name
     - domain
@@ -149,6 +149,7 @@ operation:
   inputs:
     - first_name
     - middle_name:
+        required: false
         default: "''"
     - last_name
     - domain:
@@ -176,8 +177,7 @@ flow:
         do:
           generate_user_email:
             - first_name
-            - middle_name:
-                required: false
+            - middle_name
             - last_name
             - attempt
         publish:
@@ -223,8 +223,7 @@ flow:
         do:
           generate_user_email:
             - first_name
-            - middle_name:
-                required: false
+            - middle_name
             - last_name
             - attempt
         publish:
@@ -262,6 +261,7 @@ operation:
   inputs:
     - first_name
     - middle_name:
+        required: false
         default: "''"
     - last_name
     - domain:

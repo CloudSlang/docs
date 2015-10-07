@@ -34,7 +34,7 @@ Now that we've customized the result labels, the flow doesn't know what to do up
 This time, not only can we save the file and then run the flow using the exact command we used in the last lesson, but we expect everything to work exactly as it did before. 
 
 ```bash
-run --f <folder path>/tutorials/hiring/new_hire.sl --cp <folder path>/tutorials/base,<folder path>/tutorials/hiring --i first_name=john,last_name=doe,domain=somedomain.com
+run --f <folder path>/tutorials/hiring/new_hire.sl --cp <folder path>/tutorials/base,<folder path>/tutorials/hiring --i address=john.doe@somecompany.com
 ``` 
 
 ##Up Next

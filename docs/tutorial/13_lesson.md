@@ -57,20 +57,40 @@ In general, the order of preference as to which values get bound to the input va
 
 However, if the `overridable` property is set to false, explicitly passed values will not be bound to the input variable. Instead, a system property or default value will be bound.
 
-The second place we'll add system properties is to the `new_hire` flow, in the `send_mail` task we created last lesson. We'll have the `hostname`, `port`, `from` and `to` taken from the system properties file.
+The second place we'll add system properties is to the `new_hire` flow. Here we'll add the necessary variables with system properties to the inputs section and use them in the `send_mail` task we created last lesson. We'll have the `hostname`, `port`, `from` and `to` taken from the system properties file.
+
+```yaml
+  inputs:
+    - first_name
+    - middle_name:
+        required: false
+    - last_name
+    - missing:
+        default: "''"
+        overridable: false
+    - total_cost:
+        default: 0
+        overridable: false
+    - order_map: >
+        {'laptop': 1000, 'docking station':200, 'monitor': 500, 'phone': 100}
+    - hostname:
+        system_property: tutorials.hiring.hostname
+    - port:
+        system_property: tutorials.hiring.port
+    - from:
+        system_property: tutorials.hiring.system_address
+    - to:
+        system_property: tutorials.hiring.hr_address
+```
 
 ```yaml
     - send_mail:
         do:
           mail.send_mail:
-            - hostname:
-                system_property: tutorials.hiring.hostname
-            - port:
-                system_property: tutorials.hiring.port
-            - from:
-                system_property: tutorials.hiring.system_address
-            - to:
-                system_property: tutorials.hiring.hr_address
+            - hostname
+            - port
+            - from
+            - to
             - subject: "'New Hire: ' + first_name + ' ' + last_name"
             - body: >
                 'Created address: ' + address + ' for: ' + first_name + ' ' + last_name + '<br>' +
@@ -79,8 +99,6 @@ The second place we'll add system properties is to the `new_hire` flow, in the `
           FAILURE: FAILURE
           SUCCESS: SUCCESS
 ```
-
-Notice that in this case we're using the system properties on the sending end, rather than then receiving end, of an input binding.
 
 ##Run It
 We can save the files and run the flow to see that the values are being taken from the system properties file we specify. If we want to swap out the values with another set, all we have to do is point to a different system properties file.
@@ -118,6 +136,14 @@ flow:
         overridable: false
     - order_map: >
         {'laptop': 1000, 'docking station':200, 'monitor': 500, 'phone': 100}
+    - hostname:
+        system_property: tutorials.hiring.hostname
+    - port:
+        system_property: tutorials.hiring.port
+    - from:
+        system_property: tutorials.hiring.system_address
+    - to:
+        system_property: tutorials.hiring.hr_address
 
   workflow:
     - print_start:
@@ -169,14 +195,10 @@ flow:
     - send_mail:
         do:
           mail.send_mail:
-            - hostname:
-                system_property: tutorials.hiring.hostname
-            - port:
-                system_property: tutorials.hiring.port
-            - from:
-                system_property: tutorials.hiring.system_address
-            - to:
-                system_property: tutorials.hiring.hr_address
+            - hostname
+            - port
+            - from
+            - to
             - subject: "'New Hire: ' + first_name + ' ' + last_name"
             - body: >
                 'Created address: ' + address + ' for: ' + first_name + ' ' + last_name + '<br>' +
