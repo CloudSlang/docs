@@ -168,7 +168,7 @@ Finally, we have to add the tasks we referred to in the navigation section. We c
 We can save the files and run the flow. It's a bit harder to track what has happened now because there are quite a few things happening at once. On careful inspection you will see that each task in the `new_hire` flow, and in each of its subflows, is run for each of the people in the `names_list` input.
 
 ```bash
-run --f <folder path>/tutorials/hiring/hire_all.sl --cp <folder path>/tutorials/base,<folder path>/tutorials/hiring,<content folder path>/base --if <folder path>/tutorials/inputs/hires.yaml --spf <folder path>/tutorials/properties/bcompany.yaml
+run --f <folder path>/tutorials/hiring/hire_all.sl --addcp <folder path>/tutorials/base,<folder path>/tutorials/hiring --if <folder path>/tutorials/inputs/hires.yaml --spf <folder path>/tutorials/properties/bcompany.yaml
 ```
 
 ##New Code - Complete

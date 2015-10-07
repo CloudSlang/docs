@@ -103,7 +103,7 @@ Finally, we need to change the body of the email to include our new fancy text.
 We can save the files and run the flow. When the email is sent it should include the new fancy text we added to it.
 
 ```bash
-run --f <folder path>/tutorials/hiring/new_hire.sl --cp <folder path>/tutorials/base,<folder path>/tutorials/hiring,<content folder path>/base --i first_name=john,last_name=doe --spf <folder path>/tutorials/properties/bcompany.yaml
+run --f <folder path>/tutorials/hiring/new_hire.sl --addcp <folder path>/tutorials/base,<folder path>/tutorials/hiring --i first_name=john,last_name=doe --spf <folder path>/tutorials/properties/bcompany.yaml
 ```
 
 ##Up Next
