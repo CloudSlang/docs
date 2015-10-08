@@ -123,6 +123,8 @@ public Map<String, String> doMyAction(
 The key `python_script` is a property of [action](#action).  
 It is mapped to a value containing a Python script.
 
+All variables in scope at the conclusion of the Python script must be serializable. If non-serializable variables are used, remove them from scope by using the `del` keyword before the script exits. 
+
 **Note:** CloudSlang uses the [Jython](http://www.jython.org/) implementation of Python 2.7. For information on Jython's limitations, see the [Jython FAQ](https://wiki.python.org/jython/JythonFaq).
 
 **Example - action with Python script that divides two numbers**
