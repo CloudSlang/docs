@@ -75,7 +75,7 @@ Then, all we really need to do is create a task in our flow that will call the `
 ##Run It
 We can save the files, run the flow and check that an email was sent with the proper information.
 ```bash
-run --f <folder path>/tutorials/hiring/new_hire.sl --cp <folder path>/tutorials/base,<folder path>/tutorials/hiring,<content folder path>/io/cloudslang/base --i first_name=john,last_name=doe
+run --f <folder path>/tutorials/hiring/new_hire.sl --addcp <folder path>/tutorials/base,<folder path>/tutorials/hiring --i first_name=john,last_name=doe
 ```
 
 ##Up Next
@@ -175,5 +175,3 @@ flow:
             base.print:
               - text: "'Failed to create address for: ' + first_name + ' ' + last_name"
 ```
-
-
