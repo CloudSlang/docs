@@ -359,6 +359,8 @@ The [operation](#operation) or [flow](#flow) may be called in several ways:
 + by using an alias defined in the flow's [imports](#imports) section followed by the [operation](#operation) or [flow](#flow) name (e.g `alias_name.op_name`) 
 + by using an alias defined in the flow's [imports](#imports) section followed by a continuation of the path to the [operation](#operation) or [flow](#flow) and its name (e.g `alias_name.path.cont.op_name`) 
 
+For more information, see the [Operation Paths](cloudslang_examples.md#example-6-operation-paths) example.
+
 Arguments may be passed to a [task](#task) in one of two ways:
 
 + list of argument names and optional mapped expressions
