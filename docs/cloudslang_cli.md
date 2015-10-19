@@ -157,7 +157,7 @@ cslang>cslang --version
 ```
 
 ##Execution Log
-The execution log is saved in the directory in which the CLI was started in a file named `execution.log`. The log file stores all the [events](developer_cloudslang#slang-events) that have been fired, and therefore it allows for tracking a flow's execution.
+The execution log is saved in the directory in which the CLI was started at `logs/execution.log`. The log file stores all the [events](developer_cloudslang#slang-events) that have been fired, and therefore it allows for tracking a flow's execution.
 
 ##Help
 To get a list of available commands, enter `help` at the CLI `cslang>` prompt. For further help, enter `help` and the name of the command.
