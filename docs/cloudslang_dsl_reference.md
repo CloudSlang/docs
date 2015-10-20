@@ -534,7 +534,6 @@ inputs:
   - input1_safe:
       default: get('input1', 'default_input')
       overridable: false
-      required: false
 workflow:
   - task1:
       do:
