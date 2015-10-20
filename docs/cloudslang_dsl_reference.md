@@ -349,7 +349,17 @@ inputs:
 The key `do` is a property of a [task](#task) name, a [loop](#loop), or an [async_loop](#async_loop).
 It is mapped to a property that references an [operation](#operation) or [flow](#flow).
 
-Calls an [operation](#operation) or [flow](#flow) and passes in relevant [input](#inputs). The [operation](#operation) or [flow](#flow) may be called by its qualified name using an alias created in the [imports](#imports) parameter.
+Calls an [operation](#operation) or [flow](#flow) and passes in relevant [input](#inputs). 
+
+The [operation](#operation) or [flow](#flow) may be called in several ways:
+
++ by referencing the [operation](#operation) or [flow](#flow) by name when it is in the default namespace (the same namespace as the calling [flow](#flow))
++ by using a fully qualified name (e.g. `path.to.operation.op_name`)
+    + a path is recognized as a fully qualified name if the prefix (before the first `.`) is not a defined alias
++ by using an alias defined in the flow's [imports](#imports) section followed by the [operation](#operation) or [flow](#flow) name (e.g `alias_name.op_name`) 
++ by using an alias defined in the flow's [imports](#imports) section followed by a continuation of the path to the [operation](#operation) or [flow](#flow) and its name (e.g `alias_name.path.cont.op_name`) 
+
+For more information, see the [Operation Paths](cloudslang_examples.md#example-6-operation-paths) example.
 
 Arguments may be passed to a [task](#task) in one of two ways:
 
@@ -637,7 +647,7 @@ name: division_flow
 ##namespace
 The key `namespace` is mapped to a string value that defines the file's namespace.
 
-The namespace of a file  may be used by other CloudSlang files to [import](#imports) dependencies, such as a flow importing operations.
+The namespace of a file may be used by a flow to [import](#imports) dependencies.
 
 **Example - definition a namespace**
 

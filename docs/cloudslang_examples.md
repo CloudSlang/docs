@@ -1,5 +1,14 @@
 #Examples
-The following simplified examples demonstrate some of the key CloudSlang concepts. Each of the examples below can be run by doing the following:
+The following simplified examples demonstrate some of the key CloudSlang concepts. 
+
++ [Example 1 - User-defined Navigation and Publishing Outputs](#example-1-user-defined-navigation-and-publishing-outputs)
++ [Example 2 - Default Navigation](#example-2-default-navigation)
++ [Example 3 - Subflow](#example-3-subflow)
++ [Example 4 - Loops](#example-4-loops)
++ [Example 5 - Asynchronous loop](#example-5-asynchronous-loop)
++ [Example 6 - Operation Paths](#example-6-operation-paths)
+
+Each of the examples below can be run by doing the following:
 
 1. Create a new folder.
 2. Create new CloudSlang(.sl) files and copy the code into them.
@@ -368,4 +377,97 @@ operation:
   outputs:
     - name
     - num: ID
+```
+
+##Example 6 - Operation Paths
+This example demonstrates the various ways to reference an operation or subflow from a flow task.
+
+This example uses the following folder structure:
+
++ examples
+    + paths
+        + flow.sl
+        + op1.sl 
+        + folder_a
+            + op2.sl
+        + folder_b
+            + op3.sl
+            + folder_c
+                + op4.sl 
+
+**Flow - flow.sl**
+```yaml
+namespace: examples.paths
+
+imports:
+  alias: examples.paths.folder_b
+
+flow:
+  name: flow
+
+  workflow:
+    - default_path:
+        do:
+          op1:
+            - text: "'default path'"
+    - fully_qualified_path:
+        do:
+          examples.paths.folder_a.op2:
+            - text: "'fully qualified path'"
+    - using_alias:
+        do:
+          alias.op3:
+            - text: "'using alias'"
+    - alias_continuation:
+        do:
+          alias.folder_c.op4:
+            - text: "'alias continuation'"
+```
+
+**Operation - op1.sl**
+```yaml
+namespace: examples.paths
+
+operation:
+  name: op1
+  inputs:
+    - text
+  action:
+    python_script: print text
+```
+
+**Operation - op2.sl**
+```yaml
+namespace: examples.paths.folder_a
+
+operation:
+  name: op2
+  inputs:
+    - text
+  action:
+    python_script: print text
+```
+
+**Operation - op3.sl**
+```yaml
+namespace: examples.paths.folder_b
+
+operation:
+  name: op3
+  inputs:
+    - text
+  action:
+    python_script: print text
+```
+
+**Operation - op4.sl**
+```yaml
+namespace: examples.paths.folder_b.folder_c
+
+operation:
+  name: op4
+  inputs:
+    - text
+  action:
+    python_script: print text
 ```
