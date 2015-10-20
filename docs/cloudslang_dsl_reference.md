@@ -520,6 +520,31 @@ publish:
   - total_cost: fromInputs['total_cost'] + cost
 ```
 
+##get
+May appear in the value of an [input](#inputs), [output](#outputs), [publish](#publish) or [loop expression](#for).
+
+The function in the form of `get('key', 'default_value')` returns the value associated with `key` if the key is defined and its value is not `None`. If the key is undefined or its value is `None` the function returns the `default_value`.
+
+**Example - usage of get function in inputs and outputs**
+
+```yaml
+inputs:
+  - input1:
+      required: false
+  - input1_safe:
+      default: get('input1', 'default_input')
+      overridable: false
+workflow:
+  - task1:
+      do:
+        print:
+          - text: input1_safe
+      publish:
+        - some_output: get('output1', 'default_output')
+outputs:
+  - some_output
+```
+
 ##imports
 The key `imports` is mapped to the files to import as follows:  
 
