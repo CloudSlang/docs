@@ -400,7 +400,7 @@ This example uses the following folder structure:
 namespace: examples.paths
 
 imports:
-  alias: test_code.paths.folder_b
+  alias: examples.paths.folder_b
 
 flow:
   name: flow
@@ -412,7 +412,7 @@ flow:
             - text: "'default path'"
     - fully_qualified_path:
         do:
-          test_code.paths.folder_a.op2:
+          examples.paths.folder_a.op2:
             - text: "'fully qualified path'"
     - using_alias:
         do:

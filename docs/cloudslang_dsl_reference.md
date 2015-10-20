@@ -355,7 +355,7 @@ The [operation](#operation) or [flow](#flow) may be called in several ways:
 
 + by referencing the [operation](#operation) or [flow](#flow) by name when it is in the default namespace (the same namespace as the calling [flow](#flow))
 + by using a fully qualified name (e.g. `path.to.operation.op_name`)
-    + a path is recognized as a fully qualified name if the the prefix (before the first `.`) is not a defined alias
+    + a path is recognized as a fully qualified name if the prefix (before the first `.`) is not a defined alias
 + by using an alias defined in the flow's [imports](#imports) section followed by the [operation](#operation) or [flow](#flow) name (e.g `alias_name.op_name`) 
 + by using an alias defined in the flow's [imports](#imports) section followed by a continuation of the path to the [operation](#operation) or [flow](#flow) and its name (e.g `alias_name.path.cont.op_name`) 
 
