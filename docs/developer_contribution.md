@@ -25,28 +25,44 @@ The CloudSlang project consists of the following [repositories](https://github.c
 + **cloud-slang-content** - CloudSlang flows and operations
     + io/cloudslang
         + base
+            + cmd
             + comparisons
             + files
+            + json
             + lists
             + mail
+            + math
             + network
             + os
-                + linux 
-            + remote_command_execution
-                + ssh
+                + linux
             + print
+            + remote\_command\_execution
+                + remote\_file\_transfer 
+                + ssh
             + strings
             + utils  
+        + chef
+        + cloud\_provider
+            + amazon_aws
+            + digital_ocean
+            + hp_cloud 
         + consul
         + coreos 
         + docker
+        + git
         + jenkins
         + marathon
         + openstack
+        + paas
+            + openstack
+            + stackato 
         + (other integrations to be added as new folders)  
 + **score-actions** - Java @Action classes used by CloudSlang
+    + score-data-format
     + score-http-client
+    + score-jClouds
     + score-mail
+    + score-rft
     + score-ssh
     + score-utilities 
 + **score-content-sdk** - SDK for developing Java @Actions
