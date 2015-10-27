@@ -34,7 +34,6 @@ The general structure of CloudSlang files is outlined here. Some of the properti
     + [task(s)](#task)
       + [do](#do)
       + [publish](#publish)
-	    + [fromInputs](#frominputs)
       + [navigate](#navigate) 
     + [iterative task](#iterative-task)
       + [loop](#loop)
@@ -52,7 +51,6 @@ The general structure of CloudSlang files is outlined here. Some of the properti
       + [navigate](#navigate) 
     + [on_failure](#on_failure) 
   + [outputs](#outputs)
-    + [fromInputs](#fromInputs)
   + [results](#results)   
 
 **Operations file**
@@ -68,7 +66,6 @@ The general structure of CloudSlang files is outlined here. Some of the properti
 	+ [system_property](#system_property)
   + [action](#action)
   + [outputs](#outputs)
-	+ [fromInputs](#fromInputs)
   + [results](#results)   
 
 ---
@@ -511,27 +508,8 @@ The `for` key is mapped to an iteration variable followed by `in` followed by a 
           - ID: value
 ```
 
-##fromInputs
-May appear in the value of an [output](#outputs) or [publish](#publish).
-
-Special syntax to refer to an [input](#inputs) parameter as opposed to another variable with the same name in a narrower scope.
-
-**Example - output "input1" as it was passed in**
-
-```yaml
-outputs:
-  - output1: fromInputs['input1']
-```
-
-**Example - usage in publish to refer to a variable in the flow's scope**
-
-```yaml
-publish:
-  - total_cost: fromInputs['total_cost'] + cost
-```
-
 ##get
-May appear in the value of an [input](#inputs), [output](#outputs), [publish](#publish) or [loop expression](#for).
+May appear in the value of an [input](#inputs), [output](#outputs), [publish](#publish), [loop](#for) expression or [result](#results) expression.
 
 The function in the form of `get('key', 'default_value')` returns the value associated with `key` if the key is defined and its value is not `None`. If the key is undefined or its value is `None` the function returns the `default_value`.
 
@@ -732,7 +710,7 @@ It is mapped to a list of output variable names which may also contain expressio
 
 Defines the parameters a  [flow](#flow) or [operation](#operation) exposes to possible [publication](#publish) by a [task](#task). The calling [task](#task) refers to an output by its name.
 
-See also [fromInputs](#fromInputs).
+See also [self](#self).
 
 **Example - various types of outputs**
 
@@ -741,7 +719,7 @@ outputs:
   - existing_variable
   - output2: some_variable
   - output3: 5 + 6
-  - output4: fromInputs['input1']
+  - output4: self['input1']
 ```
 
 
@@ -790,7 +768,7 @@ In an [iterative task](#iterative-task) the publish mechanism is run during each
         print:
           - text: value
       publish:
-        - sum: fromInputs['sum'] + out
+        - sum: self['sum'] + out
 ```
 
 ###Asynchronous publish
@@ -864,6 +842,25 @@ inputs:
   - input1
   - input2:
       required: false
+```
+
+##self
+May appear in the value of an [output](#outputs), [publish](#publish) or [result](#results) expression.
+
+Special syntax to refer to an [input](#inputs) parameter as opposed to another variable with the same name in a narrower scope.
+
+**Example - output "input1" as it was passed in**
+
+```yaml
+outputs:
+  - output1: self['input1']
+```
+
+**Example - usage in publish to refer to a variable in the flow's scope**
+
+```yaml
+publish:
+  - total_cost: self['total_cost'] + cost
 ```
 
 ##system_property

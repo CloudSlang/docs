@@ -274,7 +274,7 @@ flow:
             print:
               - text: value
           publish:
-            - sum: fromInputs['sum'] + out
+            - sum: self['sum'] + out
     - print:
         do:
           ops.print:
@@ -293,7 +293,7 @@ operation:
   action:
     python_script: print text
   results:
-    - CUSTOM: int(fromInputs['text']) == 3
+    - CUSTOM: int(self['text']) == 3
     - SUCCESS
 ```
 
@@ -309,7 +309,7 @@ operation:
   action:
     python_script: print text
   results:
-    - FAILURE: int(fromInputs['text']) == 3
+    - FAILURE: int(self['text']) == 3
     - SUCCESS
 ```
 

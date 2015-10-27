@@ -70,12 +70,12 @@ We'll also need to create some input variables first. One variable, that we'll c
         {'laptop': 1000, 'docking station':200, 'monitor': 500, 'phone': 100}
 ```
 
-Now we can perform the aggregation. In  `get_equipment` task's publish section, we'll add the output variables to the ones we just created in the flow inputs and publish them back to the flow. This will run for each iteration after the operation has completed, aggregating all the data. Notice the usage of the `fromInputs['']` syntax to indicate that we're referring to the variable that exists on the flow level and not a variable with the same name that might have been returned from the operation.
+Now we can perform the aggregation. In  `get_equipment` task's publish section, we'll add the output variables to the ones we just created in the flow inputs and publish them back to the flow. This will run for each iteration after the operation has completed, aggregating all the data. Notice the usage of the `self['']` syntax to indicate that we're referring to the variable that exists on the flow level and not a variable with the same name that might have been returned from the operation.
 
 ```yaml
           publish:
-            - missing: fromInputs['missing'] + unavailable
-            - total_cost: fromInputs['total_cost'] + cost
+            - missing: self['missing'] + unavailable
+            - total_cost: self['total_cost'] + cost
 ```
 
 Finally we have to rewire all the navigation logic to take into account our new task. 
@@ -179,8 +179,8 @@ flow:
               - item
               - price
           publish:
-            - missing: fromInputs['missing'] + unavailable
-            - total_cost: fromInputs['total_cost'] + cost
+            - missing: self['missing'] + unavailable
+            - total_cost: self['total_cost'] + cost
         navigate:
           AVAILABLE: print_finish
           UNAVAILABLE: print_finish

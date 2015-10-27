@@ -177,8 +177,8 @@ flow:
               - item
               - price
           publish:
-            - missing: fromInputs['missing'] + unavailable
-            - total_cost: fromInputs['total_cost'] + cost
+            - missing: self['missing'] + unavailable
+            - total_cost: self['total_cost'] + cost
         navigate:
           AVAILABLE: print_finish
           UNAVAILABLE: print_finish
