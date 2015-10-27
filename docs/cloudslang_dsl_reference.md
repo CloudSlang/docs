@@ -509,7 +509,7 @@ The `for` key is mapped to an iteration variable followed by `in` followed by a 
 ```
 
 ##get
-May appear in the value of an [input](#inputs), [output](#outputs), [publish](#publish) or [loop expression](#for).
+May appear in the value of an [input](#inputs), [output](#outputs), [publish](#publish), [loop](#for) expression or [result](#results) expression.
 
 The function in the form of `get('key', 'default_value')` returns the value associated with `key` if the key is defined and its value is not `None`. If the key is undefined or its value is `None` the function returns the `default_value`.
 
@@ -845,7 +845,7 @@ inputs:
 ```
 
 ##self
-May appear in the value of an [output](#outputs) or [publish](#publish).
+May appear in the value of an [output](#outputs), [publish](#publish) or [result](#results) expression.
 
 Special syntax to refer to an [input](#inputs) parameter as opposed to another variable with the same name in a narrower scope.
 
