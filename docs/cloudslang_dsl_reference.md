@@ -318,7 +318,7 @@ loop:
 The key `default` is a property of an [input](#inputs) name.
 It is mapped to an expression value.
 
-The expression's value will be passed to the [flow](#flow) or [operation](#operation) if no other value for that [input](#inputs) parameter is explicitly passed or if the input's [overridable](#overridable) parameter is set to `false` and there is no [system_properties](#system_property) parameter defined.   
+The expression's value will be passed to the [flow](#flow) or [operation](#operation) if no other value for that [input](#inputs) parameter is explicitly passed or if the input's [overridable](#overridable) parameter is set to `false` and there is no [system_property](#system_property) parameter defined.   
 
 **Example - default values **
 
@@ -570,7 +570,7 @@ Property|Required|Default|Value Type|Description|More info
 `required`|no|true|boolean|is the input required|[required](#required)
 `default`|no|-|expression|default value of the input|[default](#default)
 `overridable`|no|true|boolean|if false, the default value always overrides values passed in|[overridable](#overridable)
-`system_properties`|no|-|string|the name of a system property variable|[system_property](#system_property)
+`system_property`|no|-|string|the name of a system property variable|[system_property](#system_property)
 
 **Example - two inputs**
 
