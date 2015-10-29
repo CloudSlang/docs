@@ -7,18 +7,18 @@ In this lesson we'll outline our overall goals for this tutorial and set up our 
 In this tutorial we will build a flow that represents the process a new hire must go through to get set up to work. We will build the flow one piece at a time with the goal of highlighting the features of CloudSlang. We recommend you follow along with the process, writing the flows and operations we will build on your own machine and running them using the CloudSlang CLI. To do so, you'll need a text editor to create the CloudSlang files and the CloudSlang CLI to run them.  
 
 ##YAML
-CloudSlang is a YAML-based language so it's important to know a bit about YAML before getting started. If you're new to YAML, you can take a look at the [YAML Overview](http://www.cloudslang.io/#/docs#yaml-overview) section of the CloudSlang documentation to familiarize yourself with its main structure. This tutorial will also include **YAML Notes** to guide you through potential trouble areas.
+CloudSlang is a YAML-based language so it's important to know a bit about YAML before getting started. If you're new to YAML, you can take a look at the [YAML Overview](../yaml_overview.md) section of the CloudSlang documentation to familiarize yourself with its main structure. This tutorial will also include **YAML Notes** to guide you through potential trouble areas.
 
 ##Copy/Pasting Code
 Because proper indentation is so important in YAML, take care to copy and paste the code examples at their proper indentation levels. The examples are all written at the indentation within the whole that they are a part of.
 
 ##Prerequisites
-This tutorial uses the CloudSlang CLI to run flows. See the [CloudSlang CLI](http://www.cloudslang.io/#/docs#cloudslang-cli) section of the documentation for instructions on how to download and run the CLI.
+This tutorial uses the CloudSlang CLI to run flows. See the [CloudSlang CLI](../cloudslang_cli.md) section of the documentation for instructions on how to download and run the CLI.
 
-Although CloudSlang files can be composed in any text editor, using a modern code editor with support for YAML syntax highlighting is recommended. See the [Sublime Integration](http://www.cloudslang.io/#/docs#sublime-integration) section of the documentation for instructions on how to download, install and use the CloudSlang snippets for Sublime Text.
+Although CloudSlang files can be composed in any text editor, using a modern code editor with support for YAML syntax highlighting is recommended. See the [Sublime Integration](../sublime_integration.md) section of the documentation for instructions on how to download, install and use the CloudSlang snippets for Sublime Text.
 
 ##More Information
-For more information on any of the topics covered in this tutorial, see the [CloudSlang documentation](http://www.cloudslang.io/#/docs#cloudslang).
+For more information on any of the topics covered in this tutorial, see the [CloudSlang documentation](../index.md).
 
 ##Setup
 Now we'll setup our folder structure to get ready to write our flows and operations.
