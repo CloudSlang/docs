@@ -56,3 +56,6 @@ testMatchRegexMissingInputs:
     - match_text: ''
   throwsException: true
 ```
+
+#Run Tests
+To run test cases use the [CloudSlang Build Tool](cloudslang_build_tool.md). Test cases are not run by the [CloudSlang CLI](cloudslang_cli.md).
