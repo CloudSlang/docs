@@ -14,8 +14,12 @@ First, we'll add an inputs section to our flow between the name and the workflow
     - address
 ```
 
+Just as with an operation, values for the inputs of a flow are either passed via the [CloudSlang CLI](../cloudslang_cli.md), as we do below in this lesson, or from a task in a calling flow, as in lesson [9 - Subflows](09_lesson.md).  
+
+Inputs can also have related parameters, such as `required`, `default`, `overridable` and `system_property`. We will discuss these parameters in lessons [8 - Input Parameters](08_lesson.md) and [13 - System Properties](13_lesson.md).
+
 ##New Task
-Now we can add a new task to our flow. We'll add it right after the `print_start` task and call it `check_address`.
+Now we can add a new task to our flow. We'll add it right after the `print_start` task and call it `check_address`. Here, since both the flow and the operation are in the same folder, the `do` section does not need to use an alias or path to reference the operation like we needed with the `print` operation in the `print_start` task.
 
 ```yaml
     - check_address:
@@ -26,7 +30,7 @@ Now we can add a new task to our flow. We'll add it right after the `print_start
           - availability: available
 ```
 
-First note that in the `check_address` task, the `address` input name is not given a default value, as the `text` input is given in the `print_start` task. It's not necessary here because the `address` input name in the `check_availability` operation matches the `address` input name in the flow. The value input to the flow will get passed to the operation input with the same name.
+First note that in the `check_address` task, the `address` input name is not given an explicit value, as the `text` input is given in the `print_start` task. It's not necessary here because the `address` input name in the `check_availability` operation matches the `address` input name in the flow. The value input to the flow will get passed to the operation input with the same name.
 
 ##Publish
 Also notice that we've added the `publish` section to this task. This is the spot where we publish the outputs returned from the operation to the flow's scope. In our case, the `check_availability` operation returns an output named `available` and we publish it to the flow's scope under the name `availability`. We'll use the `availability` variable momentarily in an input expression in another of the flow's tasks.
@@ -42,7 +46,7 @@ We'll add one more task to our flow for now to demonstrate the default navigatio
             - text: "'Availability for address ' + address + ' is: ' + str(availability)"
 ```
 
-Once again take note of the quoting that is necessary. The double quotes (") encompass a Python expression which uses single quotes (') for its string literals and no additional quotes for the variable names.
+Once again take note of the quoting that is necessary. The double quotes (`"`) encompass a Python expression which uses single quotes (`'`) for its string literals and no additional quotes for the variable names.
 
 ##Run It
 Let's save our files and run the flow and see what happens based on the output and results of the `generate_user_mail` operation. Once again, make sure to run it a few times so we can see what happens when the operation returns a result of `SUCCESS` and what happens when the result is `FAILURE`.

@@ -13,7 +13,7 @@ There are two types of CloudSlang files:
 The following properties are for all types of CloudSlang files. For properties specific to [flows](#flow) or [operations](#operation), see their respective sections below.  
 
 Property|Required|Default|Value Type|Description|More Info
----|---|---|---|---
+---|---|---|---|---|---
 `namespace`|no|-|string|namespace of the flow|[namespace](#namespace)
 `imports`|no|-|list of key:value pairs|files to import|[imports](#imports)
 
@@ -238,7 +238,7 @@ It is mapped to the [asynchronous task's](#asynchronous-task) properties.
 For each value in the loop's list a branch is created and the `do` will run an [operation](#operation) or [subflow](#flow). When all the branches have finished, the [asynchronous task's](#asynchronous-task) [aggregation](#aggregate) and [navigation](#navigate) will run. 
 
 Property|Required|Default|Value Type|Description|More Info
----|
+---|---|---|---|---|---
 `for`|yes|-|variable `in` list|loop values|[for](#for) 
 `do`|yes|-|operation or subflow call|the operation or subflow this task will run in parallel|[do](#do) [operation](#operation) [flow](#flow)
 `publish`|no|-|list of key:value pairs|operation or subflow outputs to aggregate and publish to the flow level|[publish](#publish) [aggregate](#aggregate) [outputs](#outputs)
@@ -566,7 +566,7 @@ Inputs are used to pass parameters to [flows](#flow) or [operations](#operation)
 Input properties may also be used in the input list of a [task](#task). 
 
 Property|Required|Default|Value Type|Description|More info
----|
+---|---|---|---|---|---
 `required`|no|true|boolean|is the input required|[required](#required)
 `default`|no|-|expression|default value of the input|[default](#default)
 `overridable`|no|true|boolean|if false, the default value always overrides values passed in|[overridable](#overridable)
@@ -589,7 +589,7 @@ It is mapped to the [iterative task's](#iterative-task) properties.
 For each value in the loop's list the `do` will run an [operation](#operation) or [subflow](#flow). If the returned result is in the `break` list, or if `break` does not appear and the returned result is `FAILURE`, or if the list has been exhausted, the task's navigation will run. 
 
 Property|Required|Default|Value Type|Description|More Info
----|
+---|---|---|---|---|---
 `for`|yes|-|variable `in` list or key, value `in` map|iteration logic|[for](#for) 
 `do`|yes|-|operation or subflow call|the operation or subflow this task will run iteratively|[do](#do) [operation](#operation) [flow](#flow)
 `publish`|no|-|list of key:value pairs|operation or subflow outputs to aggregate and publish to the flow level|[publish](#publish) [outputs](#outputs)
@@ -682,7 +682,7 @@ Defines the [task](#task), which when using default [navigation](#navigation), i
 The key `operation` is mapped to the properties which make up the operation contents.
 
 Property|Required|Default|Value Type|Description|More Info
----|
+---|---|---|---|---|---
 inputs|no|-|list|operation inputs|[inputs](#inputs)
 action|yes|-|`python_script` or `java_action`|operation logic|[action](#action)
 outputs|no|-|list|operation outputs|[outputs](#outputs)
@@ -898,7 +898,7 @@ A standard task calls an [operation](#operation) or [subflow](#flow) once.
 The task name is mapped to the task's properties.
 
 Property|Required|Default|Value Type|Description|More Info
----|---
+---|---|---|---|---|---
 `do`|yes|-|operation or subflow call|the operation or subflow this task will run|[do](#do) [operation](#operation) [flow](#flow)
 `publish`|no|-|list of key:value pairs|operation outputs to publish to the flow level|[publish](#publish) [outputs](#outputs)
 `navigate`|no|`FAILURE`: on_failure or flow finish; `SUCCESS`: next task|key:value pairs| navigation logic from operation or flow results|[navigation](#navigate) [results](#results)
@@ -924,7 +924,7 @@ An iterative task calls an [operation](#operation) or [subflow](#flow) iterative
 The task name is mapped to the iterative task's properties.
 
 Property|Required|Default|Value Type|Description|More Info
----|---
+---|---|---|---|---|---
 `loop`|yes|-|key|container for loop properties|[for](#for)
 `navigate`|no|`FAILURE`: on_failure or flow finish; `SUCCESS`: next task|key:value pairs| navigation logic from [break](#break) or the result of the last iteration of the operation or flow|[navigation](#navigate) [results](#results)
 
@@ -948,7 +948,7 @@ An asynchronous task calls an [operation](#operation) or [subflow](#flow) asynch
 The task name is mapped to the asynchronous task's properties.
 
 Property|Required|Default|Value Type|Description|More Info
----|---
+---|---|---|---|---|---
 `async_loop`|yes|-|key|container for async loop properties|[async_loop](#async_loop)
 `aggregate`|no|-|list of key:values|values to aggregate from async branches|[aggregate](#aggregate)
 `navigate`|no|`FAILURE`: on_failure or flow finish; `SUCCESS`: next task|key:value pairs| navigation logic|[navigation](#navigate) [results](#results)
@@ -980,7 +980,7 @@ Defines a container for the [tasks](#task), their [published variables](#publish
 The first [task](#task) in the workflow is the starting [task](#task) of the flow. From there the flow continues sequentially by default upon receiving [results](#results) of `SUCCESS`, to the flow finish or to [on_failure](#on_failure) upon a [result](#results) of `FAILURE`, or following whatever overriding [navigation](#navigate) logic that is present.
 
 Propery|Required|Default|Value Type|Description|More Info
----|
+---|---|---|---|---|---
 `on_failure`|no|-|task|default navigation target for `FAILURE`|[on_failure](#on_failure) [task](#task)
 
 **Example - workflow that divides two numbers and prints them out if the division was legal**

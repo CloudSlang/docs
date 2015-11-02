@@ -63,7 +63,7 @@ case|`middle_name`|list|iterations|flow result
 **Case 4:** This time we have a `middle_name` so the `create_user_email` subflow will run successfully all three times, returning results of either `CREATED` or `UNAVAILABLE`. Since neither of those are `FAILURE`, the loop will only exit when the list is exhausted. At that point the result from the last iteration of the task will be used by the navigation to see where the flow goes next. If the last iteration's result is `CREATED`, the `print_finish` task will run and the flow will end with a result of `SUCCESS`. If the last iteration's result is `UNAVAILABLE`, the `print_fail` task will run and the flow will end with a result of `FAILURE`.
 
 ##Custom Break
-Now that we understand what happens in the default case, let's put in a custom break so the loop will do what we want it to. We want the loop to stop when we've either found a suitable email address or something has gone wrong, so we'll add a `break` key with a list of results we want to break on, which in our case is `CREATED` or `FAILURE`.
+Now that we understand what happens in the default case, let's put in a custom break so the loop will do what we want it to. We want the loop to stop when we've either found a suitable email address or something has gone wrong, so we'll add a `break` key with a list of results we want to break on, which in our case is `CREATED` or `FAILURE`. 
 
 ```yaml
     - create_email_address:
@@ -87,6 +87,8 @@ Now that we understand what happens in the default case, let's put in a custom b
 ```
 
 In a case where we want the loop to continue no matter what happens, we would have to override the default break on a result of failure by mapping the `break` key to an empty list (`[]`).
+
+The published `address` variable will contain the `address` value from the last iteration of the loop. We can use at the same way published variables are used in regular tasks. However, when using loops, you often want to aggregate the published output. We will do that in the next lesson.
 
 ##List Types
 One last thing we can change to improve our flow is the loop's list. Right now we're using a literal list, but we can use any Python expression that results in a list instead. So here we can substitute `[1,2,3,4]` with `range(1,5)`. We could also use a comma delimited strings which would be split automatically into a list.
