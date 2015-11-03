@@ -14,8 +14,8 @@ The following properties are for all types of CloudSlang files. For properties s
 
 Property|Required|Default|Value Type|Description|More Info
 ---|---|---|---|---|---
-`namespace`|no|-|string|namespace of the flow|[namespace](#namespace)
-`imports`|no|-|list of key:value pairs|files to import|[imports](#imports)
+`namespace` | no | - | string | namespace of the flow |[namespace](#namespace)
+`imports` | no | - | list of key:value pairs|files to import |[imports](#imports)
 
 The general structure of CloudSlang files is outlined here. Some of the properties that appear are optional. All CloudSlang keywords, properties and concepts are explained in detail below. 
 
@@ -239,9 +239,9 @@ For each value in the loop's list a branch is created and the `do` will run an [
 
 Property|Required|Default|Value Type|Description|More Info
 ---|---|---|---|---|---
-`for`|yes|-|variable `in` list|loop values|[for](#for) 
-`do`|yes|-|operation or subflow call|the operation or subflow this task will run in parallel|[do](#do) [operation](#operation) [flow](#flow)
-`publish`|no|-|list of key:value pairs|operation or subflow outputs to aggregate and publish to the flow level|[publish](#publish) [aggregate](#aggregate) [outputs](#outputs)
+`for` | yes | - | variable `in` list | loop values | [for](#for) 
+`do` | yes | - | operation or subflow call | the operation or subflow this task will run in parallel | [do](#do) [operation](#operation) [flow](#flow)
+`publish` | no | - | list of key:value pairs | operation or subflow outputs to aggregate and publish to the flow level | [publish](#publish) [aggregate](#aggregate) [outputs](#outputs)
 
 **Example: loop that breaks on a result of custom**
 ```yaml
@@ -387,11 +387,11 @@ A flow is the basic executable unit of CloudSlang. A flow can run on its own or 
 
 Property|Required|Default|Value Type|Description|More Info
 ---|---|---|---|---|---
-`name`|yes|-|string|name of the flow|[name](#name)
-`inputs`|no|-|list|inputs for the flow|[inputs](#inputs)
-`workflow`|yes|-|map of tasks|container for set of tasks|[workflow](#workflow)
-`outputs`|no|-|list|list of outputs|[outputs](#outputs)
-`results`|no|(`SUCCESS`/`FAILURE`)|list|possible results of the flow|[results](#results)
+`name` | yes | - | string | name of the flow | [name](#name)
+`inputs` | no | - | list | inputs for the flow | [inputs](#inputs)
+`workflow` | yes | - | map of tasks | container for set of tasks | [workflow](#workflow)
+`outputs` | no | - | list | list of outputs |[outputs](#outputs)
+`results` | no | (`SUCCESS`/`FAILURE`) | list | possible results of the flow | [results](#results)
 
 **Example - a flow that performs a division of two numbers**
 
@@ -567,10 +567,10 @@ Input properties may also be used in the input list of a [task](#task).
 
 Property|Required|Default|Value Type|Description|More info
 ---|---|---|---|---|---
-`required`|no|true|boolean|is the input required|[required](#required)
-`default`|no|-|expression|default value of the input|[default](#default)
-`overridable`|no|true|boolean|if false, the default value always overrides values passed in|[overridable](#overridable)
-`system_property`|no|-|string|the name of a system property variable|[system_property](#system_property)
+`required` | no | true | boolean | is the input required | [required](#required)
+`default` | no | - | expression | default value of the input | [default](#default)
+`overridable` | no | true | boolean | if false, the default value always overrides values passed in | [overridable](#overridable)
+`system_property` | no | - | string | the name of a system property variable | [system_property](#system_property)
 
 **Example - two inputs**
 
@@ -590,10 +590,10 @@ For each value in the loop's list the `do` will run an [operation](#operation) o
 
 Property|Required|Default|Value Type|Description|More Info
 ---|---|---|---|---|---
-`for`|yes|-|variable `in` list or key, value `in` map|iteration logic|[for](#for) 
-`do`|yes|-|operation or subflow call|the operation or subflow this task will run iteratively|[do](#do) [operation](#operation) [flow](#flow)
-`publish`|no|-|list of key:value pairs|operation or subflow outputs to aggregate and publish to the flow level|[publish](#publish) [outputs](#outputs)
-`break`|no|-|list of [results](#result)|operation or subflow [results](#result) on which to break out of the loop|[break](#break)
+`for` | yes | - | variable `in` list or key, value `in` map | iteration logic | [for](#for) 
+`do` | yes | - | operation or subflow call | the operation or subflow this task will run iteratively | [do](#do) [operation](#operation) [flow](#flow)
+`publish` | no | - | list of key:value pairs | operation or subflow outputs to aggregate and publish to the flow level | [publish](#publish) [outputs](#outputs)
+`break` | no | - | list of [results](#result) | operation or subflow [results](#result) on which to break out of the loop | [break](#break)
 
 **Example: loop that breaks on a result of custom**
 ```yaml
@@ -683,10 +683,10 @@ The key `operation` is mapped to the properties which make up the operation cont
 
 Property|Required|Default|Value Type|Description|More Info
 ---|---|---|---|---|---
-inputs|no|-|list|operation inputs|[inputs](#inputs)
-action|yes|-|`python_script` or `java_action`|operation logic|[action](#action)
-outputs|no|-|list|operation outputs|[outputs](#outputs)
-results|no|`SUCCESS`|list|possible operation results|[results](#results)
+inputs | no | - | list | operation inputs | [inputs](#inputs)
+action | yes | - | `python_script` or `java_action` | operation logic | [action](#action)
+outputs | no | - | list | operation outputs | [outputs](#outputs)
+results | no | `SUCCESS` | list | possible operation results | [results](#results)
 
 
 **Example - operation that adds two inputs and outputs the answer**
@@ -899,9 +899,9 @@ The task name is mapped to the task's properties.
 
 Property|Required|Default|Value Type|Description|More Info
 ---|---|---|---|---|---
-`do`|yes|-|operation or subflow call|the operation or subflow this task will run|[do](#do) [operation](#operation) [flow](#flow)
-`publish`|no|-|list of key:value pairs|operation outputs to publish to the flow level|[publish](#publish) [outputs](#outputs)
-`navigate`|no|`FAILURE`: on_failure or flow finish; `SUCCESS`: next task|key:value pairs| navigation logic from operation or flow results|[navigation](#navigate) [results](#results)
+`do` | yes | - | operation or subflow call | the operation or subflow this task will run | [do](#do) [operation](#operation) [flow](#flow)
+`publish` | no | - | list of key:value pairs | operation outputs to publish to the flow level | [publish](#publish) [outputs](#outputs)
+`navigate` | no | `FAILURE`: on_failure or flow finish; `SUCCESS`: next task | key:value pairs | navigation logic from operation or flow results | [navigation](#navigate) [results](#results)
 
 **Example - task that performs a division of two inputs, publishes the answer and navigates accordingly**
 
@@ -925,8 +925,8 @@ The task name is mapped to the iterative task's properties.
 
 Property|Required|Default|Value Type|Description|More Info
 ---|---|---|---|---|---
-`loop`|yes|-|key|container for loop properties|[for](#for)
-`navigate`|no|`FAILURE`: on_failure or flow finish; `SUCCESS`: next task|key:value pairs| navigation logic from [break](#break) or the result of the last iteration of the operation or flow|[navigation](#navigate) [results](#results)
+`loop` | yes | - | key | container for loop properties | [for](#for)
+`navigate` | no | `FAILURE`: on_failure or flow finish; `SUCCESS`: next task | key:value pairs | navigation logic from [break](#break) or the result of the last iteration of the operation or flow | [navigation](#navigate) [results](#results)
 
 **Example - task prints all the values in value_list and then navigates to a task named "another_task"**
 
@@ -949,9 +949,9 @@ The task name is mapped to the asynchronous task's properties.
 
 Property|Required|Default|Value Type|Description|More Info
 ---|---|---|---|---|---
-`async_loop`|yes|-|key|container for async loop properties|[async_loop](#async_loop)
-`aggregate`|no|-|list of key:values|values to aggregate from async branches|[aggregate](#aggregate)
-`navigate`|no|`FAILURE`: on_failure or flow finish; `SUCCESS`: next task|key:value pairs| navigation logic|[navigation](#navigate) [results](#results)
+`async_loop` | yes | - | key | container for async loop properties | [async_loop](#async_loop)
+`aggregate` | no | - | list of key:values | values to aggregate from async branches | [aggregate](#aggregate)
+`navigate` | no | `FAILURE`: on_failure or flow finish; `SUCCESS`: next task | key:value pairs | navigation logic |[navigation](#navigate) [results](#results)
 
 **Example - task prints all the values in value_list asynchronously and then navigates to a task named "another_task"**
 
@@ -981,7 +981,7 @@ The first [task](#task) in the workflow is the starting [task](#task) of the flo
 
 Propery|Required|Default|Value Type|Description|More Info
 ---|---|---|---|---|---
-`on_failure`|no|-|task|default navigation target for `FAILURE`|[on_failure](#on_failure) [task](#task)
+`on_failure` | no | - | task | default navigation target for `FAILURE` | [on_failure](#on_failure) [task](#task)
 
 **Example - workflow that divides two numbers and prints them out if the division was legal**
 
