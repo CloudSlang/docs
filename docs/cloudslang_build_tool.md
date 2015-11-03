@@ -31,11 +31,11 @@ To use the CloudSlang Build Tool with specific settings, run the **cslang-builde
 
 Argument|Default|Description
 ---|---|---
--pr|current folder|project root folder
--cr|&lt;project root&gt;/content|content root folder
--tr|&lt;project root&gt;/test|test root folder
--ts|none|list of test suites to run - use `!default` to skip tests that are not included in a test suite
--cov|false|whether or not test coverage data should be output
+-pr | current folder | project root folder
+-cr | &lt;project root&gt;/content | content root folder
+-tr | &lt;project root&gt;/test | test root folder
+-ts | none | list of test suites to run - use `!default` to skip tests that are not included in a test suite
+-cov | false | whether or not test coverage data should be output
 
 **Note:** To skip tests not included in a test suite when using Linux, the exclamation mark (`!`) needs to be escaped with a preceding backslash (`\`). So, to ignore default tests, pass `\!default`.
 
