@@ -539,7 +539,7 @@ The key `imports` is mapped to the files to import as follows:
 + key - alias 
 + value - namespace of file to be imported
 
-Specifies the file's dependencies and the aliases they will be referenced by in the file.
+Specifies the file's dependencies and the aliases they will be referenced by in the file. Using an alias is one way to reference the [operations](#operation) and [subflows](#flow) used in a [flow's](#flow) [tasks](#task). For all the ways to reference [operations](#operation) and [subflows](#flow) used in a [flow's](#flow) [tasks](#task), see the [do](#do) keyword.
 
 **Example - import operations and sublflow into flow**
 ```yaml
