@@ -185,16 +185,17 @@ There are several ways Score can populate an action method's arguments:
 
   There are some argument names that have a special meaning when used as control action or navigation action method arguments:
 
-    +  **executionRuntimeServices** - Score will populate this argument with the [ExecutionRuntimeServices](#executionruntimeservices) object. 
++  **executionRuntimeServices** - Score will populate this argument with the [ExecutionRuntimeServices](#executionruntimeservices) object. 
   
-    ```java
-    public void doWithServices(ExecutionRuntimeServices    executionRuntimeServices)
-    ```
-    +  **executionContext** - Score will populate this argument with the context tied to the ExecutionPlan during its triggering through the [TriggeringProperties](#triggeringproperties).
+```java
+public void doWithServices(ExecutionRuntimeServices    executionRuntimeServices)
+```
+
++  **executionContext** - Score will populate this argument with the context tied to the ExecutionPlan during its triggering through the [TriggeringProperties](#triggeringproperties).
   
-    ```java
-    public void doWithContext(Map<String, Serializable> executionContext) 
-    ```
+```java
+public void doWithContext(Map<String, Serializable> executionContext) 
+```
 
 If an argument is present in both the [ExecutionStep](#executionstep) data and the execution context, the value from the execution context will be used.
 

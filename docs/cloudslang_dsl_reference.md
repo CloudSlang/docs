@@ -391,7 +391,7 @@ Property|Required|Default|Value Type|Description|More Info
 `inputs` | no | - | list | inputs for the flow | [inputs](#inputs)
 `workflow` | yes | - | map of tasks | container for set of tasks | [workflow](#workflow)
 `outputs` | no | - | list | list of outputs |[outputs](#outputs)
-`results` | no | ( `SUCCESS` / `FAILURE` ) | list | possible results of the flow | [results](#results)
+`results` | no | (`SUCCESS` / `FAILURE` ) | list | possible results of the flow | [results](#results)
 
 **Example - a flow that performs a division of two numbers**
 
