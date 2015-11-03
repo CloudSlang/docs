@@ -391,7 +391,7 @@ Property|Required|Default|Value Type|Description|More Info
 `inputs` | no | - | list | inputs for the flow | [inputs](#inputs)
 `workflow` | yes | - | map of tasks | container for set of tasks | [workflow](#workflow)
 `outputs` | no | - | list | list of outputs |[outputs](#outputs)
-`results` | no | (`SUCCESS`/`FAILURE`) | list | possible results of the flow | [results](#results)
+`results` | no | (`SUCCESS` / `FAILURE`) | list | possible results of the flow | [results](#results)
 
 **Example - a flow that performs a division of two numbers**
 
@@ -683,10 +683,10 @@ The key `operation` is mapped to the properties which make up the operation cont
 
 Property|Required|Default|Value Type|Description|More Info
 ---|---|---|---|---|---
-inputs | no | - | list | operation inputs | [inputs](#inputs)
-action | yes | - | `python_script` or `java_action` | operation logic | [action](#action)
-outputs | no | - | list | operation outputs | [outputs](#outputs)
-results | no | `SUCCESS` | list | possible operation results | [results](#results)
+`inputs` | no | - | list | operation inputs | [inputs](#inputs)
+`action` | yes | - | `python_script` or `java_action` | operation logic | [action](#action)
+`outputs` | no | - | list | operation outputs | [outputs](#outputs)
+`results` | no | `SUCCESS` | list | possible operation results | [results](#results)
 
 
 **Example - operation that adds two inputs and outputs the answer**
