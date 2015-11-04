@@ -1,7 +1,7 @@
 #Lesson 1 - Introduction and Setup
 
 ##Goal
-In this lesson we'll outline our overall goals for this tutorial and set up our environment to write and run flows.
+In this lesson we'll outline our overall goals for this tutorial and set up an environment to write and run flows.
 
 ##Overview
 In this tutorial we will build a flow that represents the process a new hire must go through to get set up to work. We will build the flow one piece at a time with the goal of highlighting the features of CloudSlang. We recommend you follow along with the process, writing the flows and operations we will build on your own machine and running them using the [CloudSlang CLI](../cloudslang_cli.md). To do so, you'll need a text editor to create the CloudSlang files and the CloudSlang CLI to run them.  

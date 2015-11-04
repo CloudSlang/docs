@@ -48,7 +48,7 @@ You can save the file and test that the operation is working as expected by usin
 run --f <folder path>/tutorials/hiring/generate_user_email.sl --i first_name=john,middle_name=e,last_name=doe,domain=somecompany,attempt=1
 ```
 
-It may help to uncomment the print line to see what is being output. Change the value for `attempt` and see what happens.
+It may help to uncomment the print line to see what is being output. Change the value for `attempt` in the run command and see what happens.
 
 ##Add to Flow
 Let's add a task in the **new_hire** flow to call our new operation. That will allow us to demonstrate how input properties affect the way variables are passed to operations.
@@ -114,7 +114,7 @@ operation:
     - attempt
 ```
 
->YAML Note: Don't forget to add a colon (:) to the input name before adding its properties.
+>YAML Note: Don't forget to add a colon (`:`) to the input name before adding its properties.
 
 ##Default
 We can also make an input optional by providing a default value. If no value is passed for an input that declares the default property, the default value is used instead. In our case, we can set the `generate_user_email` operation's `middle_name` to default to the empty string.
