@@ -23,14 +23,14 @@ Each test case begins with a unique key that is the test case name. The name is 
 
 Property|Required|Value Type|Description
 ---|---|---|---
-`inputs`|no|list of key:value pairs|inputs to pass to the flow or operation being tested
-`systemPropertiesFile`|no|string|path to the system properties file for the flow or operation - `${project_path}` can be used for specifying a path relative to the project path (e.g. systemPropertiesFile: `${project_path}\content\base\properties.yaml`)
-`description`|no|string|description of test case
-`testFlowPath`|yes|string|qualified name of the flow, operation or wrapper flow to test
-`testSuites`|no|list|list of suites this test belongs to
-`outputs`|no|list of key:value pairs|expected output values of the flow, operation or wrapper flow being tested
-`result`|no|flow or operation result|expected result of the flow, operation or wrapper flow being tested
-`throwsException`|no|boolean|whether or not to expect an exception
+`inputs` | no | list of key:value pairs | inputs to pass to the flow or operation being tested
+`systemPropertiesFile` | no | string | path to the system properties file for the flow or operation - `${project_path}` can be used for specifying a path relative to the project path (e.g. systemPropertiesFile: `${project_path}\content\base\properties.yaml`)
+`description` | no | string | description of test case
+`testFlowPath` | yes | string |qualified name of the flow, operation or wrapper flow to test
+`testSuites` | no | list | list of suites this test belongs to
+`outputs` | no | list of key:value pairs | expected output values of the flow, operation or wrapper flow being tested
+`result` | no | flow or operation result | expected result of the flow, operation or wrapper flow being tested
+`throwsException` | no | boolean | whether or not to expect an exception
 
 
 **Note:** The `outputs` parameter does not need to test all of a flow or operation's outputs. 
