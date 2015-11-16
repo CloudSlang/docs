@@ -59,9 +59,9 @@ The following snippets are provided:
 +-----------------------+-----------------------------------------------------+
 | on_failure            | template for an on_failure task                     |
 +-----------------------+-----------------------------------------------------+
-| for                   | template for a iterative task                       |
+| for                   | template for an iterative task                       |
 +-----------------------+-----------------------------------------------------+
-| async                 | template for a asynchronous task                    |
+| async                 | template for an asynchronous task                    |
 +-----------------------+-----------------------------------------------------+
 
 
