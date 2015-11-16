@@ -80,16 +80,15 @@ style**
     flow:
       name: hello_world
 
-**Example: the single or double quoted style is used in CloudSlang to
-pass a Python string, which is quoted using the other style, to an input
-parameter**
+**Example: a string value is passed to a CloudSlang operation using the double
+quoted style**
 
 .. code:: yaml
 
     - sayHi:
         do:
           print:
-            - text: "'Hello, World'"
+            - text: "Hello, World"
 
 **Example: the pipe is used in CloudSlang to indicate a multi-line
 Python script**

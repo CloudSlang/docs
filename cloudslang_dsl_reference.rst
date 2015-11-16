@@ -9,9 +9,10 @@ be run by the :doc:`CloudSlang CLI <cloudslang_cli>` or by an embedded
 instance of Score using the :ref:`Slang API <slang_api>`.
 
 This reference begins with a brief introduction to CloudSlang files and
-their structure, an alphabetical listing of CloudSlang keywords and
-concepts, and several examples, including one from which many of the
-code snippets below are taken.
+their structure, then continues with a brief explanation of CloudSlang
+expressions, and ends with an alphabetical listing of CloudSlang keywords
+and concepts. See the :doc:`examples <cloudslang_examples>` section for the full
+code examples from which many of the code snippets in this reference are taken.
 
 CloudSlang Files
 ================
@@ -101,6 +102,40 @@ and concepts are explained in detail below.
 -  `outputs <#outputs>`__
 -  `results <#results>`__
 
+.. _expressions:
+
+Expressions
+===========
+
+Many CloudSlang keys map to either an expression or literal value.
+
+Literal values are denoted as they are in standard YAML. Numbers are interpreted
+as numerical values and strings may be written unquoted, single quoted or double
+quoted.
+
+**Example: literal values**
+
+.. code-block:: yaml
+
+    literal_number: 4
+    literal_unquoted_string: cloudslang
+    literal_single_quoted_string: 'cloudslang'
+    literal_double_quoted_string: "cloudslang"
+
+**Note:** the use of unquoted strings where an expression is allowed is strongly
+discouraged.
+
+Expressions are preceded by a dollar sign (``$``) and enclosed in curly brackets
+(``{}``).
+
+**Example: expressions**
+
+.. code-block:: yaml
+
+    expression_1: ${4 + 7}
+    expression_2: ${some_input}
+    expression_3: ${get('input1', 'default_input')}
+
 Keywords (A-Z)
 ==============
 
@@ -142,17 +177,21 @@ uses the following annotations from
 .. code-block:: yaml
 
     name: pull_image
+
     inputs:
       - input1
       - input2
+
     action:
       java_action:
         className: org.mypackage.MyClass
         methodName: doMyAction
+
     outputs:
       - returnResult
+
     results:
-      - SUCCESS : someActionOutput == '0'
+      - SUCCESS : ${someActionOutput == '0'}
       - FAILURE
 
 .. code-block:: java
@@ -187,19 +226,23 @@ see the `Jython FAQ <https://wiki.python.org/jython/JythonFaq>`__.
 .. code-block:: yaml
 
     name: divide
+
     inputs:
       - dividend
       - divisor
+
     action:
       python_script: |
         if divisor == '0':
           quotient = 'division by zero error'
         else:
           quotient = float(dividend) / float(divisor)
+
     outputs:
       - quotient
+
     results:
-      - ILLEGAL: quotient == 'division by zero error'
+      - ILLEGAL: ${quotient == 'division by zero error'}
       - SUCCESS
 
 **Note:** Single-line Python scripts can be written inline with the
@@ -313,7 +356,7 @@ aggregate
 The key ``aggregate`` is a property of an `asynchronous
 task <#asynchronous-task>`__ name. It is mapped to key:value pairs where
 the key is the variable name to publish to the `flow's <#flow>`__ scope
-and the value is the aggregation expression.
+and the value is the aggregation `expression <#expressions>`__.
 
 Defines the aggregation logic for an `asynchronous
 task <#asynchronous-task>`__, often making us of the
@@ -327,7 +370,7 @@ task <#asynchronous-task>`__ have completed.
 .. code-block:: yaml
 
     aggregate:
-      - name_list: map(lambda x:str(x['name']), branches_context)
+      - name_list: ${map(lambda x:str(x['name']), branches_context)}
 
 .. _async_loop:
 
@@ -363,11 +406,11 @@ task's <#asynchronous-task>`__ `aggregation <#aggregate>`__ and
            for: value in values
            do:
              print_branch:
-               - ID: value
+               - ID: ${value}
            publish:
              - name
          aggregate:
-             - name_list: map(lambda x:str(x['name']), branches_context)
+             - name_list: ${map(lambda x:str(x['name']), branches_context)}
          navigate:
              SUCCESS: print_list
              FAILURE: FAILURE
@@ -394,7 +437,7 @@ to finish**
 .. code-block:: yaml
 
     aggregate:
-      - first_name: branches_context[0]['name']
+      - first_name: ${branches_context[0]['name']}
 
 More commonly, the ``branches_context`` is used to aggregate the values
 that have been published by all of the branches.
@@ -404,7 +447,7 @@ that have been published by all of the branches.
 .. code-block:: yaml
 
     aggregate:
-      - name_list: map(lambda x:str(x['name']), branches_context)
+      - name_list: ${map(lambda x:str(x['name']), branches_context)}
 
 .. _break:
 
@@ -433,7 +476,7 @@ empty list (``[]``).
       for: value in range(1,7)
       do:
         custom_op:
-          - text: value
+          - text: ${value}
       break:
         - CUSTOM
     navigate:
@@ -447,7 +490,7 @@ empty list (``[]``).
       for: value in range(1,7)
       do:
         custom_op:
-          - text: value
+          - text: ${value}
       break: []
 
 .. _default:
@@ -456,7 +499,7 @@ default
 -------
 
 The key ``default`` is a property of an `input <#inputs>`__ name. It is
-mapped to an expression value.
+mapped to an `expression <#expressions>`__ value.
 
 The expression's value will be passed to the `flow <#flow>`__ or
 `operation <#operation>`__ if no other value for that
@@ -470,11 +513,11 @@ is no `system\_property <#system-property>`__ parameter defined.
 
     inputs:
       - str_literal:
-          default: "'default value'"
+          default: "default value"
       - int_exp:
-          default: '5 + 6'
+          default: ${5 + 6}
       - from_variable:
-          default: variable_name
+          default: ${variable_name}
 
 A default value can also be defined inline by entering it as the value
 to the `input <#inputs>`__ parameter's key.
@@ -484,9 +527,9 @@ to the `input <#inputs>`__ parameter's key.
 .. code-block:: yaml
 
     inputs:
-      - str_literal: "'default value'"
-      - int_exp: '5 + 6'
-      - from_variable: variable_name
+      - str_literal: "default value"
+      - int_exp: ${5 + 6}
+      - from_variable: ${variable_name}
 
 .. _do:
 
@@ -520,32 +563,32 @@ several ways:
    `operation <#operation>`__ or `flow <#flow>`__ and its name (e.g
    ``alias_name.path.cont.op_name``)
 
-For more information, see the :ref:`Operation Paths <example_operation_paths>` example.
+For more information, see the :ref:`Operation Paths <example_operation_paths>`
+example.
 
 Arguments may be passed to a `task <#task>`__ in one of two ways:
 
--  list of argument names and optional mapped expressions
+-  list of argument names and optional mapped `expressions <#expressions>`__
 -  comma-separated ``argument_name = optional_expression`` pairs
 
-Expression values will supersede values bound to flow
+`Expression <#expressions>`__ values will supersede values bound to flow
 `inputs <#inputs>`__ with the same name.
 
-**Example - call to a divide operation with list of mapped task
-arguments**
+**Example - call to a divide operation with list of mapped task arguments**
 
 .. code-block:: yaml
 
     do:
       divide:
-        - dividend: input1
-        - divisor: input2
+        - dividend: ${input1}
+        - divisor: ${input2}
 
 **Example - call to a divide operation with comma-separated pairs**
 
 .. code-block:: yaml
 
     do:
-      divide: dividend = input1, divisor = input2
+      divide: dividend = ${input1}, divisor = ${input2}
 
 .. _flow:
 
@@ -578,7 +621,7 @@ own or it can be used by another flow in the `do <#do>`__ property of a
 .. code-block:: yaml
 
     flow:
-      name: division_flow
+      name: division
 
       inputs:
         - input1
@@ -588,22 +631,22 @@ own or it can be used by another flow in the `do <#do>`__ property of a
         - divider:
             do:
               divide:
-                - dividend: input1
-                - divisor: input2
+                - dividend: ${input1}
+                - divisor: ${input2}
             publish:
-              - answer: quotient
+              - answer: ${quotient}
             navigate:
               ILLEGAL: ILLEGAL
               SUCCESS: printer
         - printer:
             do:
               print:
-                - text: input1 + "/" + input2 + " = " + answer
+                - text: ${input1 + "/" + input2 + " = " + answer}
             navigate:
               SUCCESS: SUCCESS
 
       outputs:
-        - quotient: answer
+        - quotient: ${answer}
 
       results:
         - ILLEGAL
@@ -642,7 +685,7 @@ evaluates to a list, or a comma delimited string.
           for: value in [1,2,3]
           do:
             print:
-              - text: value
+              - text: ${value}
 
 **Example - loop that iterates through the values in a comma delimited
 string**
@@ -654,7 +697,7 @@ string**
           for: value in "1,2,3"
           do:
             print:
-              - text: value
+              - text: ${value}
 
 **Example - loop that iterates through the values returned from an
 expression**
@@ -666,7 +709,7 @@ expression**
           for: value in range(1,4)
           do:
             print:
-              - text: value
+              - text: ${value}
 
 Iterating through a map
 ^^^^^^^^^^^^^^^^^^^^^^^
@@ -685,8 +728,8 @@ expression**
           for: k, v in map
           do:
             print2:
-              - text1: k
-              - text2: v
+              - text1: ${k}
+              - text2: ${v}
 
 async_loop: for
 ~~~~~~~~~~~~~~~~
@@ -709,7 +752,7 @@ list**
           for: value in values_list
           do:
             print_branch:
-              - ID: value
+              - ID: ${value}
 
 .. _get:
 
@@ -718,7 +761,8 @@ get
 
 May appear in the value of an `input <#inputs>`__,
 `output <#outputs>`__, `publish <#publish>`__, `loop <#for>`__
-expression or `result <#results>`__ expression.
+`expression <#expressions>`__ or `result <#results>`__
+`expression <#expressions>`__.
 
 The function in the form of ``get('key', 'default_value')`` returns the
 value associated with ``key`` if the key is defined and its value is not
@@ -733,15 +777,17 @@ returns the ``default_value``.
       - input1:
           required: false
       - input1_safe:
-          default: get('input1', 'default_input')
+          default: ${get('input1', 'default_input')}
           overridable: false
+
     workflow:
       - task1:
           do:
             print:
-              - text: input1_safe
+              - text: ${input1_safe}
           publish:
-            - some_output: get('output1', 'default_output')
+            - some_output: ${get('output1', 'default_output')}
+
     outputs:
       - some_output
 
@@ -777,7 +823,7 @@ referenced by in the file. Using an alias is one way to reference the
         - print_hi:
             do:
               ops.print:
-                - text: "'Hi'"
+                - text: "Hi"
 
 .. _inputs:
 
@@ -786,7 +832,8 @@ inputs
 
 The key ``inputs`` is a property of a `flow <#flow>`__ or
 `operation <#operation>`__. It is mapped to a list of input names. Each
-input name may in turn be mapped to its properties.
+input name may in turn be mapped to its properties or an input
+`expression <#expressions>`__.
 
 Inputs are used to pass parameters to `flows <#flow>`__ or
 `operations <#operation>`__.
@@ -806,15 +853,16 @@ Input properties may also be used in the input list of a
 | ``system_property``   | no         | --        | string       | the name of a system property variable                          | `system\_property <#system-property>`__   |
 +-----------------------+------------+-----------+--------------+-----------------------------------------------------------------+-------------------------------------------+
 
-**Example - two inputs**
+**Example - several inputs**
 
 .. code-block:: yaml
 
     inputs:
       - input1:
-          default: "'default value'"
+          default: "default value"
           overridable: false
       - input2
+      - input3: "default value"
 
 .. _loop:
 
@@ -852,7 +900,7 @@ task's navigation will run.
            for: value in "1,2,3,4,5"
            do:
              custom3:
-               - text: value
+               - text: ${value}
            break:
              - CUSTOM
          navigate:
@@ -979,7 +1027,7 @@ message**
       - failure:
           do:
             print:
-              - text: error_msg
+              - text: ${error_msg}
 
 .. _operation:
 
@@ -1006,13 +1054,17 @@ operation contents.
 .. code-block:: yaml
 
     name: add
+
     inputs:
       - left
       - right
+
     action:
       python_script: ans = left + right
+
     outputs:
-      - out: ans
+      - out: ${ans}
+
     results:
       - SUCCESS
 
@@ -1023,8 +1075,8 @@ outputs
 
 The key ``outputs`` is a property of a `flow <#flow>`__ or
 `operation <#operation>`__. It is mapped to a list of output variable
-names which may also contain expression values. Output expressions must
-evaluate to strings.
+names which may also contain `expression <#expressions>`__ values.
+Output `expressions <#expressions>`__ must evaluate to strings.
 
 Defines the parameters a `flow <#flow>`__ or `operation <#operation>`__
 exposes to possible `publication <#publish>`__ by a `task <#task>`__.
@@ -1038,9 +1090,9 @@ See also `self <#self>`__.
 
     outputs:
       - existing_variable
-      - output2: some_variable
-      - output3: 5 + 6
-      - output4: self['input1']
+      - output2: ${some_variable}
+      - output3: ${5 + 6}
+      - output4: ${self['input1']}
 
 .. _overridable:
 
@@ -1063,7 +1115,7 @@ by values passed in**
 
     inputs:
       - text:
-          default: "'default text'"
+          default: "default text"
           overridable: false
 
 .. _publish:
@@ -1074,15 +1126,16 @@ publish
 The key ``publish`` is a property of a `task <#task>`__ name, a
 `loop <#loop>`__ or an `async_loop <#async-loop>`__. It is mapped to a
 list of key:value pairs where the key is the published variable name and
-the value is the name of the `output <#outputs>`__ received from an
-`operation <#operation>`__ or `flow <#flow>`__.
+the value is an `expression <#expressions>`__, usually involving an `output <#outputs>`__ received
+from an `operation <#operation>`__ or `flow <#flow>`__.
 
 Standard publish
 ~~~~~~~~~~~~~~~~
 
-In a `standard task <#standard-task>`__, ``publish`` binds the
+In a `standard task <#standard-task>`__, ``publish`` binds an
+`expression <#expressions>`__, usually involving an
 `output <#outputs>`__ from an `operation <#operation>`__ or
-`flow <#flow>`__ to a variable whose scope is the current
+`flow <#flow>`__, to a variable whose scope is the current
 `flow <#flow>`__ and can therefore be used by other `tasks <#task>`__ or
 as the `flow's <#flow>`__ own `output <#outputs>`__.
 
@@ -1093,10 +1146,10 @@ as the `flow's <#flow>`__ own `output <#outputs>`__.
     - division1:
         do:
           division:
-            - input1: dividend1
-            - input2: divisor1
+            - input1: ${dividend1}
+            - input2: ${divisor1}
         publish:
-          - ans: quotient
+          - ans: ${quotient}
 
 Iterative publish
 ~~~~~~~~~~~~~~~~~
@@ -1114,9 +1167,9 @@ during each iteration after the `operation <#operation>`__ or
           for: value in range(1,6)
           do:
             print:
-              - text: value
+              - text: ${value}
           publish:
-            - sum: self['sum'] + out
+            - sum: ${self['sum'] + out}
 
 Asynchronous publish
 ~~~~~~~~~~~~~~~~~~~~
@@ -1137,11 +1190,11 @@ received from finished branches, allowing for aggregation.
           for: value in values_list
           do:
             print_branch:
-              - ID: value
+              - ID: ${value}
           publish:
             - name
         aggregate:
-            - name_list: map(lambda x:str(x['name']), branches_context)
+            - name_list: ${map(lambda x:str(x['name']), branches_context)}
 
 .. _results:
 
@@ -1190,7 +1243,7 @@ Operation results
 ~~~~~~~~~~~~~~~~~
 
 In an `operation <#operation>`__ the key ``results`` is mapped to a list
-of key:value pairs of result names and boolean expressions.
+of key:value pairs of result names and boolean `expressions <#expressions>`__.
 
 Defines the possible results of the `operation <#operation>`__. By
 default, if no results exist, the result is ``SUCCESS``. The first
@@ -1206,8 +1259,8 @@ All `operation <#operation>`__ results must be handled by the calling
 .. code-block:: yaml
 
     results:
-      - POSITIVE: polarity == '+'
-      - NEGATIVE: polarity == '-'
+      - POSITIVE: ${polarity == '+'}
+      - NEGATIVE: ${polarity == '-'}
       - NEUTRAL
 
 .. _required:
@@ -1238,7 +1291,7 @@ self
 ----
 
 May appear in the value of an `output <#outputs>`__,
-`publish <#publish>`__ or `result <#results>`__ expression.
+`publish <#publish>`__ or `result <#results>`__ `expression <#expressions>`__.
 
 Special syntax to refer to an `input <#inputs>`__ parameter as opposed
 to another variable with the same name in a narrower scope.
@@ -1248,7 +1301,7 @@ to another variable with the same name in a narrower scope.
 .. code-block:: yaml
 
     outputs:
-      - output1: self['input1']
+      - output1: ${self['input1']}
 
 **Example - usage in publish to refer to a variable in the flow's
 scope**
@@ -1256,7 +1309,7 @@ scope**
 .. code-block:: yaml
 
     publish:
-      - total_cost: self['total_cost'] + cost
+      - total_cost: ${self['total_cost'] + cost}
 
 .. _system_property:
 
@@ -1329,10 +1382,10 @@ answer and navigates accordingly**
     - divider:
         do:
           divide:
-            - dividend: input1
-            - divisor: input2
+            - dividend: ${input1}
+            - divisor: ${input2}
         publish:
-          - answer: quotient
+          - answer: ${quotient}
         navigate:
           ILLEGAL: FAILURE
           SUCCESS: printer
@@ -1353,8 +1406,8 @@ The task name is mapped to the iterative task's properties.
 | ``navigate``   | no         | ``FAILURE``: on_failure or flow finish; ``SUCCESS``: next task    | key:value pairs   | navigation logic from `break <#break>`__ or the result of the last iteration of the operation or flow   | `navigation <#navigate>`__ `results <#results>`__   |
 +----------------+------------+-------------------------------------------------------------------+-------------------+---------------------------------------------------------------------------------------------------------+-----------------------------------------------------+
 
-**Example - task prints all the values in value\_list and then navigates
-to a task named "another\_task"**
+**Example - task prints all the values in value_list and then navigates
+to a task named "another_task"**
 
 .. code-block:: yaml
 
@@ -1363,7 +1416,7 @@ to a task named "another\_task"**
           for: value in value_list
           do:
             print:
-              - text: value
+              - text: ${value}
         navigate:
           SUCCESS: another_task
           FAILURE: FAILURE
@@ -1387,8 +1440,8 @@ The task name is mapped to the asynchronous task's properties.
 | ``navigate``     | no         | ``FAILURE``: on_failure or flow finish; ``SUCCESS``: next task    | key:value pairs      | navigation logic                          | `navigation <#navigate>`__ `results <#results>`__   |
 +------------------+------------+-------------------------------------------------------------------+----------------------+-------------------------------------------+-----------------------------------------------------+
 
-**Example - task prints all the values in value\_list asynchronously and
-then navigates to a task named "another\_task"**
+**Example - task prints all the values in value_list asynchronously and
+then navigates to a task named "another_task"**
 
 .. code-block:: yaml
 
@@ -1397,11 +1450,11 @@ then navigates to a task named "another\_task"**
           for: value in values_list
           do:
             print_branch:
-              - ID: value
+              - ID: ${value}
           publish:
             - name
         aggregate:
-            - name_list: map(lambda x:str(x['name']), branches_context)
+            - name_list: ${map(lambda x:str(x['name']), branches_context)}
         navigate:
             SUCCESS: another_task
             FAILURE: FAILURE
@@ -1439,14 +1492,14 @@ division was legal**
       - divider:
           do:
             divide:
-              - dividend: input1
-              - divisor: input2
+              - dividend: ${input1}
+              - divisor: ${input2}
           publish:
-            - answer: quotient
+            - answer: ${quotient}
           navigate:
             ILLEGAL: FAILURE
             SUCCESS: printer
       - printer:
           do:
             print:
-              - text: input1 + "/" + input2 + " = " + answer
+              - text: ${input1 + "/" + input2 + " = " + answer}

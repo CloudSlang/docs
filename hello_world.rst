@@ -9,8 +9,8 @@ Prerequisites
 =============
 
 This example uses the CloudSlang CLI to run a flow. See the :doc:`CloudSlang
-CLI <cloudslang_cli>` section for instructions on how to download
-and run the CLI.
+CLI <cloudslang_cli>` section for instructions on how to download and run the
+CLI.
 
 Although CloudSlang files can be composed in any text editor, using a
 modern code editor with support for YAML syntax highlighting is
@@ -21,7 +21,7 @@ for `Sublime Text <http://www.sublimetext.com/>`__.
 Code files
 ==========
 
-In a new folder, create two new CloudSlang files, hello\_world.sl and
+In a new folder, create two new CloudSlang files, hello_world.sl and
 print.sl, and copy the code below.
 
 **hello\_world.sl**
@@ -32,11 +32,12 @@ print.sl, and copy the code below.
 
     flow:
       name: hello_world
+
       workflow:
         - sayHi:
             do:
               print:
-                - text: "'Hello, World'"
+                - text: "Hello, World"
 
 **print.sl**
 
@@ -46,10 +47,13 @@ print.sl, and copy the code below.
 
     operation:
       name: print
+
       inputs:
         - text
+
       action:
         python_script: print text
+
       results:
         - SUCCESS
 
@@ -71,20 +75,16 @@ The output will look similar to this:
 Explanation
 ===========
 
-The CLI runs the :ref:`flow` in the file
-we have passed to it, namely **hello\_world.sl**. The
-:ref:`flow` begins with an :ref:`import <imports>` of the operations file,
-**print.sl**, using its :ref:`namespace` as the value for
-the :ref:`imports` key. Next, we enter the :ref:`flow` named
-``hello_world`` and begin its :ref:`workflow`. The
-:ref:`workflow` has one :ref:`task` named ``sayHi`` which calls
-the ``print`` :ref:`operation` from the operations file that was imported. The
-:ref:`flow` passes the string ``"'Hello, World'"`` to the ``text`` :ref:`input <inputs>`
-of the ``print`` :ref:`operation`. The print
-:ref:`operation` performs its :ref:`action`, which is a simple
-Python script that prints the :ref:`input <inputs>`, and then returns a
-:ref:`result <results>` of ``SUCCESS``. Since the flow does not contain any more
-:ref:`tasks <task>` the :ref:`flow` finishes with a :ref:`result <results>` of ``SUCCESS``.
+The CLI runs the :ref:`flow` in the file we have passed to it, namely
+**hello\_world.sl**. The :ref:`flow` named ``hello_world`` begins its
+:ref:`workflow`. The :ref:`workflow` has one :ref:`task` named ``sayHi`` which
+calls the ``print`` :ref:`operation`. The :ref:`flow` passes the string
+``"Hello, World"`` to the ``text`` :ref:`input <inputs>` of the ``print``
+:ref:`operation`. The print :ref:`operation` performs its :ref:`action`, which
+is a simple Python script that prints the :ref:`input <inputs>`, and then
+returns a :ref:`result <results>` of ``SUCCESS``. Since the flow does not
+contain any more :ref:`tasks <task>` the :ref:`flow` finishes with a
+:ref:`result <results>` of ``SUCCESS``.
 
 More
 ====
