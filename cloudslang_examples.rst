@@ -467,14 +467,14 @@ This example uses the following folder structure:
 
       -  flow.sl
       -  op1.sl
-      -  folder\_a
+      -  folder_a
 
          -  op2.sl
 
-      -  folder\_b
+      -  folder_b
 
          -  op3.sl
-         -  folder\_c
+         -  folder_c
 
             -  op4.sl
 
@@ -557,7 +557,7 @@ This example uses the following folder structure:
 
 .. code-block:: yaml
 
-    namespace: examples.folder_b.folder_c
+    namespace: examples.paths.folder_b.folder_c
 
     operation:
       name: op4
