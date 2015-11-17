@@ -42,26 +42,26 @@ Next let's create a ``workflow`` section and copy the
 
 .. code-block:: yaml
 
-      workflow:
-        - generate_address:
-            do:
-              generate_user_email:
-                - first_name
-                - middle_name
-                - last_name
-                - attempt
-            publish:
-              - address: email_address
+    workflow:
+      - generate_address:
+          do:
+            generate_user_email:
+              - first_name
+              - middle_name
+              - last_name
+              - attempt
+          publish:
+            - address: ${email_address}
 
-        - check_address:
-            do:
-              check_availability:
-                - address
-            publish:
-              - availability: available
-            navigate:
-              UNAVAILABLE: print_fail
-              AVAILABLE: print_finish
+      - check_address:
+          do:
+            check_availability:
+              - address
+          publish:
+            - availability: ${available}
+          navigate:
+            UNAVAILABLE: print_fail
+            AVAILABLE: print_finish
 
 Fix Up Subflow
 --------------
@@ -79,10 +79,10 @@ of three result options.
 
 .. code-block:: yaml
 
-      results:
-        - CREATED
-        - UNAVAILABLE
-        - FAILURE
+    results:
+      - CREATED
+      - UNAVAILABLE
+      - FAILURE
 
 Now we can reroute the tasks' navigation to point to the flow results we
 just defined.
@@ -93,18 +93,18 @@ or ``FAILURE``, we can route ``SUCCESS`` to the next task and
 
 .. code-block:: yaml
 
-        - generate_address:
-            do:
-              generate_user_email:
-                - first_name
-                - middle_name
-                - last_name
-                - attempt
-            publish:
-              - address: email_address
-            navigate:
-              SUCCESS: check_address
-              FAILURE: FAILURE
+    - generate_address:
+        do:
+          generate_user_email:
+            - first_name
+            - middle_name
+            - last_name
+            - attempt
+        publish:
+          - address: ${email_address}
+        navigate:
+          SUCCESS: check_address
+          FAILURE: FAILURE
 
 For the ``check_address`` task, whose operation returns ``UNAVAILABLE``
 or ``AVAILABLE``, we can route ``UNAVAILABLE`` to the ``UNAVAILABLE``
@@ -113,24 +113,24 @@ flow.
 
 .. code-block:: yaml
 
-        - check_address:
-            do:
-              check_availability:
-                - address
-            publish:
-              - availability: available
-            navigate:
-              UNAVAILABLE: UNAVAILABLE
-              AVAILABLE: CREATED
+    - check_address:
+        do:
+          check_availability:
+            - address
+        publish:
+          - availability: ${available}
+        navigate:
+          UNAVAILABLE: UNAVAILABLE
+          AVAILABLE: CREATED
 
 Finally, we can pass along the outputs published in the tasks as flow
 outputs.
 
 .. code-block:: yaml
 
-      outputs:
-        - address
-        - availability
+    outputs:
+      - address
+      - availability
 
 Test It
 -------
@@ -142,7 +142,7 @@ results are being returned at some point.
 
 .. code-block:: bash
 
-    run --f <folder path>/tutorials/hiring/create_user_email.sl --cp <folder path>/tutorials/base,<folder path>/tutorials/hiring --i first_name=john,last_name=doe,attempt=1
+    run --f <folder path>/tutorials/hiring/create_user_email.sl --cp <folder path>/tutorials --i first_name=john,last_name=doe,attempt=1
 
 Fix Up Parent Flow
 ------------------
@@ -163,19 +163,19 @@ navigation.
 
 .. code-block:: yaml
 
-        - create_email_address:
-            do:
-              create_user_email:
-                - first_name
-                - middle_name
-                - last_name
-                - attempt
-            publish:
-              - address
-            navigate:
-              CREATED: print_finish
-              UNAVAILABLE: print_fail
-              FAILURE: print_fail
+    - create_email_address:
+        do:
+          create_user_email:
+            - first_name
+            - middle_name
+            - last_name
+            - attempt
+        publish:
+          - address
+        navigate:
+          CREATED: print_finish
+          UNAVAILABLE: print_fail
+          FAILURE: print_fail
 
 All that's left now is to change the text of the messages sent in the
 ``print_finish`` and ``print_fail`` tasks to better reflect what is
@@ -183,10 +183,10 @@ happening.
 
 .. code-block:: bash
 
-        - print_finish:
-            do:
-              base.print:
-                - text: "'Created address: ' + address + ' for: ' + first_name + ' ' + last_name"
+    - print_finish:
+        do:
+          base.print:
+            - text: "${'Created address: ' + address + ' for: ' + first_name + ' ' + last_name}"
 
 .. code-block:: bash
 
@@ -194,7 +194,7 @@ happening.
           - print_fail:
               do:
                 base.print:
-                  - text: "'Failed to create address for: ' + first_name + ' ' + last_name"
+                  - text: "${'Failed to create address for: ' + first_name + ' ' + last_name}"
 
 Run It
 ------
@@ -206,7 +206,7 @@ at some point.
 
 .. code-block:: bash
 
-    run --f <folder path>/tutorials/hiring/new_hire.sl --cp <folder path>/tutorials/base,<folder path>/tutorials/hiring --i first_name=john,last_name=doe,attempt=1
+    run --f <folder path>/tutorials/hiring/new_hire.sl --cp <folder path>/tutorials --i first_name=john,last_name=doe,attempt=1
 
 Up Next
 -------
@@ -217,7 +217,7 @@ will retry the email creation several times if necessary.
 New Code - Complete
 -------------------
 
-**new\_hire.sl**
+**new_hire.sl**
 
 .. code-block:: yaml
 
@@ -240,7 +240,7 @@ New Code - Complete
         - print_start:
             do:
               base.print:
-                - text: "'Starting new hire process'"
+                - text: "Starting new hire process"
 
         - create_email_address:
             do:
@@ -259,15 +259,15 @@ New Code - Complete
         - print_finish:
             do:
               base.print:
-                - text: "'Created address: ' + address + ' for: ' + first_name + ' ' + last_name"
+                - text: "${'Created address: ' + address + ' for: ' + first_name + ' ' + last_name}"
 
         - on_failure:
           - print_fail:
               do:
                 base.print:
-                  - text: "'Failed to create address for: ' + first_name + ' ' + last_name"
+                  - text: "${'Failed to create address for: ' + first_name + ' ' + last_name}"
 
-**create\_user\_email**
+**create_user_email**
 
 .. code-block:: yaml
 
@@ -292,7 +292,7 @@ New Code - Complete
                 - last_name
                 - attempt
             publish:
-              - address: email_address
+              - address: ${email_address}
             navigate:
               SUCCESS: check_address
               FAILURE: FAILURE
@@ -302,7 +302,7 @@ New Code - Complete
               check_availability:
                 - address
             publish:
-              - availability: available
+              - availability: ${available}
             navigate:
               UNAVAILABLE: UNAVAILABLE
               AVAILABLE: CREATED

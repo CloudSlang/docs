@@ -13,7 +13,7 @@ Get Started
 The idea here is to continually try the ``create_user_email`` subflow
 until it either creates an available address or fails. To do so, we
 should be able to leave the subflow as is and just work on the
-``create_email_address`` task in **new\_hire.sl**.
+``create_email_address`` task in **new_hire.sl**.
 
 Loop Syntax
 -----------
@@ -26,21 +26,21 @@ numbers.
 
 .. code-block:: yaml
 
-        - create_email_address:
-            loop:
-              for: attempt in [1,2,3,4]
-              do:
-                create_user_email:
-                  - first_name
-                  - middle_name
-                  - last_name
-                  - attempt
-              publish:
-                - address
-            navigate:
-              CREATED: print_finish
-              UNAVAILABLE: print_fail
-              FAILURE: print_fail
+    - create_email_address:
+        loop:
+          for: attempt in [1,2,3,4]
+          do:
+            create_user_email:
+              - first_name
+              - middle_name
+              - last_name
+              - attempt
+          publish:
+            - address
+        navigate:
+          CREATED: print_finish
+          UNAVAILABLE: print_fail
+          FAILURE: print_fail
 
 YAML Note: A list can be written using bracket (``[]``) notation
 instead of using indentation and hyphens (``-``).
@@ -55,14 +55,14 @@ Default Behavior
 ----------------
 
 We can save the file and run the flow now and see how the loop works. It
-won't quite do what we want it to yet, but it will demonstrate what a
-loop's default behavior is. Play around a bit and with passing the
+won't quite do what we want yet, but it will demonstrate what a
+loop's default behavior is. Play around a bit with passing the
 optional middle name and not passing it to see what happens. Also try
 removing the last item in the loop expression's list.
 
 .. code-block:: bash
 
-    run --f <folder path>/tutorials/hiring/new_hire.sl --cp <folder path>/tutorials/base,<folder path>/tutorials/hiring --i first_name=john,middle_name=e,last_name=doe
+    run --f <folder path>/tutorials/hiring/new_hire.sl --cp <folder path>/tutorials --i first_name=john,middle_name=e,last_name=doe
 
 The first thing you'll notice is that the subflow is being run several
 times. This is what our loop has done. Next, you'll notice that
@@ -130,24 +130,24 @@ to break on, which in our case is ``CREATED`` or ``FAILURE``.
 
 .. code-block:: yaml
 
-        - create_email_address:
-            loop:
-              for: attempt in [1,2,3,4]
-              do:
-                create_user_email:
-                  - first_name
-                  - middle_name
-                  - last_name
-                  - attempt
-              publish:
-                - address
-              break:
-                - CREATED
-                - FAILURE
-            navigate:
-              CREATED: print_finish
-              UNAVAILABLE: print_fail
-              FAILURE: print_fail
+    - create_email_address:
+        loop:
+          for: attempt in [1,2,3,4]
+          do:
+            create_user_email:
+              - first_name
+              - middle_name
+              - last_name
+              - attempt
+          publish:
+            - address
+          break:
+            - CREATED
+            - FAILURE
+        navigate:
+          CREATED: print_finish
+          UNAVAILABLE: print_fail
+          FAILURE: print_fail
 
 In a case where we want the loop to continue no matter what happens, we
 would have to override the default break on a result of failure by
@@ -178,7 +178,7 @@ times.
 
 .. code-block:: bash
 
-    run --f <folder path>/tutorials/hiring/new_hire.sl --cp <folder path>/tutorials/base,<folder path>/tutorials/hiring --i first_name=john,last_name=doe
+    run --f <folder path>/tutorials/hiring/new_hire.sl --cp <folder path>/tutorials --i first_name=john,last_name=doe
 
 Up Next
 -------
@@ -211,7 +211,7 @@ New Code - Complete
         - print_start:
             do:
               base.print:
-                - text: "'Starting new hire process'"
+                - text: "Starting new hire process"
 
         - create_email_address:
             loop:
@@ -235,10 +235,10 @@ New Code - Complete
         - print_finish:
             do:
               base.print:
-                - text: "'Created address: ' + address + ' for: ' + first_name + ' ' + last_name"
+                - text: "${'Created address: ' + address + ' for: ' + first_name + ' ' + last_name}"
 
         - on_failure:
           - print_fail:
               do:
                 base.print:
-                  - text: "'Failed to create address for: ' + first_name + ' ' + last_name"
+                  - text: "${'Failed to create address for: ' + first_name + ' ' + last_name}"

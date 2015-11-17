@@ -23,11 +23,11 @@ add this functionality after the ``print_finish`` task.
 
 .. code-block:: yaml
 
-        - on_failure:
-          - print_fail:
-              do:
-                base.print:
-                  - text: "'Failed to create address: ' + address"
+    - on_failure:
+      - print_fail:
+          do:
+            base.print:
+              - text: "${'Failed to create address: ' + address}"
 
 Now, when any task receives a result of ``FAILURE`` from its operation
 the flow will navigate to the ``on_failure`` task by default.
@@ -81,22 +81,22 @@ New Code - Complete
         - print_start:
             do:
               base.print:
-                - text: "'Starting new hire process'"
+                - text: "Starting new hire process"
 
         - check_address:
             do:
               check_availability:
                 - address
             publish:
-              - availability: available
+              - availability: ${available}
 
         - print_finish:
             do:
               base.print:
-                - text: "'Availability for address ' + address + ' is: ' + str(availability)"
+                - text: "${'Availability for address ' + address + ' is: ' + str(availability)}"
 
         - on_failure:
           - print_fail:
               do:
                 base.print:
-                  - text: "'Failed to create address: ' + address"
+                  - text: "${'Failed to create address: ' + address}"

@@ -16,8 +16,7 @@ and notify them as to the status of the new hire's equipment order. If
 you're using a pre-built CLI you'll have a folder named **content** that
 contains all of the ready-made content. If you've built the CLI from the
 source code, you'll have to get the content mentioned below from the
-GitHub
-`repository <https://github.com/cloudslang/cloud-slang-content>`__ and
+GitHub `repository <https://github.com/cloudslang/cloud-slang-content>`__ and
 point to the right location when running the flow.
 
 Ready-Made Operation
@@ -60,7 +59,7 @@ When calling the operation, we'll need to pass values for all the
 arguments listed in the documentation that are not optional.
 
 You might have noticed that operation and flow inputs are generally
-named using snake\_case. This is in keeping with Python conventions,
+named using snake_case. This is in keeping with Python conventions,
 especially when using an operation that has a ``python_script`` type
 action. The ``send_mail`` operation though, uses a ``java_action`` so
 its inputs follow the Java camelCase convention.
@@ -91,20 +90,20 @@ defaults to true.
 
 .. code-block:: yaml
 
-        - send_mail:
-            do:
-              mail.send_mail:
-                - hostname: "'<host>'"
-                - port: "'<port>'"
-                - from: "'<from>'"
-                - to: "'<to>'"
-                - subject: "'New Hire: ' + first_name + ' ' + last_name"
-                - body: >
-                    'Created address: ' + address + ' for: ' + first_name + ' ' + last_name + '<br>' +
-                    'Missing items: ' + missing + ' Cost of ordered items: ' + str(total_cost)
-            navigate:
-              FAILURE: FAILURE
-              SUCCESS: SUCCESS
+    - send_mail:
+        do:
+          mail.send_mail:
+            - hostname: "<host>"
+            - port: "<port>"
+            - from: "<from>"
+            - to: "<to>"
+            - subject: "${'New Hire: ' + first_name + ' ' + last_name}"
+            - body: >
+                ${'Created address: ' + address + ' for: ' + first_name + ' ' + last_name + '<br>' +
+                'Missing items: ' + missing + ' Cost of ordered items: ' + str(total_cost)}
+        navigate:
+          FAILURE: FAILURE
+          SUCCESS: SUCCESS
 
 Run It
 ------
@@ -114,7 +113,7 @@ with the proper information.
 
 .. code-block:: bash
 
-    run --f <folder path>/tutorials/hiring/new_hire.sl --cp <folder path>/tutorials/base,<folder path>/tutorials/hiring,<content folder path>/io/cloudslang/base --i first_name=john,last_name=doe
+    run --f <folder path>/tutorials/hiring/new_hire.sl --cp <folder path>/tutorials/,<content folder path>/io/cloudslang/base --i first_name=john,last_name=doe
 
 Up Next
 -------
@@ -144,7 +143,7 @@ New Code - Complete
             required: false
         - last_name
         - missing:
-            default: "''"
+            default: ""
             overridable: false
         - total_cost:
             default: 0
@@ -156,7 +155,7 @@ New Code - Complete
         - print_start:
             do:
               base.print:
-                - text: "'Starting new hire process'"
+                - text: "Starting new hire process"
 
         - create_email_address:
             loop:
@@ -185,8 +184,8 @@ New Code - Complete
                   - item
                   - price
               publish:
-                - missing: self['missing'] + unavailable
-                - total_cost: self['total_cost'] + cost
+                - missing: ${self['missing'] + unavailable}
+                - total_cost: ${self['total_cost'] + cost}
             navigate:
               AVAILABLE: print_finish
               UNAVAILABLE: print_finish
@@ -195,20 +194,20 @@ New Code - Complete
             do:
               base.print:
                 - text: >
-                    'Created address: ' + address + ' for: ' + first_name + ' ' + last_name + '\n' +
-                    'Missing items: ' + missing + ' Cost of ordered items: ' + str(total_cost)
+                    ${'Created address: ' + address + ' for: ' + first_name + ' ' + last_name + '\n' +
+                    'Missing items: ' + missing + ' Cost of ordered items: ' + str(total_cost)}
 
         - send_mail:
             do:
               mail.send_mail:
-                - hostname: "'<host>'"
-                - port: "'<port>'"
-                - from: "'<from>'"
-                - to: "'<to>'"
-                - subject: "'New Hire: ' + first_name + ' ' + last_name"
+                - hostname: "<host>"
+                - port: "<port>"
+                - from: "<from>"
+                - to: "<to>"
+                - subject: "${'New Hire: ' + first_name + ' ' + last_name}"
                 - body: >
-                    'Created address: ' + address + ' for: ' + first_name + ' ' + last_name + '<br>' +
-                    'Missing items: ' + missing + ' Cost of ordered items: ' + str(total_cost)
+                    ${'Created address: ' + address + ' for: ' + first_name + ' ' + last_name + '<br>' +
+                    'Missing items: ' + missing + ' Cost of ordered items: ' + str(total_cost)}
             navigate:
               FAILURE: FAILURE
               SUCCESS: SUCCESS
@@ -217,4 +216,4 @@ New Code - Complete
           - print_fail:
               do:
                 base.print:
-                  - text: "'Failed to create address for: ' + first_name + ' ' + last_name"
+                  - text: "${'Failed to create address for: ' + first_name + ' ' + last_name}"

@@ -162,7 +162,7 @@ Code
         - sayHi:
             do:
               ops.print:
-                - text: input1
+                - text: "input1"
 
 **Operation - print.sl**
 
@@ -172,10 +172,13 @@ Code
 
     operation:
       name: print
+
       inputs:
         - text
+
       action:
         python_script: print text
+
       results:
         - SUCCESS
 
