@@ -157,7 +157,7 @@ double quotes (``"``).
 
     - expression1: "${var1 + ': ' + var2}"
     - expression2: >
-      ${var1 + ': ' + var2}
+        ${var1 + ': ' + var2}
     - expression3: |
         ${var1 + ': ' + var2}
 
@@ -611,7 +611,10 @@ example.
 Arguments may be passed to a `task <#task>`__ in one of two ways:
 
 -  list of argument names and optional mapped `expressions <#expressions>`__
--  comma-separated ``argument_name = optional_expression`` pairs
+-  single-line syntax of comma-separated ``argument_name = optional_expression`` pairs
+
+When using the single-line syntax, all taks arguments must be
+`expressions <#expressions>`__.
 
 `Expression <#expressions>`__ values will supersede values bound to flow
 `inputs <#inputs>`__ with the same name.
