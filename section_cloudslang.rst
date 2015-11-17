@@ -14,4 +14,4 @@ Contents:
    Best Practices <cloudslang_best_practices>
    CLI <cloudslang_cli>
    Build Tool <cloudslang_build_tool>
-   Sublime Integration <sublime_integration>
+   Editors <cloudslang_editors>
