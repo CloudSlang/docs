@@ -109,6 +109,9 @@ Expressions
 
 Many CloudSlang keys map to either an expression or literal value.
 
+Literal Values
+--------------
+
 Literal values are denoted as they are in standard YAML. Numbers are interpreted
 as numerical values and strings may be written unquoted, single quoted or double
 quoted.
@@ -122,8 +125,11 @@ quoted.
     literal_single_quoted_string: 'cloudslang'
     literal_double_quoted_string: "cloudslang"
 
-**Note:** the use of unquoted strings where an expression is allowed is strongly
+**Note:** The use of unquoted strings where an expression is allowed is strongly
 discouraged.
+
+Standard Expressions
+--------------------
 
 Expressions are preceded by a dollar sign (``$``) and enclosed in curly brackets
 (``{}``).
@@ -132,9 +138,45 @@ Expressions are preceded by a dollar sign (``$``) and enclosed in curly brackets
 
 .. code-block:: yaml
 
-    expression_1: ${4 + 7}
-    expression_2: ${some_input}
-    expression_3: ${get('input1', 'default_input')}
+    - expression_1: ${4 + 7}
+    - expression_2: ${some_input}
+    - expression_3: ${get('input1', 'default_input')}
+
+Expressions with Special Characters
+-----------------------------------
+
+Expressions that contain characters that are considered special characters in
+YAML must be enclosed in quotes or use YAML block notation. If using quotes, use
+the style of quotes that are not already used in the expression. For example, if
+your expression contains single quotes (``'``), enclose the expression using
+double quotes (``"``).
+
+**Example: escaping special characters**
+
+.. code-block:: yaml
+
+    - expression1: "${var1 + ': ' + var2}"
+    - expression2: >
+      ${var1 + ': ' + var2}
+    - expression3: |
+        ${var1 + ': ' + var2}
+
+Maps
+----
+
+To pass a map where an expression is allowed use the `default <#default>`__
+property. It is possible to use two sets of quotes and an expression marker
+instead, but that approach is not as clean.
+
+.. code-block:: yaml
+
+    - map1:
+        default: {a: 1, b: c}
+    - map2:
+        default: {'a key': 1, b: c}
+    - map3: "${{'a key': 1, 'b': 'c'}}"
+    - map4: >
+        ${{'a key': 1, 'b': 'c'}}
 
 Keywords (A-Z)
 ==============
@@ -1208,7 +1250,7 @@ The results of a `flow <#flow>`__ or `operation <#operation>`__ can be
 used by the calling `task <#task>`__ for `navigation <#navigate>`__
 purposes.
 
-**Note:** the only results of an `operation <#operation>`__ or
+**Note:** The only results of an `operation <#operation>`__ or
 `subflow <#flow>`__ called in an `async_loop <#async-loop>`__ that are
 evaluated are ``SUCCESS`` and ``FAILURE``. Any other results will be
 evaluated as ``SUCCESS``.
@@ -1355,6 +1397,28 @@ There are several types of tasks:
 -  `standard <#standard-task>`__
 -  `iterative <#iterative-task>`__
 -  `asynchronous <#asynchronous-task>`__
+
+All types of tasks may take task arguments. Task arguments may be defined using
+a standard YAML list or using the single-line syntax. When using the single-line
+syntax, all taks arguments must be `expressions <#expressions>`__.
+
+**Example - standard YAML list of task arguments**
+
+.. code-block:: yaml
+
+    - divider:
+        do:
+          divide:
+            - dividend: ${input1}
+            - divisor: "5"
+
+**Example - single-line task arguments syntax**
+
+.. code-block:: yaml
+
+    - divider:
+        do:
+          divide: dividend = ${input1}, divisor = ${"5"}
 
 Standard Task
 ~~~~~~~~~~~~~

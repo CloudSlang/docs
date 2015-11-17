@@ -10,7 +10,7 @@ declaring our own results and navigating based on them.
 Get Started
 -----------
 
-Once again, we'll continue working on the flow in **new\_hire.sl**. This
+Once again, we'll continue working on the flow in **new_hire.sl**. This
 time though, we'll try to replicate the default navigation behavior
 using explicit custom navigation. To do that we'll have to change
 **check_availability.sl** as well.
@@ -25,9 +25,9 @@ closely reflect what is actually going on. Instead of using the default
 
 .. code-block:: yaml
 
-      results:
-        - UNAVAILABLE: rand == 0
-        - AVAILABLE
+    results:
+      - UNAVAILABLE: ${rand == 0}
+      - AVAILABLE
 
 Custom Navigation
 -----------------
@@ -42,15 +42,15 @@ mapped to the task that should be navigated to when returned.
 
 .. code-block:: yaml
 
-        - check_address:
-            do:
-              check_availability:
-                - address
-            publish:
-              - availability: available
-            navigate:
-              UNAVAILABLE: print_fail
-              AVAILABLE: print_finish
+    - check_address:
+        do:
+          check_availability:
+            - address
+        publish:
+          - availability: ${available}
+        navigate:
+          UNAVAILABLE: print_fail
+          AVAILABLE: print_finish
 
 Run It
 ------
@@ -91,14 +91,14 @@ New Code - Complete
         - print_start:
             do:
               base.print:
-                - text: "'Starting new hire process'"
+                - text: "Starting new hire process"
 
         - check_address:
             do:
               check_availability:
                 - address
             publish:
-              - availability: available
+              - availability: ${available}
             navigate:
               UNAVAILABLE: print_fail
               AVAILABLE: print_finish
@@ -106,13 +106,13 @@ New Code - Complete
         - print_finish:
             do:
               base.print:
-                - text: "'Availability for address ' + address + ' is: ' + str(availability)"
+                - text: "${'Availability for address ' + address + ' is: ' + str(availability)}"
 
         - on_failure:
           - print_fail:
               do:
                 base.print:
-                  - text: "'Failed to create address: ' + address"
+                  - text: "${'Failed to create address: ' + address}"
 
 **check_availability.sl**
 
@@ -134,8 +134,8 @@ New Code - Complete
           #print vacant
 
       outputs:
-        - available: vacant
+        - available: ${vacant}
 
       results:
-        - UNAVAILABLE: rand == 0
+        - UNAVAILABLE: ${rand == 0}
         - AVAILABLE

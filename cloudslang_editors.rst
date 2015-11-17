@@ -19,7 +19,7 @@ Download, Install and Configure Atom
   * From the Atom UI: **File > Settings > Install** and search for language-cloudslang
   * From the command line: ``apm install language-cloudslang``
 
-  **Note:** if you are behind a proxy server you may need to configure Atom as
+  **Note:** If you are behind a proxy server you may need to configure Atom as
   described in their `documentation
   <https://atom.io/docs/v1.1.0/getting-started-installing-atom#setting-up-a-proxy>`__.
 
@@ -71,7 +71,7 @@ Sublime Text
 To ease the CloudSlang coding process you can use our Sublime Text
 snippets.
 
-**Note:** we are no longer actively developing our Sublime Text snippets.
+**Note:** We are no longer actively developing our Sublime Text snippets.
 
 Download, Install and Configure Sublime
 ---------------------------------------

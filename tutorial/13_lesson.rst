@@ -14,7 +14,7 @@ We'll need to create a system property file that contains the values we
 want to use for the inputs. Let's create a **properties** folder under
 **tutorials** and in there create a file named **bcompany.yaml**. We'll
 also need to use the system properties somewhere. We'll use then in the
-**new_hire.sl** **generate_user_email.sl** files.
+**new_hire.sl** and **generate_user_email.sl** files.
 
 System Properties File
 ----------------------
@@ -56,16 +56,16 @@ properties file.
 
 .. code-block:: yaml
 
-      inputs:
-        - first_name
-        - middle_name:
-            default: "''"
-        - last_name
-        - domain:
-            system_property: tutorials.hiring.domain
-            default: "'acompany.com'"
-            overridable: false
-        - attempt
+    inputs:
+      - first_name
+      - middle_name:
+          default: ""
+      - last_name
+      - domain:
+          system_property: tutorials.hiring.domain
+          default: "acompany.com"
+          overridable: false
+      - attempt
 
 Let's see how the system property works in relation to other possible
 values for the input. To do so, we'll just run the
@@ -98,44 +98,44 @@ taken from the system properties file.
 
 .. code-block:: yaml
 
-      inputs:
-        - first_name
-        - middle_name:
-            required: false
-        - last_name
-        - missing:
-            default: "''"
-            overridable: false
-        - total_cost:
-            default: 0
-            overridable: false
-        - order_map: >
-            {'laptop': 1000, 'docking station':200, 'monitor': 500, 'phone': 100}
-        - hostname:
-            system_property: tutorials.hiring.hostname
-        - port:
-            system_property: tutorials.hiring.port
-        - from:
-            system_property: tutorials.hiring.system_address
-        - to:
-            system_property: tutorials.hiring.hr_address
+    inputs:
+      - first_name
+      - middle_name:
+          required: false
+      - last_name
+      - missing:
+          default: ""
+          overridable: false
+      - total_cost:
+          default: 0
+          overridable: false
+      - order_map:
+          default: {'laptop': 1000, 'docking station':200, 'monitor': 500, 'phone': 100}
+      - hostname:
+          system_property: tutorials.hiring.hostname
+      - port:
+          system_property: tutorials.hiring.port
+      - from:
+          system_property: tutorials.hiring.system_address
+      - to:
+          system_property: tutorials.hiring.hr_address
 
 .. code-block:: yaml
 
-        - send_mail:
-            do:
-              mail.send_mail:
-                - hostname
-                - port
-                - from
-                - to
-                - subject: "'New Hire: ' + first_name + ' ' + last_name"
-                - body: >
-                    'Created address: ' + address + ' for: ' + first_name + ' ' + last_name + '<br>' +
-                    'Missing items: ' + missing + ' Cost of ordered items: ' + str(total_cost)
-            navigate:
-              FAILURE: FAILURE
-              SUCCESS: SUCCESS
+    - send_mail:
+        do:
+          mail.send_mail:
+            - hostname
+            - port
+            - from
+            - to
+            - subject: "${'New Hire: ' + first_name + ' ' + last_name}"
+            - body: >
+                ${'Created address: ' + address + ' for: ' + first_name + ' ' + last_name + '<br>' +
+                'Missing items: ' + missing + ' Cost of ordered items: ' + str(total_cost)}
+        navigate:
+          FAILURE: FAILURE
+          SUCCESS: SUCCESS
 
 Run It
 ------
@@ -147,7 +147,7 @@ system properties file.
 
 .. code-block:: bash
 
-    run --f <folder path>/tutorials/hiring/new_hire.sl --cp <folder path>/tutorials/base,<folder path>/tutorials/hiring,<content folder path>/base --i first_name=john,last_name=doe --spf <folder path>/tutorials/properties/bcompany.yaml
+    run --f <folder path>/tutorials/hiring/new_hire.sl --cp <folder path>/tutorials,<content folder path>/base --i first_name=john,last_name=doe --spf <folder path>/tutorials/properties/bcompany.yaml
 
 Up Next
 -------
@@ -177,13 +177,13 @@ New Code - Complete
             required: false
         - last_name
         - missing:
-            default: "''"
+            default: ""
             overridable: false
         - total_cost:
             default: 0
             overridable: false
-        - order_map: >
-            {'laptop': 1000, 'docking station':200, 'monitor': 500, 'phone': 100}
+        - order_map:
+            default: {'laptop': 1000, 'docking station':200, 'monitor': 500, 'phone': 100}
         - hostname:
             system_property: tutorials.hiring.hostname
         - port:
@@ -197,7 +197,7 @@ New Code - Complete
         - print_start:
             do:
               base.print:
-                - text: "'Starting new hire process'"
+                - text: "Starting new hire process"
 
         - create_email_address:
             loop:
@@ -227,8 +227,8 @@ New Code - Complete
                   - item
                   - price
               publish:
-                - missing: self['missing'] + unavailable
-                - total_cost: self['total_cost'] + cost
+                - missing: ${self['missing'] + unavailable}
+                - total_cost: ${self['total_cost'] + cost}
             navigate:
               AVAILABLE: print_finish
               UNAVAILABLE: print_finish
@@ -237,8 +237,8 @@ New Code - Complete
             do:
               base.print:
                 - text: >
-                    'Created address: ' + address + ' for: ' + first_name + ' ' + last_name + '\n' +
-                    'Missing items: ' + missing + ' Cost of ordered items: ' + str(total_cost)
+                    ${'Created address: ' + address + ' for: ' + first_name + ' ' + last_name + '\n' +
+                    'Missing items: ' + missing + ' Cost of ordered items: ' + str(total_cost)}
 
         - send_mail:
             do:
@@ -247,10 +247,10 @@ New Code - Complete
                 - port
                 - from
                 - to
-                - subject: "'New Hire: ' + first_name + ' ' + last_name"
+                - subject: "${'New Hire: ' + first_name + ' ' + last_name}"
                 - body: >
-                    'Created address: ' + address + ' for: ' + first_name + ' ' + last_name + '<br>' +
-                    'Missing items: ' + missing + ' Cost of ordered items:' + str(total_cost)
+                    ${'Created address: ' + address + ' for: ' + first_name + ' ' + last_name + '<br>' +
+                    'Missing items: ' + missing + ' Cost of ordered items:' + str(total_cost)}
             navigate:
               FAILURE: FAILURE
               SUCCESS: SUCCESS
@@ -259,7 +259,7 @@ New Code - Complete
           - print_fail:
               do:
                 base.print:
-                  - text: "'Failed to create address for: ' + first_name + ' ' + last_name"
+                  - text: "${'Failed to create address for: ' + first_name + ' ' + last_name}"
 
 **generate_user_email.sl**
 
@@ -273,11 +273,11 @@ New Code - Complete
       inputs:
         - first_name
         - middle_name:
-            default: "''"
+            default: ""
         - last_name
         - domain:
             system_property: tutorials.hiring.domain
-            default: "'acompany.com'"
+            default: "acompany.com"
             overridable: false
         - attempt
 
@@ -295,10 +295,10 @@ New Code - Complete
           #print address
 
       outputs:
-        - email_address: address
+        - email_address: ${address}
 
       results:
-        - FAILURE: address == ''
+        - FAILURE: ${address == ''}
         - SUCCESS
 
 **bcompany.yaml**

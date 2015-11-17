@@ -122,12 +122,12 @@ our email. We'll put the new task between ``print_finish`` and
 
 .. code:: yaml
 
-        - fancy_name:
-            do:
-              fancy_text:
-                - text: first_name + ' ' + last_name
-            publish:
-              - fancy_text: fancy
+    - fancy_name:
+        do:
+          fancy_text:
+            - text: ${first_name + ' ' + last_name}
+        publish:
+          - fancy_text: ${fancy}
 
 Use It
 ------
@@ -137,21 +137,21 @@ fancy text.
 
 .. code:: yaml
 
-        - send_mail:
-            do:
-              mail.send_mail:
-                - hostname
-                - port
-                - from
-                - to
-                - subject: "'New Hire: ' + first_name + ' ' + last_name"
-                - body: >
-                    fancy_text + '<br>' +
-                    'Created address: ' + address + ' for: ' + first_name + ' ' + last_name + '<br>' +
-                    'Missing items: ' + missing + ' Cost of ordered items: ' + str(total_cost)
-            navigate:
-              FAILURE: FAILURE
-              SUCCESS: SUCCESS
+    - send_mail:
+        do:
+          mail.send_mail:
+            - hostname
+            - port
+            - from
+            - to
+            - subject: "${'New Hire: ' + first_name + ' ' + last_name}"
+            - body: >
+                ${fancy_text + '<br>' +
+                'Created address: ' + address + ' for: ' + first_name + ' ' + last_name + '<br>' +
+                'Missing items: ' + missing + ' Cost of ordered items: ' + str(total_cost)}
+        navigate:
+          FAILURE: FAILURE
+          SUCCESS: SUCCESS
 
 Run It
 ------
@@ -161,7 +161,7 @@ include the new fancy text we added to it.
 
 .. code:: bash
 
-    run --f <folder path>/tutorials/hiring/new_hire.sl --cp <folder path>/tutorials/base,<folder path>/tutorials/hiring,<content folder path>/base --i first_name=john,last_name=doe --spf <folder path>/tutorials/properties/bcompany.yaml
+    run --f <folder path>/tutorials/hiring/new_hire.sl --cp <folder path>/tutorials,<content folder path>/base --i first_name=john,last_name=doe --spf <folder path>/tutorials/properties/bcompany.yaml
 
 Up Next
 -------
@@ -190,13 +190,13 @@ New Code - Complete
             required: false
         - last_name
         - missing:
-            default: "''"
+            default: ""
             overridable: false
         - total_cost:
             default: 0
             overridable: false
-        - order_map: >
-            {'laptop': 1000, 'docking station':200, 'monitor': 500, 'phone': 100}
+        - order_map:
+            default: {'laptop': 1000, 'docking station':200, 'monitor': 500, 'phone': 100}
         - hostname:
             system_property: tutorials.hiring.hostname
         - port:
@@ -210,7 +210,7 @@ New Code - Complete
         - print_start:
             do:
               base.print:
-                - text: "'Starting new hire process'"
+                - text: "Starting new hire process"
 
         - create_email_address:
             loop:
@@ -239,8 +239,8 @@ New Code - Complete
                   - item
                   - price
               publish:
-                - missing: self['missing'] + unavailable
-                - total_cost: self['total_cost'] + cost
+                - missing: ${self['missing'] + unavailable}
+                - total_cost: ${self['total_cost'] + cost}
             navigate:
               AVAILABLE: print_finish
               UNAVAILABLE: print_finish
@@ -249,15 +249,15 @@ New Code - Complete
             do:
               base.print:
                 - text: >
-                    'Created address: ' + address + ' for: ' + first_name + ' ' + last_name + '\n' +
-                    'Missing items: ' + missing + ' Cost of ordered items: ' + str(total_cost)
+                    ${'Created address: ' + address + ' for: ' + first_name + ' ' + last_name + '\n' +
+                    'Missing items: ' + missing + ' Cost of ordered items: ' + str(total_cost)}
 
         - fancy_name:
             do:
               fancy_text:
-                - text: first_name + ' ' + last_name
+                - text: ${first_name + ' ' + last_name}
             publish:
-              - fancy_text: fancy
+              - fancy_text: ${fancy}
 
         - send_mail:
             do:
@@ -266,11 +266,11 @@ New Code - Complete
                 - port
                 - from
                 - to
-                - subject: "'New Hire: ' + first_name + ' ' + last_name"
+                - subject: "${'New Hire: ' + first_name + ' ' + last_name}"
                 - body: >
-                    fancy_text + '<br>' +
+                    ${fancy_text + '<br>' +
                     'Created address: ' + address + ' for: ' + first_name + ' ' + last_name + '<br>' +
-                    'Missing items: ' + missing + ' Cost of ordered items:' + str(total_cost)
+                    'Missing items: ' + missing + ' Cost of ordered items:' + str(total_cost)}
             navigate:
               FAILURE: FAILURE
               SUCCESS: SUCCESS
@@ -279,7 +279,7 @@ New Code - Complete
           - print_fail:
               do:
                 base.print:
-                  - text: "'Failed to create address for: ' + first_name + ' ' + last_name"
+                  - text: "${'Failed to create address for: ' + first_name + ' ' + last_name}"
 
 **fancy_text.sl**
 

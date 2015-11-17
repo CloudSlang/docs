@@ -31,9 +31,9 @@ proper indentation.
 
 .. code-block:: yaml
 
-      outputs:
-        - address
-        - total_cost
+    outputs:
+      - address
+      - total_cost
 
 Parent Flow
 -----------
@@ -73,14 +73,14 @@ looping. Each branch of the loop will call the ``new_hire`` flow.
 
 .. code-block:: yaml
 
-        - process_all:
-            async_loop:
-              for: name in names_list
-              do:
-                new_hire:
-                  - first_name: name['first']
-                  - middle_name: name.get('middle','')
-                  - last_name: name['last']
+    - process_all:
+        async_loop:
+          for: name in names_list
+          do:
+            new_hire:
+              - first_name: ${name['first']}
+              - middle_name: ${name.get('middle','')}
+              - last_name: ${name['last']}
 
 As you can see, so far it is almost identical to a regular for loop,
 except the ``loop`` key has been replaced by ``async_loop``.
@@ -106,17 +106,17 @@ we just added to the ``new_hire`` flow.
 
 .. code-block:: yaml
 
-        - process_all:
-            async_loop:
-              for: name in names_list
-              do:
-                new_hire:
-                  - first_name: name['first']
-                  - middle_name: name.get('middle','')
-                  - last_name: name['last']
-              publish:
-                - address
-                - total_cost
+    - process_all:
+        async_loop:
+          for: name in names_list
+          do:
+            new_hire:
+              - first_name: ${name['first']}
+              - middle_name: ${name.get('middle','')}
+              - last_name: ${name['last']}
+          publish:
+            - address
+            - total_cost
 
 Aggregate
 ---------
@@ -147,19 +147,19 @@ aggregations.
 .. code-block:: yaml
 
     - process_all:
-            async_loop:
-              for: name in names_list
-              do:
-                new_hire:
-                  - first_name: name['first']
-                  - middle_name: name.get('middle','')
-                  - last_name: name['last']
-              publish:
-                - address
-                - total_cost
-            aggregate:
-              - email_list: filter(lambda x:x != '', map(lambda x:str(x['address']), branches_context))
-              - cost: sum(map(lambda x:x['total_cost'], branches_context))
+        async_loop:
+          for: name in names_list
+          do:
+            new_hire:
+              - first_name: ${name['first']}
+              - middle_name: ${name.get('middle','')}
+              - last_name: ${name['last']}
+          publish:
+            - address
+            - total_cost
+        aggregate:
+          - email_list: ${filter(lambda x:x != '', map(lambda x:str(x['address']), branches_context))}
+          - cost: ${sum(map(lambda x:x['total_cost'], branches_context))}
 
 In our case we use the ``map()``, ``filter()`` and ``sum()`` Python
 functions to create a list of all the email addresses that were created
@@ -181,23 +181,23 @@ navigate to the ``print_success`` task.
 
 .. code-block:: yaml
 
-        - process_all:
-            async_loop:
-              for: name in names_list
-              do:
-                new_hire:
-                  - first_name: name['first']
-                  - middle_name: name.get('middle','')
-                  - last_name: name['last']
-              publish:
-                - address
-                - total_cost
-            aggregate:
-              - email_list: filter(lambda x:x != '', map(lambda x:str(x['address']), branches_context))
-              - cost: sum(map(lambda x:x['total_cost'], branches_context))
-            navigate:
-              SUCCESS: print_success
-              FAILURE: print_failure
+    - process_all:
+        async_loop:
+          for: name in names_list
+          do:
+            new_hire:
+              - first_name: ${name['first']}
+              - middle_name: ${name.get('middle','')}
+              - last_name: ${name['last']}
+          publish:
+            - address
+            - total_cost
+        aggregate:
+          - email_list: ${filter(lambda x:x != '', map(lambda x:str(x['address']), branches_context))}
+          - cost: ${sum(map(lambda x:x['total_cost'], branches_context))}
+        navigate:
+          SUCCESS: print_success
+          FAILURE: print_failure
 
 Input File
 ----------
@@ -228,20 +228,20 @@ section. We can put them right after the ``process_all`` task.
 
 .. code-block:: yaml
 
-        - print_success:
+    - print_success:
+        do:
+          base.print:
+            - text: >
+                ${"All addresses were created successfully.\nEmail addresses created: "
+                + str(email_list) + "\nTotal cost: " + str(cost)}
+
+    - on_failure:
+        - print_failure:
             do:
               base.print:
                 - text: >
-                    "All addresses were created successfully.\nEmail addresses created: "
-                    + str(email_list) + "\nTotal cost: " + str(cost)
-
-        - on_failure:
-            - print_failure:
-                do:
-                  base.print:
-                    - text: >
-                        "Some addresses were not created or there is an email issue.\nEmail addresses created: "
-                        + str(email_list) + "\nTotal cost: " + str(cost)
+                    ${"Some addresses were not created or there is an email issue.\nEmail addresses created: "
+                    + str(email_list) + "\nTotal cost: " + str(cost)}
 
 Run It
 ------
@@ -254,7 +254,7 @@ flow, and in each of its subflows, is run for each of the people in the
 
 .. code-block:: bash
 
-    run --f <folder path>/tutorials/hiring/hire_all.sl --cp <folder path>/tutorials/base,<folder path>/tutorials/hiring,<content folder path>/base --if <folder path>/tutorials/inputs/hires.yaml --spf <folder path>/tutorials/properties/bcompany.yaml
+    run --f <folder path>/tutorials/hiring/hire_all.sl --cp <folder path>/tutorials,<content folder path>/base --if <folder path>/tutorials/inputs/hires.yaml --spf <folder path>/tutorials/properties/bcompany.yaml
 
 New Code - Complete
 -------------------
@@ -278,13 +278,13 @@ New Code - Complete
             required: false
         - last_name
         - missing:
-            default: "''"
+            default: ""
             overridable: false
         - total_cost:
             default: 0
             overridable: false
-        - order_map: >
-            {'laptop': 1000, 'docking station':200, 'monitor': 500, 'phone': 100}
+        - order_map:
+            default: {'laptop': 1000, 'docking station':200, 'monitor': 500, 'phone': 100}
         - hostname:
             system_property: tutorials.hiring.hostname
         - port:
@@ -298,7 +298,7 @@ New Code - Complete
         - print_start:
             do:
               base.print:
-                - text: "'Starting new hire process'"
+                - text: "Starting new hire process"
 
         - create_email_address:
             loop:
@@ -327,8 +327,8 @@ New Code - Complete
                   - item
                   - price
               publish:
-                - missing: self['missing'] + unavailable
-                - total_cost: self['total_cost'] + cost
+                - missing: ${self['missing'] + unavailable}
+                - total_cost: ${self['total_cost'] + cost}
             navigate:
               AVAILABLE: print_finish
               UNAVAILABLE: print_finish
@@ -337,15 +337,15 @@ New Code - Complete
             do:
               base.print:
                 - text: >
-                    'Created address: ' + address + ' for: ' + first_name + ' ' + last_name + '\n' +
-                    'Missing items: ' + missing + ' Cost of ordered items: ' + str(total_cost)
+                    ${'Created address: ' + address + ' for: ' + first_name + ' ' + last_name + '\n' +
+                    'Missing items: ' + missing + ' Cost of ordered items: ' + str(total_cost)}
 
         - fancy_name:
             do:
               fancy_text:
-                - text: first_name + ' ' + last_name
+                - text: ${first_name + ' ' + last_name}
             publish:
-              - fancy_text: fancy
+              - fancy_text: ${fancy}
 
         - send_mail:
             do:
@@ -354,11 +354,11 @@ New Code - Complete
                 - port
                 - from
                 - to
-                - subject: "'New Hire: ' + first_name + ' ' + last_name"
+                - subject: "${'New Hire: ' + first_name + ' ' + last_name}"
                 - body: >
-                    fancy_text + '<br>' +
+                    ${fancy_text + '<br>' +
                     'Created address: ' + address + ' for: ' + first_name + ' ' + last_name + '<br>' +
-                    'Missing items: ' + missing + ' Cost of ordered items: ' + str(total_cost)
+                    'Missing items: ' + missing + ' Cost of ordered items: ' + str(total_cost)}
             navigate:
               FAILURE: FAILURE
               SUCCESS: SUCCESS
@@ -367,7 +367,7 @@ New Code - Complete
           - print_fail:
               do:
                 base.print:
-                  - text: "'Failed to create address for: ' + first_name + ' ' + last_name"
+                  - text: "${'Failed to create address for: ' + first_name + ' ' + last_name}"
 
       outputs:
         - address
@@ -394,15 +394,15 @@ New Code - Complete
               for: name in names_list
               do:
                 new_hire:
-                  - first_name: name['first']
-                  - middle_name: name.get('middle','')
-                  - last_name: name['last']
+                  - first_name: ${name['first']}
+                  - middle_name: ${name.get('middle','')}
+                  - last_name: ${name['last']}
               publish:
                 - address
                 - total_cost
             aggregate:
-              - email_list: filter(lambda x:x != '', map(lambda x:str(x['address']), branches_context))
-              - cost: sum(map(lambda x:x['total_cost'], branches_context))
+              - email_list: ${filter(lambda x:x != '', map(lambda x:str(x['address']), branches_context))}
+              - cost: ${sum(map(lambda x:x['total_cost'], branches_context))}
             navigate:
               SUCCESS: print_success
               FAILURE: print_failure
@@ -411,16 +411,16 @@ New Code - Complete
             do:
               base.print:
                 - text: >
-                    "All addresses were created successfully.\nEmail addresses created: "
-                    + str(email_list) + "\nTotal cost: " + str(cost)
+                    ${"All addresses were created successfully.\nEmail addresses created: "
+                    + str(email_list) + "\nTotal cost: " + str(cost)}
 
         - on_failure:
             - print_failure:
                 do:
                   base.print:
                     - text: >
-                        "Some addresses were not created or there is an email issue.\nEmail addresses created: "
-                        + str(email_list) + "\nTotal cost: " + str(cost)
+                        ${"Some addresses were not created or there is an email issue.\nEmail addresses created: "
+                        + str(email_list) + "\nTotal cost: " + str(cost)}
 
 **hires.yaml**
 

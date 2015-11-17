@@ -50,11 +50,11 @@ output.
           if rand == 0: print 'Unavailable'
 
       outputs:
-        - unavailable: not_ordered
-        - cost: price
+        - unavailable: ${not_ordered}
+        - cost: ${price}
 
       results:
-        - UNAVAILABLE: rand == 0
+        - UNAVAILABLE: ${rand == 0}
         - AVAILABLE
 
 Task
@@ -66,51 +66,55 @@ a loop. This time we'll loop through a map of items and their prices.
 
 .. code-block:: yaml
 
-        - get_equipment:
-            loop:
-              for: item, price in order_map
-              do:
-                order:
-                  - item
-                  - price
+    - get_equipment:
+        loop:
+          for: item, price in order_map
+          do:
+            order:
+              - item
+              - price
 
 We'll also need to create some input variables first. One variable, that
-we'll call ``order_map``, will contain the map we're looping on. Also,
-each time through the loop we want to aggregate the data that is output.
+we'll call ``order_map``, will contain the map we're looping on. Notice how a
+map is most easily passed as an input value using the ``default`` property.
+
+Also, each time through the loop we want to aggregate the data that is output.
 We'll create two variables, ``missing`` and ``total_cost``, for this
 purpose, defining them as ``overridable`` and giving them default values
 to start with.
 
 .. code-block:: yaml
 
-      inputs:
-        - first_name
-        - middle_name:
-            required: false
-        - last_name
-        - missing:
-            default: "''"
-            overridable: false
-        - total_cost:
-            default: 0
-            overridable: false
-        - order_map: >
-            {'laptop': 1000, 'docking station':200, 'monitor': 500, 'phone': 100}
+    inputs:
+      - first_name
+      - middle_name:
+          required: false
+      - last_name
+      - missing:
+          default: ""
+          overridable: false
+      - total_cost:
+          default: 0
+          overridable: false
+      - order_map:
+          default: {'laptop': 1000, 'docking station':200, 'monitor': 500, 'phone': 100}
 
 Now we can perform the aggregation. In ``get_equipment`` task's publish
 section, we'll add the output variables to the ones we just created in
 the flow inputs and publish them back to the flow. This will run for
 each iteration after the operation has completed, aggregating all the
-data. Notice the usage of the ``self['']`` syntax to indicate that we're
+data.
+
+Notice the usage of the ``self['']`` syntax to indicate that we're
 referring to the variable that exists on the flow level and not a
 variable with the same name that might have been returned from the
 operation.
 
 .. code-block:: yaml
 
-              publish:
-                - missing: self['missing'] + unavailable
-                - total_cost: self['total_cost'] + cost
+    publish:
+      - missing: ${self['missing'] + unavailable}
+      - total_cost: ${self['total_cost'] + cost}
 
 Finally we have to rewire all the navigation logic to take into account
 our new task.
@@ -120,19 +124,19 @@ successful email address creations to ``get_equipment``.
 
 .. code-block:: yaml
 
-            navigate:
-              CREATED: get_equipment
-              UNAVAILABLE: print_fail
-              FAILURE: print_fail
+    navigate:
+      CREATED: get_equipment
+      UNAVAILABLE: print_fail
+      FAILURE: print_fail
 
 And we need to add navigation to the ``get_equipment`` task. We'll
 always go to ``print_finish`` no matter what happens.
 
 .. code-block:: yaml
 
-            navigate:
-              AVAILABLE: print_finish
-              UNAVAILABLE: print_finish
+    navigate:
+      AVAILABLE: print_finish
+      UNAVAILABLE: print_finish
 
 Finish
 ------
@@ -142,12 +146,12 @@ reflects the status the equipment order.
 
 .. code-block:: yaml
 
-        - print_finish:
-            do:
-              base.print:
-                - text: >
-                    'Created address: ' + address + ' for: ' + first_name + ' ' + last_name + '\n' +
-                    'Missing items: ' + missing + ' Cost of ordered items: ' + str(total_cost)
+    - print_finish:
+        do:
+          base.print:
+            - text: >
+                ${'Created address: ' + address + ' for: ' + first_name + ' ' + last_name + '\n' +
+                'Missing items: ' + missing + ' Cost of ordered items: ' + str(total_cost)}
 
 Run It
 ------
@@ -157,7 +161,7 @@ place, the proper information is aggregated and then it is printed.
 
 .. code-block:: bash
 
-    run --f <folder path>/tutorials/hiring/new_hire.sl --cp <folder path>/tutorials/base,<folder path>/tutorials/hiring --i first_name=john,middle_name=e,last_name=doe
+    run --f <folder path>/tutorials/hiring/new_hire.sl --cp <folder path>/tutorials --i first_name=john,middle_name=e,last_name=doe
 
 Up Next
 -------
@@ -185,19 +189,19 @@ New Code - Complete
             required: false
         - last_name
         - missing:
-            default: "''"
+            default: ""
             overridable: false
         - total_cost:
             default: 0
             overridable: false
-        - order_map: >
-            {'laptop': 1000, 'docking station':200, 'monitor': 500, 'phone': 100}
+        - order_map:
+            default: {'laptop': 1000, 'docking station':200, 'monitor': 500, 'phone': 100}
 
       workflow:
         - print_start:
             do:
               base.print:
-                - text: "'Starting new hire process'"
+                - text: "Starting new hire process"
 
         - create_email_address:
             loop:
@@ -226,8 +230,8 @@ New Code - Complete
                   - item
                   - price
               publish:
-                - missing: self['missing'] + unavailable
-                - total_cost: self['total_cost'] + cost
+                - missing: ${self['missing'] + unavailable}
+                - total_cost: ${self['total_cost'] + cost}
             navigate:
               AVAILABLE: print_finish
               UNAVAILABLE: print_finish
@@ -236,14 +240,14 @@ New Code - Complete
             do:
               base.print:
                 - text: >
-                    'Created address: ' + address + ' for: ' + first_name + ' ' + last_name + '\n' +
-                    'Missing items: ' + missing + ' Cost of ordered items: ' + str(total_cost)
+                    ${'Created address: ' + address + ' for: ' + first_name + ' ' + last_name + '\n' +
+                    'Missing items: ' + missing + ' Cost of ordered items: ' + str(total_cost)}
 
         - on_failure:
           - print_fail:
               do:
                 base.print:
-                  - text: "'Failed to create address for: ' + first_name + ' ' + last_name"
+                  - text: "${'Failed to create address for: ' + first_name + ' ' + last_name}"
 
 **order.sl**
 
@@ -269,9 +273,9 @@ New Code - Complete
           if rand == 0: print 'Unavailable'
 
       outputs:
-        - unavailable: not_ordered
-        - cost: price
+        - unavailable: ${not_ordered}
+        - cost: ${price}
 
       results:
-        - UNAVAILABLE: rand == 0
+        - UNAVAILABLE: ${rand == 0}
         - AVAILABLE

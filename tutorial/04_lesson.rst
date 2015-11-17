@@ -11,7 +11,7 @@ Get Started
 -----------
 
 Let's create a new file in the **tutorials/hiring** folder named
-**check\_availability.sl** in which we'll house an operation to check
+**check_availability.sl** in which we'll house an operation to check
 whether a given email address is available.
 
 We'll also start off our new operation in much the same way we did with
@@ -43,12 +43,12 @@ during testing to see that our operation is working as expected.
 
 .. code-block:: yaml
 
-      action:
-        python_script: |
-          import random
-          rand = random.randint(0, 2)
-          vacant = rand != 0
-          #print rand
+    action:
+      python_script: |
+        import random
+        rand = random.randint(0, 2)
+        vacant = rand != 0
+        #print rand
 
 YAML Note: Since we're writing a multi-line Python script here we
 use the pipe (``|``) character to denote the usage of literal style
@@ -66,8 +66,13 @@ to be returned. In our case, we'll just return the value in the
 
 .. code-block:: yaml
 
-      outputs:
-        - available: vacant
+    outputs:
+      - available: ${vacant}
+
+Notice the special ``${}`` syntax. This indicates that what is inside the braces
+is a CloudSlang expression. If we would have just written ``vacant``, it would
+be understood as a string literal. We'll see this syntax in action again in a
+few moments.
 
 At this point we won't be using the output value, but we will soon
 enough. In lesson :doc:`5 - Default Navigation <05_lesson>` we publish
@@ -87,9 +92,9 @@ results.
 
 .. code-block:: yaml
 
-      results:
-        - FAILURE: rand == 0
-        - SUCCESS
+    results:
+      - FAILURE: ${rand == 0}
+      - SUCCESS
 
 The results are used by the calling flow for navigation purposes. You
 can see the default navigation rules in action in lessons :doc:`5 - Default
@@ -141,8 +146,8 @@ New Code - Complete
           #print rand
 
       outputs:
-        - available: vacant
+        - available: ${vacant}
 
       results:
-        - FAILURE: rand == 0
+        - FAILURE: ${rand == 0}
         - SUCCESS
