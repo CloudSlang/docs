@@ -208,6 +208,15 @@ To disable the task names from being printed, use the ``--q`` flag.
 
     cslang>run --f c:/.../your_flow.sl --q
 
+Run in Debug Mode
+-----------------
+
+To print all published variables to the screen, use the ``--d`` flag.
+
+.. code:: bash
+
+    cslang>run --f c:/.../your_flow.sl --d
+
 Run in Non-Interactive Mode
 ---------------------------
 
