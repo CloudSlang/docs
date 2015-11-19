@@ -891,9 +891,6 @@ input name may in turn be mapped to its properties or an input
 Inputs are used to pass parameters to `flows <#flow>`__ or
 `operations <#operation>`__.
 
-Input properties may also be used in the input list of a
-`task <#task>`__.
-
 +-----------------------+------------+-----------+--------------+-----------------------------------------------------------------+-------------------------------------------+
 | Property              | Required   | Default   | Value Type   | Description                                                     | More info                                 |
 +=======================+============+===========+==============+=================================================================+===========================================+
