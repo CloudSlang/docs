@@ -165,8 +165,9 @@ Maps
 ----
 
 To pass a map where an expression is allowed use the `default <#default>`__
-property. It is possible to use two sets of quotes and an expression marker
-instead, but that approach is not as clean.
+property.
+
+**Example: passing a map using the default property**
 
 .. code-block:: yaml
 
@@ -174,6 +175,13 @@ instead, but that approach is not as clean.
         default: {a: 1, b: c}
     - map2:
         default: {'a key': 1, b: c}
+
+It is also possible to use two sets of quotes and an expression marker, but the
+approach detailed above is the recommended one.
+
+**Example: passing a map using the expression marker and quotes**
+
+.. code-block:: yaml
     - map3: "${{'a key': 1, 'b': 'c'}}"
     - map4: >
         ${{'a key': 1, 'b': 'c'}}
@@ -908,6 +916,7 @@ Input properties may also be used in the input list of a
           overridable: false
       - input2
       - input3: "default value"
+      - input4: ${'var1 is ' + var1}
 
 .. _loop:
 
