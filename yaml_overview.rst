@@ -22,10 +22,10 @@ publish and navigate keys**
     - divider:
         do:
           divide:
-            - dividend: input1
-            - divisor: input2
+            - dividend: ${input1}
+            - divisor: ${input2}
         publish:
-          - answer: quotient
+          - answer: ${quotient}
         navigate:
           ILLEGAL: FAILURE
           SUCCESS: printer
