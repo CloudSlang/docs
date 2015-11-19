@@ -216,9 +216,17 @@ non-interactive mode.
 
 From a shell prompt:
 
+**Windows**
+
 .. code:: bash
 
-    cslang>run --f c:/.../your_flow.sl
+    >cslang.bat run --f c:/.../your_flow.sl
+
+**Linux**
+
+.. code:: bash
+
+    >cslang run --f c:/.../your_flow.sl
 
 Other Commands
 --------------
