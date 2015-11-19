@@ -249,7 +249,7 @@ inputs and the ``generate_address`` task.
             - last_name
             - attempt
         publish:
-          - address: email_address
+          - address: ${email_address}
 
 Run It
 ------
