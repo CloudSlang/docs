@@ -208,6 +208,15 @@ To disable the task names from being printed, use the ``--q`` flag.
 
     cslang>run --f c:/.../your_flow.sl --q
 
+Run in Debug Mode
+-----------------
+
+To print all published variables to the screen, use the ``--d`` flag.
+
+.. code:: bash
+
+    cslang>run --f c:/.../your_flow.sl --d
+
 Run in Non-Interactive Mode
 ---------------------------
 
@@ -258,10 +267,14 @@ Some of the available commands are:
 Execution Log
 -------------
 
-The execution log is saved in the directory in which the CLI was started
-at ``logs/execution.log``. The log file stores all the
-:ref:`events <slang_events>` that have been fired, and
-therefore it allows for tracking a flow's execution.
+The execution log is saved at ``cslang/logs/execution.log``. The log file stores
+all the :ref:`events <slang_events>` that have been fired, and
+therefore allows for tracking a flow's execution.
+
+History
+-------------
+
+The CLI history is saved at ``cslang/cslang-cli.history``.
 
 Help
 ----
