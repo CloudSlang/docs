@@ -21,8 +21,8 @@ workflow. It works the same way as inputs to an operation.
 
 .. code-block:: yaml
 
-      inputs:
-        - address
+    inputs:
+      - address
 
 Just as with an operation, values for the inputs of a flow are either
 passed via the :doc:`CloudSlang CLI <../cloudslang_cli>`, as we do below
@@ -45,12 +45,12 @@ needed with the ``print`` operation in the ``print_start`` task.
 
 .. code-block:: yaml
 
-        - check_address:
-            do:
-              check_availability:
-                - address
-            publish:
-              - availability: available
+    - check_address:
+        do:
+          check_availability:
+            - address
+        publish:
+          - availability: ${available}
 
 First note that in the ``check_address`` task, the ``address`` input
 name is not given an explicit value, as the ``text`` input is given in
@@ -82,14 +82,13 @@ task along with some of the flow input variables in the expression.
 
 .. code-block:: yaml
 
-        - print_finish:
-            do:
-              base.print:
-                - text: "'Availability for address ' + address + ' is: ' + str(availability)"
+    - print_finish:
+        do:
+          base.print:
+            - text: "${'Availability for address ' + address + ' is: ' + str(availability)}"
 
-Once again take note of the quoting that is necessary. The double quotes
-(``"``) encompass a Python expression which uses single quotes (``'``)
-for its string literals and no additional quotes for the variable names.
+Notice the extra set of quotes (``""``) around the expression. They are
+neccessary to escape the colon (``:``) which has special meaning in YAML.
 
 Run It
 ------
@@ -102,7 +101,7 @@ result is ``FAILURE``.
 
 .. code-block:: bash
 
-    run --f <folder path>/tutorials/hiring/new_hire.sl --cp <folder path>/tutorials/base,<folder path>/tutorials/hiring --i address=john.doe@somecompany.com
+    run --f <folder path>/tutorials/hiring/new_hire.sl --cp <folder path>/tutorials --i address=john.doe@somecompany.com
 
 When the check_availability operation returns a result of ``SUCCESS``
 the flow continues with the next task and prints out the availability
@@ -140,16 +139,16 @@ New Code - Complete
         - print_start:
             do:
               base.print:
-                - text: "'Starting new hire process'"
+                - text: "Starting new hire process"
 
         - check_address:
             do:
               check_availability:
                 - address
             publish:
-              - availability: available
+              - availability: ${available}
 
         - print_finish:
             do:
               base.print:
-                - text: "'Availability for address ' + address + ' is: ' + str(availability)"
+                - text: "${'Availability for address ' + address + ' is: ' + str(availability)}"

@@ -47,26 +47,27 @@ user-defined result of ``ILLEGAL``.
         - divider:
             do:
               divide:
-                - dividend: input1
-                - divisor: input2
+                - dividend: ${input1}
+                - divisor: ${input2}
             publish:
-              - answer: quotient
+              - answer: ${quotient}
             navigate:
               ILLEGAL: ILLEGAL
               SUCCESS: printer
         - printer:
             do:
               print:
-                - text: input1 + "/" + input2 + " = " + str(answer)
+                - text: ${input1 + "/" + input2 + " = " + str(answer)}
             navigate:
               SUCCESS: SUCCESS
 
       outputs:
-        - quotient: answer
+        - quotient: ${answer}
 
       results:
         - ILLEGAL
         - SUCCESS
+
 
 **Operations - divide.sl**
 
@@ -76,19 +77,23 @@ user-defined result of ``ILLEGAL``.
 
     operation:
       name: divide
+
       inputs:
         - dividend
         - divisor
+
       action:
         python_script: |
           if divisor == '0':
             quotient = 'division by zero error'
           else:
             quotient = float(dividend) / float(divisor)
+
       outputs:
         - quotient
+
       results:
-        - ILLEGAL: quotient == 'division by zero error'
+        - ILLEGAL: ${quotient == 'division by zero error'}
         - SUCCESS
 
 **Operation - print.sl**
@@ -99,10 +104,13 @@ user-defined result of ``ILLEGAL``.
 
     operation:
       name: print
+
       inputs:
         - text
+
       action:
         python_script: print text
+
       results:
         - SUCCESS
 
@@ -120,7 +128,7 @@ the success of its first task.
    default navigation. When the ``on_failure`` task is done, the flow
    ends with a default result of ``FAILURE``.
 
-**Flow - nav\_flow.sl**
+**Flow - nav_flow.sl**
 
 .. code-block:: yaml
 
@@ -149,10 +157,10 @@ the success of its first task.
           - send_error_mail:
               do:
                 send_email_mock:
-                  - recipient: email_recipient
-                  - subject: "'Flow failure'"
+                  - recipient: ${email_recipient}
+                  - subject: "Flow failure"
 
-**Operation - produce\_default\_navigation.sl**
+**Operation - produce_default_navigation.sl**
 
 .. code-block:: yaml
 
@@ -160,13 +168,16 @@ the success of its first task.
 
     operation:
       name: produce_default_navigation
+
       inputs:
         - navigation_type
+
       action:
-        python_script:
+        python_script: |
           print 'Default navigation based on input of - ' + navigation_type
+
       results:
-        - SUCCESS: navigation_type == 'success'
+        - SUCCESS: ${navigation_type == 'success'}
         - FAILURE
 
 **Operation - something.sl**
@@ -177,11 +188,12 @@ the success of its first task.
 
     operation:
       name: something
+
       action:
-          python_script:
+          python_script: |
             print 'Doing something important'
 
-**Operation - send\_email\_mock.sl**
+**Operation - send_email_mock.sl**
 
 .. code-block:: yaml
 
@@ -189,11 +201,13 @@ the success of its first task.
 
     operation:
       name: send_email_mock
+
       inputs:
         - recipient
         - subject
+
       action:
-        python_script:
+        python_script: |
           print 'Email sent to ' + recipient + ' with subject - ' + subject
 
 Example 3 - Subflow
@@ -210,7 +224,7 @@ the flow ends with a result of ``SUCCESS``.
 placed in the same folder as this flow file or use the ``--cp`` flag at
 the command line.
 
-**Flow - master\_divider.sl**
+**Flow - master_divider.sl**
 
 .. code-block:: yaml
 
@@ -220,30 +234,29 @@ the command line.
       name: master_divider
 
       inputs:
-        - dividend1: "'3'"
-        - divisor1: "'2'"
-        - dividend2: "'1'"
-        - divisor2: "'0'"
+        - dividend1: "3"
+        - divisor1: "2"
+        - dividend2: "1"
+        - divisor2: "0"
 
       workflow:
         - division1:
             do:
               division:
-                - input1: dividend1
-                - input2: divisor1
+                - input1: ${dividend1}
+                - input2: ${divisor1}
             publish:
-              - ans: quotient
+              - ans: ${quotient}
             navigate:
               SUCCESS: division2
               ILLEGAL: failure_task
-
         - division2:
             do:
               division:
-                - input1: dividend2
-                - input2: divisor2
+                - input1: ${dividend2}
+                - input2: ${divisor2}
             publish:
-              - ans: quotient
+              - ans: ${quotient}
             navigate:
               SUCCESS: SUCCESS
               ILLEGAL: failure_task
@@ -251,7 +264,7 @@ the command line.
           - failure_task:
               do:
                 print:
-                  - text: ans
+                  - text: ${ans}
 
 Example 4 - Loops
 =================
@@ -279,7 +292,7 @@ looped on and various methods for handling loop breaks.
               for: value in [1,2,3,4,5]
               do:
                 fail3:
-                  - text: value
+                  - text: ${value}
             navigate:
               SUCCESS: fail3b
               FAILURE: fail3b
@@ -288,14 +301,14 @@ looped on and various methods for handling loop breaks.
               for: value in [1,2,3,4,5]
               do:
                 fail3:
-                  - text: value
+                  - text: ${value}
               break: []
         - custom3:
             loop:
               for: value in "1,2,3,4,5"
               do:
                 custom3:
-                  - text: value
+                  - text: ${value}
               break:
                 - CUSTOM
             navigate:
@@ -304,19 +317,19 @@ looped on and various methods for handling loop breaks.
         - skip_this:
             do:
               print:
-                - text: "'This will not run.'"
+                - text: "This will not run."
         - aggregate:
             loop:
               for: value in range(1,6)
               do:
                 print:
-                  - text: value
+                  - text: ${value}
               publish:
-                - sum: self['sum'] + out
+                - sum: ${self['sum'] + out}
         - print:
             do:
-              ops.print:
-                - text: sum
+              print:
+                - text: ${sum}
 
 **Operation - custom3.sl**
 
@@ -326,12 +339,15 @@ looped on and various methods for handling loop breaks.
 
     operation:
       name: custom3
+
       inputs:
         - text
+
       action:
         python_script: print text
+
       results:
-        - CUSTOM: int(self['text']) == 3
+        - CUSTOM: ${int(self['text']) == 3}
         - SUCCESS
 
 **Operation - fail3.sl**
@@ -342,12 +358,15 @@ looped on and various methods for handling loop breaks.
 
     operation:
       name: fail3
+
       inputs:
         - text
+
       action:
         python_script: print text
+
       results:
-        - FAILURE: int(self['text']) == 3
+        - FAILURE: ${int(self['text']) == 3}
         - SUCCESS
 
 **Operation - print.sl**
@@ -358,12 +377,16 @@ looped on and various methods for handling loop breaks.
 
     operation:
       name: print
+
       inputs:
         - text
+
       action:
         python_script: print text
+
       outputs:
-        - out: text
+        - out: ${text}
+
       results:
         - SUCCESS
 
@@ -373,7 +396,7 @@ Example 5 - Asynchronous loop
 This example demonstrates the usage of an asynchronous loop including
 aggregation.
 
-**Flow - async\_loop\_aggregate.sl**
+**Flow - async_loop_aggregate.sl**
 
 .. code-block:: yaml
 
@@ -381,30 +404,33 @@ aggregation.
 
     flow:
       name: async_loop_aggregate
+
       inputs:
-        - values: [1,2,3,4]
+      - values: [1,2,3,4]
+
       workflow:
         - print_values:
             async_loop:
               for: value in values
               do:
                 print_branch:
-                  - ID: value
+                  - ID: ${value}
               publish:
                 - name
                 - num
             aggregate:
-                - name_list: map(lambda x:str(x['name']), branches_context)
-                - first_name: branches_context[0]['name']
-                - last_name: branches_context[-1]['name']
-                - total: sum(map(lambda x:x['num'], branches_context))
+                - name_list: ${map(lambda x:str(x['name']), branches_context)}
+                - first_name: ${branches_context[0]['name']}
+                - last_name: ${branches_context[-1]['name']}
+                - total: ${sum(map(lambda x:x['num'], branches_context))}
+
       outputs:
         - name_list
         - first_name
         - last_name
         - total
 
-**Operation - print\_branch.sl**
+**Operation - print_branch.sl**
 
 .. code-block:: yaml
 
@@ -412,15 +438,18 @@ aggregation.
 
     operation:
       name: print_branch
+
       inputs:
-         - ID
+        - ID
+
       action:
         python_script: |
             name = 'branch ' + str(ID)
             print 'Hello from ' + name
+
       outputs:
         - name
-        - num: ID
+        - num: ${ID}
 
 .. _example_operation_paths:
 
@@ -438,14 +467,14 @@ This example uses the following folder structure:
 
       -  flow.sl
       -  op1.sl
-      -  folder\_a
+      -  folder_a
 
          -  op2.sl
 
-      -  folder\_b
+      -  folder_b
 
          -  op3.sl
-         -  folder\_c
+         -  folder_c
 
             -  op4.sl
 
@@ -465,19 +494,19 @@ This example uses the following folder structure:
         - default_path:
             do:
               op1:
-                - text: "'default path'"
+                - text: "default path"
         - fully_qualified_path:
             do:
               examples.paths.folder_a.op2:
-                - text: "'fully qualified path'"
+                - text: "fully qualified path"
         - using_alias:
             do:
               alias.op3:
-                - text: "'using alias'"
+                - text: "using alias"
         - alias_continuation:
             do:
               alias.folder_c.op4:
-                - text: "'alias continuation'"
+                - text: "alias continuation"
 
 **Operation - op1.sl**
 
@@ -487,8 +516,10 @@ This example uses the following folder structure:
 
     operation:
       name: op1
+
       inputs:
         - text
+
       action:
         python_script: print text
 
@@ -500,8 +531,10 @@ This example uses the following folder structure:
 
     operation:
       name: op2
+
       inputs:
         - text
+
       action:
         python_script: print text
 
@@ -513,8 +546,10 @@ This example uses the following folder structure:
 
     operation:
       name: op3
+
       inputs:
         - text
+
       action:
         python_script: print text
 
@@ -526,7 +561,9 @@ This example uses the following folder structure:
 
     operation:
       name: op4
+
       inputs:
         - text
+
       action:
         python_script: print text

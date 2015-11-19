@@ -11,7 +11,8 @@ message.
 Get Started
 -----------
 
-Let's open the **print.sl** file and start writing the print operation.
+First, we need to create the **print.sl** file in the **base** folder so we can
+start writing the print operation.
 The print operation is as simple as they get. It just takes in a input
 and prints it out using Python.
 
@@ -57,8 +58,8 @@ to print. We'll name our input ``text``.
 
 .. code-block:: yaml
 
-      inputs:
-        - text
+    inputs:
+      - text
 
 **YAML Note:** The ``inputs`` key maps to a list of inputs. In YAML, a
 list is signified by prepending a hypen and a space (- ) to each
@@ -88,8 +89,8 @@ value.
 
 .. code-block:: yaml
 
-      action:
-        python_script: print text
+    action:
+      python_script: print text
 
 **Note:** CloudSlang uses the `Jython <http://www.jython.org/>`__
 implementation of Python 2.7. For information on Jython's limitations,

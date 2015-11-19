@@ -49,10 +49,10 @@ it as a starting point for a discussion on input properties.
           # print address
 
       outputs:
-        - email_address: address
+        - email_address: ${address}
 
       results:
-        - FAILURE: address == ''
+        - FAILURE: ${address == ''}
         - SUCCESS
 
 Test
@@ -72,7 +72,7 @@ happens.
 Add to Flow
 -----------
 
-Let's add a task in the **new\_hire** flow to call our new operation.
+Let's add a task in the **new_hire** flow to call our new operation.
 That will allow us to demonstrate how input properties affect the way
 variables are passed to operations.
 
@@ -81,16 +81,16 @@ our new task named ``generate_address``.
 
 .. code-block:: yaml
 
-        - generate_address:
-            do:
-              generate_user_email:
-                - first_name
-                - middle_name
-                - last_name
-                - domain
-                - attempt
-            publish:
-              - address: email_address
+    - generate_address:
+        do:
+          generate_user_email:
+            - first_name
+            - middle_name
+            - last_name
+            - domain
+            - attempt
+        publish:
+          - address: ${email_address}
 
 We'll also have to change the inputs of the flow to reflect our new
 addition. We can remove the ``address`` from the flow inputs since we'll
@@ -101,19 +101,30 @@ the flow's inputs section.
 
 .. code-block:: yaml
 
-      inputs:
-        - first_name
-        - middle_name
-        - last_name
-        - domain
-        - attempt
+    inputs:
+      - first_name
+      - middle_name
+      - last_name
+      - domain
+      - attempt
+
+One last thing to tidy up is the failure message, which no longer receives an
+address that was not created.
+
+.. code-block:: yaml
+
+    - on_failure:
+      - print_fail:
+          do:
+            base.print:
+              - text: "Failed to create address"
 
 At this point everything is set up to go. We can save the file and run
 the flow as long as we pass all the necessary arguments.
 
 .. code-block:: bash
 
-    run --f <folder path>/tutorials/hiring/new_hire.sl --cp <folder path>/tutorials/base,<folder path>/tutorials/hiring --i first_name=john,middle_name=e,last_name=doe,domain=somecompany.com,attempt=1
+    run --f <folder path>/tutorials/hiring/new_hire.sl --cp <folder path>/tutorials --i first_name=john,middle_name=e,last_name=doe,domain=somecompany.com,attempt=1
 
 Required
 --------
@@ -171,7 +182,7 @@ empty string.
         - first_name
         - middle_name:
             required: false
-            default: "''"
+            default: ""
         - last_name
         - domain
         - attempt
@@ -181,7 +192,7 @@ for the middle name.
 
 .. code-block:: bash
 
-    run --f <folder path>/tutorials/hiring/new_hire.sl --cp <folder path>/tutorials/base,<folder path>/tutorials/hiring --i first_name=john,last_name=doe,domain=somecompany.com,attempt=1
+    run --f <folder path>/tutorials/hiring/new_hire.sl --cp <folder path>/tutorials --i first_name=john,last_name=doe,domain=somecompany.com,attempt=1
 
 Overridable
 -----------
@@ -202,10 +213,10 @@ have to set a default value for the input.
         - first_name
         - middle_name:
             required: false
-            default: "''"
+            default: ""
         - last_name
         - domain:
-            default: "'acompany.com'"
+            default: "acompany.com"
             overridable: false
         - attempt
 
@@ -230,15 +241,15 @@ inputs and the ``generate_address`` task.
 
 .. code-block:: yaml
 
-        - generate_address:
-            do:
-              generate_user_email:
-                - first_name
-                - middle_name
-                - last_name
-                - attempt
-            publish:
-              - address: email_address
+    - generate_address:
+        do:
+          generate_user_email:
+            - first_name
+            - middle_name
+            - last_name
+            - attempt
+        publish:
+          - address: ${email_address}
 
 Run It
 ------
@@ -249,7 +260,7 @@ in.
 
 .. code-block:: bash
 
-    run --f <folder path>/tutorials/hiring/new_hire.sl --cp <folder path>/tutorials/base,<folder path>/tutorials/hiring --i first_name=john,last_name=doe,attempt=1
+    run --f <folder path>/tutorials/hiring/new_hire.sl --cp <folder path>/tutorials --i first_name=john,last_name=doe,attempt=1
 
 Up Next
 -------
@@ -282,7 +293,7 @@ New Code - Complete
         - print_start:
             do:
               base.print:
-                - text: "'Starting new hire process'"
+                - text: "Starting new hire process"
 
         - generate_address:
             do:
@@ -292,14 +303,14 @@ New Code - Complete
                 - last_name
                 - attempt
             publish:
-              - address: email_address
+              - address: ${email_address}
 
         - check_address:
             do:
               check_availability:
                 - address
             publish:
-              - availability: available
+              - availability: ${available}
             navigate:
               UNAVAILABLE: print_fail
               AVAILABLE: print_finish
@@ -307,13 +318,13 @@ New Code - Complete
         - print_finish:
             do:
               base.print:
-                - text: "'Availability for address ' + address + ' is: ' + str(availability)"
+                - text: "${'Availability for address ' + address + ' is: ' + str(availability)}"
 
         - on_failure:
           - print_fail:
               do:
                 base.print:
-                  - text: "'Failed to create address: ' + address"
+                  - text: "Failed to create address"
 
 **generate_user_email.sl**
 
@@ -328,10 +339,10 @@ New Code - Complete
         - first_name
         - middle_name:
             required: false
-            default: "''"
+            default: ""
         - last_name
         - domain:
-            default: "'acompany.com'"
+            default: "acompany.com"
             overridable: false
         - attempt
 
@@ -349,8 +360,8 @@ New Code - Complete
           # print address
 
       outputs:
-        - email_address: address
+        - email_address: ${address}
 
       results:
-        - FAILURE: address == ''
+        - FAILURE: ${address == ''}
         - SUCCESS

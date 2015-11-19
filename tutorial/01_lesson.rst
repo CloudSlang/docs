@@ -32,10 +32,8 @@ through potential trouble areas.
 Copy/Pasting Code
 -----------------
 
-Because proper indentation is so important in YAML, take care to copy
-and paste the code examples at their proper indentation levels. The
-examples are all written at the indentation within the whole that they
-are a part of.
+Because proper indentation is so important in YAML, take care to indent pasted
+code examples to their proper indentation levels.
 
 Prerequisites
 -------------
@@ -68,13 +66,12 @@ content as well as content that is specific to our use case, let's
 create two subfolders under **tutorials** called **base** and
 **hiring**.
 
-We'll start off with just one flow and one operation, so create two
-CloudSlang files. In the **hiring** folder create a file named
-**new_hire.sl** and in the **base** folder create a file named
-**print.sl**. The file **new_hire.sl** will hold our flow and
-**print.sl** will hold our first operation.
+We'll start off with just one flow and one operation. In the next two lessons
+we'll create a file named **new_hire.sl** in the **hiring** folder and in the
+**base** folder we'll create a file named **print.sl**. The file **new_hire.sl**
+will hold our flow and **print.sl** will hold our first operation.
 
-Your file structure should now look like this:
+Your file structure will look like this:
 
 -  tutorials
 
@@ -86,8 +83,8 @@ Your file structure should now look like this:
 
       -  new_hire.sl
 
-    Note: If your editor requires it for syntax highlighting, you can
-    also use the **.sl.yaml** and **.sl.yml** extensions.
+**Note:** If your editor requires it for syntax highlighting, you can
+also use the **.sl.yaml** and **.sl.yml** extensions.
 
 Up Next
 -------

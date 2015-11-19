@@ -10,9 +10,9 @@ operation. We'll learn about the main components that make up a flow.
 Get Started
 -----------
 
-Let's open the **new_hire.sl** file and start writing the new hire
-flow. We'll build it one step at a time. So for now, all it will do is
-call the print operation we wrote in the previous lesson.
+First, we need to create the **new_hire.sl** file in the **hiring** folder so we
+can start writing the new hire flow. We'll build it one step at a time. So for
+now, all it will do is call the print operation we wrote in the previous lesson.
 
 Namespace
 ---------
@@ -67,8 +67,8 @@ workflow starts with a key that is its name. We'll call our task
 
 .. code-block:: yaml
 
-      workflow:
-        - print_start:
+    workflow:
+      - print_start:
 
 A task can contain several parts, but we'll start with a simple task
 with the only required part, the ``do`` key. We want to call the print
@@ -79,15 +79,9 @@ which we'll add to a list under the operation call and pass it a value.
 
 .. code-block:: yaml
 
-            do:
-              base.print:
-                - text: "'Starting new hire process'"
-
-Notice the use of both single quotes (``'``) and double quotes (``"``)
-around the string input value. Both are required, although which pair
-are on the inside and which are on the outside generally doesn't make a
-difference. Both pairs are needed to denote that a Python string is
-inside of a YAML string.
+    do:
+      base.print:
+        - text: "Starting new hire process"
 
 In addition to the required ``do``, a task can also contain the optional
 ``publish`` and ``navigate`` keys. We begin to use their functionality
@@ -135,4 +129,4 @@ New Code - Complete
         - print_start:
             do:
               base.print:
-                - text: "'Starting new hire process'"
+                - text: "Starting new hire process"
