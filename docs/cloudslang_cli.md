@@ -1,9 +1,9 @@
-There are several ways to get started with the CloudSlang CLI. 
+There are several ways to get started with the CloudSlang CLI.
 
 #Download and Run Pre-built CLI
 **Prerequisites :** To run the CloudSlang CLI, Java JRE version 7 or higher is required.
 
-1. [Download](http://cloudslang.io/download) the CLI zip file. 
+1. [Download](http://cloudslang.io/download) the CLI zip file.
 2. Locate the downloaded file and unzip the archive.  
     The decompressed file contains:
     + A folder named **cslang** with the CLI tool and its necessary dependencies.
@@ -29,12 +29,12 @@ There are several ways to get started with the CloudSlang CLI.
 **Prerequisites :** To download the package, Node.js is required. To run the CloudSlang CLI, Java JRE version 7 or higher is required.
 
 1. At a command prompt, enter `npm install -g cslang-cli`.
-	+ If using Linux, the sudo command might be neccessary: `sudo npm install -g cslang-cli`. 
+	+ If using Linux, the sudo command might be neccessary: `sudo npm install -g cslang-cli`.
 2. Enter the `cslang` command at any command prompt.
 
 #Use the CLI
 
-When a flow is run, the entire directory in which the flow resides is scanned recursively (including all subfolders) for files with a valid CloudSlang extension. All of the files found are compiled by the CLI. If the `--cp` flag is used, all of the directories listed there will be scanned and compiled recursively as well. 
+When a flow is run, the entire directory in which the flow resides is scanned recursively (including all subfolders) for files with a valid CloudSlang extension. All of the files found are compiled by the CLI. If the `--cp` flag is used, all of the directories listed there will be scanned and compiled recursively as well.
 
 The usage of forward slashes (`/`) in all file paths is recommended even on Windows.
 
@@ -67,7 +67,7 @@ To pass the value **"Hello" World** to a flow:
 cslang>run --f c:/.../your_flow.sl --i "input1=\"Hello\" World"
 ```
 
-Alternatively, inputs made be loaded from a file. Input files are written in flat [YAML](http://www.yaml.org), containing a map of names to values. Input files end with the .yaml  or .yml extensions. If multiple input files are being used and they contain an input with the same name, the input in the file that is loaded last will overwrite the others with the same name. 
+Alternatively, inputs made be loaded from a file. Input files are written in flat [YAML](http://www.yaml.org), containing a map of names to values. Input files end with the .yaml  or .yml extensions. If multiple input files are being used and they contain an input with the same name, the input in the file that is loaded last will overwrite the others with the same name.
 
 **Example - inputs file**
 
@@ -81,15 +81,15 @@ input_map:
   one: a
   two: b
   three: c
-``` 
+```
 
-Input files that contain `inputs` in their name can be loaded automatically if placed in a folder named `inputs` in the directory from which the CLI is run. If the flow requires an input file that is not loaded automatically, use the `--if` flag and a comma-separated list of file paths. Inputs passed with the `--i` flag will override the inputs passed using a file. 
+Input files that contain `inputs` in their name can be loaded automatically if placed in a folder named `inputs` in the directory from which the CLI is run. If the flow requires an input file that is not loaded automatically, use the `--if` flag and a comma-separated list of file paths. Inputs passed with the `--i` flag will override the inputs passed using a file.
 
 ```bash
 cslang>run --f c:/.../your_flow.sl --if c:/.../inputs.yaml --i input1=value1
 ```
 
-##Run with Dependencies 
+##Run with Dependencies
 Dependencies from the content folder packaged with the CLI are added to the classpath by default. If the flow requires dependencies from another location, use the `--cp` flag with a comma-separated list of dependency paths. Note that explicitly declaring a classpath using `--cp` overrides the default classpath, and therefore if there also is a dependency in the content folder, the folder must be added to the classpath explicitly.
 
 ```bash
@@ -98,7 +98,7 @@ cslang>run --f c:/.../your_flow.sl --i input1=root,input2=25 --cp c:/.../yaml
 
 ##Run with System Properties
 
-System properties files are written in flat [YAML](http://www.yaml.org), containing a map of names to values. System property files end with the .yaml  or .yml extensions. If multiple system properties files are being used and they contain a system property with the same fully qualified name, the property in the file that is loaded last will overwrite the others with the same name. 
+System properties files are written in flat [YAML](http://www.yaml.org), containing a map of names to values. System property files end with the .yaml  or .yml extensions. If multiple system properties files are being used and they contain a system property with the same fully qualified name, the property in the file that is loaded last will overwrite the others with the same name.
 
 **Example - system properties file**
 
@@ -112,9 +112,9 @@ examples.properties.map:
   one: a
   two: b
   three: c
-``` 
+```
 
-System property files can be loaded automatically if placed in a folder named `properties` in the directory from which the CLI is run. If the flow or operation requires a system properties file that is not loaded automatically, use the `--spf` flag and a comma-separated list of file paths. 
+System property files can be loaded automatically if placed in a folder named `properties` in the directory from which the CLI is run. If the flow or operation requires a system properties file that is not loaded automatically, use the `--spf` flag and a comma-separated list of file paths.
 
 ```bash
 cslang>run --f c:/.../your_flow.sl --spf c:/.../yaml
@@ -128,17 +128,27 @@ cslang>run --f c:/.../your_flow.sl --q
 ```
 
 ##Run in Non-Interactive Mode
-A flow can be run without first starting up the CLI using the non-interactive mode. 
+
+A flow can be run without first starting up the CLI using the non-interactive mode.
 
 From a shell prompt:
+
+**Windows**
+
 ```bash
-cslang>run --f c:/.../your_flow.sl
+>cslang.bat run --f c:/.../your_flow.sl
+```
+
+**Linux**
+
+```bash
+>cslang run --f c:/.../your_flow.sl
 ```
 
 ##Other Commands
 Some of the available commands are:
 
-+ `env --setAsync` - Sets the execution mode to be synchronous (`false`) or asynchronous (`true`). By default the execution mode is synchronous, meaning only one flow can run at a time. 
++ `env --setAsync` - Sets the execution mode to be synchronous (`false`) or asynchronous (`true`). By default the execution mode is synchronous, meaning only one flow can run at a time.
 
 ```bash
 cslang>env --setAsync true
