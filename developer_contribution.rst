@@ -141,6 +141,11 @@ request merges successfully.
 At least one review from a maintainer is required for all patches (even
 patches from maintainers).
 
+Content contributions which require environments that are difficult to setup
+may be accepted as beta content. Beta content is not verified or tested by the
+CloudSlang team. Beta content is named with the ``beta_`` prefix. The community
+is encouraged to assist in setting up testing environments for the beta content.
+
 See the contributing.md file in the relevant repository for additional
 guidelines specific to that repository.
 
