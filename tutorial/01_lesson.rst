@@ -45,8 +45,7 @@ instructions on how to download and run the CLI.
 Although CloudSlang files can be composed in any text editor, using a
 modern code editor with support for syntax highlighting is
 recommended. See the :doc:`CloudSlang Editors <../cloudslang_editors>`
-section of the documentation for instructions on how to download,
-install and use the CloudSlang snippets with Atom or Sublime Text.
+section of the documentation for more information.
 
 More Information
 ----------------
