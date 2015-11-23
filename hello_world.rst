@@ -14,9 +14,9 @@ CLI.
 
 Although CloudSlang files can be composed in any text editor, using a
 modern code editor with support for YAML syntax highlighting is
-recommended. See :doc:`Sublime Integration <sublime_integration>` for
-instructions on how to download, install and use the CloudSlang snippets
-for `Sublime Text <http://www.sublimetext.com/>`__.
+recommended. See :doc:`CloudSlang Editors <cloudslang_editors>` for
+instructions on how to download, install and use the CloudSlang language
+package for Atom.
 
 Code files
 ==========
