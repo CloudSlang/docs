@@ -267,10 +267,14 @@ Some of the available commands are:
 Execution Log
 -------------
 
-The execution log is saved in the directory in which the CLI was started
-at ``logs/execution.log``. The log file stores all the
-:ref:`events <slang_events>` that have been fired, and
-therefore it allows for tracking a flow's execution.
+The execution log is saved at ``cslang/logs/execution.log``. The log file stores
+all the :ref:`events <slang_events>` that have been fired, and
+therefore allows for tracking a flow's execution.
+
+History
+-------------
+
+The CLI history is saved at ``cslang/cslang-cli.history``.
 
 Help
 ----
