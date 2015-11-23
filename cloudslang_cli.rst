@@ -211,7 +211,7 @@ To disable the task names from being printed, use the ``--q`` flag.
 Run in Debug Mode
 -----------------
 
-To print all published variables to the screen, use the ``--d`` flag.
+To print each task's published variables to the screen, use the ``--d`` flag.
 
 .. code:: bash
 
