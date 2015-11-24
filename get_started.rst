@@ -49,8 +49,7 @@ Now that you've run your first CloudSlang file, you might want to:
 -  Learn about the language in detail using the :doc:`CloudSlang Reference <cloudslang_dsl_reference>`.
 -  See an `overview <https://github.com/CloudSlang/cloud-slang-content/blob/master/DOCS.md>`__
    of the ready-made content.
--  Browse the ready-made content
-   `repository <https://github.com/CloudSlang/cloud-slang-content>`__.
+-  Learn about the :doc:`ready-made content <cloudslang_content>`.
 -  Learn about embedding :doc:`CloudSlang <developer_cloudslang>` or the
    :doc:`CloudSlang Orchestration Engine <developer_score>` into your
    existing application.

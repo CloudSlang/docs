@@ -55,6 +55,15 @@ the CloudSlang CLI, Java JRE version 7 or higher is required.
 
 2. Enter the ``cslang`` command at any command prompt.
 
+Docker Image
+============
+
+- Pull the image: ``docker pull cloudslang/cloudslang``.
+- Run the CLI
+
+    - With prompt: ``docker run -it cloudslang/cloudslang``.
+    - Without prompt: ``docker run --rm -ti cloudslang run --f ../content/io/cloudslang/.../flow.sl --i input1=value1``
+
 .. _use_the_cli:
 
 Use the CLI
