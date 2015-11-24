@@ -888,9 +888,12 @@ Using an alias is one way to reference the
                 - input1: "5"
                 - input2: "3"
 
-In this example, the ``print`` operation's source file defines its namespace as
-``example.utils`` and the ``division`` flow's source file defines its namespace
-as ``example.subflows``.
+In this example, the ``ops`` alias refers to the ```examples.utils`` namespace.
+This alias is used in the ``print_hi`` task to refer to the ``print`` operation,
+whose source file defines its namespace as ``examples.utils``. Similarly, the
+``subs`` alias refers to the ``examples.subflows`` namespace. The ``subs`` alias
+is used in the ``run_subflow`` task to refer to the ``division`` subflow, whose
+source file defines its namespace as ``examples.subflows``.
 
 .. _inputs:
 
