@@ -13,8 +13,6 @@ dependencies depicted in the diagram below.
 .. figure:: images/repo_dependencies.png
    :alt: Repository Dependencies
 
-   Repository Dependencies
-
 -  **score** - CloudSlang Orchestration Engine (Score)
 
    -  engine

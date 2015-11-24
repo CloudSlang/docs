@@ -182,6 +182,7 @@ approach detailed above is the recommended one.
 **Example: passing a map using the expression marker and quotes**
 
 .. code-block:: yaml
+
     - map3: "${{'a key': 1, 'b': 'c'}}"
     - map4: >
         ${{'a key': 1, 'b': 'c'}}

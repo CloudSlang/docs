@@ -1,5 +1,5 @@
-Overview
-++++++++
+The CloudSlang Project
+++++++++++++++++++++++
 
 CloudSlang is a flow-based orchestration tool for managing deployed
 applications. It allows you to rapidly automate your DevOps and everyday

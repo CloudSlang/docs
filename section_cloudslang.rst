@@ -14,4 +14,5 @@ Contents:
    Best Practices <cloudslang_best_practices>
    CLI <cloudslang_cli>
    Build Tool <cloudslang_build_tool>
+   Ready-made Content <cloudslang_content>
    Editors <cloudslang_editors>
