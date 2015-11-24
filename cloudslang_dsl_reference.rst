@@ -1396,6 +1396,16 @@ There are several types of tasks:
 -  `iterative <#iterative-task>`__
 -  `asynchronous <#asynchronous-task>`__
 
+**Example - task with two inputs, one of which contains a defualt value**
+
+.. code-block:: yaml
+
+    - divider:
+        do:
+          some_op:
+            - host
+            - port: 25
+
 Standard Task
 ~~~~~~~~~~~~~
 
