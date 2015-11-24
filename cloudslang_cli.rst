@@ -75,7 +75,7 @@ Run a Flow or Operation
 To run a flow or operation located at ``c:/.../your_flow.sl``, use the
 ``--f`` flag to specify the location of the flow to be run:
 
-.. code:: bash
+.. code-block:: bash
 
     cslang>run --f c:/.../your_flow.sl
 
@@ -85,21 +85,21 @@ Run with Inputs
 If the flow or operation takes in input parameters, use the ``--i`` flag
 and a comma-separated list of key=value pairs:
 
-.. code:: bash
+.. code-block:: bash
 
     cslang>run --f c:/.../your_flow.sl --i input1=root,input2=25
 
 Commas (``,``) can be used as part of input values by escaping them with
 a backslash (``\``).
 
-.. code:: bash
+.. code-block:: bash
 
     cslang>run --f c:/.../your_flow.sl --i list=1\,2\,3
 
 To use inputs that include spaces, enclose the entire input list in
 quotes (``"``):
 
-.. code:: bash
+.. code-block:: bash
 
     cslang>run --f c:/.../your_flow.sl --i "input1=Hello World, input2=x"
 
@@ -109,7 +109,7 @@ spaces between input parameters will be trimmed.
 
 To pass the value **"Hello" World** to a flow:
 
-.. code:: bash
+.. code-block:: bash
 
     cslang>run --f c:/.../your_flow.sl --i "input1=\"Hello\" World"
 
@@ -120,9 +120,29 @@ extensions. If multiple input files are being used and they contain an
 input with the same name, the input in the file that is loaded last will
 overwrite the others with the same name.
 
-**Example - inputs file**
+**Example - same inputs passed to flow using command line and inputs file**
 
-.. code:: yaml
+*Command line - run command*
+
+.. code-block:: bash
+
+    cslang>run --f C:/.../your_flow.sl --i "input1=simple text,input2=comma\, text,input3=\"quoted text\""
+
+*Inputs file - run command and inputs.yaml file*
+
+.. code-block:: bash
+
+    cslang>run --f C:/.../your_flow.sl --if C:/.../inputs.yaml
+
+.. code-block:: yaml
+
+    input1: simple text
+    input2: comma, text
+    input3: '"quoted text"'
+
+**Example - complex inputs file**
+
+.. code-block:: yaml
 
     input: hello
     input_list:
@@ -141,7 +161,7 @@ not loaded automatically, use the ``--if`` flag and a comma-separated
 list of file paths. Inputs passed with the ``--i`` flag will override
 the inputs passed using a file.
 
-.. code:: bash
+.. code-block:: bash
 
     cslang>run --f c:/.../your_flow.sl --if c:/.../inputs.yaml --i input1=value1
 
@@ -158,7 +178,7 @@ dependency paths. Note that explicitly declaring a classpath using
 a dependency in the content folder, the folder must be added to the
 classpath explicitly.
 
-.. code:: bash
+.. code-block:: bash
 
     cslang>run --f c:/.../your_flow.sl --i input1=root,input2=25 --cp c:/.../yaml
 
@@ -176,7 +196,7 @@ that is loaded last will overwrite the others with the same name.
 
 **Example - system properties file**
 
-.. code:: yaml
+.. code-block:: yaml
 
     examples.properties.text: hello
     examples.properties.list:
@@ -194,7 +214,7 @@ flow or operation requires a system properties file that is not loaded
 automatically, use the ``--spf`` flag and a comma-separated list of file
 paths.
 
-.. code:: bash
+.. code-block:: bash
 
     cslang>run --f c:/.../your_flow.sl --spf c:/.../yaml
 
@@ -204,7 +224,7 @@ Run in Quiet Mode
 Normally a flow's task names are printed to the screen as they are run.
 To disable the task names from being printed, use the ``--q`` flag.
 
-.. code:: bash
+.. code-block:: bash
 
     cslang>run --f c:/.../your_flow.sl --q
 
@@ -213,7 +233,7 @@ Run in Debug Mode
 
 To print each task's published variables to the screen, use the ``--d`` flag.
 
-.. code:: bash
+.. code-block:: bash
 
     cslang>run --f c:/.../your_flow.sl --d
 
@@ -227,13 +247,13 @@ From a shell prompt:
 
 **Windows**
 
-.. code:: bash
+.. code-block:: bash
 
     >cslang.bat run --f c:/.../your_flow.sl
 
 **Linux**
 
-.. code:: bash
+.. code-block:: bash
 
     >cslang run --f c:/.../your_flow.sl
 
@@ -246,19 +266,19 @@ Some of the available commands are:
    (``false``) or asynchronous (``true``). By default the execution mode
    is synchronous, meaning only one flow can run at a time.
 
-.. code:: bash
+.. code-block:: bash
 
     cslang>env --setAsync true
 
 -  ``inputs`` - Lists the inputs of a given flow.
 
-.. code:: bash
+.. code-block:: bash
 
     cslang>inputs --f c:/.../your_flow.sl
 
 -  ``cslang --version`` - Displays the version of **score** being used.
 
-.. code:: bash
+.. code-block:: bash
 
     cslang>cslang --version
 
