@@ -31,17 +31,21 @@ Imports
 After the namespace you can list the namespace of any CloudSlang files
 that you will need to reference in your flow. Our flow will need to
 reference the operation in **print.sl**, so we'll add the namespace from
-that file to the optional ``imports`` key. We map an alias that we will
-use as a reference in the flow to the namespace we are importing. Let's
-call the alias ``base``.
+that file, ``tutorials.base``, to the optional ``imports`` key. We map an alias
+that we will use as a reference in the flow to the namespace we are importing.
+Let's call the alias ``base``.
 
 .. code-block:: yaml
 
     imports:
       base: tutorials.base
 
+Now we can use ``base.print`` to refer to the ``print`` operation in a task.
+We'll do that in a moment.
+
 For ways to refer to an operation or subflow without creating an alias,
-see the :ref:`CloudSlang DSL Reference <do>`.
+see the :ref:`CloudSlang DSL Reference <do>` and the
+:ref:`Operation Paths <example_operation_paths>` example.
 
 Flow Name
 ---------

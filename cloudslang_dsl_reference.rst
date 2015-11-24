@@ -182,6 +182,7 @@ approach detailed above is the recommended one.
 **Example: passing a map using the expression marker and quotes**
 
 .. code-block:: yaml
+
     - map3: "${{'a key': 1, 'b': 'c'}}"
     - map4: >
         ${{'a key': 1, 'b': 'c'}}
@@ -854,12 +855,16 @@ The key ``imports`` is mapped to the files to import as follows:
 -  key - alias
 -  value - namespace of file to be imported
 
-Specifies the file's dependencies and the aliases they will be
-referenced by in the file. Using an alias is one way to reference the
+Specifies the file's dependencies, `operations <#operation>`__ and
+`subflows <#flow>`__, by the namespace defined in their source file and the
+aliases they will be referenced by in the file.
+
+Using an alias is one way to reference the
 `operations <#operation>`__ and `subflows <#flow>`__ used in a
 `flow's <#flow>`__ `tasks <#task>`__. For all the ways to reference
 `operations <#operation>`__ and `subflows <#flow>`__ used in a
-`flow's <#flow>`__ `tasks <#task>`__, see the `do <#do>`__ keyword.
+`flow's <#flow>`__ `tasks <#task>`__, see the `do <#do>`__ keyword and the
+:ref:`Operation Paths example <example_operation_paths>`.
 
 **Example - import operations and sublflow into flow**
 
@@ -867,7 +872,7 @@ referenced by in the file. Using an alias is one way to reference the
 
     imports:
       ops: examples.utils
-      sub_flows: examples.subflows
+      subs: examples.subflows
 
     flow:
       name: hello_flow
@@ -877,6 +882,15 @@ referenced by in the file. Using an alias is one way to reference the
             do:
               ops.print:
                 - text: "Hi"
+        - run_subflow:
+            do:
+              subs.division:
+                - input1: "5"
+                - input2: "3"
+
+In this example, the ``print`` operation's source file defines its namespace as
+``example.utils`` and the ``division`` flow's source file defines its namespace
+as ``example.subflows``.
 
 .. _inputs:
 
