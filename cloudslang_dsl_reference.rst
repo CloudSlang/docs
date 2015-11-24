@@ -125,8 +125,22 @@ quoted.
     literal_single_quoted_string: 'cloudslang'
     literal_double_quoted_string: "cloudslang"
 
-**Note:** The use of unquoted strings where an expression is allowed is strongly
-discouraged.
+**Note:** Where expressions are allowed as values (input defaults, output and
+result values, etc.) and a literal string value is being used, you are
+encouraged to use a quoted style of literal string.
+
+**Example: recommended style for literal strings**
+
+.. code-block:: yaml
+
+  flow:
+    name: flow_name #expression not allowed - unquoted literal string
+
+    workflow:
+      - task1:
+          do:
+            print:
+              - text: "hello" #expression allowed - quoted literal string
 
 Standard Expressions
 --------------------
