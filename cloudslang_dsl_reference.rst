@@ -182,6 +182,7 @@ approach detailed above is the recommended one.
 **Example: passing a map using the expression marker and quotes**
 
 .. code-block:: yaml
+
     - map3: "${{'a key': 1, 'b': 'c'}}"
     - map4: >
         ${{'a key': 1, 'b': 'c'}}
@@ -616,13 +617,8 @@ several ways:
 For more information, see the :ref:`Operation Paths <example_operation_paths>`
 example.
 
-Arguments may be passed to a `task <#task>`__ in one of two ways:
-
--  list of argument names and optional mapped `expressions <#expressions>`__
--  single-line syntax of comma-separated ``argument_name = optional_expression`` pairs
-
-When using the single-line syntax, all taks arguments must be
-`expressions <#expressions>`__.
+Arguments are passed to a `task <#task>`__ using a list of argument names and
+optional mapped `expressions <#expressions>`__.
 
 `Expression <#expressions>`__ values will supersede values bound to flow
 `inputs <#inputs>`__ with the same name.
@@ -635,13 +631,6 @@ When using the single-line syntax, all taks arguments must be
       divide:
         - dividend: ${input1}
         - divisor: ${input2}
-
-**Example - call to a divide operation with comma-separated pairs**
-
-.. code-block:: yaml
-
-    do:
-      divide: dividend = ${input1}, divisor = ${input2}
 
 .. _flow:
 
@@ -1407,27 +1396,15 @@ There are several types of tasks:
 -  `iterative <#iterative-task>`__
 -  `asynchronous <#asynchronous-task>`__
 
-All types of tasks may take task arguments. Task arguments may be defined using
-a standard YAML list or using the single-line syntax. When using the single-line
-syntax, all taks arguments must be `expressions <#expressions>`__.
-
-**Example - standard YAML list of task arguments**
+**Example - task with two inputs, one of which contains a defualt value**
 
 .. code-block:: yaml
 
     - divider:
         do:
-          divide:
-            - dividend: ${input1}
-            - divisor: "5"
-
-**Example - single-line task arguments syntax**
-
-.. code-block:: yaml
-
-    - divider:
-        do:
-          divide: dividend = ${input1}, divisor = ${"5"}
+          some_op:
+            - host
+            - port: 25
 
 Standard Task
 ~~~~~~~~~~~~~
