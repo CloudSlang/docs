@@ -6,8 +6,8 @@ Contents:
 .. toctree::
    :maxdepth: 2
 
-   Hello World Example <hello_world>
    Ready-made Content <cloudslang_content>
+   Hello World Example <hello_world>
    YAML Overview <yaml_overview>
    DSL Reference <cloudslang_dsl_reference>
    Examples <cloudslang_examples>
