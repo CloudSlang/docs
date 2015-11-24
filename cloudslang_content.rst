@@ -19,8 +19,23 @@ For more information on the content contained in the repository, see the
 `docs <https://github.com/CloudSlang/cloud-slang-content/blob/master/DOCS.md>`__
 page.
 
-Contributing
-=================================
+Running CloudSlang Content
+==========================
+
+The simplest way to get started running ready-made CloudSlang content is to
+download and run the pre-packaged cslang-cli-with-content file as described in
+the :doc:`Get Started <get_started>` section.
+
+Alternatively, you can build the CLI from source and download the content
+separately. To build the CLI yourself and for more information on using the CLI,
+see the :doc:`CLI <cloudslang_cli>` section.
+
+**Note:** When using a locally built CLI you may need to include a classpath to
+properly reference ready-made content. For information on using classpaths, see
+:ref:`Run with Dependencies <run_with_dependencies>`.
+
+Contributing Content
+====================
 
 We welcome and encourage community contributions to CloudSlang. Please see the
 :doc:`contribution <developer_contribution>` section to familiarize yourself
