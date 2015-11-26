@@ -121,12 +121,12 @@ we just added to the ``new_hire`` flow.
 Aggregate
 ---------
 
-Whereas aggregation takes place in the ``publish`` section of a normal
-for loop, in an asynchronous loop there is an additional ``aggregate``
-section.
+Whereas aggregation takes place in the ``publish`` section of a normal for loop
+(as we did in lesson :doc:`11 - Loop Aggregation <11_lesson>`), in an
+asynchronous loop there is an additional ``aggregate`` section.
 
-The ``aggregate`` key is indented to be in line with the ``async_loop``
-key, indicating that it does not run for each branch in the loop.
+Notice that the ``aggregate`` key is indented to be in line with the
+``async_loop`` key, indicating that it does not run for each branch in the loop.
 Aggregation occurs only after all branches have completed.
 
 In most cases the aggregation will make use of the ``branches_context``
@@ -134,10 +134,9 @@ list. This is a list that is populated with all of the published outputs
 from all of the branchs. For example, in our case,
 ``branches_context[0]`` will contain keys, corresponding to the
 published variables ``address`` and ``total_cost``, mapped to the values
-output by the first branch to complete. Similarly,
-``branches_context[1]`` will contain the keys ``address`` and
-``total_cost`` mapped to the values output by the second branch to
-complete.
+output by the first branch to complete. Similarly, ``branches_context[1]``
+will contain the keys ``address`` and ``total_cost`` mapped to the values output
+by the second branch to complete.
 
 There is no way to predict the order in which branches will complete, so
 the ``branches_context`` is rarely accessed using particular indices.
@@ -164,6 +163,27 @@ aggregations.
 In our case we use the ``map()``, ``filter()`` and ``sum()`` Python
 functions to create a list of all the email addresses that were created
 and a sum of all the equipment costs.
+
+Let's look a bit closer at one of the aggregations to better understand what's
+going on. Each time a branch of the asynchronous loop is finished running the
+``new_hire`` subflow it publishes a ``total_cost`` value. Each of those
+individual ``total_cost`` values gets added to the ``branches_context`` list at
+index ``n``, where ``n`` indicates the order the branches finish in, under the
+``total_cost`` key. So, if we were to loop through the ``branches_context`` we
+would find at ``branches_context[n][total_cost]`` the ``total_cost`` value that
+was published by the nth ``new_hire`` subflow to finish running. Instead of
+looping through the ``branches_context``, we use a Python lambda expression in
+conjunction with the ``map`` function to extract just the values of the
+``total_cost`` from each ``branches_context[n][total_cost]`` to a new list.
+Finally, we use the Python ``sum`` function to add up all the
+extracted values in our new list and publish that value as ``cost``.
+
+For more information on the Python constructs used here, see
+`lamda <https://docs.python.org/2.7/reference/expressions.html?highlight=lambda#lambda>`__,
+`map <https://docs.python.org/2.7/library/functions.html?highlight=map%20function#map>`__
+and `sum <https://docs.python.org/2.7/library/functions.html?highlight=map%20function#sum>`__
+in the Python documentation.
+
 
 Navigate
 --------

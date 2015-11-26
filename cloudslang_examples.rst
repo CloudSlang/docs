@@ -9,7 +9,7 @@ concepts.
 -  `Example 2 - Default Navigation <#example-2-default-navigation>`__
 -  `Example 3 - Subflow <#example-3-subflow>`__
 -  `Example 4 - Loops <#example-4-loops>`__
--  `Example 5 - Asynchronous loop <#example-5-asynchronous-loop>`__
+-  `Example 5 - Asynchronous Loop <#example-5-asynchronous-loop>`__
 -  `Example 6 - Operation Paths <#example-6-operation-paths>`__
 
 Each of the examples below can be run by doing the following:
@@ -390,7 +390,9 @@ looped on and various methods for handling loop breaks.
       results:
         - SUCCESS
 
-Example 5 - Asynchronous loop
+.. _example_asynchronous_loop:
+
+Example 5 - Asynchronous Loop
 =============================
 
 This example demonstrates the usage of an asynchronous loop including

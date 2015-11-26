@@ -99,11 +99,13 @@ to start with.
       - order_map:
           default: {'laptop': 1000, 'docking station':200, 'monitor': 500, 'phone': 100}
 
-Now we can perform the aggregation. In ``get_equipment`` task's publish
+Now we can perform the aggregation. In the ``get_equipment`` task's publish
 section, we'll add the output variables to the ones we just created in
 the flow inputs and publish them back to the flow. This will run for
 each iteration after the operation has completed, aggregating all the
-data.
+data. For example, each time through the loop a ``cost`` is output from the
+``order`` operation. That ``cost`` is added to the ``total_cost`` variable for
+each iteration in the publish section of the ``get_equipment`` task.
 
 Notice the usage of the ``self['']`` syntax to indicate that we're
 referring to the variable that exists on the flow level and not a
