@@ -424,11 +424,18 @@ the key is the variable name to publish to the `flow's <#flow>`__ scope
 and the value is the aggregation `expression <#expressions>`__.
 
 Defines the aggregation logic for an `asynchronous
-task <#asynchronous-task>`__, often making us of the
+task <#asynchronous-task>`__, generally making us of the
 `branches_context <#branches-context>`__ construct.
 
-Aggregation is performed after all branches of an `asynchronous
-task <#asynchronous-task>`__ have completed.
+After all branches of an `asynchronous task <#asynchronous-task>`__ have
+completed, execution of the flow continues with the ``aggregate`` section. The
+expression of each name:value pair is evaluated and published to the
+`flow's <#flow>`__ scope. The expression generally makes use of the
+`branches_context <#branches-context>`__ construct to access the values
+published by each of the `asynchronous loop's <#async_loop>`__ branches.
+
+For more information, see the :ref:`Asynchronous Loop <example_asynchronous_loop>`
+example.
 
 **Example - aggregates all of the published names into name\_list**
 
