@@ -82,6 +82,9 @@ To run a flow or operation located at ``c:/.../your_flow.sl``, use the
 Run with Inputs
 ---------------
 
+From the Command Line
+~~~~~~~~~~~~~~~~~~~~~
+
 If the flow or operation takes in input parameters, use the ``--i`` flag
 and a comma-separated list of key=value pairs:
 
@@ -113,6 +116,9 @@ To pass the value **"Hello" World** to a flow:
 
     cslang>run --f c:/.../your_flow.sl --i "input1=\"Hello\" World"
 
+Using an Inputs File
+~~~~~~~~~~~~~~~~~~~~
+
 Alternatively, inputs made be loaded from a file. Input files are
 written in flat `YAML <http://www.yaml.org>`__, containing a map of
 names to values. Input files end with the **.yaml** or **.yml**
@@ -128,11 +134,13 @@ overwrite the others with the same name.
 
     cslang>run --f C:/.../your_flow.sl --i "input1=simple text,input2=comma\, text,input3=\"quoted text\""
 
-*Inputs file - run command and inputs.yaml file*
+*Inputs file - run command*
 
 .. code-block:: bash
 
     cslang>run --f C:/.../your_flow.sl --if C:/.../inputs.yaml
+
+*Inputs file - inputs.yaml file*
 
 .. code-block:: yaml
 
