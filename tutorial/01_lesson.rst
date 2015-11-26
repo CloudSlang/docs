@@ -54,11 +54,34 @@ More Information
 For more information on any of the topics covered in this tutorial, see
 the :doc:`CloudSlang documentation <../index>`.
 
+Flows and Operations
+--------------------
+
+Let's begin our study of the CloudSlang language by discussing the two types of
+CloudSlang executable contructs, flows and operations.
+
+Generally, CloudSlang treats flows and operations similarly. Flows and
+operations can both receive inputs, produce outputs, return results and can be
+called by a flow’s task.
+
+But flows and operations serve different purposes. An operation contains an
+action, which can be written in Python or Java. Operations perform the “work”
+part of the workflow. A flow contains tasks, which stitch together the actions
+performed by operations (or subflows), navigating and passing data from one
+to the other based on operation results and outputs. Flows perform the “flow”
+part of the workflow.
+
+Here is a diagram of the flow and operation structure we will be building in
+this tutorial.
+
+.. figure:: ../images/flow_diagram.png
+   :alt: Flow Diagram
+
 Setup
 -----
 
-Now we'll setup our folder structure to get ready to write our flows and
-operations.
+We'll write our first operation and flow in the next couple of lessons. But
+before we do that we'll setup our folder structure to get ready.
 
 Create a folder named **tutorials**. We'll store our flows and
 operations in this folder. Since we're going to have some general
