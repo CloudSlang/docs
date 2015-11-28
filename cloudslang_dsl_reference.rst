@@ -464,9 +464,9 @@ task's <#asynchronous-task>`__ `aggregation <#aggregate>`__ and
 +===============+============+===========+=============================+===========================================================================+============================================================================+
 | ``for``       | yes        | --        | variable ``in`` list        | loop values                                                               | `for <#for>`__                                                             |
 +---------------+------------+-----------+-----------------------------+---------------------------------------------------------------------------+----------------------------------------------------------------------------+
-| ``do``        | yes        | --        | operation or subflow call   | the operation or subflow this task will run in parallel                   | `do <#do>`__ `operation <#operation>`__ `flow <#flow>`__                   |
+| ``do``        | yes        | --        | operation or subflow call   | the operation or subflow this task will run in parallel                   | `do <#do>`__, `operation <#operation>`__, `flow <#flow>`__                 |
 +---------------+------------+-----------+-----------------------------+---------------------------------------------------------------------------+----------------------------------------------------------------------------+
-| ``publish``   | no         | --        | list of key:value pairs     | operation or subflow outputs to aggregate and publish to the flow level   | `publish <#publish>`__ `aggregate <#aggregate>`__ `outputs <#outputs>`__   |
+| ``publish``   | no         | --        | list of key:value pairs     | operation or subflow outputs to aggregate and publish to the flow level   | `publish <#publish>`__, `aggregate <#aggregate>`__, `outputs <#outputs>`__ |
 +---------------+------------+-----------+-----------------------------+---------------------------------------------------------------------------+----------------------------------------------------------------------------+
 
 **Example: loop that breaks on a result of custom**
@@ -961,9 +961,9 @@ task's navigation will run.
 +===============+============+===========+=================================================+================================================================================+============================================================+
 | ``for``       | yes        | --        | variable ``in`` list or key, value ``in`` map   | iteration logic                                                                | `for <#for>`__                                             |
 +---------------+------------+-----------+-------------------------------------------------+--------------------------------------------------------------------------------+------------------------------------------------------------+
-| ``do``        | yes        | --        | operation or subflow call                       | the operation or subflow this task will run iteratively                        | `do <#do>`__ `operation <#operation>`__ `flow <#flow>`__   |
+| ``do``        | yes        | --        | operation or subflow call                       | the operation or subflow this task will run iteratively                        | `do <#do>`__, `operation <#operation>`__, `flow <#flow>`__ |
 +---------------+------------+-----------+-------------------------------------------------+--------------------------------------------------------------------------------+------------------------------------------------------------+
-| ``publish``   | no         | --        | list of key:value pairs                         | operation or subflow outputs to aggregate and publish to the flow level        | `publish <#publish>`__ `outputs <#outputs>`__              |
+| ``publish``   | no         | --        | list of key:value pairs                         | operation or subflow outputs to aggregate and publish to the flow level        | `publish <#publish>`__, `outputs <#outputs>`__             |
 +---------------+------------+-----------+-------------------------------------------------+--------------------------------------------------------------------------------+------------------------------------------------------------+
 | ``break``     | no         | --        | list of `results <#results>`__                  | operation or subflow `results <#results>`__ on which to break out of the loop  | `break <#break>`__                                         |
 +---------------+------------+-----------+-------------------------------------------------+--------------------------------------------------------------------------------+------------------------------------------------------------+
@@ -1454,11 +1454,11 @@ The task name is mapped to the task's properties.
 +----------------+------------+-------------------------------------------------------------------+-----------------------------+---------------------------------------------------+------------------------------------------------------------+
 | Property       | Required   | Default                                                           | Value Type                  | Description                                       | More Info                                                  |
 +================+============+===================================================================+=============================+===================================================+============================================================+
-| ``do``         | yes        | --                                                                | operation or subflow call   | the operation or subflow this task will run       | `do <#do>`__ `operation <#operation>`__ `flow <#flow>`__   |
+| ``do``         | yes        | --                                                                | operation or subflow call   | the operation or subflow this task will run       | `do <#do>`__, `operation <#operation>`__, `flow <#flow>`__ |
 +----------------+------------+-------------------------------------------------------------------+-----------------------------+---------------------------------------------------+------------------------------------------------------------+
-| ``publish``    | no         | --                                                                | list of key:value pairs     | operation outputs to publish to the flow level    | `publish <#publish>`__ `outputs <#outputs>`__              |
+| ``publish``    | no         | --                                                                | list of key:value pairs     | operation outputs to publish to the flow level    | `publish <#publish>`__, `outputs <#outputs>`__             |
 +----------------+------------+-------------------------------------------------------------------+-----------------------------+---------------------------------------------------+------------------------------------------------------------+
-| ``navigate``   | no         | ``FAILURE``: on_failure or flow finish; ``SUCCESS``: next task    | key:value pairs             | navigation logic from operation or flow results   | `navigation <#navigate>`__ `results <#results>`__          |
+| ``navigate``   | no         | ``FAILURE``: on_failure or flow finish; ``SUCCESS``: next task    | key:value pairs             | navigation logic from operation or flow results   | `navigation <#navigate>`__, `results <#results>`__         |
 +----------------+------------+-------------------------------------------------------------------+-----------------------------+---------------------------------------------------+------------------------------------------------------------+
 
 **Example - task that performs a division of two inputs, publishes the
@@ -1490,7 +1490,7 @@ The task name is mapped to the iterative task's properties.
 +================+============+===================================================================+===================+=========================================================================================================+=====================================================+
 | ``loop``       | yes        | --                                                                | key               | container for loop properties                                                                           | `for <#for>`__                                      |
 +----------------+------------+-------------------------------------------------------------------+-------------------+---------------------------------------------------------------------------------------------------------+-----------------------------------------------------+
-| ``navigate``   | no         | ``FAILURE``: on_failure or flow finish; ``SUCCESS``: next task    | key:value pairs   | navigation logic from `break <#break>`__ or the result of the last iteration of the operation or flow   | `navigation <#navigate>`__ `results <#results>`__   |
+| ``navigate``   | no         | ``FAILURE``: on_failure or flow finish; ``SUCCESS``: next task    | key:value pairs   | navigation logic from `break <#break>`__ or the result of the last iteration of the operation or flow   | `navigation <#navigate>`__, `results <#results>`__  |
 +----------------+------------+-------------------------------------------------------------------+-------------------+---------------------------------------------------------------------------------------------------------+-----------------------------------------------------+
 
 **Example - task prints all the values in value_list and then navigates
@@ -1524,7 +1524,7 @@ The task name is mapped to the asynchronous task's properties.
 +------------------+------------+-------------------------------------------------------------------+----------------------+-------------------------------------------+-----------------------------------------------------+
 | ``aggregate``    | no         | --                                                                | list of key:values   | values to aggregate from async branches   | `aggregate <#aggregate>`__                          |
 +------------------+------------+-------------------------------------------------------------------+----------------------+-------------------------------------------+-----------------------------------------------------+
-| ``navigate``     | no         | ``FAILURE``: on_failure or flow finish; ``SUCCESS``: next task    | key:value pairs      | navigation logic                          | `navigation <#navigate>`__ `results <#results>`__   |
+| ``navigate``     | no         | ``FAILURE``: on_failure or flow finish; ``SUCCESS``: next task    | key:value pairs      | navigation logic                          | `navigation <#navigate>`__, `results <#results>`__  |
 +------------------+------------+-------------------------------------------------------------------+----------------------+-------------------------------------------+-----------------------------------------------------+
 
 **Example - task prints all the values in value_list asynchronously and
@@ -1567,7 +1567,7 @@ flow finish or to `on_failure <#on-failure>`__ upon a
 +------------------+------------+-----------+--------------+---------------------------------------------+--------------------------------------------------+
 | Propery          | Required   | Default   | Value Type   | Description                                 | More Info                                        |
 +==================+============+===========+==============+=============================================+==================================================+
-| ``on_failure``   | no         | --        | task         | default navigation target for ``FAILURE``   | `on_failure <#on-failure>`__ `task <#task>`__    |
+| ``on_failure``   | no         | --        | task         | default navigation target for ``FAILURE``   | `on_failure <#on-failure>`__, `task <#task>`__   |
 +------------------+------------+-----------+--------------+---------------------------------------------+--------------------------------------------------+
 
 **Example - workflow that divides two numbers and prints them out if the
