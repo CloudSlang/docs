@@ -82,8 +82,6 @@ There are three types of scoped contexts:
 .. figure:: images/scoped_contexts.png
    :alt: Scoped Contexts
 
-   Scoped Contexts
-
 .. _types_of_executionsteps:
 
 Types of ExecutionSteps

@@ -240,12 +240,13 @@ control action or navigation action method arguments:
    the `ExecutionRuntimeServices <#executionruntimeservices>`__ object.
    ``java   public void doWithServices(ExecutionRuntimeServices executionRuntimeServices)``
 -  **executionContext** - Score will populate this argument with the
-   context tied to the ExecutionPlan during its triggering through the
-   `TriggeringProperties <#triggeringproperties>`__.
+   context tied to the `ExecutionPlan <#executionplan>`__ during its triggering
+   through the `TriggeringProperties <#triggeringproperties>`__.
    ``java   public void doWithContext(Map<String, Serializable> executionContext)``
-   If an argument is present in both the
-   `ExecutionStep <#executionstep>`__ data and the execution context,
-   the value from the execution context will be used.
+
+If an argument is present in both the
+`ExecutionStep <#executionstep>`__ data and the execution context,
+the value from the execution context will be used.
 
 Action Method Return Values
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -283,7 +284,7 @@ The ``cancelExecution(Long executionId)`` method requests to cancel
 (terminate) a given execution. It is passed the ID that was returned
 when triggering the execution that is now to be canceled.
 
-Note that the execution will not necessarily be stopped immediately.
+**Note:** The execution will not necessarily be stopped immediately.
 
 .. _triggeringproperties:
 

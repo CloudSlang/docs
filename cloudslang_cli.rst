@@ -22,8 +22,8 @@ higher is required.
 3. Navigate to the folder ``cslang-cli\cslang\cslang\bin\``.
 4. Run the executable:
 
--  For Windows : ``cslang.bat``.
--  For Linux : ``bash cslang``.
+   -  For Windows : ``cslang.bat``.
+   -  For Linux : ``bash cslang``.
 
 Download, Build and Run CLI
 ===========================
@@ -39,8 +39,8 @@ higher and Maven version 3.0.3 or higher are required.
    ``cloudslang-cli\target\cloudslang\bin`` folder.
 5. Run the executable:
 
--  For Windows : ``cslang.bat``.
--  For Linux : ``bash cslang``.
+   -  For Windows : ``cslang.bat``.
+   -  For Linux : ``bash cslang``.
 
 Download and Install npm Package
 ================================

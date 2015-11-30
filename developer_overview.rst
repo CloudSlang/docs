@@ -1,7 +1,7 @@
 Overview
 ++++++++
 
-What follows is a brief overview of how CloudSlang and the CloudSlang
+This section contains a brief overview of how CloudSlang and the CloudSlang
 Orchestration Engine (Score) work. For more detailed information see the
 :ref:`Score API <score_api>` and :ref:`Slang API <slang_api>` sections.
 

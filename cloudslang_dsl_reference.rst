@@ -133,11 +133,11 @@ signature: ``public Map<String, String> doSomething(paramaters)`` and
 uses the following annotations from
 ``com.hp.oo.sdk.content.annotations``:
 
--  required annotations:
+-  Required annotation:
 
    -  @Param: action parameter
 
--  optional annotations:
+-  Optional annotations:
 
    -  @Action: specify action information
    -  @Output: action output
@@ -852,7 +852,7 @@ The namespace of a file may be used by other CloudSlang files to
     imports:
       ops: examples.hello_world
 
-**Note:** if the imported file resides in a folder that is different
+**Note:** If the imported file resides in a folder that is different
 from the folder in which the importing file resides, the imported file's
 directory must be added using the ``--cp`` flag when running from the
 CLI (see :ref:`Run with Dependencies <run_with_dependencies>`).
@@ -1106,7 +1106,7 @@ The results of a `flow <#flow>`__ or `operation <#operation>`__ can be
 used by the calling `task <#task>`__ for `navigation <#navigate>`__
 purposes.
 
-**Note:** the only results of an `operation <#operation>`__ or
+**Note:** The only results of an `operation <#operation>`__ or
 `subflow <#flow>`__ called in an `async_loop <#async-loop>`__ that are
 evaluated are ``SUCCESS`` and ``FAILURE``. Any other results will be
 evaluated as ``SUCCESS``.
