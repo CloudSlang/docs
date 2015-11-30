@@ -133,8 +133,6 @@ additional workers and/or engines.
 .. figure:: images/score_architecture.png
    :alt: Score Architecture
 
-   Score Architecture
-
 Engine
 ------
 

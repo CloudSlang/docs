@@ -244,8 +244,8 @@ control action or navigation action method arguments:
     public void doWithServices(ExecutionRuntimeServices    executionRuntimeServices)
 
 -  **executionContext** - Score will populate this argument with the
-   context tied to the ExecutionPlan during its triggering through the
-   `TriggeringProperties <#triggeringproperties>`__.
+   context tied to the `ExecutionPlan <#executionplan>`__ during its triggering
+   through the `TriggeringProperties <#triggeringproperties>`__.
 
 .. code-block:: java
 
@@ -291,7 +291,7 @@ The ``cancelExecution(Long executionId)`` method requests to cancel
 (terminate) a given execution. It is passed the ID that was returned
 when triggering the execution that is now to be canceled.
 
-Note that the execution will not necessarily be stopped immediately.
+**Note:** The execution will not necessarily be stopped immediately.
 
 .. _triggering_properties:
 

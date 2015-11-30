@@ -22,8 +22,8 @@ higher is required.
 3. Navigate to the folder ``cslang-cli\cslang\cslang\bin\``.
 4. Run the executable:
 
--  For Windows : ``cslang.bat``.
--  For Linux : ``bash cslang``.
+   -  For Windows : ``cslang.bat``.
+   -  For Linux : ``bash cslang``.
 
 Download, Build and Run CLI
 ===========================
@@ -39,8 +39,8 @@ higher and Maven version 3.0.3 or higher are required.
    ``cloudslang-cli\target\cloudslang\bin`` folder.
 5. Run the executable:
 
--  For Windows : ``cslang.bat``.
--  For Linux : ``bash cslang``.
+   -  For Windows : ``cslang.bat``.
+   -  For Linux : ``bash cslang``.
 
 Download and Install npm Package
 ================================
@@ -61,8 +61,8 @@ Docker Image
 - Pull the image: ``docker pull cloudslang/cloudslang``.
 - Run the CLI
 
-    - With prompt: ``docker run -it cloudslang/cloudslang``.
-    - Without prompt: ``docker run --rm -ti cloudslang run --f ../content/io/cloudslang/.../flow.sl --i input1=value1``
+   - With prompt: ``docker run -it cloudslang/cloudslang``.
+   - Without prompt: ``docker run --rm -ti cloudslang run --f ../content/io/cloudslang/.../flow.sl --i input1=value1``
 
 .. _use_the_cli:
 
