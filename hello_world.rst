@@ -71,11 +71,11 @@ The output will look similar to this:
 Explanation
 ===========
 
-The CLI runs the :ref:`flow` in the file
-we have passed to it, namely **hello\_world.sl**. The :ref:`flow` begins with an
+The CLI runs the :ref:`flow` in the file that was passed to it,
+namely **hello\_world.sl**. The :ref:`flow` begins with an
 :ref:`import <imports>` of the operations file, **print.sl**, using its
-:ref:`namespace` as the value for the :ref:`import <imports>` key. Next, we
-enter the :ref:`flow` named ``hello_world`` and begin its
+:ref:`namespace` as the value for the :ref:`import <imports>` key. Next, it
+enters the :ref:`flow` named ``hello_world`` and begins its
 :ref:`workflow`. The :ref:`workflow` has one :ref:`task` named ``sayHi`` which calls
 the ``print`` `operation` from the operations file that was imported. The
 :ref:`flow` passes the string ``"'Hello, World'"`` to the ``print``

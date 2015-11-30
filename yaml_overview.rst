@@ -2,7 +2,7 @@ YAML Overview
 +++++++++++++
 
 Before writing CloudSlang code it helps to have a good working knowledge
-of YAML. The following is a brief overview of some of the YAML
+of YAML. This section contains a brief overview of some of the YAML
 specification. See the full `YAML
 specification <http://www.yaml.org/spec/1.2/spec.html>`__ for more
 information.

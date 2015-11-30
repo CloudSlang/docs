@@ -13,8 +13,6 @@ dependencies depicted in the diagram below.
 .. figure:: images/repo_dependencies.png
    :alt: Repository Dependencies
 
-   Repository Dependencies
-
 -  **score** - CloudSlang Orchestration Engine (Score)
 
    -  engine
@@ -108,7 +106,7 @@ through GitHub: https://github.com/CloudSlang.
 -  If you want to raise an issue such as a defect, an enhancement
    request or a general issue, please open a GitHub issue.
 
-Note that all patches from all contributors get reviewed.
+**Note:** All patches from all contributors get reviewed.
 
 After a pull request is made, other contributors will offer feedback. If
 the patch passes review, a maintainer will accept it with a comment.
