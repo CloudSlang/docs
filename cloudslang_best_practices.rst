@@ -30,7 +30,8 @@ CloudSlang Content Best Practices
 -  Flow and operation files begin with a commented description and list
    of annotated inputs, outputs and results (see `CloudSlang Comments
    Style Guide <#cloudslang-comments-style-guide>`__).
--  Optional parameters and default values are noted.
+
+    -  Optional parameters and default values are noted.
 
 CloudSlang Tests Best Practices
 ===============================
