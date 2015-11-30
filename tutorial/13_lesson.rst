@@ -43,6 +43,10 @@ Note: the ``port`` property must have quotes (``'``) around the value so
 that it is correctly interpreted as a YAML string and not an integer
 value.
 
+For more information, see
+:ref:`Run with System Properties <run_with_system_properties>` in
+the CLI documentation.
+
 Inputs
 ------
 

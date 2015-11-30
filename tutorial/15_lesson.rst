@@ -92,6 +92,8 @@ passed the corresponding name values. The various branches running the
 ``new_hire`` flow will run in parallel and the rest of the flow will
 continue only after all the branches have completed.
 
+For more information, see :ref:`async_loop` in the DSL reference.
+
 Publish
 -------
 
@@ -117,6 +119,8 @@ we just added to the ``new_hire`` flow.
           publish:
             - address
             - total_cost
+
+For more information, see :ref:`publish` in the DSL reference.
 
 Aggregate
 ---------
@@ -177,6 +181,9 @@ conjunction with the ``map`` function to extract just the values of the
 ``total_cost`` from each ``branches_context[n][total_cost]`` to a new list.
 Finally, we use the Python ``sum`` function to add up all the
 extracted values in our new list and publish that value as ``cost``.
+
+For more information, see :ref:`aggregate` and :ref:`branches_context` in the
+DSL reference.
 
 For more information on the Python constructs used here, see
 `lamda <https://docs.python.org/2.7/reference/expressions.html?highlight=lambda#lambda>`__,
@@ -239,6 +246,8 @@ Here is the contents of our **hires.yaml** input file.
         last: doe
       - first: juan
         last: perez
+
+For more information, see :ref:`Using an Inputs File <using_an_inputs_file>` in the CLI documentation.
 
 Tasks
 -----

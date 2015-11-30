@@ -74,9 +74,13 @@ is a CloudSlang expression. If we would have just written ``vacant``, it would
 be understood as a string literal. We'll see this syntax in action again in a
 few moments.
 
+For more information, see :ref:`expressions` in the DSL reference.
+
 At this point we won't be using the output value, but we will soon
 enough. In lesson :doc:`5 - Default Navigation <05_lesson>` we publish
 the the ``available`` output and use it in another task.
+
+For more information, see :ref:`outputs` in the DSL reference.
 
 Results
 -------
@@ -101,6 +105,8 @@ can see the default navigation rules in action in lessons :doc:`5 - Default
 Navigation <05_lesson>` and :doc:`6 - Handling Failure
 Results <06_lesson>`. And you can learn how to create custom
 navigation in lesson :doc:`7 - Custom Navigation <07_lesson>`.
+
+For more information, see :ref:`results` in the DSL reference.
 
 Run It
 ------

@@ -51,6 +51,9 @@ value and then passed to an iteration of the subflow call.
 Since we're assigning a value to ``attempt`` in the loop and not using
 it as flow input we can delete it from the flow's input list.
 
+For more information, see :ref:`loop`, :ref:`for` and :ref:`publish` in the DSL
+reference.
+
 Default Behavior
 ----------------
 
@@ -158,6 +161,8 @@ from the last iteration of the loop. We can use at the same way
 published variables are used in regular tasks. However, when using
 loops, you often want to aggregate the published output. We will do that
 in the next lesson.
+
+For more information, see :ref:`break` in the DSL reference.
 
 List Types
 ----------
