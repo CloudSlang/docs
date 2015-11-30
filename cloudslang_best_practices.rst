@@ -81,7 +81,7 @@ Description
 
 -  Written as a sentence, beginning with a capital letter and ending
    with a period.
--  Written in the present tense, for exampel, "Prints text.".
+-  Written in the present tense, for example, "Prints text.".
 -  Does not include "This flow" or "This operation" or anything similar.
 
 Prerequisites
