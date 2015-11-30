@@ -227,11 +227,11 @@ signature: ``public Map<String, String> doSomething(paramaters)`` and
 uses the following annotations from
 ``com.hp.oo.sdk.content.annotations``:
 
--  required annotations:
+-  Required annotation:
 
    -  @Param: action parameter
 
--  optional annotations:
+-  Optional annotations:
 
    -  @Action: specify action information
    -  @Output: action output
@@ -622,7 +622,7 @@ several ways:
 -  by referencing the `operation <#operation>`__ or `flow <#flow>`__ by
    name when it is in the default namespace (the same namespace as the
    calling `flow <#flow>`__)
--  by using a fully qualified name (e.g. ``path.to.operation.op_name``)
+-  by using a fully qualified name, for example, ``path.to.operation.op_name``
 
    -  a path is recognized as a fully qualified name if the prefix
       (before the first ``.``) is not a defined alias

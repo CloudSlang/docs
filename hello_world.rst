@@ -75,7 +75,7 @@ The output will look similar to this:
 Explanation
 ===========
 
-The CLI runs the :ref:`flow` in the file we have passed to it, namely
+The CLI runs the :ref:`flow` contained in the file passed to it, namely
 **hello\_world.sl**. The :ref:`flow` named ``hello_world`` begins its
 :ref:`workflow`. The :ref:`workflow` has one :ref:`task` named ``sayHi`` which
 calls the ``print`` :ref:`operation`. The :ref:`flow` passes the string
