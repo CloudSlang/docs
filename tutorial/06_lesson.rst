@@ -32,6 +32,8 @@ add this functionality after the ``print_finish`` task.
 Now, when any task receives a result of ``FAILURE`` from its operation
 the flow will navigate to the ``on_failure`` task by default.
 
+For more information, see :ref:`on_failure` in the DSL reference.
+
 Run It
 ------
 

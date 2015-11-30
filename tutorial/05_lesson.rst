@@ -70,6 +70,8 @@ scope under the name ``availability``. We'll use the ``availability``
 variable momentarily in an input expression in another of the flow's
 tasks.
 
+For more information, see :ref:`publish` in the DSL reference.
+
 Input Expression
 ----------------
 

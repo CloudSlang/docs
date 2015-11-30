@@ -25,6 +25,8 @@ namespace. Since we're storing **new_hire.sl** in the
 
     namespace: tutorials.hiring
 
+For more information, see :ref:`namespace` in the DSL reference.
+
 Imports
 -------
 
@@ -43,6 +45,8 @@ Let's call the alias ``base``.
 Now we can use ``base.print`` to refer to the ``print`` operation in a task.
 We'll do that in a moment.
 
+For more information, see :ref:`imports` in the DSL reference.
+
 For ways to refer to an operation or subflow without creating an alias,
 see the :ref:`CloudSlang DSL Reference <do>` and the
 :ref:`Operation Paths <example_operation_paths>` example.
@@ -60,6 +64,8 @@ of the file it is stored in.
     flow:
       name: new_hire
 
+For more information, see :ref:`flow` in the DSL reference.
+
 Tasks
 -----
 
@@ -73,6 +79,8 @@ workflow starts with a key that is its name. We'll call our task
 
     workflow:
       - print_start:
+
+For more information, see :ref:`workflow` in the DSL reference.
 
 A task can contain several parts, but we'll start with a simple task
 with the only required part, the ``do`` key. We want to call the print
@@ -92,6 +100,9 @@ In addition to the required ``do``, a task can also contain the optional
 in lessons :doc:`5 - Default Navigation <05_lesson>` and :doc:`7 - Custom
 Navigation <07_lesson>` respectively.
 
+For more information, see :ref:`do`, :ref:`publish` and :ref:`navigate` in the
+DSL reference.
+
 Run It
 ------
 
@@ -103,7 +114,9 @@ following at the prompt.
     run --f <folder path>/tutorials/hiring/new_hire.sl --cp <folder path>/tutorials/base
 
 **Note:** The --cp flag is used to add folders where the flow's
-dependencies are found to the classpath.
+dependencies are found to the classpath. For more information, see
+:ref:`Run with Dependencies <run_with_dependencies>` in the DSL reference.
+
 
 You should see the name of the task and the string sent to the print
 operation printed to the screen.

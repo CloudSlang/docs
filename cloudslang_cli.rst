@@ -125,6 +125,8 @@ To pass the value **"Hello" World** to a flow:
 
     cslang>run --f c:/.../your_flow.sl --i "input1=\"Hello\" World"
 
+.. _using_an_inputs_file:
+
 Using an Inputs File
 ~~~~~~~~~~~~~~~~~~~~
 

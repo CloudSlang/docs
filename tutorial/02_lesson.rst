@@ -30,6 +30,8 @@ reflect that.
 
 The namespace can be used by flows that call this operation.
 
+For more information, see :ref:`namespace` in the DSL reference.
+
 Operation Name
 --------------
 
@@ -48,6 +50,8 @@ indicate scope. In the example above, you can see that
 ``name: print`` is indented under the ``operation`` key to denote
 that it belongs to the operation. **Always** use spaces to indent.
 **Never** use tabs.
+
+For more information, see :ref:`operation` in the DSL reference.
 
 Inputs
 ------
@@ -73,6 +77,9 @@ Inputs can also have related parameters, such as ``required``,
 ``default``, ``overridable`` and ``system_property``. We will discuss
 these parameters in lessons :doc:`8 - Input Parameters <08_lesson>` and
 :doc:`13 - System Properties <13_lesson>`.
+
+For more information, see :ref:`inputs`, :ref:`required`, :ref:`default`,
+:ref:`overridable` and :ref:`system_property` in the DSL reference.
 
 Action
 ------
@@ -100,8 +107,10 @@ Python scripts that need 3rd party packages may import them using the
 procedures described in lesson :doc:`14 - 3rd Party Python
 Packages <14_lesson>`.
 
+For more information, see :ref:`action` in the DSL reference.
+
 The usage of Java-based actions is beyond the scope of this tutorial.
-For more information, see the :ref:`CloudSlang DSL reference <java_action>`.
+For more information, see the :ref:`java_action` in the DSL reference.
 
 Run It
 ------
@@ -118,6 +127,9 @@ the following at the prompt to run your operation:
     run --f <folder path>/tutorials/base/print.sl --i text=Hi
 
 You should see the input text printed out to the screen.
+
+For more information, see :ref:`Use the CLI <use_the_cli>` in the
+DSL reference.
 
 Up Next
 -------

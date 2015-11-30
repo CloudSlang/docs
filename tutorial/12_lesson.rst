@@ -76,6 +76,8 @@ it doesn't reside where our other operations and subflows do.
       base: tutorials.base
       mail: io.cloudslang.base.mail
 
+For more information, see :ref:`imports` in the DSL reference.
+
 Task
 ----
 

@@ -52,6 +52,8 @@ mapped to the task that should be navigated to when returned.
           UNAVAILABLE: print_fail
           AVAILABLE: print_finish
 
+For more information, see :ref:`navigate` in the DSL reference.
+
 Run It
 ------
 

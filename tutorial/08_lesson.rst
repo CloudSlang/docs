@@ -164,6 +164,8 @@ Let's make the ``middle_name`` optional. We'll have to set its
 **YAML Note:** Don't forget to add a colon (``:``) to the input name
 before adding its properties.
 
+For more information, see :ref:`required` in the DSL reference.
+
 Default
 -------
 
@@ -193,6 +195,8 @@ for the middle name.
 .. code-block:: bash
 
     run --f <folder path>/tutorials/hiring/new_hire.sl --cp <folder path>/tutorials --i first_name=john,last_name=doe,domain=somecompany.com,attempt=1
+
+For more information, see :ref:`default` in the DSL reference.
 
 Overridable
 -----------
@@ -250,6 +254,8 @@ inputs and the ``generate_address`` task.
             - attempt
         publish:
           - address: ${email_address}
+
+For more information, see :ref:`overridable` in the DSL reference.
 
 Run It
 ------
