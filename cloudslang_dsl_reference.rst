@@ -1433,7 +1433,7 @@ There are several types of tasks:
 -  `iterative <#iterative-task>`__
 -  `asynchronous <#asynchronous-task>`__
 
-**Example - task with two inputs, one of which contains a defualt value**
+**Example - task with two inputs, one of which contains a default value**
 
 .. code-block:: yaml
 

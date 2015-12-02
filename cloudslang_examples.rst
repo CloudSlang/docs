@@ -132,7 +132,7 @@ the success of its first task.
 
 .. code-block:: yaml
 
-    namespace: examples.defualtnav
+    namespace: examples.defaultnav
 
     flow:
       name: nav_flow
@@ -164,7 +164,7 @@ the success of its first task.
 
 .. code-block:: yaml
 
-    namespace: examples.defualtnav
+    namespace: examples.defaultnav
 
     operation:
       name: produce_default_navigation
@@ -184,7 +184,7 @@ the success of its first task.
 
 .. code-block:: yaml
 
-    namespace: examples.defualtnav
+    namespace: examples.defaultnav
 
     operation:
       name: something
@@ -197,7 +197,7 @@ the success of its first task.
 
 .. code-block:: yaml
 
-    namespace: examples.defualtnav
+    namespace: examples.defaultnav
 
     operation:
       name: send_email_mock
