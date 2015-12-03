@@ -327,9 +327,9 @@ event data map keys are enclosed in square brackets - [KEYNAME].
 +-------------------------------+---------------------------------------------------+--------------------------------------------------------------------------+
 | EVENT_ACTION_START            | Before action invocation                          | [TYPE], [CALL_ARGUMENTS]                                                 |
 +-------------------------------+---------------------------------------------------+--------------------------------------------------------------------------+
-| EVENT_ACTION_END              | After successful action invocation                | [RETURN_VALUES]                                                          |                                                               |
+| EVENT_ACTION_END              | After successful action invocation                | [RETURN_VALUES]                                                          | 
 +-------------------------------+---------------------------------------------------+--------------------------------------------------------------------------+
-| EVENT_ACTION_ERROR            | Exception in action execution                     | [EXCEPTION]                                                              |                                        |
+| EVENT_ACTION_ERROR            | Exception in action execution                     | [EXCEPTION]                                                              |
 +-------------------------------+---------------------------------------------------+--------------------------------------------------------------------------+
 | EVENT_SPLIT_BRANCHES          | Async loop expression bound                       | [BOUND_ASYNC_LOOP_EXPRESSION]                                            |
 +-------------------------------+---------------------------------------------------+--------------------------------------------------------------------------+
