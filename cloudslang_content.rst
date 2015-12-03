@@ -39,4 +39,6 @@ Contributing Content
 
 We welcome and encourage community contributions to CloudSlang. Please see the
 :doc:`contribution <developer_contribution>` section to familiarize yourself
-with the Contribution Guidelines and Project Roadmap before contributing.
+with the Contribution Guidelines and `Project Roadmap
+<https://github.com/CloudSlang/cloud-slang/wiki/Project-Roadmap>`__
+before contributing.
