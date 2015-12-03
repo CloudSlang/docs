@@ -49,6 +49,8 @@ The following snippets are provided:
 +-----------------------+-----------------------------------------------------+
 | output                | template for an output name and value               |
 +-----------------------+-----------------------------------------------------+
+| result                | template for a result name and value                |
++-----------------------+-----------------------------------------------------+
 | publish               | template for a published variable name and value    |
 +-----------------------+-----------------------------------------------------+
 | import                | template for an import alias name and namespace     |
