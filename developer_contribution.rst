@@ -107,8 +107,9 @@ Contribution Guide
 ==================
 
 We welcome and encourage community contributions to CloudSlang. Please
-familiarize yourself with the Contribution Guidelines and Project
-Roadmap before contributing.
+familiarize yourself with the Contribution Guidelines and `Project Roadmap
+<https://github.com/CloudSlang/cloud-slang/wiki/Project-Roadmap>`__ before
+contributing.
 
 There are many ways to help the CloudSlang project:
 
