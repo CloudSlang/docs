@@ -317,9 +317,13 @@ event data map keys are enclosed in square brackets - [KEYNAME].
 +-------------------------------+---------------------------------------------------+--------------------------------------------------------------------------+
 | EVENT_ARGUMENT_END            | Task arguments resolved                           | [BOUND_ARGUMENTS]                                                        |
 +-------------------------------+---------------------------------------------------+--------------------------------------------------------------------------+
-| EVENT_OUTPUT_START            |  Output binding started for flow or operation     | [executableResults], [executableOutputs], [actionReturnValues]           |
+| EVENT_OUTPUT_START            | Output binding started for flow or operation      | [executableResults], [executableOutputs], [actionReturnValues]           |
 +-------------------------------+---------------------------------------------------+--------------------------------------------------------------------------+
 | EVENT_OUTPUT_END              | Output binding finished for flow or operation     | [OUTPUTS], [RESULT], [EXECUTABLE_NAME]                                   |
++-------------------------------+---------------------------------------------------+--------------------------------------------------------------------------+
+| EVENT_OUTPUT_START            | Output binding started for task                   | [operationReturnValues], [taskNavigationValues], [taskPublishValues]     |
++-------------------------------+---------------------------------------------------+--------------------------------------------------------------------------+
+| EVENT_OUTPUT_END              | Output binding finished for task                  | [nextPosition], [RESULT], [OUTPUTS]                                      |
 +-------------------------------+---------------------------------------------------+--------------------------------------------------------------------------+
 | EVENT_EXECUTION_FINISHED      | Execution finished running                        | [RESULT], [OUTPUTS]                                                      |
 +-------------------------------+---------------------------------------------------+--------------------------------------------------------------------------+
