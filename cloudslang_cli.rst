@@ -19,7 +19,7 @@ higher is required.
       operations.
    -  A folder named **python-lib**.
 
-3. Navigate to the folder ``cslang\cslang\bin\``.
+3. Navigate to the folder ``cslang\bin\``.
 4. Run the executable:
 
    -  For Windows : ``cslang.bat``.
