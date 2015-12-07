@@ -9,7 +9,7 @@ Download and Run Pre-built CLI
 **Prerequisites :** To run the CloudSlang CLI, Java JRE version 7 or
 higher is required.
 
-1. `Download <http://cloudslang.io/download>`__ the CLI zip file.
+1. `Download <https://github.com/CloudSlang/cloud-slang/releases/download/cloudslang-0.8.0/cslang-cli-with-content.zip>`__ the CLI zip file.
 2. Locate the downloaded file and unzip the archive.
    The decompressed file contains:
 
@@ -19,7 +19,7 @@ higher is required.
       operations.
    -  A folder named **python-lib**.
 
-3. Navigate to the folder ``cslang-cli\cslang\cslang\bin\``.
+3. Navigate to the folder ``cslang\cslang\bin\``.
 4. Run the executable:
 
    -  For Windows : ``cslang.bat``.
@@ -32,7 +32,7 @@ Download, Build and Run CLI
 higher and Maven version 3.0.3 or higher are required.
 
 1. Git clone (or GitHub fork and then clone) the `source
-   code <https://github.com/cloudslang/cloudslang>`__.
+   code <https://github.com/cloudslang/cloud-slang>`__.
 2. Using the Command Prompt, navigate to the project root directory.
 3. Build the project by running ``mvn clean install``.
 4. After the build finishes, navigate to the
