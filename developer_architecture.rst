@@ -6,15 +6,15 @@ Overview
 
 To be run by the CloudSlang Orchestration Engine (Score), a CloudSlang
 source file must undergo a process to transform it into a Score
-:ref:`ExecutionPlan <execution_plan>` using then ``SlangCompiler``.
+:ref:`ExecutionPlan <execution_plan>` using the ``SlangCompiler``.
 
 Precompilation
 --------------
 
-The file is first loaded, along with its dependencies if necessary, and
-parsed in the precompilation process. In precompilation, the CloudSlang
+In the precompilation process, the source file is loaded, along with its 
+dependencies if necessary, and parsed. The CloudSlang
 file's YAML structure is translated into Java maps by the ``YamlParser``
-using `snakeyaml <http://snakeyaml.org>`__. That parsed structure is
+using `snakeyaml <http://snakeyaml.org>`__. The parsed structure is
 then modeled to Java objects representing the parts of a flow and
 operation by the ``SlangModeller`` and the ``ExecutableBuilder``. The
 result of this process is an object of type ``Executable``.
