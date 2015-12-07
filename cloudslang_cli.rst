@@ -19,7 +19,7 @@ higher is required.
       operations.
    -  A folder named **python-lib**.
 
-3. Navigate to the folder ``cslang-cli\cslang\cslang\bin\``.
+3. Navigate to the folder ``cslang\bin\``.
 4. Run the executable:
 
    -  For Windows : ``cslang.bat``.
@@ -48,10 +48,10 @@ Download and Install npm Package
 **Prerequisites :** To download the package, Node.js is required. To run
 the CloudSlang CLI, Java JRE version 7 or higher is required.
 
-1. At a command prompt, enter ``npm install -g cslang-cli``.
+1. At a command prompt, enter ``npm install -g cloudslang-cli``.
 
    -  If using Linux, the sudo command might be neccessary:
-      ``sudo npm install -g cslang-cli``.
+      ``sudo npm install -g cloudslang-cli``.
 
 2. Enter the ``cslang`` command at any command prompt.
 
