@@ -27,6 +27,9 @@ Download, Install and Configure Atom
 4. Files with the **.sl** extension will be recognized as CloudSlang
    files.
 
+Snippets
+--------
+
 To use the snippets start typing the snippet name and press enter when
 it appears on the screen.
 
@@ -65,3 +68,9 @@ The following snippets are provided:
 +-----------------------+-----------------------------------------------------+
 | async                 | template for an asynchronous task                   |
 +-----------------------+-----------------------------------------------------+
+
+Atom Troubleshooting
+--------------------
+For troubleshooting Atom issues, see the Atom
+`documentation <https://atom.io/docs>`__ and
+`discussion board <https://discuss.atom.io/>`__.
