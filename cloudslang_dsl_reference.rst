@@ -219,61 +219,175 @@ java_action
 ~~~~~~~~~~~~
 
 The key ``java_action`` is a property of `action <#action>`__.
-It is mapped to the properties that define the class and method where
-the @Action resides.
+It is mapped to the properties ``className`` and ``methodName`` that define the
+class and method where an annotated Java @Action resides.
 
-A ``java_action`` is a valid @Action that conforms to the method
-signature: ``public Map<String, String> doSomething(paramaters)`` and
-uses the following annotations from
-``com.hp.oo.sdk.content.annotations``:
-
--  Required annotation:
-
-   -  @Param: action parameter
-
--  Optional annotations:
-
-   -  @Action: specify action information
-   -  @Output: action output
-   -  @Response: action response
-
-**Example - CloudSlang call to a Java @Action**
+**Example - CloudSlang call to a Java action**
 
 .. code-block:: yaml
 
-    name: pull_image
+    namespace: io.cloudslang.base.mail
 
-    inputs:
-      - input1
-      - input2
+    operation:
+      name: send_mail
 
-    action:
-      java_action:
-        className: org.mypackage.MyClass
-        methodName: doMyAction
+      inputs:
+      - hostname
+      - port
+      - from
+      - to
+      - subject
+      - body
 
-    outputs:
-      - returnResult
+      action:
+        java_action:
+          className: io.cloudslang.content.mail.actions.SendMailAction
+          methodName: execute
 
-    results:
-      - SUCCESS : ${someActionOutput == '0'}
+      results:
+      - SUCCESS: ${ returnCode == '0' }
       - FAILURE
+
+Existing Java Actions
+^^^^^^^^^^^^^^^^^^^^^
+
+There are many existing Java actions which are bundled with the
+:doc:`CloudSlang CLI <cloudslang_cli>`. The source code for these Java actions
+can be found in the
+`score-actions <https://github.com/CloudSlang/score-actions>`__ repository.
+
+Adding a New Java Action
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+To add a new Java action:
+
+  - `Write an annotated Java method <#write-an-annotated-java-method>`__
+  - `Package the method in a Jar <#package-the-method-in-a-jar>`__
+  - `Add the Jar to the lib folder in the CLI <#add-the-jar-to-the-lib-folder-in-the-cli>`__
+
+Write an Annotated Java Method
+******************************
+
+Create a Java method that conforms to the signature
+``public Map<String, String> doSomething(paramaters)`` and use the following
+annotations from ``com.hp.oo.sdk.content.annotations``:
+
+   -  @Action: specifies action information
+
+        - name: name of the action
+        - outputs: array of ``@Output`` annotations
+        - responses: array of ``@Response`` annotations
+
+   -  @Output: action output name
+   -  @Response: action response
+
+        - text: name of the response
+        - field: result to be checked
+        - value: value to check against
+        - matchType: type of check
+        - responseType: type of response
+        - isDefault: whether or not response is the default response
+        - isOnFail: whether or not response is the failure response
+
+   -  @Param: action parameter
+
+        - value: name of the parameter
+        - required: whether or not the parameter is required
+
+Values are passed to a Java action from an operation using CloudSlang inputs
+that match the annotated parameters.
+
+Values are passed back from the Java action to an operation using the returned
+``Map<String, String>``, where the map's elements each correspond to a name:value
+that matches a CloudSlang output.
+
+**Example - Java action**
 
 .. code-block:: java
 
-    public Map<String, String> doMyAction(
-            @Param("input1") String input1,
-            @Param("input2") String input2) {
-        //logic here
-        Map<String, String> returnValues = new HashMap<>();
-        //prepare return values map
-        return returnValues;
+    package com.example.content.actions;
+
+    import com.hp.oo.sdk.content.annotations.Action;
+    import com.hp.oo.sdk.content.annotations.Output;
+    import com.hp.oo.sdk.content.annotations.Param;
+    import com.hp.oo.sdk.content.annotations.Response;
+    import com.hp.oo.sdk.content.plugin.ActionMetadata.MatchType;
+
+    import java.util.Map;
+    import java.util.HashMap;
+
+    public class SaySomething {
+
+          @Action(name = "Example Test Action",
+                  outputs = {
+                          @Output("message")
+                  },
+                  responses = {
+                          @Response(text = "success", field = "message", value = "fail", matchType = MatchType.COMPARE_NOT_EQUAL),
+                          @Response(text = "failure", field = "message", value = "fail", matchType = MatchType.COMPARE_EQUAL, isDefault = true, isOnFail = true)
+                  }
+          )
+          public Map<String, String> speak(@Param(value = "text", required = true) String text) {
+              Map<String, String> results = new HashMap<>();
+
+              System.out.println("I say " + text);
+
+              results.put("message", text);
+
+              return  results;
+          }
     }
+
+Package the Method in a Jar
+***************************
+
+Use Maven to package the class containing the Java action method. Below is an
+example **pom.xml** file that can be used for your Maven project.
+
+**Example - sample pom.xml**
+
+.. code-block:: xml
+
+    <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+        <modelVersion>4.0.0</modelVersion>
+        <groupId>com.example.content</groupId>
+        <artifactId>action-example</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+        <packaging>jar</packaging>
+        <name>${project.groupId}:${project.artifactId}</name>
+        <description>Test Java action</description>
+        <dependencies>
+            <dependency>
+                <groupId>com.hp.score.sdk</groupId>
+                <artifactId>score-content-sdk</artifactId>
+                <version>1.10.6</version>
+            </dependency>
+        </dependencies>
+        <build>
+            <plugins>
+                <plugin>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>3.1</version>
+                    <configuration>
+                        <source>1.7</source>
+                        <target>1.7</target>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </build>
+    </project>
+
+Add the Jar to the lib Folder in the CLI
+****************************************
+
+Place the Jar created by Maven in the **cslang/lib** folder and restart the CLI.
+You can now call the Java action from a CloudSlang operation as explained
+`above <#java-action>`__. 
 
 .. _python_script:
 
 python_script
-~~~~~~~~~~~~~~
+~~~~~~~~~~~~~
 
 The key ``python_script`` is a property of `action <#action>`__.
 It is mapped to a value containing a Python script.
