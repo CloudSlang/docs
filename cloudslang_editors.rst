@@ -23,9 +23,9 @@ Download, Install and Configure Atom
   described in their `documentation
   <https://atom.io/docs/v1.1.0/getting-started-installing-atom#setting-up-a-proxy>`__.
 
-3. You may need to restart Atom.
-4. Files with the **.sl** extension will be recognized as CloudSlang
-   files.
+3. Reload (**View > Reload**) or restart Atom.
+4. Files saved with the **.sl** extension will be recognized within Atom as
+   CloudSlang files.
 
 Snippets
 --------
