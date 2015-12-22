@@ -237,24 +237,35 @@ paths.
 
     cslang>run --f c:/.../your_flow.sl --spf c:/.../yaml
 
-Run in Quiet Mode
------------------
+Change the Verbosity Level
+--------------------------
 
-Normally a flow's task names are printed to the screen as they are run.
-To disable the task names from being printed, use the ``--q`` flag.
+The CLI can run flows and operations at several levels of verbosity.
+
+To change the verbosity level, use the ``--v`` flag.
+
++-----------------+-------------------------------------------+----------------------------+
+| Verbosity level | Printed to the screen                     | Syntax                     |
++=================+===========================================+============================+
+| ``default``     | task names and top-level outputs          | no flag or ``--v default`` |
++-----------------+-------------------------------------------+----------------------------+
+| ``quiet``       | top-level outputs                         | ``--v quiet``              |
++-----------------+-------------------------------------------+----------------------------+
+| ``debug``       | default + each task's published variables | ``--v`` or ``--v debug``   |
++-----------------+-------------------------------------------+----------------------------+
+
+Run in quiet mode:
 
 .. code-block:: bash
 
-    cslang>run --f c:/.../your_flow.sl --q
+    cslang>run --f c:/.../your_flow.sl --v quiet
 
-Run in Debug Mode
------------------
-
-To print each task's published variables to the screen, use the ``--d`` flag.
+Run in debug mode:
 
 .. code-block:: bash
 
-    cslang>run --f c:/.../your_flow.sl --d
+    cslang>run --f c:/.../your_flow.sl --v
+
 
 Run in Non-Interactive Mode
 ---------------------------
