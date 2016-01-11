@@ -130,28 +130,35 @@ To pass the value **"Hello" World** to a flow:
 Using an Inputs File
 ~~~~~~~~~~~~~~~~~~~~
 
-Alternatively, inputs made be loaded from a file. Input files are
+Alternatively, inputs made be loaded from a file. Inputs files are
 written in flat `YAML <http://www.yaml.org>`__, containing a map of
-names to values. Input files end with the **.yaml** or **.yml**
-extensions. If multiple input files are being used and they contain an
+names to values. Inputs files end with the **.yaml** or **.yml**
+extensions. It is a best practice for the name of an inputs file to end with
+**.inputs.yaml**. If multiple inputs files are being used and they contain an
 input with the same name, the input in the file that is loaded last will
 overwrite the others with the same name.
 
+Inputs files can be loaded automatically if placed in a folder named ``inputs``
+in the CLI's **bin** directory. If the flow requires an inputs file that is not
+loaded automatically, use the ``--if`` flag and a comma-separated list of file
+paths. Inputs passed with the ``--i`` flag will override the inputs passed using
+a file.
+
 **Example - same inputs passed to flow using command line and inputs file**
 
-*Command line - run command*
+*Inputs passed from the command line - run command*
 
 .. code-block:: bash
 
     cslang>run --f C:/.../your_flow.sl --i "input1=simple text,input2=comma\, text,input3=\"quoted text\""
 
-*Inputs file - run command*
+*Inputs passed using an inputs file - run command*
 
 .. code-block:: bash
 
     cslang>run --f C:/.../your_flow.sl --if C:/.../inputs.yaml
 
-*Inputs file - inputs.yaml file*
+*Inputs passed using an inputs file - inputs.yaml file*
 
 .. code-block:: yaml
 
@@ -172,17 +179,6 @@ overwrite the others with the same name.
       one: a
       two: b
       three: c
-
-Input files that contain ``inputs`` in their name can be loaded
-automatically if placed in a folder named ``inputs`` in the directory
-from which the CLI is run. If the flow requires an input file that is
-not loaded automatically, use the ``--if`` flag and a comma-separated
-list of file paths. Inputs passed with the ``--i`` flag will override
-the inputs passed using a file.
-
-.. code-block:: bash
-
-    cslang>run --f c:/.../your_flow.sl --if c:/.../inputs.yaml --i input1=value1
 
 .. _run_with_dependencies:
 
@@ -206,10 +202,20 @@ Run with System Properties
 
 System properties files are written in flat
 `YAML <http://www.yaml.org>`__, containing a map of names to values.
-System property files end with the .yaml or .yml extensions. If multiple
+System property files end with the **.yaml** or **.yml** extensions. If multiple
 system properties files are being used and they contain a system
 property with the same fully qualified name, the property in the file
 that is loaded last will overwrite the others with the same name.
+
+System property files can be loaded automatically if placed in a folder
+named ``properties`` in the CLI's **bin** directory. If the
+flow or operation requires a system properties file that is not loaded
+automatically, use the ``--spf`` flag and a comma-separated list of file
+paths.
+
+.. code-block:: bash
+
+    cslang>run --f c:/.../your_flow.sl --spf c:/.../yaml
 
 **Example - system properties file**
 
@@ -224,16 +230,6 @@ that is loaded last will overwrite the others with the same name.
       one: a
       two: b
       three: c
-
-System property files can be loaded automatically if placed in a folder
-named ``properties`` in the directory from which the CLI is run. If the
-flow or operation requires a system properties file that is not loaded
-automatically, use the ``--spf`` flag and a comma-separated list of file
-paths.
-
-.. code-block:: bash
-
-    cslang>run --f c:/.../your_flow.sl --spf c:/.../yaml
 
 Change the Verbosity Level
 --------------------------

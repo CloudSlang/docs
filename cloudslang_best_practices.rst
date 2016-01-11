@@ -47,6 +47,11 @@ CloudSlang Tests Best Practices
 **Note:** In future releases some of the above best practices may be
 required by the CloudSlang compiler.
 
+CloudSlang Inputs Files Best Practices
+===============================
+
+-  The name of an inputs file ends with **.inputs.yaml**.
+
 CloudSlang Comments Style Guide
 ===============================
 
