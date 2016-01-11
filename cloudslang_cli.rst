@@ -189,13 +189,11 @@ the inputs passed using a file.
 Run with Dependencies
 ---------------------
 
-Dependencies from the content folder packaged with the CLI are added to
-the classpath by default. If the flow requires dependencies from another
-location, use the ``--cp`` flag with a comma-separated list of
-dependency paths. Note that explicitly declaring a classpath using
-``--cp`` overrides the default classpath, and therefore if there also is
-a dependency in the content folder, the folder must be added to the
-classpath explicitly.
+If the flow requires dependencies they can be added to the classpath using the
+``--cp`` flag with a comma-separated list of dependency paths. If no ``cp`` flag
+is present, the **cslang/content** folder is added to the classpath by default.
+If there is no ``--cp`` flag and no **cslang/content** folder, the running flow
+or operation's folder is added to the classpath by default.
 
 .. code-block:: bash
 
