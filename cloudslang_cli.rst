@@ -130,18 +130,19 @@ To pass the value **"Hello" World** to a flow:
 Using an Inputs File
 ~~~~~~~~~~~~~~~~~~~~
 
-Alternatively, inputs made be loaded from a file. Input files are
+Alternatively, inputs made be loaded from a file. Inputs files are
 written in flat `YAML <http://www.yaml.org>`__, containing a map of
-names to values. Input files end with the **.yaml** or **.yml**
-extensions. If multiple input files are being used and they contain an
+names to values. Inputs files end with the **.yaml** or **.yml**
+extensions. It is a best practice for the name of an inputs file to end with
+**.inputs.yaml**. If multiple inputs files are being used and they contain an
 input with the same name, the input in the file that is loaded last will
 overwrite the others with the same name.
 
-Input files that contain ``inputs`` in their name can be loaded
-automatically if placed in a folder named ``inputs`` in the CLI's **bin** directory.
-If the flow requires an input file that is not loaded automatically, use the
-``--if`` flag and a comma-separated list of file paths. Inputs passed with the
-``--i`` flag will override the inputs passed using a file.
+Inputs files can be loaded automatically if placed in a folder named ``inputs``
+in the CLI's **bin** directory. If the flow requires an inputs file that is not
+loaded automatically, use the ``--if`` flag and a comma-separated list of file
+paths. Inputs passed with the ``--i`` flag will override the inputs passed using
+a file.
 
 **Example - same inputs passed to flow using command line and inputs file**
 
