@@ -44,6 +44,7 @@ Next Steps
 
 Now that you've run your first CloudSlang file, you might want to:
 
+-  Watch a `video <https://www.youtube.com/watch?v=9nYLXx5pRBw>`__ lesson on how to author CloudSlang content using Atom.
 -  Learn how to write a print operation yourself using the :doc:`Hello World example <hello_world>`.
 -  Learn about the language features using the :doc:`New Hire Tutorial <tutorial/01_lesson>`.
 -  Learn about the language in detail using the :doc:`CloudSlang Reference <cloudslang_dsl_reference>`.
