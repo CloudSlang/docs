@@ -48,59 +48,66 @@ and concepts are explained in detail below.
 -  `namespace <#namespace>`__
 -  `imports <#imports>`__
 -  `flow <#flow>`__
--  `name <#name>`__
--  `inputs <#inputs>`__
 
-   -  `required <#required>`__
-   -  `default <#default>`__
-   -  `overridable <#overridable>`__
-   -  `system_property <#system-property>`__
+   -  `name <#name>`__
+   -  `inputs <#inputs>`__
 
--  `workflow <#workflow>`__
+      -  `required <#required>`__
+      -  `default <#default>`__
+      -  `overridable <#overridable>`__
+      -  `system_property <#system-property>`__
 
-   -  `task(s) <#task>`__
-   -  `do <#do>`__
-   -  `publish <#publish>`__
-   -  `navigate <#navigate>`__
-   -  `iterative task <#iterative-task>`__
-   -  `loop <#loop>`__
+   -  `workflow <#workflow>`__
 
-      -  `for <#for>`__
-      -  `do <#do>`__
-      -  `publish <#publish>`__
-      -  `break <#break>`__
+      -  `task(s) <#task>`__
 
-   -  `navigate <#navigate>`__
-   -  `asynchronous task <#asynchronous-task>`__
-   -  `async_loop <#async-loop>`__
+         -  `do <#do>`__
+         -  `publish <#publish>`__
+         -  `navigate <#navigate>`__
 
-      -  `for <#for>`__
-      -  `do <#do>`__
-      -  `publish <#publish>`__
+      -  `iterative task <#iterative-task>`__
 
-   -  `aggregate <#aggregate>`__
-   -  `navigate <#navigate>`__
-   -  `on_failure <#on-failure>`__
+         -  `loop <#loop>`__
 
--  `outputs <#outputs>`__
--  `results <#results>`__
+            -  `for <#for>`__
+            -  `do <#do>`__
+            -  `publish <#publish>`__
+            -  `break <#break>`__
+
+         -  `navigate <#navigate>`__
+
+      -  `asynchronous task <#asynchronous-task>`__
+
+         -  `async_loop <#async-loop>`__
+
+            -  `for <#for>`__
+            -  `do <#do>`__
+            -  `publish <#publish>`__
+
+         -  `aggregate <#aggregate>`__
+         -  `navigate <#navigate>`__
+
+      -  `on_failure <#on-failure>`__
+
+   -  `outputs <#outputs>`__
+   -  `results <#results>`__
 
 **Operations file**
 
 -  `namespace <#namespace>`__
--  `imports <#imports>`__
 -  `operation <#operation>`__
--  `name <#name>`__
--  `inputs <#inputs>`__
 
-   -  `required <#required>`__
-   -  `default <#default>`__
-   -  `overridable <#overridable>`__
-   -  `system\_property <#system-property>`__
+   -  `name <#name>`__
+   -  `inputs <#inputs>`__
 
--  `action <#action>`__
--  `outputs <#outputs>`__
--  `results <#results>`__
+      -  `required <#required>`__
+      -  `default <#default>`__
+      -  `overridable <#overridable>`__
+      -  `system\_property <#system-property>`__
+
+   -  `action <#action>`__
+   -  `outputs <#outputs>`__
+   -  `results <#results>`__
 
 .. _expressions:
 
@@ -382,7 +389,7 @@ Add the Jar to the lib Folder in the CLI
 
 Place the Jar created by Maven in the **cslang/lib** folder and restart the CLI.
 You can now call the Java action from a CloudSlang operation as explained
-`above <#java-action>`__. 
+`above <#java-action>`__.
 
 .. _python_script:
 
@@ -1231,6 +1238,8 @@ operation contents.
 +---------------+------------+---------------+----------------------------------------+------------------------------+--------------------------+
 | Property      | Required   | Default       | Value Type                             | Description                  | More Info                |
 +===============+============+===============+========================================+==============================+==========================+
+| ``name``      | yes        | --            | string                                 | name of the operation        | `name <#name>`__         |
++---------------+------------+---------------+----------------------------------------+------------------------------+--------------------------+
 | ``inputs``    | no         | --            | list                                   | operation inputs             | `inputs <#inputs>`__     |
 +---------------+------------+---------------+----------------------------------------+------------------------------+--------------------------+
 | ``action``    | yes        | --            | ``python_script`` or ``java_action``   | operation logic              | `action <#action>`__     |
