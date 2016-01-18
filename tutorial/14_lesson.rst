@@ -10,11 +10,15 @@ use in an operation's ``python_script`` action.
 Get Started
 -----------
 
-We'll be installing our 3rd party Python package in this lesson using
-**pip**. If you don't already have **pip** installed on your machine,
-see the **pip**
-`documentation <https://pip.pypa.io/en/latest/installing.html>`__. We'll
-also need to add a **requirements.txt** file to a **python-lib** folder
+In this lesson we'll be installing a 3rd party Python package. In order to do so
+you'll need to have Python and pip installed on your machine. You can download
+Python (version 2.7) from `here <https://www.python.org/>`__. Python 2.7.9 and 
+later include pip by default. If you already have Python but don't have pip
+installed on your machine, see the pip
+`documentation <https://pip.pypa.io/en/latest/installing.html>`__ for
+installation instructions.
+
+We'll also need to add a **requirements.txt** file to a **python-lib** folder
 which is at the same level as the **bin** folder that the CLI executable
 resides in.
 

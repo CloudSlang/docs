@@ -34,6 +34,13 @@ see the :doc:`CLI <cloudslang_cli>` section.
 properly reference ready-made content. For information on using classpaths, see
 :ref:`Run with Dependencies <run_with_dependencies>`.
 
+Running Content Dependent on External Python Modules
+====================================================
+
+Some of the content is dependent on external python modules. To run this content
+follow the instructions found in the :ref:`python_script` section of the DSL
+Reference.
+
 Contributing Content
 ====================
 
