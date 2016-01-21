@@ -31,28 +31,48 @@ Here's the documentation for the ``send_mail`` operation:
 .. code-block:: yaml
 
     ####################################################
-    #   This operation sends a simple email.
-    #
-    #   Inputs:
-    #       - hostname - email host
-    #       - port - email port
-    #       - from - email sender
-    #       - to - email recipient
-    #       - cc - optional - Default: none
-    #       - bcc - optional - Default: none
-    #       - subject - email subject
-    #       - body - email text
-    #       - htmlEmail - optional - Default: true
-    #       - readReceipt - optional - Default: false
-    #       - attachments - optional - Default: none
-    #       - username - optional - Default: none
-    #       - password - optional - Default: none
-    #       - characterSet - optional - Default: UTF-8
-    #       - contentTransferEncoding - optional - Default: base64
-    #       - delimiter - optional - Default: none
-    #   Results:
-    #       - SUCCESS - succeeds if mail was sent successfully (returnCode is equal to 0)
-    #       - FAILURE - otherwise
+    ## description: Sends an email.
+    ##
+    ## inputs:
+    ##   - hostname: email host
+    ##   - port: email port
+    ##   - from: email sender
+    ##   - to: email recipient
+    ##   - cc: |
+    ##       optional
+    ##       default: none
+    ##   - bcc: |
+    ##       optional d
+    ##       default: none
+    ##   - subject - email subject
+    ##   - body - email text
+    ##   - html_email: |
+    ##       optional
+    ##       default: true
+    ##   - read_receipt: |
+    ##       optional
+    ##       default: false
+    ##   - attachments: |
+    ##       optional
+    ##       default: none
+    ##   - username: |
+    ##       optional
+    ##       default: none
+    ##   - password: |
+    ##       optional
+    ##       default: none
+    ##   - character_set: |
+    ##        optional
+    ##        default: UTF-8
+    ##   - content_transfer_encoding: |
+    ##        optional
+    ##        default: base64
+    ##   - delimiter: |
+    ##        optional
+    ##        default: none
+    ## results:
+    ##   - SUCCESS - succeeds if mail was sent successfully (returnCode is equal to 0)
+    ##   - FAILURE - otherwise
     ####################################################
 
 When calling the operation, we'll need to pass values for all the

@@ -67,19 +67,26 @@ The structure and spacing of the comments are as in the example below:
 ::
 
     ####################################################
-    # Does something fantastic.
-    #
-    # Prerequisites: some Python module
-    #
-    # Inputs:
-    #   - input1 - first input
-    #   - input2 - optional - port for something - Default: 8080
-    #   - list - a list of things - Format: comma delimited list of things
-    # Outputs:
-    #   - output1 - some sort of message
-    # Results:
-    #   - SUCCESS - everything went well
-    #   - FAILURE - otherwise
+    ## description: Does something fantastic.
+    ##
+    ## inputs:
+    ##   - input_1: first input
+    ##   - input_2: |
+    ##       second input
+    ##       default: true
+    ##       valid: true, false
+    ##   - input_3: |
+    ##       third input
+    ##       optional
+    ##       example: 'someone@mailprovider.com'
+    ##   - input_4: |
+    ##       fourth input
+    ##       format: space delimited list of strings
+    ## outputs:
+    ##   - output_1: first output
+    ## results:
+    ##   - SUCCESS: good
+    ##   - FAILURE: bad
     ####################################################
 
 Description
@@ -93,9 +100,7 @@ Description
 Prerequisites
 -------------
 
--  Flows and operations that assume prerequisites include a prerequisite
-   line beginning with "Prerequisites:", followed by a comma delimited
-   list of prerequisites.
+-  Flows and operations that assume prerequisites should declare them.
 
 Inputs, Outputs and Results
 ---------------------------
@@ -105,7 +110,7 @@ Inputs, Outputs and Results
    capitalized acronym) and does not end with a period.
 -  Usage of the words "the" and "a" are strongly discouraged, especially
    at the beginning of the description.
--  Does not include "this flow", "this operation", "this field" or
+-  Description does not include "this flow", "this operation", "this field" or
    anything similar.
 -  Proper names and acronyms that are normally capitalized are
    capitalized, for example, HTTP, Docker, ID.
@@ -115,7 +120,7 @@ Inputs and Outputs
 
 -  Written in the present tense, for example, "true if job exists".
 -  Non-required fields contain the "optional" label.
--  Additional labels are "Default:", "Example:", "Valid:" and "Format:".
+-  Additional labels are "default:", "example:", "valid:" and "format:".
 
 Results
 -------
