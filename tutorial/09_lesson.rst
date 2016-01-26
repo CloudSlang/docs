@@ -208,6 +208,11 @@ at some point.
 
     run --f <folder path>/tutorials/hiring/new_hire.sl --cp <folder path>/tutorials --i first_name=john,last_name=doe,attempt=1
 
+Download the Code
+-----------------
+
+:download:`Lesson 9 - Complete code </code/tutorial_code/tutorials_09.zip>`
+
 Up Next
 -------
 

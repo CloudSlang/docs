@@ -12,7 +12,7 @@ Get Started
 
 In this lesson we'll be installing a 3rd party Python package. In order to do so
 you'll need to have Python and pip installed on your machine. You can download
-Python (version 2.7) from `here <https://www.python.org/>`__. Python 2.7.9 and 
+Python (version 2.7) from `here <https://www.python.org/>`__. Python 2.7.9 and
 later include pip by default. If you already have Python but don't have pip
 installed on your machine, see the pip
 `documentation <https://pip.pypa.io/en/latest/installing.html>`__ for
@@ -166,6 +166,11 @@ include the new fancy text we added to it.
 .. code:: bash
 
     run --f <folder path>/tutorials/hiring/new_hire.sl --cp <folder path>/tutorials,<content folder path>/base --i first_name=john,last_name=doe --spf <folder path>/tutorials/properties/bcompany.yaml
+
+Download the Code
+-----------------
+
+:download:`Lesson 14 - Complete code </code/tutorial_code/tutorials_14.zip>`
 
 Up Next
 -------

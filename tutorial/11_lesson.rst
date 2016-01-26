@@ -165,6 +165,11 @@ place, the proper information is aggregated and then it is printed.
 
     run --f <folder path>/tutorials/hiring/new_hire.sl --cp <folder path>/tutorials --i first_name=john,middle_name=e,last_name=doe
 
+Download the Code
+-----------------
+
+:download:`Lesson 11 - Complete code </code/tutorial_code/tutorials_11.zip>`
+
 Up Next
 -------
 

@@ -55,9 +55,13 @@ of ``FAILURE`` the flow will no longer terminate immediately with a
 result of ``FAILURE``. Instead, the flow will continue by running the
 ``on_failure`` task, which in our case prints out an error message.
 
+Download the Code
+-----------------
+
+:download:`Lesson 6 - Complete code </code/tutorial_code/tutorials_06.zip>`
+
 Up Next
 -------
-
 In the next lesson we'll see how to achieve a similar outcome using
 custom navigation.
 
