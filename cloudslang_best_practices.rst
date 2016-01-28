@@ -127,8 +127,7 @@ Results
 
 -  Actions written in the past tense, for example, "error occurred". States
    written in the present tense, for example, "application is up".
--  Results are always included, even if just listing the default results
-   without explanations.
+-  Default results which do not require any additional explanation are omitted.
 
 Recurring Fields
 ----------------
