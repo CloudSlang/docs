@@ -30,7 +30,7 @@ them and prints the answer. In case of a division by zero, the flow does
 not print the output of the division, but instead ends with a
 user-defined result of ``ILLEGAL``.
 
-:download:`Download code</code/examples_code/examples/divide.zip>`
+:download:`Download code </code/examples_code/examples/divide.zip>`
 
 **Flow - division.sl**
 
@@ -130,7 +130,7 @@ the success of its first task.
    default navigation. When the ``on_failure`` task is done, the flow
    ends with a default result of ``FAILURE``.
 
-:download:`Download code</code/examples_code/examples/defaultnav.zip>`
+:download:`Download code </code/examples_code/examples/defaultnav.zip>`
 
 **Flow - nav_flow.sl**
 
@@ -228,7 +228,7 @@ the flow ends with a result of ``SUCCESS``.
 placed in the same folder as this flow file or use the ``--cp`` flag at
 the command line.
 
-:download:`Download code</code/examples_code/examples/divide.zip>`
+:download:`Download code </code/examples_code/examples/divide.zip>`
 
 **Flow - master_divider.sl**
 
@@ -278,7 +278,7 @@ Example 4 - Loops
 This example demonstrates the different types of values that can be
 looped on and various methods for handling loop breaks.
 
-:download:`Download code</code/examples_code/examples/loops.zip>`
+:download:`Download code </code/examples_code/examples/loops.zip>`
 
 **Flow - loops.sl**
 
@@ -406,7 +406,7 @@ Example 5 - Asynchronous Loop
 This example demonstrates the usage of an asynchronous loop including
 aggregation.
 
-:download:`Download code</code/examples_code/examples/async.zip>`
+:download:`Download code </code/examples_code/examples/async.zip>`
 
 **Flow - async_loop_aggregate.sl**
 
@@ -490,7 +490,7 @@ This example uses the following folder structure:
 
             -  op4.sl
 
-:download:`Download code</code/examples_code/examples/paths.zip>`
+:download:`Download code </code/examples_code/examples/paths.zip>`
 
 **Flow - flow.sl**
 
