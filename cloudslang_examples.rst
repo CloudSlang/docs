@@ -30,7 +30,9 @@ them and prints the answer. In case of a division by zero, the flow does
 not print the output of the division, but instead ends with a
 user-defined result of ``ILLEGAL``.
 
-**Flow - division.sl** - :download:`Download </code/examples_code/examples/divide/division.sl>`
+:download:`Download code</code/examples_code/examples/divide.zip>`
+
+**Flow - division.sl**
 
 .. code-block:: yaml
 
@@ -69,7 +71,7 @@ user-defined result of ``ILLEGAL``.
         - SUCCESS
 
 
-**Operations - divide.sl** - :download:`Download </code/examples_code/examples/divide/divide.sl>`
+**Operations - divide.sl**
 
 .. code-block:: yaml
 
@@ -96,7 +98,7 @@ user-defined result of ``ILLEGAL``.
         - ILLEGAL: ${quotient == 'division by zero error'}
         - SUCCESS
 
-**Operation - print.sl** - :download:`Download </code/examples_code/examples/divide/print.sl>`
+**Operation - print.sl**
 
 .. code-block:: yaml
 
@@ -128,7 +130,9 @@ the success of its first task.
    default navigation. When the ``on_failure`` task is done, the flow
    ends with a default result of ``FAILURE``.
 
-**Flow - nav_flow.sl** - :download:`Download </code/examples_code/examples/defaultnav/nav_flow.sl>`
+:download:`Download code</code/examples_code/examples/defaultnav.zip>`
+
+**Flow - nav_flow.sl**
 
 .. code-block:: yaml
 
@@ -160,7 +164,7 @@ the success of its first task.
                   - recipient: ${email_recipient}
                   - subject: "Flow failure"
 
-**Operation - produce_default_navigation.sl** - :download:`Download </code/examples_code/examples/defaultnav/produce_default_navigation.sl>`
+**Operation - produce_default_navigation.sl**
 
 .. code-block:: yaml
 
@@ -180,7 +184,7 @@ the success of its first task.
         - SUCCESS: ${navigation_type == 'success'}
         - FAILURE
 
-**Operation - something.sl** - :download:`Download </code/examples_code/examples/defaultnav/something.sl>`
+**Operation - something.sl**
 
 .. code-block:: yaml
 
@@ -193,7 +197,7 @@ the success of its first task.
           python_script: |
             print 'Doing something important'
 
-**Operation - send_email_mock.sl** - :download:`Download </code/examples_code/examples/defaultnav/send_email_mock.sl>`
+**Operation - send_email_mock.sl**
 
 .. code-block:: yaml
 
@@ -224,7 +228,9 @@ the flow ends with a result of ``SUCCESS``.
 placed in the same folder as this flow file or use the ``--cp`` flag at
 the command line.
 
-**Flow - master_divider.sl** - :download:`Download </code/examples_code/examples/divide/master_divider.sl>`
+:download:`Download code</code/examples_code/examples/divide.zip>`
+
+**Flow - master_divider.sl**
 
 .. code-block:: yaml
 
@@ -272,7 +278,9 @@ Example 4 - Loops
 This example demonstrates the different types of values that can be
 looped on and various methods for handling loop breaks.
 
-**Flow - loops.sl** - :download:`Download </code/examples_code/examples/loops/loops.sl>`
+:download:`Download code</code/examples_code/examples/loops.zip>`
+
+**Flow - loops.sl**
 
 .. code-block:: yaml
 
@@ -331,7 +339,7 @@ looped on and various methods for handling loop breaks.
               print:
                 - text: ${sum}
 
-**Operation - custom3.sl** - :download:`Download </code/examples_code/examples/loops/custom3.sl>`
+**Operation - custom3.sl**
 
 .. code-block:: yaml
 
@@ -350,7 +358,7 @@ looped on and various methods for handling loop breaks.
         - CUSTOM: ${int(self['text']) == 3}
         - SUCCESS
 
-**Operation - fail3.sl** - :download:`Download </code/examples_code/examples/loops/fail3.sl>`
+**Operation - fail3.sl**
 
 .. code-block:: yaml
 
@@ -369,7 +377,7 @@ looped on and various methods for handling loop breaks.
         - FAILURE: ${int(self['text']) == 3}
         - SUCCESS
 
-**Operation - print.sl** - :download:`Download </code/examples_code/examples/loops/print.sl>`
+**Operation - print.sl**
 
 .. code-block:: yaml
 
@@ -398,7 +406,9 @@ Example 5 - Asynchronous Loop
 This example demonstrates the usage of an asynchronous loop including
 aggregation.
 
-**Flow - async_loop_aggregate.sl** - :download:`Download </code/examples_code/examples/async/async_loop_aggregate.sl>`
+:download:`Download code</code/examples_code/examples/async.zip>`
+
+**Flow - async_loop_aggregate.sl**
 
 .. code-block:: yaml
 
@@ -432,7 +442,7 @@ aggregation.
         - last_name
         - total
 
-**Operation - print_branch.sl** - :download:`Download </code/examples_code/examples/async/print_branch.sl>`
+**Operation - print_branch.sl**
 
 .. code-block:: yaml
 
@@ -480,7 +490,9 @@ This example uses the following folder structure:
 
             -  op4.sl
 
-**Flow - flow.sl** - :download:`Download </code/examples_code/examples/paths/flow.sl>`
+:download:`Download code</code/examples_code/examples/paths.zip>`
+
+**Flow - flow.sl**
 
 .. code-block:: yaml
 
@@ -510,7 +522,7 @@ This example uses the following folder structure:
               alias.folder_c.op4:
                 - text: "alias continuation"
 
-**Operation - op1.sl** - :download:`Download </code/examples_code/examples/paths/op1.sl>`
+**Operation - op1.sl**
 
 .. code-block:: yaml
 
@@ -525,7 +537,7 @@ This example uses the following folder structure:
       action:
         python_script: print text
 
-**Operation - op2.sl** - :download:`Download </code/examples_code/examples/paths/folder_a/op2.sl>`
+**Operation - op2.sl**
 
 .. code-block:: yaml
 
@@ -540,7 +552,7 @@ This example uses the following folder structure:
       action:
         python_script: print text
 
-**Operation - op3.sl** - :download:`Download </code/examples_code/examples/paths/folder_b/op3.sl>`
+**Operation - op3.sl**
 
 .. code-block:: yaml
 
@@ -555,7 +567,7 @@ This example uses the following folder structure:
       action:
         python_script: print text
 
-**Operation - op4.sl** - :download:`Download </code/examples_code/examples/paths/folder_b/folder_c/op4.sl>`
+**Operation - op4.sl**
 
 .. code-block:: yaml
 
