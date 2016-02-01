@@ -10,7 +10,7 @@ values of inputs.
 Get Started
 -----------
 
-We'll need to create a system property file that contains the values we
+We'll need to create a system properties file that contains the values we
 want to use for the inputs. Let's create a **properties** folder under
 **tutorials** and in there create a file named **bcompany.sl**. We'll
 also need to use the system properties somewhere. We'll use then in the
@@ -20,9 +20,9 @@ System Properties File
 ----------------------
 
 A system properties file, like a flow or operation file, ends with the **.sl**
-extension and can include a namespace. The system properties file also contains
-the ``properties`` keyword which is mapped to key:value pairs that define
-system property names and values
+extension and can include a namespace. A system properties file also contains
+the ``properties`` keyword which is mapped to ``key:value`` pairs that define
+system property names and values.
 
 
 Here's what the contents of our system properties file looks like:
@@ -42,10 +42,13 @@ Here's what the contents of our system properties file looks like:
 You'll need to substitute the values in angle brackets (``<>``) to work
 for your email host.
 
-Note: All system property values are interpreted as strings. So in our case,
+**Note:** All system property values are interpreted as strings. So in our case,
 even if the port is a numeric value, it's value when used as a system
 property will be a string representation. For example, entering a value of
 ``25`` will create a system property whose value is ``'25'``.
+
+The ``get_sp()`` function can also be used to retrieve system property values in
+task arguments, publish, output or result expressions.
 
 For more information, see :ref:`properties <properties>` in the DSL Reference
 and :ref:`Run with System Properties <run_with_system_properties>` in the CLI

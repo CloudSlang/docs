@@ -76,7 +76,7 @@ To do so, run the following command from the **python-lib** directory:
 
     pip install -r requirements.txt -t .
 
-Note: If your machine is behind a proxy you'll need to specify the proxy
+**Note:** If your machine is behind a proxy you'll need to specify the proxy
 using **pip**'s ``--proxy`` flag.
 
 If everything has gone well, you should now see the **pyfiglet**
