@@ -13,7 +13,7 @@ Get Started
 We'll need to create a system properties file that contains the values we
 want to use for the inputs. Let's create a **properties** folder under
 **tutorials** and in there create a file named **bcompany.sl**. We'll
-also need to use the system properties somewhere. We'll use then in the
+also need to use the system properties somewhere. We'll use them in the
 **new_hire.sl** and **generate_user_email.sl** files.
 
 System Properties File
@@ -47,19 +47,19 @@ even if the port is a numeric value, it's value when used as a system
 property will be a string representation. For example, entering a value of
 ``25`` will create a system property whose value is ``'25'``.
 
-The ``get_sp()`` function can also be used to retrieve system property values in
-task arguments, publish, output or result expressions.
-
 For more information, see :ref:`properties <properties>` in the DSL Reference
 and :ref:`Run with System Properties <run_with_system_properties>` in the CLI
 documentation.
 
-Inputs
-------
+Retrieve Values
+---------------
 
-Now we'll use the system properties to place values in our inputs. We retrieve
-system property values using the ``get_sp()`` function. We'll do this in two
-places.
+Now we'll use the system properties to place values in our inputs and task
+arguments. We retrieve system property values using the ``get_sp()`` function.
+We'll do this in two places.
+
+**Note:** The ``get_sp()`` function can also be used to retrieve system property
+values in publish, output and result expressions.
 
 First, we'll use a system property in the inputs of ``generate_user_email``
 by calling the ``get_sp()`` function in the ``default`` property of the
@@ -81,40 +81,20 @@ argument.
       - attempt
 
 The second place we'll use system properties is in the ``new_hire``
-flow. Here we'll retrieve the system properties in the inputs section and use
-them in the ``send_mail`` task we created last lesson. We'll use the ``get_sp()``
+flow. Here we'll retrieve the system properties in the arguments of
+the ``send_mail`` task we created last lesson. We'll use the ``get_sp()``
 function to get the ``hostname``, ``port``, ``from`` and ``to`` default
 values from the system properties file.
-
-.. code-block:: yaml
-
-    inputs:
-      - first_name
-      - middle_name:
-          required: false
-      - last_name
-      - missing:
-          default: ""
-          overridable: false
-      - total_cost:
-          default: 0
-          overridable: false
-      - order_map:
-          default: {'laptop': 1000, 'docking station':200, 'monitor': 500, 'phone': 100}
-      - hostname: ${get_sp(tutorials.properties.hostname)}
-      - port: ${get_sp(tutorials.properties.port)}
-      - from: ${get_sp(tutorials.properties.system_address)}
-      - to: ${get_sp(tutorials.properties.hr_address)}
 
 .. code-block:: yaml
 
     - send_mail:
         do:
           mail.send_mail:
-            - hostname
-            - port
-            - from
-            - to
+            - hostname: ${get_sp(tutorials.properties.hostname)}
+            - port: ${get_sp(tutorials.properties.port)}
+            - from: ${get_sp(tutorials.properties.system_address)}
+            - to: ${get_sp(tutorials.properties.hr_address)}
             - subject: "${'New Hire: ' + first_name + ' ' + last_name}"
             - body: >
                 ${'Created address: ' + address + ' for: ' + first_name + ' ' + last_name + '<br>' +
@@ -122,6 +102,8 @@ values from the system properties file.
         navigate:
           FAILURE: FAILURE
           SUCCESS: SUCCESS
+
+For more information, see :ref:`get_sp() <get_sp>` in the DSL Reference.
 
 Run It
 ------
@@ -179,10 +161,6 @@ New Code - Complete
             overridable: false
         - order_map:
             default: {'laptop': 1000, 'docking station':200, 'monitor': 500, 'phone': 100}
-        - hostname: ${get_sp('tutorials.properties.hostname')}
-        - port: ${get_sp('tutorials.properties.port')}
-        - from: ${get_sp('tutorials.properties.system_address')}
-        - to: ${get_sp('tutorials.properties.hr_address')}
 
       workflow:
         - print_start:
@@ -234,10 +212,10 @@ New Code - Complete
         - send_mail:
             do:
               mail.send_mail:
-                - hostname
-                - port
-                - from
-                - to
+                - hostname: ${get_sp(tutorials.properties.hostname)}
+                - port: ${get_sp(tutorials.properties.port)}
+                - from: ${get_sp(tutorials.properties.system_address)}
+                - to: ${get_sp(tutorials.properties.hr_address)}
                 - subject: "${'New Hire: ' + first_name + ' ' + last_name}"
                 - body: >
                     ${'Created address: ' + address + ' for: ' + first_name + ' ' + last_name + '<br>' +

@@ -1007,7 +1007,7 @@ namespace (if there is one) of the file in which it is found followed by a dot
 of other types (numeric, list, map, etc.) are converted to string
 representations.
 
-`System properties <#properties>`__ are not enforced at compile time; they are
+`System properties <#properties>`__ are not enforced at compile time. They are
 assigned at runtime.
 
 **Note:** If multiple system properties files are being used and they
@@ -1022,8 +1022,8 @@ the same name.
     namespace: examples.sysprops
 
     properties:
-      - host: 'localhost'
-      - port: 8080
+      host: 'localhost'
+      port: 8080
 
 
 **Example - system properties used as input values**
@@ -1392,8 +1392,9 @@ system properties.
 
 System property values are retrieved using the `get_sp() <#get-sp>`__ function.
 
-**Note:** System property values of non-string types (numeric, list, map, etc.)
-are converted to string representations.
+**Note:** System property values that are non-string types (numeric, list, map,
+etc.) are converted to string representations. A system property may have a
+value of ``null``.
 
 **Example - system properties file**
 
@@ -1402,8 +1403,8 @@ are converted to string representations.
     namespace: examples.sysprops
 
     properties:
-      - host: 'localhost'
-      - port: 8080
+      host: 'localhost'
+      port: 8080
 
 An empty system properties file can be defined using an empty map.
 

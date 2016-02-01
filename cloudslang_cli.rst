@@ -214,9 +214,6 @@ flow or operation requires a system properties file that is not loaded
 automatically, use the ``--spf`` flag and a comma-separated list of file
 paths.
 
-**Note:** System property values of non-string types (numeric, list, map, etc.)
-are converted to string representations.
-
 .. code-block:: bash
 
     cslang>run --f c:/.../your_flow.sl --spf c:/.../yaml
@@ -230,6 +227,10 @@ are converted to string representations.
     properties:
       - host: 'localhost'
       - port: 8080
+
+**Note:** System property values that are non-string types (numeric, list, map,
+etc.) are converted to string representations. A system property may have a
+value of ``null``.
 
 An empty system properties file can be defined using an empty map.
 
