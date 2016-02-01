@@ -123,6 +123,11 @@ run the operation, enter the following in the CLI:
 Run the operation a few times and make sure that both the ``SUCCESS``
 and ``FAILURE`` cases are working as expected.
 
+Download the Code
+-----------------
+
+:download:`Lesson 4 - Complete code </code/tutorial_code/tutorials_04.zip>`
+
 Up Next
 -------
 

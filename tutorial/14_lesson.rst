@@ -167,6 +167,11 @@ include the new fancy text we added to it.
 
     run --f <folder path>/tutorials/hiring/new_hire.sl --cp <folder path>/tutorials,<content folder path>/base --i first_name=john,last_name=doe --spf <folder path>/tutorials/properties/bcompany.yaml
 
+Download the Code
+-----------------
+
+:download:`Lesson 14 - Complete code </code/tutorial_code/tutorials_14.zip>`
+
 Up Next
 -------
 

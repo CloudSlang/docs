@@ -121,6 +121,11 @@ dependencies are found to the classpath. For more information, see
 You should see the name of the task and the string sent to the print
 operation printed to the screen.
 
+Download the Code
+-----------------
+
+:download:`Lesson 3 - Complete code </code/tutorial_code/tutorials_03.zip>`
+
 Up Next
 -------
 

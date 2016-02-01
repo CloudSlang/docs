@@ -1,0 +1,5 @@
+tutorials.hiring.domain: bcompany.com
+tutorials.hiring.hostname: smtp3.hpe.com
+tutorials.hiring.port: '25'
+tutorials.hiring.system_address: sam.markowitz@hpe.com
+tutorials.hiring.hr_address: sam.markowitz@hpe.com

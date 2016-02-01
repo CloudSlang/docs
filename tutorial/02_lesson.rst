@@ -130,6 +130,11 @@ You should see the input text printed out to the screen.
 For more information, see :ref:`Use the CLI <use_the_cli>` in the
 DSL reference.
 
+Download the Code
+-----------------
+
+:download:`Lesson 2 - Complete code </code/tutorial_code/tutorials_02.zip>`
+
 Up Next
 -------
 
