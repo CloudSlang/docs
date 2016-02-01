@@ -5,6 +5,8 @@ The following is a list of best practices for authoring CloudSlang
 files. Many of these best practices are checked when using the
 :doc:`CloudSlang Build Tool <cloudslang_build_tool>`.
 
+.. _cloudslang_content_best_practices:
+
 CloudSlang Content Best Practices
 =================================
 
@@ -18,6 +20,8 @@ CloudSlang Content Best Practices
 -  A flow or operation has the same name as the file it is in.
 -  Each file has one flow or one operation.
 -  Flows and operations reside together in the same folders.
+-  System properties files do not reside in the same folder together with flows
+   and operations.
 -  Identifiers (flow names, operation names, input names, etc.) are
    written:
 
@@ -31,7 +35,8 @@ CloudSlang Content Best Practices
    of annotated inputs, outputs and results (see `CloudSlang Comments
    Style Guide <#cloudslang-comments-style-guide>`__).
 
-     -  Optional parameters and default values are noted.
+     -  Optional parameters, default and valid values are noted.
+     -  Examples are provided when useful.
 
 CloudSlang Tests Best Practices
 ===============================
@@ -40,8 +45,8 @@ CloudSlang Tests Best Practices
    to the structure of the directory they are testing.
 -  Tests for a particular CloudSlang file are written in a file with the
    same name, but with the **.inputs.yaml** extension, for example, the flow
-   **print\_text.sl** is tested by tests in
-   **print\_text.inputs.yaml**.
+   **print_text.sl** is tested by tests in
+   **print_text.inputs.yaml**.
 -  Wrapper flows reside in the same folder as the tests call them.
 
 **Note:** In future releases some of the above best practices may be
@@ -134,5 +139,5 @@ Recurring Fields
    may be different. Some examples are:
 
      -  FAILURE - otherwise
-     -  error\_message - error message if error occurred
+     -  error_message - error message if error occurred
      -  command - command to execute

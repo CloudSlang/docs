@@ -12,7 +12,7 @@ Get Started
 
 In this lesson we'll be installing a 3rd party Python package. In order to do so
 you'll need to have Python and pip installed on your machine. You can download
-Python (version 2.7) from `here <https://www.python.org/>`__. Python 2.7.9 and 
+Python (version 2.7) from `here <https://www.python.org/>`__. Python 2.7.9 and
 later include pip by default. If you already have Python but don't have pip
 installed on your machine, see the pip
 `documentation <https://pip.pypa.io/en/latest/installing.html>`__ for
@@ -201,14 +201,10 @@ New Code - Complete
             overridable: false
         - order_map:
             default: {'laptop': 1000, 'docking station':200, 'monitor': 500, 'phone': 100}
-        - hostname:
-            system_property: tutorials.hiring.hostname
-        - port:
-            system_property: tutorials.hiring.port
-        - from:
-            system_property: tutorials.hiring.system_address
-        - to:
-            system_property: tutorials.hiring.hr_address
+        - hostname: ${get_sp('tutorials.properties.hostname')}
+        - port: ${get_sp('tutorials.properties.port')}
+        - from: ${get_sp('tutorials.properties.system_address')}
+        - to: ${get_sp('tutorials.properties.hr_address')}
 
       workflow:
         - print_start:
