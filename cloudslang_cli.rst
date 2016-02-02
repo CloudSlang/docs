@@ -225,8 +225,8 @@ paths.
     namespace: examples.sysprops
 
     properties:
-      - host: 'localhost'
-      - port: 8080
+      host: 'localhost'
+      port: 8080
 
 **Note:** System property values that are non-string types (numeric, list, map,
 etc.) are converted to string representations. A system property may have a

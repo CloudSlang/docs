@@ -34,7 +34,7 @@ Here's what the contents of our system properties file looks like:
     properties:
       domain: bcompany.com
       hostname: <host>
-      port: <25>
+      port: 25
       system_address: <test@test.com>
       hr_address: <test@test.com>
 
@@ -91,10 +91,10 @@ values from the system properties file.
     - send_mail:
         do:
           mail.send_mail:
-            - hostname: ${get_sp(tutorials.properties.hostname)}
-            - port: ${get_sp(tutorials.properties.port)}
-            - from: ${get_sp(tutorials.properties.system_address)}
-            - to: ${get_sp(tutorials.properties.hr_address)}
+            - hostname: ${get_sp('tutorials.properties.hostname')}
+            - port: ${get_sp('tutorials.properties.port')}
+            - from: ${get_sp('tutorials.properties.system_address')}
+            - to: ${get_sp('tutorials.properties.hr_address')}
             - subject: "${'New Hire: ' + first_name + ' ' + last_name}"
             - body: >
                 ${'Created address: ' + address + ' for: ' + first_name + ' ' + last_name + '<br>' +
@@ -212,10 +212,10 @@ New Code - Complete
         - send_mail:
             do:
               mail.send_mail:
-                - hostname: ${get_sp(tutorials.properties.hostname)}
-                - port: ${get_sp(tutorials.properties.port)}
-                - from: ${get_sp(tutorials.properties.system_address)}
-                - to: ${get_sp(tutorials.properties.hr_address)}
+                - hostname: ${get_sp('tutorials.properties.hostname')}
+                - port: ${get_sp('tutorials.properties.port')}
+                - from: ${get_sp('tutorials.properties.system_address')}
+                - to: ${get_sp('tutorials.properties.hr_address')}
                 - subject: "${'New Hire: ' + first_name + ' ' + last_name}"
                 - body: >
                     ${'Created address: ' + address + ' for: ' + first_name + ' ' + last_name + '<br>' +
@@ -279,7 +279,7 @@ New Code - Complete
     properties:
       domain: bcompany.com
       hostname: <host>
-      port: <25>
+      port: 25
       system_address: <test@test.com>
       hr_address: <test@test.com>
 
