@@ -26,6 +26,7 @@ CloudSlang Content Best Practices
      -  In camelCase, starting with a lowercase letter and each additional
         word starting with an uppercase letter appended without a
         delimiter, for inputs to a Java @Action.
+     -  Results are written in ALL_CAPS.
 
 -  Flow and operation files begin with a commented description and list
    of annotated inputs, outputs and results (see `CloudSlang Comments
@@ -59,34 +60,47 @@ All CloundSlang flows and operations should begin with a documentation
 block that describes the flow or operation, and lists the inputs,
 outputs and results.
 
-Structure
----------
+A flow or operation's documentation may be viewed from the CLI using the
+:ref:`inspect <inspect_a_flow_or_operation>` command.
 
-The structure and spacing of the comments are as in the example below:
+-  Documentation blocks begin with a line containing ``#!!`` and nothing else.
+-  Documentation blocks end with a line containing ``#!!#`` and nothing else.
+-  Each line of the documentation begins with ``#!``.
+-  Lines in the documentation block that do not begin with ``#!`` will not be
+   considered as part of the documentation and will not display when the file is
+   inspected.
+-  The ``@description`` tag is the only mandatory tag.
+-  The other possible tags are:
+
+     - ``@prerequisites``
+     - ``@input <input_name>``
+     - ``@output <output_name>``
+     - ``@result <result_name>``
 
 ::
 
     ####################################################
-    ## description: Does something fantastic.
-    ##
-    ## inputs:
-    ##   - input_1: first input
-    ##   - input_2: |
-    ##       second input
-    ##       default: true
-    ##       valid: true, false
-    ##   - input_3: |
-    ##       third input
-    ##       optional
-    ##       example: 'someone@mailprovider.com'
-    ##   - input_4: |
-    ##       fourth input
-    ##       format: space delimited list of strings
-    ## outputs:
-    ##   - output_1: first output
-    ## results:
-    ##   - SUCCESS: good
-    ##   - FAILURE: bad
+    #!!
+    #! @description: Does something fantastic.
+    #!
+    #! @prerequisites: Some Python module.
+    #!
+    #! @input input_1: first input
+    #! @input input_2:
+    #!       second input
+    #!       default: true
+    #!       valid: true, false
+    #! @input input_3:
+    #!       third input
+    #!       optional
+    #!       example: 'someone@mailprovider.com'
+    #! @input input_4:
+    #!       fourth input
+    #!       format: space delimited list of strings
+    #! @output output_1: first output
+    #! @result SUCCESS: good
+    #! @result FAILURE: bad
+    #!!#
     ####################################################
 
 Description
