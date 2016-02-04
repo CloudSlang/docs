@@ -10,53 +10,63 @@ values of inputs.
 Get Started
 -----------
 
-We'll need to create a system property file that contains the values we
+We'll need to create a system properties file that contains the values we
 want to use for the inputs. Let's create a **properties** folder under
-**tutorials** and in there create a file named **bcompany.yaml**. We'll
-also need to use the system properties somewhere. We'll use then in the
+**tutorials** and in there create a file named **bcompany.sl**. We'll
+also need to use the system properties somewhere. We'll use them in the
 **new_hire.sl** and **generate_user_email.sl** files.
 
 System Properties File
 ----------------------
 
-The first thing to take note of is that our system properties file ends
-with a **.yaml** extension instead of the **.sl** one we've been using
-for our flows and operations. That's because the system properties files
-are not compiled and there isn't really anything special about them.
-They're flat YAML files that contain maps of fully qualified names to
-their values.
+A system properties file, like a flow or operation file, ends with the **.sl**
+extension and can include a namespace. A system properties file also contains
+the ``properties`` keyword which is mapped to ``key:value`` pairs that define
+system property names and values.
+
 
 Here's what the contents of our system properties file looks like:
 
 .. code-block:: yaml
 
-    tutorials.hiring.domain: bcompany.com
-    tutorials.hiring.hostname: <host name>
-    tutorials.hiring.port: '<port>'
-    tutorials.hiring.system_address: <system email>
-    tutorials.hiring.hr_address: <hr email>
+    namespace: tutorials.properties
+
+    properties:
+      domain: bcompany.com
+      hostname: <host>
+      port: 25
+      system_address: <test@test.com>
+      hr_address: <test@test.com>
+
 
 You'll need to substitute the values in angle brackets (``<>``) to work
 for your email host.
 
-Note: the ``port`` property must have quotes (``'``) around the value so
-that it is correctly interpreted as a YAML string and not an integer
-value.
+**Note:** All system property values are interpreted as strings. So in our case,
+even if the port is a numeric value, it's value when used as a system
+property will be a string representation. For example, entering a value of
+``25`` will create a system property whose value is ``'25'``.
 
-For more information, see
-:ref:`Run with System Properties <run_with_system_properties>` in
-the CLI documentation.
+For more information, see :ref:`properties <properties>` in the DSL Reference
+and :ref:`Run with System Properties <run_with_system_properties>` in the CLI
+documentation.
 
-Inputs
-------
+Retrieve Values
+---------------
 
-Now we need to use the system properties to place values in our inputs.
+Now we'll use the system properties to place values in our inputs and task
+arguments. We retrieve system property values using the ``get_sp()`` function.
 We'll do this in two places.
 
-First, we'll add a system property to the inputs of
-``generate_user_email`` by adding the ``system_property`` property to
-the ``domain`` input using the fully qualified name from the system
-properties file.
+**Note:** The ``get_sp()`` function can also be used to retrieve system property
+values in publish, output and result expressions.
+
+First, we'll use a system property in the inputs of ``generate_user_email``
+by calling the ``get_sp()`` function in the ``default`` property of the
+the ``domain`` input. The ``get_sp()`` function will retrieve the value
+associated with the property defined by the fully qualified name in its first
+argument. If no such property if found, the function will return the second
+argument.
 
 .. code-block:: yaml
 
@@ -66,73 +76,25 @@ properties file.
           default: ""
       - last_name
       - domain:
-          system_property: tutorials.hiring.domain
-          default: "acompany.com"
+          default: ${get_sp('tutorials.properties.domain', 'acompany.com')}
           overridable: false
       - attempt
 
-Let's see how the system property works in relation to other possible
-values for the input. To do so, we'll just run the
-``generate_user_email`` operation by itself and test what happens when
-we experiment with explicitly passing values or not and
-commenting/uncommenting the default and system property values.
-
-Save the file and try a few of the variations starting with:
-
-.. code-block:: bash
-
-    run --f <folder path>/tutorials/hiring/generate_user_email.sl --i first_name=john,last_name=doe,domain=company.com,attempt=1 --spf <folder path>/tutorials/properties/bcompany.yaml
-
-In general, the order of preference as to which values get bound to the
-input variable is:
-
-1. Explicitly passed value
-2. System properties
-3. Default value
-
-However, if the ``overridable`` property is set to false, explicitly
-passed values will not be bound to the input variable. Instead, a system
-property or default value will be bound.
-
-The second place we'll add system properties is to the ``new_hire``
-flow. Here we'll add the necessary variables with system properties to
-the inputs section and use them in the ``send_mail`` task we created
-last lesson. We'll have the ``hostname``, ``port``, ``from`` and ``to``
-taken from the system properties file.
-
-.. code-block:: yaml
-
-    inputs:
-      - first_name
-      - middle_name:
-          required: false
-      - last_name
-      - missing:
-          default: ""
-          overridable: false
-      - total_cost:
-          default: 0
-          overridable: false
-      - order_map:
-          default: {'laptop': 1000, 'docking station':200, 'monitor': 500, 'phone': 100}
-      - hostname:
-          system_property: tutorials.hiring.hostname
-      - port:
-          system_property: tutorials.hiring.port
-      - from:
-          system_property: tutorials.hiring.system_address
-      - to:
-          system_property: tutorials.hiring.hr_address
+The second place we'll use system properties is in the ``new_hire``
+flow. Here we'll retrieve the system properties in the arguments of
+the ``send_mail`` task we created last lesson. We'll use the ``get_sp()``
+function to get the ``hostname``, ``port``, ``from`` and ``to`` default
+values from the system properties file.
 
 .. code-block:: yaml
 
     - send_mail:
         do:
           mail.send_mail:
-            - hostname
-            - port
-            - from
-            - to
+            - hostname: ${get_sp('tutorials.properties.hostname')}
+            - port: ${get_sp('tutorials.properties.port')}
+            - from: ${get_sp('tutorials.properties.system_address')}
+            - to: ${get_sp('tutorials.properties.hr_address')}
             - subject: "${'New Hire: ' + first_name + ' ' + last_name}"
             - body: >
                 ${'Created address: ' + address + ' for: ' + first_name + ' ' + last_name + '<br>' +
@@ -140,6 +102,8 @@ taken from the system properties file.
         navigate:
           FAILURE: FAILURE
           SUCCESS: SUCCESS
+
+For more information, see :ref:`get_sp() <get_sp>` in the DSL Reference.
 
 Run It
 ------
@@ -152,6 +116,10 @@ system properties file.
 .. code-block:: bash
 
     run --f <folder path>/tutorials/hiring/new_hire.sl --cp <folder path>/tutorials,<content folder path>/base --i first_name=john,last_name=doe --spf <folder path>/tutorials/properties/bcompany.yaml
+
+For more information on running with a system properties file, see
+:ref:`Run with System Properties <run_with_system_properties>` in the CLI
+documentation.
 
 Download the Code
 -----------------
@@ -193,14 +161,6 @@ New Code - Complete
             overridable: false
         - order_map:
             default: {'laptop': 1000, 'docking station':200, 'monitor': 500, 'phone': 100}
-        - hostname:
-            system_property: tutorials.hiring.hostname
-        - port:
-            system_property: tutorials.hiring.port
-        - from:
-            system_property: tutorials.hiring.system_address
-        - to:
-            system_property: tutorials.hiring.hr_address
 
       workflow:
         - print_start:
@@ -252,10 +212,10 @@ New Code - Complete
         - send_mail:
             do:
               mail.send_mail:
-                - hostname
-                - port
-                - from
-                - to
+                - hostname: ${get_sp('tutorials.properties.hostname')}
+                - port: ${get_sp('tutorials.properties.port')}
+                - from: ${get_sp('tutorials.properties.system_address')}
+                - to: ${get_sp('tutorials.properties.hr_address')}
                 - subject: "${'New Hire: ' + first_name + ' ' + last_name}"
                 - body: >
                     ${'Created address: ' + address + ' for: ' + first_name + ' ' + last_name + '<br>' +
@@ -268,7 +228,7 @@ New Code - Complete
           - print_fail:
               do:
                 base.print:
-                  - text: "${'Failed to create address for: ' + first_name + ' ' + last_name}"
+              - text: "${'Failed to create address for: ' + first_name + ' ' + last_name}"
 
 **generate_user_email.sl**
 
@@ -285,8 +245,7 @@ New Code - Complete
             default: ""
         - last_name
         - domain:
-            system_property: tutorials.hiring.domain
-            default: "acompany.com"
+            default: ${get_sp('tutorials.properties.domain', 'acompany.com')}
             overridable: false
         - attempt
 
@@ -310,15 +269,19 @@ New Code - Complete
         - FAILURE: ${address == ''}
         - SUCCESS
 
-**bcompany.yaml**
+
+**bcompany.sl**
 
 .. code-block:: yaml
 
-    tutorials.hiring.domain: bcompany.com
-    tutorials.hiring.hostname: <host name>
-    tutorials.hiring.port: '<port>'
-    tutorials.hiring.system_address: <system email>
-    tutorials.hiring.hr_address: <hr email>
+    namespace: tutorials.properties
+
+    properties:
+      domain: bcompany.com
+      hostname: <host>
+      port: 25
+      system_address: <test@test.com>
+      hr_address: <test@test.com>
 
 **Note:** You need to substitute the values in angle brackets (<>) to
 work for your email host.

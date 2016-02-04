@@ -76,7 +76,7 @@ To do so, run the following command from the **python-lib** directory:
 
     pip install -r requirements.txt -t .
 
-Note: If your machine is behind a proxy you'll need to specify the proxy
+**Note:** If your machine is behind a proxy you'll need to specify the proxy
 using **pip**'s ``--proxy`` flag.
 
 If everything has gone well, you should now see the **pyfiglet**
@@ -144,10 +144,10 @@ fancy text.
     - send_mail:
         do:
           mail.send_mail:
-            - hostname
-            - port
-            - from
-            - to
+            - hostname: ${get_sp('tutorials.properties.hostname')}
+            - port: ${get_sp('tutorials.properties.port')}
+            - from: ${get_sp('tutorials.properties.system_address')}
+            - to: ${get_sp('tutorials.properties.hr_address')}
             - subject: "${'New Hire: ' + first_name + ' ' + last_name}"
             - body: >
                 ${fancy_text + '<br>' +
@@ -206,14 +206,6 @@ New Code - Complete
             overridable: false
         - order_map:
             default: {'laptop': 1000, 'docking station':200, 'monitor': 500, 'phone': 100}
-        - hostname:
-            system_property: tutorials.hiring.hostname
-        - port:
-            system_property: tutorials.hiring.port
-        - from:
-            system_property: tutorials.hiring.system_address
-        - to:
-            system_property: tutorials.hiring.hr_address
 
       workflow:
         - print_start:
@@ -271,10 +263,10 @@ New Code - Complete
         - send_mail:
             do:
               mail.send_mail:
-                - hostname
-                - port
-                - from
-                - to
+                - hostname: ${get_sp('tutorials.properties.hostname')}
+                - port: ${get_sp('tutorials.properties.port')}
+                - from: ${get_sp('tutorials.properties.system_address')}
+                - to: ${get_sp('tutorials.properties.hr_address')}
                 - subject: "${'New Hire: ' + first_name + ' ' + last_name}"
                 - body: >
                     ${fancy_text + '<br>' +

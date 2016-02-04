@@ -50,7 +50,7 @@ during testing to see that our operation is working as expected.
         vacant = rand != 0
         #print rand
 
-YAML Note: Since we're writing a multi-line Python script here we
+**YAML Note:** Since we're writing a multi-line Python script here we
 use the pipe (``|``) character to denote the usage of literal style
 block notation where all newlines will be preserved.
 

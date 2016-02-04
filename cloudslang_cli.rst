@@ -200,9 +200,10 @@ or operation's folder is added to the classpath by default.
 Run with System Properties
 --------------------------
 
-System properties files are written in flat
-`YAML <http://www.yaml.org>`__, containing a map of names to values.
-System property files end with the **.yaml** or **.yml** extensions. If multiple
+A system properties file is a type of CloudSlang file that contains a map of
+system property keys and values. For more information on the structure of
+system properties files see the :ref:`CloudSlang Files <cloudslang_files>` and
+:ref:`properties <properties>` sections of the DSL Reference. If multiple
 system properties files are being used and they contain a system
 property with the same fully qualified name, the property in the file
 that is loaded last will overwrite the others with the same name.
@@ -221,15 +222,25 @@ paths.
 
 .. code-block:: yaml
 
-    examples.properties.text: hello
-    examples.properties.list:
-      - one
-      - two
-      - three
-    examples.properties.map:
-      one: a
-      two: b
-      three: c
+    namespace: examples.sysprops
+
+    properties:
+      host: 'localhost'
+      port: 8080
+
+**Note:** System property values that are non-string types (numeric, list, map,
+etc.) are converted to string representations. A system property may have a
+value of ``null``.
+
+An empty system properties file can be defined using an empty map.
+
+**Example: empty system properties file**
+
+.. code-block:: yaml
+
+     namespace: examples.sysprops
+
+     properties: {}
 
 Change the Verbosity Level
 --------------------------

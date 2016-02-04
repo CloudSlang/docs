@@ -74,12 +74,11 @@ CLI <../cloudslang_cli>`, as we do below in this lesson, or from a
 task in a flow, as we will do in the next lesson.
 
 Inputs can also have related parameters, such as ``required``,
-``default``, ``overridable`` and ``system_property``. We will discuss
-these parameters in lessons :doc:`8 - Input Parameters <08_lesson>` and
-:doc:`13 - System Properties <13_lesson>`.
+``default`` and ``overridable``. We will discuss these parameters in lessons
+:doc:`8 - Input Parameters <08_lesson>`.
 
-For more information, see :ref:`inputs`, :ref:`required`, :ref:`default`,
-:ref:`overridable` and :ref:`system_property` in the DSL reference.
+For more information, see :ref:`inputs`, :ref:`required`, :ref:`default` and
+:ref:`overridable` in the DSL reference.
 
 Action
 ------

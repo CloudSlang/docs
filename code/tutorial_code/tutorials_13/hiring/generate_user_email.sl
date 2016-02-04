@@ -9,8 +9,7 @@ operation:
         default: ""
     - last_name
     - domain:
-        system_property: tutorials.hiring.domain
-        default: "acompany.com"
+        default: ${get_sp('tutorials.properties.domain', 'acompany.com')}
         overridable: false
     - attempt
 

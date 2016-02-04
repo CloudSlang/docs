@@ -20,14 +20,6 @@ flow:
         overridable: false
     - order_map:
         default: {'laptop': 1000, 'docking station':200, 'monitor': 500, 'phone': 100}
-    - hostname:
-        system_property: tutorials.hiring.hostname
-    - port:
-        system_property: tutorials.hiring.port
-    - from:
-        system_property: tutorials.hiring.system_address
-    - to:
-        system_property: tutorials.hiring.hr_address
 
   workflow:
     - print_start:
@@ -85,10 +77,10 @@ flow:
     - send_mail:
         do:
           mail.send_mail:
-            - hostname
-            - port
-            - from
-            - to
+            - hostname: ${get_sp('tutorials.properties.hostname')}
+            - port: ${get_sp('tutorials.properties.port')}
+            - from: ${get_sp('tutorials.properties.system_address')}
+            - to: ${get_sp('tutorials.properties.hr_address')}
             - subject: "${'New Hire: ' + first_name + ' ' + last_name}"
             - body: >
                 ${fancy_text + '<br>' +

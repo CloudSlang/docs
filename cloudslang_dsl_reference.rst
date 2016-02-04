@@ -14,6 +14,8 @@ expressions, and ends with an alphabetical listing of CloudSlang keywords
 and concepts. See the :doc:`examples <cloudslang_examples>` section for the full
 code examples from which many of the code snippets in this reference are taken.
 
+.. _cloudslang_files:
+
 CloudSlang Files
 ================
 
@@ -21,20 +23,21 @@ CloudSlang files are written using `YAML <http://www.yaml.org>`__. The
 recommended extension for CloudSlang files is **.sl**, but **.sl.yaml**
 and **.sl.yml** will work as well.
 
-There are two types of CloudSlang files:
+There are three types of CloudSlang files:
 
 -  flow - contains a list of tasks and navigation logic that calls
    operations or subflows
 -  operation - contains an action that runs a script or method
+-  system properties - contains a map of system property keys and values
 
 The following properties are for all types of CloudSlang files. For
-properties specific to `flows <#flow>`__ or `operations <#operation>`__,
-see their respective sections below.
+properties specific to `flows <#flow>`__, `operations <#operation>`__, or
+`system properties <#properties>`__, see their respective sections below.
 
 +-----------------+------------+-----------+---------------------------+-------------------------+------------------------------+
 | Property        | Required   | Default   | Value Type                | Description             | More Info                    |
 +=================+============+===========+===========================+=========================+==============================+
-| ``namespace``   | no         | --        | string                    | namespace of the flow   | `namespace <#namespace>`__   |
+| ``namespace``   | no         | --        | string                    | namespace of the file   | `namespace <#namespace>`__   |
 +-----------------+------------+-----------+---------------------------+-------------------------+------------------------------+
 | ``imports``     | no         | --        | list of key:value pairs   | files to import         | `imports <#imports>`__       |
 +-----------------+------------+-----------+---------------------------+-------------------------+------------------------------+
@@ -55,7 +58,6 @@ and concepts are explained in detail below.
       -  `required <#required>`__
       -  `default <#default>`__
       -  `overridable <#overridable>`__
-      -  `system_property <#system-property>`__
 
    -  `workflow <#workflow>`__
 
@@ -103,11 +105,15 @@ and concepts are explained in detail below.
       -  `required <#required>`__
       -  `default <#default>`__
       -  `overridable <#overridable>`__
-      -  `system\_property <#system-property>`__
 
    -  `action <#action>`__
    -  `outputs <#outputs>`__
    -  `results <#results>`__
+
+**System properties file**
+
+-  `namespace <#namespace>`__
+-  `properties <#properties>`__
 
 .. _expressions:
 
@@ -701,8 +707,7 @@ mapped to an `expression <#expressions>`__ value.
 The expression's value will be passed to the `flow <#flow>`__ or
 `operation <#operation>`__ if no other value for that
 `input <#inputs>`__ parameter is explicitly passed or if the input's
-`overridable <#overridable>`__ parameter is set to ``false`` and there
-is no `system\_property <#system-property>`__ parameter defined.
+`overridable <#overridable>`__ parameter is set to ``false``.
 
 **Example - default values**
 
@@ -715,6 +720,8 @@ is no `system\_property <#system-property>`__ parameter defined.
           default: ${5 + 6}
       - from_variable:
           default: ${variable_name}
+      - from_system_property:
+          default: $ { get_sp('system.property.key') }
 
 A default value can also be defined inline by entering it as the value
 to the `input <#inputs>`__ parameter's key.
@@ -727,6 +734,7 @@ to the `input <#inputs>`__ parameter's key.
       - str_literal: "default value"
       - int_exp: ${5 + 6}
       - from_variable: ${variable_name}
+      - from_system_property: $ { get_sp('system.property.key') }
 
 .. _do:
 
@@ -944,8 +952,8 @@ list**
 
 .. _get:
 
-get
----
+get()
+-----
 
 May appear in the value of an `input <#inputs>`__,
 `output <#outputs>`__, `publish <#publish>`__, `loop <#for>`__
@@ -978,6 +986,56 @@ returns the ``default_value``.
 
     outputs:
       - some_output
+
+.. _get_sp:
+
+get_sp()
+--------
+May appear in the value of an `input <#inputs>`__,
+`task <#task>`__ argument, `publish <#publish>`__, `output <#outputs>`__ or
+`result <#results>`__ `expression <#expressions>`__.
+
+The function in the form of ``get_sp('key', 'default_value')`` returns the
+value associated with the `system property <#properties>`__ named ``key`` if the
+key is defined and its value is not ``null``. If the key is undefined or its
+value is ``null`` the function returns the ``default_value``. The ``key`` is the
+fully qualified name of the `system property <#properties>`__, meaning the
+namespace (if there is one) of the file in which it is found followed by a dot
+``.`` and the name of the key.
+
+`System property <#properties>`__ values are always strings or ``null``. Values
+of other types (numeric, list, map, etc.) are converted to string
+representations.
+
+`System properties <#properties>`__ are not enforced at compile time. They are
+assigned at runtime.
+
+**Note:** If multiple system properties files are being used and they
+contain a `system property <#properties>`__ with the same fully qualified name,
+the property in the file that is loaded last will overwrite the others with
+the same name.
+
+**Example - system properties file**
+
+.. code-block:: yaml
+
+    namespace: examples.sysprops
+
+    properties:
+      host: 'localhost'
+      port: 8080
+
+
+**Example - system properties used as input values**
+
+.. code-block:: yaml
+
+    inputs:
+      - host: ${get_sp('examples.sysprops.hostname')}
+      - port: ${get_sp('examples.sysprops.port', '8080')}
+
+To pass a system properties file to the CLI, see :ref:`Run with System
+Properties <run_with_system_properties>`.
 
 .. _imports:
 
@@ -1050,8 +1108,6 @@ Inputs are used to pass parameters to `flows <#flow>`__ or
 | ``default``           | no         | --        | expression   | default value of the input                                      | `default <#default>`__                    |
 +-----------------------+------------+-----------+--------------+-----------------------------------------------------------------+-------------------------------------------+
 | ``overridable``       | no         | true      | boolean      | if false, the default value always overrides values passed in   | `overridable <#overridable>`__            |
-+-----------------------+------------+-----------+--------------+-----------------------------------------------------------------+-------------------------------------------+
-| ``system_property``   | no         | --        | string       | the name of a system property variable                          | `system\_property <#system-property>`__   |
 +-----------------------+------------+-----------+--------------+-----------------------------------------------------------------+-------------------------------------------+
 
 **Example - several inputs**
@@ -1150,6 +1206,10 @@ dependencies.
 
     imports:
       ops: examples.hello_world
+
+For more information about choosing a file's namespace, see the
+:ref:`CloudSlang Content Best Practices <cloudslang_content_best_practices>`
+section.
 
 **Note:** If the imported file resides in a folder that is different
 from the folder in which the importing file resides, the imported file's
@@ -1321,6 +1381,41 @@ by values passed in**
       - text:
           default: "default text"
           overridable: false
+
+.. _properties:
+
+properties
+----------
+
+The key ``properties`` is mapped to ``key:value`` pairs that define one or more
+system properties.
+
+System property values are retrieved using the `get_sp() <#get-sp>`__ function.
+
+**Note:** System property values that are non-string types (numeric, list, map,
+etc.) are converted to string representations. A system property may have a
+value of ``null``.
+
+**Example - system properties file**
+
+.. code-block:: yaml
+
+    namespace: examples.sysprops
+
+    properties:
+      host: 'localhost'
+      port: 8080
+
+An empty system properties file can be defined using an empty map.
+
+**Example: empty system properties file**
+
+.. code-block:: yaml
+
+     namespace: examples.sysprops
+
+     properties: {}
+
 
 .. _publish:
 
@@ -1514,37 +1609,6 @@ scope**
 
     publish:
       - total_cost: ${self['total_cost'] + cost}
-
-.. _system_property:
-
-system_property
-----------------
-
-The key ``system_property`` is a property of an `input <#inputs>`__
-name. It is mapped to a string of a key from a system properties file.
-
-The value referenced from a system properties file will be passed to the
-`flow <#flow>`__ or `operation <#operation>`__ if no other value for
-that `input <#inputs>`__ parameter is explicitly passed in or if the
-input's `overridable <#overridable>`__ parameter is set to ``false``.
-
-**Note:** If multiple system properties files are being used and they
-contain a system property with the same fully qualified name, the
-property in the file that is loaded last will overwrite the others with
-the same name.
-
-**Example - system properties**
-
-.. code-block:: yaml
-
-    inputs:
-      - host:
-          system_property: examples.sysprops.hostname
-      - port:
-          system_property: examples.sysprops.port
-
-To pass a system properties file to the CLI, see :ref:`Run with System
-Properties <run_with_system_properties>`.
 
 .. _task:
 
