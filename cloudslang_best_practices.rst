@@ -27,6 +27,9 @@ CloudSlang Content Best Practices
         word starting with an uppercase letter appended without a
         delimiter, for inputs to a Java @Action.
 
+-  Assign only relevant default values. For example, 8080 is a good candidate
+   for a port number, but john_doe is probably not a good candidate for a user
+   name. 
 -  Flow and operation files begin with a commented description and list
    of annotated inputs, outputs and results (see `CloudSlang Comments
    Style Guide <#cloudslang-comments-style-guide>`__).
