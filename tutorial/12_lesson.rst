@@ -38,36 +38,36 @@ Here's the documentation for the ``send_mail`` operation:
     #! @input port: email port
     #! @input from: email sender
     #! @input to: email recipient
-    #! @input cc:
+    #! @input cc: cc recipient
     #!       optional
     #!       default: none
-    #! @input bcc:
+    #! @input bcc: bcc recipient
     #!       optional
     #!       default: none
-    #! @input subject:
+    #! @input subject: email subject
     #! @input body: email text
-    #! @input html_email:
+    #! @input html_email: html formatted email
     #!       optional
     #!       default: true
-    #! @input read_receipt:
+    #! @input read_receipt: request read receipt
     #!       optional
     #!       default: false
-    #! @input attachments:
+    #! @input attachments: email attachments
     #!       optional
     #!       default: none
-    #! @input username:
+    #! @input username: account username
     #!       optional
     #!       default: none
-    #! @input password:
+    #! @input password: account password
     #!       optional
     #!       default: none
-    #! @input character_set:
+    #! @input character_set: email character set
     #!        optional
     #!        default: UTF-8
-    #! @input content_transfer_encoding:
+    #! @input content_transfer_encoding: email content transfer encoding
     #!        optional
     #!        default: base64
-    #! @input delimiter:
+    #! @input delimiter: delimiter to separate email recipients and attachments
     #!        optional
     #!        default: none
     #! @result SUCCESS: mail was sent successfully (returnCode is equal to 0)
