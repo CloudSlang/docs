@@ -50,7 +50,7 @@ during testing to see that our operation is working as expected.
         vacant = rand != 0
         #print rand
 
-YAML Note: Since we're writing a multi-line Python script here we
+**YAML Note:** Since we're writing a multi-line Python script here we
 use the pipe (``|``) character to denote the usage of literal style
 block notation where all newlines will be preserved.
 
@@ -122,6 +122,11 @@ run the operation, enter the following in the CLI:
 
 Run the operation a few times and make sure that both the ``SUCCESS``
 and ``FAILURE`` cases are working as expected.
+
+Download the Code
+-----------------
+
+:download:`Lesson 4 - Complete code </code/tutorial_code/tutorials_04.zip>`
 
 Up Next
 -------

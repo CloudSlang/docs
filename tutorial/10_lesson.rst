@@ -42,7 +42,7 @@ numbers.
           UNAVAILABLE: print_fail
           FAILURE: print_fail
 
-YAML Note: A list can be written using bracket (``[]``) notation
+**YAML Note:** A list can be written using bracket (``[]``) notation
 instead of using indentation and hyphens (``-``).
 
 For each item in our list the ``attempt`` loop variable is assigned the
@@ -177,13 +177,18 @@ Run It
 ------
 
 Everything should be working as expected now. We can save our file and
-run the flow with or without a middle name. Note: to test a result of
+run the flow with or without a middle name. To test a result of
 ``FAILURE`` it's best not to pass a middle name and run the flow several
 times.
 
 .. code-block:: bash
 
     run --f <folder path>/tutorials/hiring/new_hire.sl --cp <folder path>/tutorials --i first_name=john,last_name=doe
+
+Download the Code
+-----------------
+
+:download:`Lesson 10 - Complete code </code/tutorial_code/tutorials_10.zip>`
 
 Up Next
 -------
