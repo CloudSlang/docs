@@ -31,29 +31,56 @@ Here's the documentation for the ``send_mail`` operation:
 .. code-block:: yaml
 
     ####################################################
-    #   This operation sends a simple email.
-    #
-    #   Inputs:
-    #       - hostname - email host
-    #       - port - email port
-    #       - from - email sender
-    #       - to - email recipient
-    #       - cc - optional - Default: none
-    #       - bcc - optional - Default: none
-    #       - subject - email subject
-    #       - body - email text
-    #       - htmlEmail - optional - Default: true
-    #       - readReceipt - optional - Default: false
-    #       - attachments - optional - Default: none
-    #       - username - optional - Default: none
-    #       - password - optional - Default: none
-    #       - characterSet - optional - Default: UTF-8
-    #       - contentTransferEncoding - optional - Default: base64
-    #       - delimiter - optional - Default: none
-    #   Results:
-    #       - SUCCESS - succeeds if mail was sent successfully (returnCode is equal to 0)
-    #       - FAILURE - otherwise
+    #!!
+    #! @description: Sends an email.
+    #!
+    #! @input hostname: email host
+    #! @input port: email port
+    #! @input from: email sender
+    #! @input to: email recipient
+    #! @input cc: cc recipient
+    #!            optional
+    #!            default: none
+    #! @input bcc: bcc recipient
+    #!             optional
+    #!             default: none
+    #! @input subject: email subject
+    #! @input body: email text
+    #! @input html_email: html formatted email
+    #!                    optional
+    #!                    default: true
+    #! @input read_receipt: request read receipt
+    #!                      optional
+    #!                      default: false
+    #! @input attachments: email attachments
+    #!                     optional
+    #!                     default: none
+    #! @input username: account username
+    #!                  optional
+    #!                  default: none
+    #! @input password: account password
+    #!                  optional
+    #!                  default: none
+    #! @input character_set: email character set
+    #!                       optional
+    #!                       default: UTF-8
+    #! @input content_transfer_encoding: email content transfer encoding
+    #!                                   optional
+    #!                                   default: base64
+    #! @input delimiter: delimiter to separate email recipients and attachments
+    #!                   optional
+    #!                   default: none
+    #! @result SUCCESS: mail was sent successfully (returnCode is equal to 0)
+    #! @result FAILURE: otherwise
+    #!!#
     ####################################################
+
+We could get this information by opening the operation from the ready-made
+content folder or by running ``inspect`` on the flow.
+
+.. code-block:: bash
+
+    inspect <content folder path>/io/cloudslang/base/mail/send_mail.sl
 
 When calling the operation, we'll need to pass values for all the
 arguments listed in the documentation that are not optional.

@@ -242,6 +242,26 @@ An empty system properties file can be defined using an empty map.
 
      properties: {}
 
+Run in Non-Interactive Mode
+---------------------------
+
+A flow can be run without first starting up the CLI using the
+non-interactive mode.
+
+From a shell prompt:
+
+**Windows**
+
+.. code-block:: bash
+
+    >cslang.bat run --f c:/.../your_flow.sl
+
+**Linux**
+
+.. code-block:: bash
+
+    >cslang run --f c:/.../your_flow.sl
+
 Change the Verbosity Level
 --------------------------
 
@@ -271,26 +291,17 @@ Run in debug mode:
 
     cslang>run --f c:/.../your_flow.sl --v
 
+.. _inspect_a_flow_or_operation:
 
-Run in Non-Interactive Mode
+Inspect a Flow or Operation
 ---------------------------
 
-A flow can be run without first starting up the CLI using the
-non-interactive mode.
-
-From a shell prompt:
-
-**Windows**
+To view a flow or operation's description, inputs, outputs and results use the
+``inspect`` command.
 
 .. code-block:: bash
 
-    >cslang.bat run --f c:/.../your_flow.sl
-
-**Linux**
-
-.. code-block:: bash
-
-    >cslang run --f c:/.../your_flow.sl
+    cslang>inspect c:/.../your_flow.sl
 
 Other Commands
 --------------

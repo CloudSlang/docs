@@ -30,6 +30,7 @@ CloudSlang Content Best Practices
      -  In camelCase, starting with a lowercase letter and each additional
         word starting with an uppercase letter appended without a
         delimiter, for inputs to a Java @Action.
+     -  Results are written in ALL_CAPS.
 
 -  Assign only relevant default values. For example, 8080 is a good candidate
    for a port number, but john_doe is probably not a good candidate for a user
@@ -67,27 +68,44 @@ All CloundSlang flows and operations should begin with a documentation
 block that describes the flow or operation, and lists the inputs,
 outputs and results.
 
-Structure
----------
+A flow or operation's documentation may be viewed from the CLI using the
+:ref:`inspect <inspect_a_flow_or_operation>` command.
 
-The structure and spacing of the comments are as in the example below:
+-  Documentation blocks begin with a line containing ``#!!`` and nothing else.
+-  Documentation blocks end with a line containing ``#!!#`` and nothing else.
+-  Each line of the documentation begins with ``#!``.
+-  Lines in the documentation block that do not begin with ``#!`` will not be
+   considered as part of the documentation and will not display when the file is
+   inspected.
+-  The ``@description`` tag is the only mandatory tag.
+-  The other possible tags are:
+
+     - ``@prerequisites``
+     - ``@input <input_name>``
+     - ``@output <output_name>``
+     - ``@result <result_name>``
 
 ::
 
     ####################################################
-    # Does something fantastic.
-    #
-    # Prerequisites: some Python module
-    #
-    # Inputs:
-    #   - input1 - first input
-    #   - input2 - optional - port for something - Default: 8080
-    #   - list - a list of things - Format: comma delimited list of things
-    # Outputs:
-    #   - output1 - some sort of message
-    # Results:
-    #   - SUCCESS - everything went well
-    #   - FAILURE - otherwise
+    #!!
+    #! @description: Does something fantastic.
+    #!
+    #! @prerequisites: Some Python module.
+    #!
+    #! @input input_1: first input
+    #! @input input_2: second input
+    #!                 default: true
+    #!                 valid: true, false
+    #! @input input_3: third input
+    #!                 optional
+    #!                 example: 'someone@mailprovider.com'
+    #! @input input_4: fourth input
+    #!                 format: space delimited list of strings
+    #! @output output_1: first output
+    #! @result SUCCESS: good
+    #! @result FAILURE: bad
+    #!!#
     ####################################################
 
 Description
@@ -101,9 +119,7 @@ Description
 Prerequisites
 -------------
 
--  Flows and operations that assume prerequisites include a prerequisite
-   line beginning with "Prerequisites:", followed by a comma delimited
-   list of prerequisites.
+-  Flows and operations that assume prerequisites should declare them.
 
 Inputs, Outputs and Results
 ---------------------------
@@ -113,7 +129,7 @@ Inputs, Outputs and Results
    capitalized acronym) and does not end with a period.
 -  Usage of the words "the" and "a" are strongly discouraged, especially
    at the beginning of the description.
--  Does not include "this flow", "this operation", "this field" or
+-  Description does not include "this flow", "this operation", "this field" or
    anything similar.
 -  Proper names and acronyms that are normally capitalized are
    capitalized, for example, HTTP, Docker, ID.
@@ -123,15 +139,14 @@ Inputs and Outputs
 
 -  Written in the present tense, for example, "true if job exists".
 -  Non-required fields contain the "optional" label.
--  Additional labels are "Default:", "Example:", "Valid:" and "Format:".
+-  Additional labels are "default:", "example:", "valid:" and "format:".
 
 Results
 -------
 
 -  Actions written in the past tense, for example, "error occurred". States
    written in the present tense, for example, "application is up".
--  Results are always included, even if just listing the default results
-   without explanations.
+-  Default results which do not require any additional explanation are omitted.
 
 Recurring Fields
 ----------------
