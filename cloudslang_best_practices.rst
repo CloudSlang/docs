@@ -87,13 +87,13 @@ A flow or operation's documentation may be viewed from the CLI using the
     #!
     #! @input input_1: first input
     #! @input input_2: second input
-    #!       default: true
-    #!       valid: true, false
+    #!                 default: true
+    #!                 valid: true, false
     #! @input input_3: third input
-    #!       optional
-    #!       example: 'someone@mailprovider.com'
+    #!                 optional
+    #!                 example: 'someone@mailprovider.com'
     #! @input input_4: fourth input
-    #!       format: space delimited list of strings
+    #!                 format: space delimited list of strings
     #! @output output_1: first output
     #! @result SUCCESS: good
     #! @result FAILURE: bad

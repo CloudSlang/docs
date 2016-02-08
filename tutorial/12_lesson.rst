@@ -39,37 +39,37 @@ Here's the documentation for the ``send_mail`` operation:
     #! @input from: email sender
     #! @input to: email recipient
     #! @input cc: cc recipient
-    #!       optional
-    #!       default: none
+    #!            optional
+    #!            default: none
     #! @input bcc: bcc recipient
-    #!       optional
-    #!       default: none
+    #!             optional
+    #!             default: none
     #! @input subject: email subject
     #! @input body: email text
     #! @input html_email: html formatted email
-    #!       optional
-    #!       default: true
+    #!                    optional
+    #!                    default: true
     #! @input read_receipt: request read receipt
-    #!       optional
-    #!       default: false
+    #!                      optional
+    #!                      default: false
     #! @input attachments: email attachments
-    #!       optional
-    #!       default: none
+    #!                     optional
+    #!                     default: none
     #! @input username: account username
-    #!       optional
-    #!       default: none
+    #!                  optional
+    #!                  default: none
     #! @input password: account password
-    #!       optional
-    #!       default: none
+    #!                  optional
+    #!                  default: none
     #! @input character_set: email character set
-    #!        optional
-    #!        default: UTF-8
+    #!                       optional
+    #!                       default: UTF-8
     #! @input content_transfer_encoding: email content transfer encoding
-    #!        optional
-    #!        default: base64
+    #!                                   optional
+    #!                                   default: base64
     #! @input delimiter: delimiter to separate email recipients and attachments
-    #!        optional
-    #!        default: none
+    #!                   optional
+    #!                   default: none
     #! @result SUCCESS: mail was sent successfully (returnCode is equal to 0)
     #! @result FAILURE: otherwise
     #!!#
