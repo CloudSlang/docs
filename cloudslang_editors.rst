@@ -42,6 +42,8 @@ The following snippets are provided:
 +-----------------------+-----------------------------------------------------+
 | operation             | template for an operation file                      |
 +-----------------------+-----------------------------------------------------+
+| properties            | template for a system properties file               |
++-----------------------+-----------------------------------------------------+
 | java_action           | template for a Java action                          |
 +-----------------------+-----------------------------------------------------+
 | python_action         | template for a Python action                        |
@@ -67,6 +69,18 @@ The following snippets are provided:
 | for                   | template for an iterative task                      |
 +-----------------------+-----------------------------------------------------+
 | async                 | template for an asynchronous task                   |
++-----------------------+-----------------------------------------------------+
+| property              | template for a system property                      |
++-----------------------+-----------------------------------------------------+
+| @input                | template for input documentation                    |
++-----------------------+-----------------------------------------------------+
+| @description          | template for file description documentation         |
++-----------------------+-----------------------------------------------------+
+| @prerequisites        | template for prerequisite documentation             |
++-----------------------+-----------------------------------------------------+
+| @output               | template for output documentation                   |
++-----------------------+-----------------------------------------------------+
+| @result               | template for result documentation                   |
 +-----------------------+-----------------------------------------------------+
 
 Atom Troubleshooting
