@@ -208,10 +208,10 @@ system properties files are being used and they contain a system
 property with the same fully qualified name, the property in the file
 that is loaded last will overwrite the others with the same name.
 
-System property files can be loaded automatically if placed in a folder located
-at ``cslang/configuration/properties``. If the flow or operation requires a
-system properties file that is not loaded automatically, use the ``--spf`` flag
-and a comma-separated list of file paths.
+System property files can be loaded automatically if placed in a folder or
+subfolder within ``cslang/configuration/properties``. If the flow or operation
+requires a system properties file that is not loaded automatically, use the
+``--spf`` flag and a comma-separated list of file paths.
 
 .. code-block:: bash
 
