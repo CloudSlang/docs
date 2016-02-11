@@ -138,8 +138,8 @@ extensions. It is a best practice for the name of an inputs file to end with
 input with the same name, the input in the file that is loaded last will
 overwrite the others with the same name.
 
-Inputs files can be loaded automatically if placed in a folder named ``inputs``
-in the CLI's **bin** directory. If the flow requires an inputs file that is not
+Inputs files can be loaded automatically if placed in a folder located at
+``cslang/configuration/inputs``. If the flow requires an inputs file that is not
 loaded automatically, use the ``--if`` flag and a comma-separated list of file
 paths. Inputs passed with the ``--i`` flag will override the inputs passed using
 a file.
@@ -208,11 +208,10 @@ system properties files are being used and they contain a system
 property with the same fully qualified name, the property in the file
 that is loaded last will overwrite the others with the same name.
 
-System property files can be loaded automatically if placed in a folder
-named ``properties`` in the CLI's **bin** directory. If the
-flow or operation requires a system properties file that is not loaded
-automatically, use the ``--spf`` flag and a comma-separated list of file
-paths.
+System property files can be loaded automatically if placed in a folder or
+subfolder within ``cslang/configuration/properties``. If the flow or operation
+requires a system properties file that is not loaded automatically, use the
+``--spf`` flag and a comma-separated list of file paths.
 
 .. code-block:: bash
 
