@@ -12,7 +12,7 @@ Get Started
 
 We'll need to create a system properties file that contains the values we
 want to use for the inputs. Let's create a **properties** folder under
-**tutorials** and in there create a file named **bcompany.props.sl**. We'll
+**tutorials** and in there create a file named **bcompany.prop.sl**. We'll
 also need to use the system properties somewhere. We'll use them in the
 **new_hire.sl** and **generate_user_email.sl** files.
 
