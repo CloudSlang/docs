@@ -20,8 +20,9 @@ CloudSlang Files
 ================
 
 CloudSlang files are written using `YAML <http://www.yaml.org>`__. The
-recommended extension for CloudSlang files is **.sl**, but **.sl.yaml**
-and **.sl.yml** will work as well.
+recommended extension for CloudSlang flow and operation file names is **.sl**,
+but **.sl.yaml** and **.sl.yml** will work as well. CloudSlang system properties
+file names end with the **.prop.sl** extension.
 
 There are three types of CloudSlang files:
 
@@ -31,8 +32,8 @@ There are three types of CloudSlang files:
 -  system properties - contains a map of system property keys and values
 
 The following properties are for all types of CloudSlang files. For
-properties specific to `flows <#flow>`__, `operations <#operation>`__, or
-`system properties <#properties>`__, see their respective sections below.
+properties specific to `flow <#flow>`__, `operation <#operation>`__, or
+`system properties <#properties>`__ files, see their respective sections below.
 
 +-----------------+------------+-----------+---------------------------+-------------------------+------------------------------+
 | Property        | Required   | Default   | Value Type                | Description             | More Info                    |
@@ -94,7 +95,7 @@ and concepts are explained in detail below.
    -  `outputs <#outputs>`__
    -  `results <#results>`__
 
-**Operations file**
+**Operation file**
 
 -  `namespace <#namespace>`__
 -  `operation <#operation>`__
@@ -1408,14 +1409,13 @@ value of ``null``.
 
 An empty system properties file can be defined using an empty map.
 
-**Example: empty system properties file**
+**Example - empty system properties file**
 
 .. code-block:: yaml
 
      namespace: examples.sysprops
 
      properties: {}
-
 
 .. _publish:
 

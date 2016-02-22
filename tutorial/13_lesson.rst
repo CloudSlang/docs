@@ -12,18 +12,17 @@ Get Started
 
 We'll need to create a system properties file that contains the values we
 want to use for the inputs. Let's create a **properties** folder under
-**tutorials** and in there create a file named **bcompany.sl**. We'll
+**tutorials** and in there create a file named **bcompany.prop.sl**. We'll
 also need to use the system properties somewhere. We'll use them in the
 **new_hire.sl** and **generate_user_email.sl** files.
 
 System Properties File
 ----------------------
 
-A system properties file, like a flow or operation file, ends with the **.sl**
-extension and can include a namespace. A system properties file also contains
-the ``properties`` keyword which is mapped to ``key:value`` pairs that define
-system property names and values.
-
+A system properties file ends with the **.prop.sl** extension and can include a
+namespace. A system properties file also contains the ``properties`` keyword
+which is mapped to ``key:value`` pairs that define system property names and
+values.
 
 Here's what the contents of our system properties file looks like:
 
@@ -115,7 +114,7 @@ system properties file.
 
 .. code-block:: bash
 
-    run --f <folder path>/tutorials/hiring/new_hire.sl --cp <folder path>/tutorials,<content folder path>/base --i first_name=john,last_name=doe --spf <folder path>/tutorials/properties/bcompany.yaml
+    run --f <folder path>/tutorials/hiring/new_hire.sl --cp <folder path>/tutorials,<content folder path>/base --i first_name=john,last_name=doe --spf <folder path>/tutorials/properties/bcompany.prop.sl
 
 For more information on running with a system properties file, see
 :ref:`Run with System Properties <run_with_system_properties>` in the CLI
@@ -270,7 +269,7 @@ New Code - Complete
         - SUCCESS
 
 
-**bcompany.sl**
+**bcompany.prop.sl**
 
 .. code-block:: yaml
 
