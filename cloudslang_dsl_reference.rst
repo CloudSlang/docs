@@ -1391,6 +1391,9 @@ properties
 The key ``properties`` is mapped to ``key:value`` pairs that define one or more
 system properties.
 
+System property names (keys) can contain alphanumeric characters (A-Za-z0-9),
+underscores (_) and hyphens (-).
+
 System property values are retrieved using the `get_sp() <#get-sp>`__ function.
 
 **Note:** System property values that are non-string types (numeric, list, map,
