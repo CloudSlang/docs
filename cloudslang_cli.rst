@@ -201,12 +201,15 @@ Run with System Properties
 --------------------------
 
 A system properties file is a type of CloudSlang file that contains a map of
-system property keys and values. For more information on the structure of
-system properties files see the :ref:`CloudSlang Files <cloudslang_files>` and
-:ref:`properties <properties>` sections of the DSL Reference. If multiple
-system properties files are being used and they contain a system
-property with the same fully qualified name, the property in the file
-that is loaded last will overwrite the others with the same name.
+system property keys and values. If multiple system properties files are being
+used and they contain a system property with the same fully qualified name,
+the property in the file that is loaded last will overwrite the others with the
+same name.
+
+System property names (keys) can contain alphanumeric characters (A-Za-z0-9),
+underscores (_) and hyphens (-). For more information on the structure of system
+properties files see the :ref:`CloudSlang Files <cloudslang_files>` and
+:ref:`properties <properties>` sections of the DSL Reference. 
 
 System property files can be loaded automatically if placed in a folder or
 subfolder within ``cslang/configuration/properties``. If the flow or operation
