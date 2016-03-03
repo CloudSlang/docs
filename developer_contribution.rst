@@ -98,6 +98,7 @@ dependencies depicted in the diagram below.
 
          -  ActionMetadata
 
+-  **test-functional** - Global functional tests for CLI and builder
 -  **CloudSlang-Docker-Image** - CloudSlang Docker image
 -  **CloudSlang.github.io** - CloudSlang website
 -  **docs** - CloudSlang documentation
