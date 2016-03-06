@@ -64,6 +64,29 @@ Docker Image
    - With prompt: ``docker run -it cloudslang/cloudslang``.
    - Without prompt: ``docker run --rm -ti cloudslang run --f ../content/io/cloudslang/.../flow.sl --i input1=value1``
 
+.. _configure_cli:
+
+Configure the CLI
+=================
+
+The CLI can be configured using the configuration file found at
+``cslang/configuration/cslang.properties``.
+
++---------------------+---------------------------------------------------------+----------------------------------------+
+| Configuration key   | Default value                                           | Description                            |
++=====================+=========================================================+========================================+
+| log4j.configuration | file:${app.home}/configuration/logging/log4j.properties | Location of logging configuration file |
++---------------------+---------------------------------------------------------+----------------------------------------+
+| cslang.encoding     | utf-8                                                   | Character encoding                     |
++---------------------+---------------------------------------------------------+----------------------------------------+
+
+Logging Configuration
+---------------------
+
+The CLI's logging can be configured using the logging configuration file. The
+location of the logging configuration file is defined in the :ref:`CLI's
+configuration file <configure_cli>`.
+
 .. _use_the_cli:
 
 Use the CLI
@@ -209,7 +232,7 @@ same name.
 System property names (keys) can contain alphanumeric characters (A-Za-z0-9),
 underscores (_) and hyphens (-). For more information on the structure of system
 properties files see the :ref:`CloudSlang Files <cloudslang_files>` and
-:ref:`properties <properties>` sections of the DSL Reference. 
+:ref:`properties <properties>` sections of the DSL Reference.
 
 System property files can be loaded automatically if placed in a folder or
 subfolder within ``cslang/configuration/properties``. If the flow or operation
