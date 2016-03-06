@@ -209,7 +209,7 @@ same name.
 System property names (keys) can contain alphanumeric characters (A-Za-z0-9),
 underscores (_) and hyphens (-). For more information on the structure of system
 properties files see the :ref:`CloudSlang Files <cloudslang_files>` and
-:ref:`properties <properties>` sections of the DSL Reference. 
+:ref:`properties <properties>` sections of the DSL Reference.
 
 System property files can be loaded automatically if placed in a folder or
 subfolder within ``cslang/configuration/properties``. If the flow or operation
@@ -304,6 +304,16 @@ To view a flow or operation's description, inputs, outputs and results use the
 .. code-block:: bash
 
     cslang>inspect c:/.../your_flow.sl
+
+List System Properties
+---------------------------
+
+To list the properties contained in a system properties file use the ``list``
+command.
+
+.. code-block:: bash
+
+    cslang>list c:/.../your_properties.prop.sl
 
 Other Commands
 --------------
