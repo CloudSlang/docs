@@ -43,6 +43,10 @@ properties specific to `flow <#flow>`__, `operation <#operation>`__, or
 | ``imports``     | no         | --        | list of key:value pairs   | files to import         | `imports <#imports>`__       |
 +-----------------+------------+-----------+---------------------------+-------------------------+------------------------------+
 
+Variable names in CloudSlang files cannot contain localized characters. When
+using the CLI, CloudSlang will use the encoding found in the CLI configuration
+file for input values.
+
 The general structure of CloudSlang files is outlined here. Some of the
 properties that appear are optional. All CloudSlang keywords, properties
 and concepts are explained in detail below.
