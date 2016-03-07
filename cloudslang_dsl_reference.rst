@@ -1178,7 +1178,10 @@ name of the `flow <#flow>`__ or `operation <#operation>`__.
 The name of a `flow <#flow>`__ or `operation <#operation>`__ may be used
 when called from a `flow <#flow>`__'s `task <#task>`__.
 
-**Example - naming the flow *division\_flow***
+The name of a `flow <#flow>`__ or `operation <#operation>`__ must match the name
+of the file in which it resides, excluding the extension.
+
+**Example - naming the flow found in the file** ``division_flow.sl``
 
 .. code-block:: yaml
 
