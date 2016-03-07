@@ -328,6 +328,16 @@ To view a flow or operation's description, inputs, outputs and results use the
 
     cslang>inspect c:/.../your_flow.sl
 
+List System Properties
+---------------------------
+
+To list the properties contained in a system properties file use the ``list``
+command.
+
+.. code-block:: bash
+
+    cslang>list c:/.../your_properties.prop.sl
+
 Other Commands
 --------------
 
