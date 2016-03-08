@@ -42,7 +42,7 @@ lesson. This time, however, things should work slightly differently.
 
 .. code-block:: bash
 
-    run --f <folder path>/tutorials/hiring/new_hire.sl --cp <folder path>/tutorials/base,<folder path>/tutorials/hiring --i address=john.doe@somecompany.com
+    run --f <folder path>/tutorials/hiring/new_hire.sl --cp <folder path>/tutorials --i address=john.doe@somecompany.com
 
 In the case of the ``check_availability`` operation returning a result
 of ``SUCCESS`` we expect the flow to behave exactly as it did before.

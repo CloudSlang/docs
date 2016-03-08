@@ -63,7 +63,7 @@ work exactly as it did before.
 
 .. code-block:: bash
 
-    run --f <folder path>/tutorials/hiring/new_hire.sl --cp <folder path>/tutorials/base,<folder path>/tutorials/hiring --i address=john.doe@somecompany.com
+    run --f <folder path>/tutorials/hiring/new_hire.sl --cp <folder path>/tutorials --i address=john.doe@somecompany.com
 
 Download the Code
 -----------------
