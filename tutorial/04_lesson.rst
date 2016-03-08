@@ -78,7 +78,7 @@ For more information, see :ref:`expressions` in the DSL reference.
 
 At this point we won't be using the output value, but we will soon
 enough. In lesson :doc:`5 - Default Navigation <05_lesson>` we publish
-the the ``available`` output and use it in another task.
+the ``available`` output and use it in another task.
 
 For more information, see :ref:`outputs` in the DSL reference.
 
