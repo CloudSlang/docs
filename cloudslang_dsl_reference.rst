@@ -44,9 +44,10 @@ properties specific to `flow <#flow>`__, `operation <#operation>`__, or
 +-----------------+------------+-----------+---------------------------+-------------------------+------------------------------+
 
 Variable names in CloudSlang files cannot contain localized characters. When
-using the CLI, CloudSlang will use the encoding found in the CLI configuration
-file for input values. If no encoding is found in the configuration file, the
-CLI will use the default charset of the Java virtual machine.
+using the CLI, CloudSlang will use the encoding found in the CLI
+:ref:`configuration file <configure_cli>` for input values. If no encoding is
+found in the configuration file, the CLI will use the default charset of the
+Java virtual machine.
 
 The general structure of CloudSlang files is outlined here. Some of the
 properties that appear are optional. All CloudSlang keywords, properties
