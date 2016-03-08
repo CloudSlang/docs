@@ -10,6 +10,9 @@ The CloudSlang project is composed of three main parts: the CloudSlang
 Orchestration Engine, the CloudSlang language and the ready-made
 CloudSlang content.
 
+.. figure:: images/overview_diagram.png
+   :alt: Overview Diagram
+
 CloudSlang Orchestration Engine
 ===============================
 
