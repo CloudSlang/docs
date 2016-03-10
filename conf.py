@@ -122,6 +122,9 @@ else:
             'https://media.readthedocs.org/css/readthedocs-doc-embed.css',
             '_static/css/cloudslang_theme.css',
         ],
+        'extra_css_files' : [
+            '_static/css/cloudslang_theme.css'
+        ]
     }
 
 # Theme options are theme-specific and customize the look and feel of a theme
