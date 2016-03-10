@@ -1,9 +1,9 @@
 @import url("theme.css");
 
 .wy-side-nav-search{
-  background-color: #6DC692;
+  background-color: #6DC692 !important;
 }
 
 .wy-side-nav-search input[type=text]{
-  border-color: #6DC692;
+  border-color: #6DC692 !important;
 }
