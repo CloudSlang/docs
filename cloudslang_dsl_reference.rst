@@ -43,8 +43,12 @@ properties specific to `flow <#flow>`__, `operation <#operation>`__, or
 | ``imports``     | no         | --        | list of key:value pairs   | files to import         | `imports <#imports>`__       |
 +-----------------+------------+-----------+---------------------------+-------------------------+------------------------------+
 
-Variable names in CloudSlang files cannot contain localized characters. When
-using the CLI, CloudSlang will use the encoding found in the CLI
+Variable names in CloudSlang files cannot contain localized characters. In
+general, CloudSlang variable names must conform to both `Python's naming
+constraints <https://docs.python.org/2/reference/lexical_analysis.html>`__
+as well as `Java's naming constraints <https://docs.oracle.com/javase/tutorial/java/nutsandbolts/variables.html>`__.
+
+When using the CLI, CloudSlang will use the encoding found in the CLI
 :ref:`configuration file <configure_cli>` for input values. If no encoding is
 found in the configuration file, the CLI will use the default charset of the
 Java virtual machine.
