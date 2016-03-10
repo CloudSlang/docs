@@ -117,11 +117,6 @@ if not on_rtd:
     html_style = 'css/cloudslang_theme.css'
 else:
     html_context = {
-        'css_files': [
-            'https://media.readthedocs.org/css/sphinx_rtd_theme.css',
-            'https://media.readthedocs.org/css/readthedocs-doc-embed.css',
-            '_static/css/cloudslang_theme.css',
-        ],
         'extra_css_files' : [
             '_static/css/cloudslang_theme.css'
         ]
