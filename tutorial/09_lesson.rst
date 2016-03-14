@@ -158,7 +158,7 @@ both flows and operations using the CLI. Now we see that we can call
 them both from tasks as well.
 
 Delete the ``generate_address`` and ``check_address`` tasks. We'll now replace
-the with a new task we'll call ``create_email_address``. It will pass along the
+them with a new task called ``create_email_address``. It will pass along the
 flow inputs, publish the necessary outputs and wire up the appropriate
 navigation.
 
