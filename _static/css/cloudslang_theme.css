@@ -1,9 +1,6 @@
 @import url("theme.css");
 
-.wy-side-nav-search{
-  background-color: #6DC692;
-}
-
-.wy-side-nav-search input[type=text]{
-  border-color: #6DC692;
+.wy-nav-side .wy-side-nav-search{
+    background-color: #6DC692;
+    border-color: #6DC692;
 }
