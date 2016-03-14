@@ -64,7 +64,7 @@ First, we'll use a system property in the inputs of ``generate_user_email``
 by calling the ``get_sp()`` function in the ``default`` property of the
 the ``domain`` input. The ``get_sp()`` function will retrieve the value
 associated with the property defined by the fully qualified name in its first
-argument. If no such property if found, the function will return the second
+argument. If no such property is found, the function will return the second
 argument.
 
 .. code-block:: yaml

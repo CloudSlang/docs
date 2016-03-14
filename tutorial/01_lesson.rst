@@ -33,7 +33,10 @@ Copy/Pasting Code
 -----------------
 
 Because proper indentation is so important in YAML, take care to indent pasted
-code examples to their proper indentation levels.
+code examples to their **proper indentation levels**. If you are unsure what the
+indentation level is for a particular code snippet, you can take a look at where
+it fits into the rest of the code in the **New Code - Complete** section at the
+bottom of each lesson. 
 
 Prerequisites
 -------------

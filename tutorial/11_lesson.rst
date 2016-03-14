@@ -74,9 +74,10 @@ a loop. This time we'll loop through a map of items and their prices.
               - item
               - price
 
-We'll also need to create some input variables first. One variable, that
-we'll call ``order_map``, will contain the map we're looping on. Notice how a
-map is most easily passed as an input value using the ``default`` property.
+We'll also need to create some input variables in the flow's ``inputs`` section
+first. One variable, that we'll call ``order_map``, will contain the map we're
+looping on. Notice how a map is most easily passed as an input value using the
+``default`` property.
 
 Also, each time through the loop we want to aggregate the data that is output.
 We'll create two variables, ``missing`` and ``total_cost``, for this

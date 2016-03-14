@@ -150,14 +150,15 @@ Fix Up Parent Flow
 Finally, let's make changes to our original flow so that it makes use of
 the subflow we just created.
 
-First let's replace the two tasks we took out with one new one that
+First let's replace the two tasks we took out with one new task that
 calls the subflow instead of an operation. You may have noticed that
 both flows and operations take inputs, return outputs and return
 results. That allows us to use them almost interchangeably. We've run
 both flows and operations using the CLI. Now we see that we can call
 them both from tasks as well.
 
-We'll call our new task ``create_email_address``. It will pass along the
+Delete the ``generate_address`` and ``check_address`` tasks. We'll now replace
+the with a new task we'll call ``create_email_address``. It will pass along the
 flow inputs, publish the necessary outputs and wire up the appropriate
 navigation.
 
