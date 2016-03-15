@@ -20,7 +20,8 @@ installation instructions.
 
 We'll also need to add a **requirements.txt** file to a **python-lib** folder
 which is at the same level as the **bin** folder that the CLI executable
-resides in.
+resides in. If you downloaded a pre-built CLI the **requirements.txt** file is
+already there and we will be appending to its contents.
 
 The folder structure where the CLI executable is should look something
 like this:
@@ -62,8 +63,8 @@ depends on it. Each package we need takes up one line in our
 
 .. code:: bash
 
-    pyfiglet == 0.7.2
     setuptools
+    pyfiglet == 0.7.2
 
 Installing
 ----------

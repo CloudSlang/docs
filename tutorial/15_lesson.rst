@@ -186,7 +186,7 @@ For more information, see :ref:`aggregate` and :ref:`branches_context` in the
 DSL reference.
 
 For more information on the Python constructs used here, see
-`lamda <https://docs.python.org/2.7/reference/expressions.html?highlight=lambda#lambda>`__,
+`lambda <https://docs.python.org/2.7/reference/expressions.html?highlight=lambda#lambda>`__,
 `map <https://docs.python.org/2.7/library/functions.html?highlight=map%20function#map>`__
 and `sum <https://docs.python.org/2.7/library/functions.html?highlight=map%20function#sum>`__
 in the Python documentation.
@@ -234,7 +234,8 @@ file is very similar to a system properties file. It is written in plain
 YAML which will make it easy for us to format and it will also be more
 readable than if we had taken a different approach.
 
-Here is the contents of our **hires.yaml** input file.
+Here is the contents of our **hires.yaml** input file that we created in the
+**tutorials/inputs** folder.
 
 .. code-block:: yaml
 

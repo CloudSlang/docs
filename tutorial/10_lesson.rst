@@ -70,7 +70,7 @@ removing the last item in the loop expression's list.
 The first thing you'll notice is that the subflow is being run several
 times. This is what our loop has done. Next, you'll notice that
 depending on whether you've passed a middle name and how big the loop
-list is different things will happen. This is due to the default
+list is, different things will happen. This is due to the default
 behavior of loops and our ``create_user_email`` subflow.
 
 By default a loop exits when either the list it is looping on has been
