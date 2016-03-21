@@ -31,7 +31,7 @@ Download the Build Tool
 =======================
 
 The CloudSlang Build Tool can be downloaded from
-`here <https://github.com/CloudSlang/cloud-slang/releases/latest>`__.
+`here <https://github.com/CloudSlang/cloud-slang/releases/download/cloudslang-0.9.50.0/cslang-builder.zip>`__.
 
 Use the Build Tool
 ==================

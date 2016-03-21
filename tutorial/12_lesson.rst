@@ -16,7 +16,7 @@ and notify them as to the status of the new hire's equipment order. If
 you're using a pre-built CLI you'll have a folder named **content** that
 contains all of the ready-made content. If you've built the CLI from the
 source code, you'll have to get the content mentioned below from the
-GitHub `repository <https://github.com/cloudslang/cloud-slang-content>`__ and
+GitHub `repository <https://github.com/CloudSlang/cloud-slang-content/tree/cloud-slang-content-0.9.50>`__ and
 point to the right location when running the flow.
 
 Ready-Made Operation

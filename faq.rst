@@ -90,7 +90,7 @@ example, not only are OpenStack and Docker technologies are supported, but also
 configuration management tools like Chef. There's also support for bash (for
 *nix systems) and PowerShell (for Windows) and basic operations for REST or
 SOAP. To see a complete list of technologies that CloudSlang integrates with,
-see the ready-made content `repository <https://github.com/CloudSlang/cloud-slang-content/blob/master/DOCS.md>`_.
+see the ready-made content `repository <https://github.com/CloudSlang/cloud-slang-content/blob/cloud-slang-content-0.9.50/DOCS.md>`_.
 
 We’re not looking to replace great tools, we work with them. So many of the
 tools you’re used to working with are already supported by CloudSlang. The

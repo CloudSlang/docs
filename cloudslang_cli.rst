@@ -6,10 +6,10 @@ There are several ways to get started with the CloudSlang CLI.
 Download and Run Pre-built CLI
 ==============================
 
-**Prerequisites :** To run the CloudSlang CLI, Java JRE version 7 or
+**Prerequisites:** To run the CloudSlang CLI, Java JRE version 7 or
 higher is required.
 
-1. `Download <http://cloudslang.io/download>`__ the CLI zip file.
+1. `Download <https://github.com/CloudSlang/cloud-slang/releases/tag/cloudslang-0.9.50.0>`__ the CLI with content zip file.
 2. Locate the downloaded file and unzip the archive.
    The decompressed file contains:
 
@@ -32,7 +32,7 @@ Download, Build and Run CLI
 higher and Maven version 3.0.3 or higher are required.
 
 1. Git clone (or GitHub fork and then clone) the `source
-   code <https://github.com/cloudslang/cloud-slang>`__.
+   code <https://github.com/CloudSlang/cloud-slang/tree/cloudslang-0.9.50>`__.
 2. Using the Command Prompt, navigate to the project root directory.
 3. Build the project by running ``mvn clean install``.
 4. After the build finishes, navigate to the
@@ -357,7 +357,7 @@ Some of the available commands are:
 
     cslang>inputs --f c:/.../your_flow.sl
 
--  ``cslang --version`` - Displays the version of **score** being used.
+-  ``cslang --version`` - Displays the version of the CLI being used.
 
 .. code-block:: bash
 
