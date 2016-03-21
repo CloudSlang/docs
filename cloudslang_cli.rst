@@ -357,7 +357,7 @@ Some of the available commands are:
 
     cslang>inputs --f c:/.../your_flow.sl
 
--  ``cslang --version`` - Displays the version of **score** being used.
+-  ``cslang --version`` - Displays the version of the CLI being used.
 
 .. code-block:: bash
 
