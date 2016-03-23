@@ -16,3 +16,4 @@ Contents:
    CLI <cloudslang_cli>
    Build Tool <cloudslang_build_tool>
    Editors <cloudslang_editors>
+   Integrations <cloudslang_integrations>
