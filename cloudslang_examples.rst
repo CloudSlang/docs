@@ -224,9 +224,11 @@ the ``on_failure`` task and the flow ends with a result of ``FAILURE``.
 If both divisions are successful, the ``on_failure`` task is skipped and
 the flow ends with a result of ``SUCCESS``.
 
-**Note:** To run this flow, the files from **Example 1** should be
-placed in the same folder as this flow file or use the ``--cp`` flag at
-the command line.
+.. note::
+
+   To run this flow, the files from **Example 1** should be
+   placed in the same folder as this flow file or use the ``--cp`` flag at
+   the command line.
 
 :download:`Download code </code/examples_code/examples/divide.zip>`
 

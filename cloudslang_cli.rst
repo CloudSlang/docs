@@ -253,9 +253,11 @@ requires a system properties file that is not loaded automatically, use the
       host: 'localhost'
       port: 8080
 
-**Note:** System property values that are non-string types (numeric, list, map,
-etc.) are converted to string representations. A system property may have a
-value of ``null``.
+.. note::
+
+   System property values that are non-string types (numeric, list, map,
+   etc.) are converted to string representations. A system property may have a
+   value of ``null``.
 
 An empty system properties file can be defined using an empty map.
 

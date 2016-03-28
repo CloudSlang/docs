@@ -42,8 +42,10 @@ numbers.
           UNAVAILABLE: print_fail
           FAILURE: print_fail
 
-**YAML Note:** A list can be written using bracket (``[]``) notation
-instead of using indentation and hyphens (``-``).
+.. note::
+
+   **YAML Note:** A list can be written using bracket (``[]``) notation
+   instead of using indentation and hyphens (``-``).
 
 For each item in our list the ``attempt`` loop variable is assigned the
 value and then passed to an iteration of the subflow call.

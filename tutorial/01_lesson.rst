@@ -112,8 +112,10 @@ Your file structure will look like this:
 
       -  new_hire.sl
 
-**Note:** If your editor requires it for syntax highlighting, you can
-also use the **.sl.yaml** and **.sl.yml** extensions.
+.. note::
+
+   If your editor requires it for syntax highlighting, you can
+   also use the **.sl.yaml** and **.sl.yml** extensions.
 
 Up Next
 -------

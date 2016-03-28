@@ -77,8 +77,10 @@ To do so, run the following command from the **python-lib** directory:
 
     pip install -r requirements.txt -t .
 
-**Note:** If your machine is behind a proxy you'll need to specify the proxy
-using **pip**'s ``--proxy`` flag.
+.. note::
+
+   If your machine is behind a proxy you'll need to specify the proxy
+   using **pip**'s ``--proxy`` flag.
 
 If everything has gone well, you should now see the **pyfiglet**
 package's files in the **python-lib** folder along with the
@@ -113,9 +115,11 @@ email.
       outputs:
         - fancy
 
-**Note:** CloudSlang uses the `Jython <http://www.jython.org/>`__
-implementation of Python 2.7. For information on Jython's limitations,
-see the `Jython FAQ <https://wiki.python.org/jython/JythonFaq>`__.
+.. note::
+
+   CloudSlang uses the `Jython <http://www.jython.org/>`__
+   implementation of Python 2.7. For information on Jython's limitations,
+   see the `Jython FAQ <https://wiki.python.org/jython/JythonFaq>`__.
 
 Task
 ----

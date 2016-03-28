@@ -30,9 +30,11 @@ Alternatively, you can build the CLI from source and download the content
 separately. To build the CLI yourself and for more information on using the CLI,
 see the :doc:`CLI <cloudslang_cli>` section.
 
-**Note:** When using a locally built CLI you may need to include a classpath to
-properly reference ready-made content. For information on using classpaths, see
-:ref:`Run with Dependencies <run_with_dependencies>`.
+.. note::
+
+   When using a locally built CLI you may need to include a classpath to
+   properly reference ready-made content. For information on using classpaths, see
+   :ref:`Run with Dependencies <run_with_dependencies>`.
 
 Running Content Dependent on External Python Modules
 ====================================================

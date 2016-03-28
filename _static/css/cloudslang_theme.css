@@ -4,3 +4,11 @@
     background-color: #6DC692;
     border-color: #6DC692;
 }
+
+.rst-content .note{
+    background-color: #6DC692;
+}
+
+.rst-content .admonition .admonition-title{
+    background: #69917B;
+}

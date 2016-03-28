@@ -19,9 +19,11 @@ Download, Install and Configure Atom
   * From the Atom UI: **File > Settings > Install** and search for language-cloudslang
   * From the command line: ``apm install language-cloudslang``
 
-  **Note:** If you are behind a proxy server you may need to configure Atom as
-  described in their `documentation
-  <https://atom.io/docs/v1.1.0/getting-started-installing-atom#setting-up-a-proxy>`__.
+  .. note::
+
+     If you are behind a proxy server you may need to configure Atom as
+     described in their `documentation
+     <https://atom.io/docs/v1.1.0/getting-started-installing-atom#setting-up-a-proxy>`__.
 
 3. Reload (**View > Reload**) or restart Atom.
 4. Files saved with the **.sl** extension will be recognized within Atom as
