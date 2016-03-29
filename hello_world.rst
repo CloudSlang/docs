@@ -81,7 +81,8 @@ Start the CLI and enter the following command at the ``cslang>`` prompt:
 
    run --f <path_to_files>/examples/hello_world/hello_world.sl --cp <path_to_files>/examples/hello_world
 
-**Note:** Use forward slashes in the file paths.
+.. note::
+   Use forward slashes in the file paths.
 
 The output will look similar to this:
 
@@ -100,8 +101,9 @@ flag, namely **hello_world.sl**. The ``--cp`` flag is used to specify the
 classpath where the flow's dependencies can be found. In our case, the flow refers
 to the ``print`` operation, so we must add its location to the classpath.
 
-**Note:** If you are using a CLI without the **content** folder, specifying the
-classpath in this instance is not necessary.
+.. note::
+   If you are using a CLI without the **content** folder, specifying the
+   classpath in this instance is not necessary.
 
 The :ref:`flow` named ``hello_world`` begins its :ref:`workflow`. The
 :ref:`workflow` has one :ref:`task` named ``sayHi`` which
