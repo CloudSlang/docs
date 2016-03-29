@@ -41,10 +41,12 @@ Here's what the contents of our system properties file looks like:
 You'll need to substitute the values in angle brackets (``<>``) to work
 for your email host.
 
-**Note:** All system property values are interpreted as strings. So in our case,
-even if the port is a numeric value, it's value when used as a system
-property will be a string representation. For example, entering a value of
-``25`` will create a system property whose value is ``'25'``.
+.. note::
+
+   All system property values are interpreted as strings. So in our case,
+   even if the port is a numeric value, it's value when used as a system
+   property will be a string representation. For example, entering a value of
+   ``25`` will create a system property whose value is ``'25'``.
 
 For more information, see :ref:`properties <properties>` in the DSL Reference
 and :ref:`Run with System Properties <run_with_system_properties>` in the CLI
@@ -57,8 +59,10 @@ Now we'll use the system properties to place values in our inputs and task
 arguments. We retrieve system property values using the ``get_sp()`` function.
 We'll do this in two places.
 
-**Note:** The ``get_sp()`` function can also be used to retrieve system property
-values in publish, output and result expressions.
+.. note::
+
+   The ``get_sp()`` function can also be used to retrieve system property
+   values in publish, output and result expressions.
 
 First, we'll use a system property in the inputs of ``generate_user_email``
 by calling the ``get_sp()`` function in the ``default`` property of the
@@ -282,5 +286,7 @@ New Code - Complete
       system_address: <test@test.com>
       hr_address: <test@test.com>
 
-**Note:** You need to substitute the values in angle brackets (<>) to
-work for your email host.
+.. note::
+
+   You need to substitute the values in angle brackets (<>) to
+   work for your email host.

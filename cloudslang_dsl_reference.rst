@@ -149,9 +149,11 @@ quoted.
     literal_single_quoted_string: 'cloudslang'
     literal_double_quoted_string: "cloudslang"
 
-**Note:** Where expressions are allowed as values (input defaults, output and
-result values, etc.) and a literal string value is being used, you are
-encouraged to use a quoted style of literal string.
+.. note::
+
+   Where expressions are allowed as values (input defaults, output and
+   result values, etc.) and a literal string value is being used, you are
+   encouraged to use a quoted style of literal string.
 
 **Example: recommended style for literal strings**
 
@@ -420,9 +422,11 @@ All variables in scope at the conclusion of the Python script must be
 serializable. If non-serializable variables are used, remove them from
 scope by using the ``del`` keyword before the script exits.
 
-**Note:** CloudSlang uses the `Jython <http://www.jython.org/>`__
-implementation of Python 2.7. For information on Jython's limitations,
-see the `Jython FAQ <https://wiki.python.org/jython/JythonFaq>`__.
+.. note::
+
+   CloudSlang uses the `Jython <http://www.jython.org/>`__
+   implementation of Python 2.7. For information on Jython's limitations,
+   see the `Jython FAQ <https://wiki.python.org/jython/JythonFaq>`__.
 
 **Example - action with Python script that divides two numbers**
 
@@ -448,9 +452,11 @@ see the `Jython FAQ <https://wiki.python.org/jython/JythonFaq>`__.
       - ILLEGAL: ${quotient == 'division by zero error'}
       - SUCCESS
 
-**Note:** Single-line Python scripts can be written inline with the
-``python_script`` key. Multi-line Python scripts can use the YAML pipe
-(``|``) indicator as in the example above.
+.. note::
+
+   Single-line Python scripts can be written inline with the
+   ``python_script`` key. Multi-line Python scripts can use the YAML pipe
+   (``|``) indicator as in the example above.
 
 Importing External Python Packages
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -490,8 +496,10 @@ installation instructions.
 3. Run the following command from inside the **python-lib** folder:
    ``pip install -r requirements.txt -t``.
 
-   **Note:** If your machine is behind a proxy you will need to specify
-   the proxy using pip's ``--proxy`` flag.
+   .. note::
+
+      If your machine is behind a proxy you will need to specify
+      the proxy using pip's ``--proxy`` flag.
 
 4. Import the package as you normally would in Python from within the
    action's ``python_script``:
@@ -511,8 +519,10 @@ installation instructions.
         pyfiglet == 0.7.2
         setuptools
 
-**Note:** If you have defined a ``JYTHONPATH`` environment variable, you
-will need to add the **python-lib** folder's path to its value.
+.. note::
+
+   If you have defined a ``JYTHONPATH`` environment variable, you
+   will need to add the **python-lib** folder's path to its value.
 
 **Editing the executable file**
 
@@ -552,8 +562,10 @@ To import a Python script in a ``python_script`` action:
 2. Import the script as you normally would in Python from within the
    action's ``python_script``.
 
-**Note:** If you have defined a ``JYTHONPATH`` environment variable, you
-will need to add the **python-lib** folder's path to its value.
+.. note::
+
+   If you have defined a ``JYTHONPATH`` environment variable, you
+   will need to add the **python-lib** folder's path to its value.
 
 .. _aggregate:
 
@@ -1021,10 +1033,12 @@ representations.
 `System properties <#properties>`__ are not enforced at compile time. They are
 assigned at runtime.
 
-**Note:** If multiple system properties files are being used and they
-contain a `system property <#properties>`__ with the same fully qualified name,
-the property in the file that is loaded last will overwrite the others with
-the same name.
+.. note::
+
+   If multiple system properties files are being used and they
+   contain a `system property <#properties>`__ with the same fully qualified name,
+   the property in the file that is loaded last will overwrite the others with
+   the same name.
 
 **Example - system properties file**
 
@@ -1225,10 +1239,12 @@ For more information about choosing a file's namespace, see the
 :ref:`CloudSlang Content Best Practices <cloudslang_content_best_practices>`
 section.
 
-**Note:** If the imported file resides in a folder that is different
-from the folder in which the importing file resides, the imported file's
-directory must be added using the ``--cp`` flag when running from the
-CLI (see :ref:`Run with Dependencies <run_with_dependencies>`).
+.. note::
+
+   If the imported file resides in a folder that is different
+   from the folder in which the importing file resides, the imported file's
+   directory must be added using the ``--cp`` flag when running from the
+   CLI (see :ref:`Run with Dependencies <run_with_dependencies>`).
 
 .. _navigate:
 
@@ -1409,9 +1425,11 @@ underscores (_) and hyphens (-).
 
 System property values are retrieved using the `get_sp() <#get-sp>`__ function.
 
-**Note:** System property values that are non-string types (numeric, list, map,
-etc.) are converted to string representations. A system property may have a
-value of ``null``.
+.. note::
+
+   System property values that are non-string types (numeric, list, map,
+   etc.) are converted to string representations. A system property may have a
+   value of ``null``.
 
 **Example - system properties file**
 
@@ -1523,10 +1541,12 @@ The results of a `flow <#flow>`__ or `operation <#operation>`__ can be
 used by the calling `task <#task>`__ for `navigation <#navigate>`__
 purposes.
 
-**Note:** The only results of an `operation <#operation>`__ or
-`subflow <#flow>`__ called in an `async_loop <#async-loop>`__ that are
-evaluated are ``SUCCESS`` and ``FAILURE``. Any other results will be
-evaluated as ``SUCCESS``.
+.. note::
+
+   The only results of an `operation <#operation>`__ or
+   `subflow <#flow>`__ called in an `async_loop <#async-loop>`__ that are
+   evaluated are ``SUCCESS`` and ``FAILURE``. Any other results will be
+   evaluated as ``SUCCESS``.
 
 Flow results
 ~~~~~~~~~~~~

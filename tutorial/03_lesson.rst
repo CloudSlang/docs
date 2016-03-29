@@ -113,9 +113,11 @@ following at the prompt.
 
     run --f <folder path>/tutorials/hiring/new_hire.sl --cp <folder path>/tutorials/base
 
-**Note:** The --cp flag is used to add folders where the flow's
-dependencies are found to the classpath. For more information, see
-:ref:`Run with Dependencies <run_with_dependencies>` in the DSL reference.
+.. note::
+
+   The ``--cp`` flag is used to add folders where the flow's
+   dependencies are found to the classpath. For more information, see
+   :ref:`Run with Dependencies <run_with_dependencies>` in the DSL reference.
 
 
 You should see the name of the task and the string sent to the print

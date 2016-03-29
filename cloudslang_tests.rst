@@ -32,9 +32,11 @@ Tests declare which test suites they are a part of, if any, using the
 If no test suites are defined for a given test case, the test will run
 unless ``!default`` is passed to the :doc:`CloudSlang Build Tool <cloudslang_build_tool>`.
 
-**Note:** When using Linux, the exclamation mark (``!``) needs to be
-escaped with a preceding backslash (``\``). So, to ignore default tests,
-pass ``\!default`` to the CloudSlang Build Tool.
+.. note::
+
+   When using Linux, the exclamation mark (``!``) needs to be
+   escaped with a preceding backslash (``\``). So, to ignore default tests,
+   pass ``\!default`` to the CloudSlang Build Tool.
 
 Test Case Syntax
 ================
@@ -65,10 +67,12 @@ name is mapped to the following test case properties:
 | ``throwsException``        | no         | boolean                    | whether or not to expect an exception                                                                                                                                                                                                   |
 +----------------------------+------------+----------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 
-**Note:** The ``outputs`` parameter does not need to test all of a flow
-or operation's outputs.
+.. note::
 
-**Example - test cases that test the match\_regex operation**
+   The ``outputs`` parameter does not need to test all of a flow
+   or operation's outputs.
+
+**Example - test cases that test the match_regex operation**
 
 .. code-block:: yaml
 

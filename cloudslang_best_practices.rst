@@ -34,7 +34,7 @@ CloudSlang Content Best Practices
 
 -  Assign only relevant default values. For example, 8080 is a good candidate
    for a port number, but john_doe is probably not a good candidate for a user
-   name. 
+   name.
 -  Flow and operation files begin with a commented description and list
    of annotated inputs, outputs and results (see `CloudSlang Comments
    Style Guide <#cloudslang-comments-style-guide>`__).
@@ -53,8 +53,8 @@ CloudSlang Tests Best Practices
    **print_text.inputs.yaml**.
 -  Wrapper flows reside in the same folder as the tests call them.
 
-**Note:** In future releases some of the above best practices may be
-required by the CloudSlang compiler.
+.. note::
+   In future releases some of the above best practices may be required by the CloudSlang compiler.
 
 CloudSlang Inputs Files Best Practices
 ======================================

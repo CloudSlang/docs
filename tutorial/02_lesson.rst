@@ -45,11 +45,13 @@ operation must be the same as the name of the file it is stored in.
     operation:
       name: print
 
-**YAML Note:** Indentation is **very** important in YAML. It is used to
-indicate scope. In the example above, you can see that
-``name: print`` is indented under the ``operation`` key to denote
-that it belongs to the operation. **Always** use spaces to indent.
-**Never** use tabs.
+.. note::
+
+   **YAML Note:** Indentation is **very** important in YAML. It is used to
+   indicate scope. In the example above, you can see that
+   ``name: print`` is indented under the ``operation`` key to denote
+   that it belongs to the operation. **Always** use spaces to indent.
+   **Never** use tabs.
 
 For more information, see :ref:`operation` in the DSL reference.
 
@@ -65,9 +67,11 @@ to print. We'll name our input ``text``.
     inputs:
       - text
 
-**YAML Note:** The ``inputs`` key maps to a list of inputs. In YAML, a
-list is signified by prepending a hypen and a space (- ) to each
-item.
+.. note::
+
+   **YAML Note:** The ``inputs`` key maps to a list of inputs. In YAML, a
+   list is signified by prepending a hypen and a space (- ) to each
+   item.
 
 The values for the inputs are either passed via the :doc:`CloudSlang
 CLI <../cloudslang_cli>`, as we do below in this lesson, or from a
@@ -98,9 +102,11 @@ value.
     action:
       python_script: print text
 
-**Note:** CloudSlang uses the `Jython <http://www.jython.org/>`__
-implementation of Python 2.7. For information on Jython's limitations,
-see the `Jython FAQ <https://wiki.python.org/jython/JythonFaq>`__.
+.. note::
+
+   CloudSlang uses the `Jython <http://www.jython.org/>`__
+   implementation of Python 2.7. For information on Jython's limitations,
+   see the `Jython FAQ <https://wiki.python.org/jython/JythonFaq>`__.
 
 Python scripts that need 3rd party packages may import them using the
 procedures described in lesson :doc:`14 - 3rd Party Python

@@ -294,7 +294,9 @@ The ``cancelExecution(Long executionId)`` method requests to cancel
 (terminate) a given execution. It is passed the ID that was returned
 when triggering the execution that is now to be canceled.
 
-**Note:** The execution will not necessarily be stopped immediately.
+.. note::
+
+   The execution will not necessarily be stopped immediately.
 
 .. _triggering_properties:
 
