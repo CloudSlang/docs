@@ -3,7 +3,7 @@ Hello World
 
 The following is a simple example to give you an idea of how CloudSlang
 is structured and can be used to ensure your environment is set up
-properly to run flows.
+properly.
 
 Prerequisites
 =============
@@ -21,10 +21,25 @@ package for Atom.
 Code files
 ==========
 
-In a new folder, create two new CloudSlang files, hello_world.sl and
-print.sl, and copy the code below.
+:download:`Download </code/examples_code/examples/hello_world.zip>` the code or
+use the following instructions:
 
-**hello\_world.sl**
+Create a folder **examples** and then another folder **hello_world** inside the
+**examples** folder. In the **hello_world** folder, create two new CloudSlang
+files, **hello_world.sl** and **print.sl**.
+
+You should now have the following folder structure:
+
+- examples
+
+    - hello_world
+
+        - hello_world.sl
+        - print.sl
+
+Copy the code below into the corresponding files.
+
+**hello_world.sl**
 
 .. code-block:: yaml
 
@@ -60,8 +75,13 @@ print.sl, and copy the code below.
 Run
 ===
 
-Start the CLI from the folder in which your CloudSlang files reside and
-enter ``run hello_world.sl`` at the ``cslang>`` prompt.
+Start the CLI and enter the following command at the ``cslang>`` prompt:
+
+.. code-block:: bash
+
+   run --f <path_to_files>/examples/hello_world/hello_world.sl --cp <path_to_files>/examples/hello_world
+
+**Note:** Use forward slashes in the file paths.
 
 The output will look similar to this:
 
@@ -75,9 +95,16 @@ The output will look similar to this:
 Explanation
 ===========
 
-The CLI runs the :ref:`flow` contained in the file passed to it, namely
-**hello\_world.sl**. The :ref:`flow` named ``hello_world`` begins its
-:ref:`workflow`. The :ref:`workflow` has one :ref:`task` named ``sayHi`` which
+The CLI runs the :ref:`flow` contained in the file passed to it using the ``--f``
+flag, namely **hello_world.sl**. The ``--cp`` flag is used to specify the
+classpath where the flow's dependencies can be found. In our case, the flow refers
+to the ``print`` operation, so we must add its location to the classpath.
+
+**Note:** If you are using a CLI without the **content** folder, specifying the
+classpath in this instance is not necessary.
+
+The :ref:`flow` named ``hello_world`` begins its :ref:`workflow`. The
+:ref:`workflow` has one :ref:`task` named ``sayHi`` which
 calls the ``print`` :ref:`operation`. The :ref:`flow` passes the string
 ``"Hello, World"`` to the ``text`` :ref:`input <inputs>` of the ``print``
 :ref:`operation`. The print :ref:`operation` performs its :ref:`action`, which
@@ -90,4 +117,4 @@ More
 ====
 
 For a more comprehensive walkthrough of the CloudSlang language's
-features, see the :doc:`New Hire Tutorial <tutorial/01_lesson>`.
+features, see the :doc:`tutorial <tutorial/01_lesson>`.
