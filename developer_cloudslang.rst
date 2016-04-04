@@ -25,7 +25,7 @@ Embed CloudSlang in a Java Application
     <dependency>
       <groupId>io.cloudslang.lang</groupId>
       <artifactId>cloudslang-all</artifactId>
-      <version>0.8</version>
+      <version>0.9.50.0</version>
     </dependency>
 
     <dependency>
@@ -125,7 +125,7 @@ Code
                 }
             });
 
-            File flowFile = getFile("/content//hello_world.sl");
+            File flowFile = getFile("/content/hello_world.sl");
             File operationFile = getFile("/content/print.sl");
 
             Set<SlangSource> dependencies = new HashSet<>();
@@ -211,8 +211,7 @@ Next, the ``subscribeOnAllEvents`` method is called and passed a new
 
 The ``ScoreEventListener`` interface defines only one method, the
 ``onEvent`` method. In this example the ``onEvent`` method is overridden
-to print out the type and data of all events it receives. It can, of
-course, be overridden to do other things.
+to print out the type and data of all events it receives.
 
 The API also contains a method ``subscribeOnEvents``, which takes in a
 set of the event types to listen for and a method

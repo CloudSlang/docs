@@ -1,18 +1,22 @@
 @import url("theme.css");
 
-.wy-nav-side .wy-side-nav-search{
+.wy-nav-side .wy-side-nav-search {
     background-color: #6DC692;
     border-color: #6DC692;
 }
 
-.wy-nav-content-wrap .wy-nav-top{
+.wy-nav-content-wrap .wy-nav-top {
     background-color: #6DC692;
 }
 
-.rst-content .note{
+.rst-content .note {
     background-color: #6DC692;
 }
 
-.rst-content .admonition .admonition-title{
+.rst-content .admonition .admonition-title {
     background: #69917B;
+}
+
+.rst-content code {
+     white-space: pre-wrap;
 }
