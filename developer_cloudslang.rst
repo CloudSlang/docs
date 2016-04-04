@@ -25,7 +25,7 @@ Embed CloudSlang in a Java Application
     <dependency>
       <groupId>io.cloudslang.lang</groupId>
       <artifactId>cloudslang-all</artifactId>
-      <version>0.9.50.0</version>
+      <version>0.8</version>
     </dependency>
 
     <dependency>
