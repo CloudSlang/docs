@@ -244,7 +244,7 @@ control action or navigation action method arguments:
 
 .. code-block:: java
 
-    public void doWithServices(ExecutionRuntimeServices    executionRuntimeServices)
+    public void doWithServices(ExecutionRuntimeServices executionRuntimeServices)
 
 -  **executionContext** - Score will populate this argument with the
    context tied to the `ExecutionPlan <#executionplan>`__ during its triggering
