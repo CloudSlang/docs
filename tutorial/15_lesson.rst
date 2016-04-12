@@ -223,8 +223,8 @@ navigate to the ``print_success`` task.
           - email_list: ${filter(lambda x:x != '', map(lambda x:str(x['address']), branches_context))}
           - cost: ${sum(map(lambda x:x['total_cost'], branches_context))}
         navigate:
-          SUCCESS: print_success
-          FAILURE: print_failure
+          - SUCCESS: print_success
+          - FAILURE: print_failure
 
 Input File
 ----------
@@ -313,7 +313,7 @@ New Code - Complete
         - middle_name:
             required: false
         - last_name
-        - missing:
+        - all_missing:
             default: ""
             overridable: false
         - total_cost:
@@ -343,9 +343,9 @@ New Code - Complete
                 - CREATED
                 - FAILURE
             navigate:
-              CREATED: get_equipment
-              UNAVAILABLE: print_fail
-              FAILURE: print_fail
+              - CREATED: get_equipment
+              - UNAVAILABLE: print_fail
+              - FAILURE: print_fail
 
         - get_equipment:
             loop:
@@ -354,19 +354,21 @@ New Code - Complete
                 order:
                   - item
                   - price
+                  - missing: ${all_missing}
+                  - cost: ${total_cost}
               publish:
-                - missing: ${self['missing'] + unavailable}
-                - total_cost: ${self['total_cost'] + cost}
+                - all_missing: ${missing + not_ordered}
+                - total_cost: ${cost + price}
             navigate:
-              AVAILABLE: print_finish
-              UNAVAILABLE: print_finish
+              - AVAILABLE: print_finish
+              - UNAVAILABLE: print_finish
 
         - print_finish:
             do:
               base.print:
                 - text: >
                     ${'Created address: ' + address + ' for: ' + first_name + ' ' + last_name + '\n' +
-                    'Missing items: ' + missing + ' Cost of ordered items: ' + str(total_cost)}
+                    'Missing items: ' + all_missing + ' Cost of ordered items: ' + str(total_cost)}
 
         - fancy_name:
             do:
@@ -386,10 +388,10 @@ New Code - Complete
                 - body: >
                     ${fancy_text + '<br>' +
                     'Created address: ' + address + ' for: ' + first_name + ' ' + last_name + '<br>' +
-                    'Missing items: ' + missing + ' Cost of ordered items: ' + str(total_cost)}
+                    'Missing items: ' + all_missing + ' Cost of ordered items: ' + str(total_cost)}
             navigate:
-              FAILURE: FAILURE
-              SUCCESS: SUCCESS
+              - FAILURE: FAILURE
+              - SUCCESS: SUCCESS
 
         - on_failure:
           - print_fail:
@@ -432,8 +434,8 @@ New Code - Complete
               - email_list: ${filter(lambda x:x != '', map(lambda x:str(x['address']), branches_context))}
               - cost: ${sum(map(lambda x:x['total_cost'], branches_context))}
             navigate:
-              SUCCESS: print_success
-              FAILURE: print_failure
+              - SUCCESS: print_success
+              - FAILURE: print_failure
 
         - print_success:
             do:

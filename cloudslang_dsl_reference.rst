@@ -638,8 +638,8 @@ task's <#asynchronous-task>`__ `aggregation <#aggregate>`__ and
          aggregate:
              - name_list: ${map(lambda x:str(x['name']), branches_context)}
          navigate:
-             SUCCESS: print_list
-             FAILURE: FAILURE
+             - SUCCESS: print_list
+             - FAILURE: FAILURE
 
 .. _branches_context:
 
@@ -706,7 +706,7 @@ empty list (``[]``).
       break:
         - CUSTOM
     navigate:
-      CUSTOM: print_end
+      - CUSTOM: print_end
 
 **Example - loop that continues even on result of FAILURE**
 
@@ -855,14 +855,14 @@ own or it can be used by another flow in the `do <#do>`__ property of a
             publish:
               - answer: ${quotient}
             navigate:
-              ILLEGAL: ILLEGAL
-              SUCCESS: printer
+              - ILLEGAL: ILLEGAL
+              - SUCCESS: printer
         - printer:
             do:
               print:
                 - text: ${input1 + "/" + input2 + " = " + answer}
             navigate:
-              SUCCESS: SUCCESS
+              - SUCCESS: SUCCESS
 
       outputs:
         - quotient: ${answer}
@@ -1187,8 +1187,8 @@ task's navigation will run.
            break:
              - CUSTOM
          navigate:
-           CUSTOM: aggregate
-           SUCCESS: skip_this
+           - CUSTOM: aggregate
+           - SUCCESS: skip_this
 
 .. _name:
 
@@ -1252,7 +1252,7 @@ navigate
 --------
 
 The key ``navigate`` is a property of a `task <#task>`__ name. It is
-mapped to key:value pairs where the key is the received
+mapped to a list of key:value pairs where the key is the received
 `result <#results>`__ and the value is the target `task <#task>`__ or
 `flow <#flow>`__ `result <#results>`__.
 
@@ -1293,8 +1293,8 @@ SUCCESS result will navigate to task named *printer***
 .. code-block:: yaml
 
     navigate:
-      ILLEGAL: FAILURE
-      SUCCESS: printer
+      - ILLEGAL: FAILURE
+      - SUCCESS: printer
 
 .. _on_failure:
 
@@ -1376,8 +1376,6 @@ Defines the parameters a `flow <#flow>`__ or `operation <#operation>`__
 exposes to possible `publication <#publish>`__ by a `task <#task>`__.
 The calling `task <#task>`__ refers to an output by its name.
 
-See also `self <#self>`__.
-
 **Example - various types of outputs**
 
 .. code-block:: yaml
@@ -1386,7 +1384,6 @@ See also `self <#self>`__.
       - existing_variable
       - output2: ${some_variable}
       - output3: ${5 + 6}
-      - output4: ${self['input1']}
 
 .. _overridable:
 
@@ -1491,7 +1488,7 @@ In an `iterative task <#iterative-task>`__ the publish mechanism is run
 during each iteration after the `operation <#operation>`__ or
 `subflow <#flow>`__ has completed, therefore allowing for aggregation.
 
-**Example - publishing in an iterative task to aggregate output**
+**Example - publishing in an iterative task to aggregate output: add the squares of values in a range**
 
 .. code-block:: yaml
 
@@ -1499,10 +1496,11 @@ during each iteration after the `operation <#operation>`__ or
         loop:
           for: value in range(1,6)
           do:
-            print:
-              - text: ${value}
+            square:
+              - to_square: ${value}
+              - sum
           publish:
-            - sum: ${self['sum'] + out}
+            - sum: ${sum + squared}
 
 Asynchronous publish
 ~~~~~~~~~~~~~~~~~~~~
@@ -1620,32 +1618,6 @@ A value of ``false`` will allow the `flow <#flow>`__ or
       - input2:
           required: false
 
-.. _self:
-
-self
-----
-
-May appear in the value of an `output <#outputs>`__,
-`publish <#publish>`__ or `result <#results>`__ `expression <#expressions>`__.
-
-Special syntax to refer to an `input <#inputs>`__ parameter as opposed
-to another variable with the same name in a narrower scope.
-
-**Example - output "input1" as it was passed in**
-
-.. code-block:: yaml
-
-    outputs:
-      - output1: ${self['input1']}
-
-**Example - usage in publish to refer to a variable in the flow's
-scope**
-
-.. code-block:: yaml
-
-    publish:
-      - total_cost: ${self['total_cost'] + cost}
-
 .. _task:
 
 task
@@ -1701,8 +1673,8 @@ answer and navigates accordingly**
         publish:
           - answer: ${quotient}
         navigate:
-          ILLEGAL: FAILURE
-          SUCCESS: printer
+          - ILLEGAL: FAILURE
+          - SUCCESS: printer
 
 Iterative Task
 ~~~~~~~~~~~~~~
@@ -1732,8 +1704,8 @@ to a task named "another_task"**
             print:
               - text: ${value}
         navigate:
-          SUCCESS: another_task
-          FAILURE: FAILURE
+          - SUCCESS: another_task
+          - FAILURE: FAILURE
 
 Asynchronous Task
 ~~~~~~~~~~~~~~~~~
@@ -1770,8 +1742,8 @@ then navigates to a task named "another_task"**
         aggregate:
             - name_list: ${map(lambda x:str(x['name']), branches_context)}
         navigate:
-            SUCCESS: another_task
-            FAILURE: FAILURE
+            - SUCCESS: another_task
+            - FAILURE: FAILURE
 
 .. _workflow:
 
@@ -1811,8 +1783,8 @@ division was legal**
           publish:
             - answer: ${quotient}
           navigate:
-            ILLEGAL: FAILURE
-            SUCCESS: printer
+            - ILLEGAL: FAILURE
+            - SUCCESS: printer
       - printer:
           do:
             print:

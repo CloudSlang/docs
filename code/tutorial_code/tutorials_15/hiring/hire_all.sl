@@ -25,8 +25,8 @@ flow:
           - email_list: ${filter(lambda x:x != '', map(lambda x:str(x['address']), branches_context))}
           - cost: ${sum(map(lambda x:x['total_cost'], branches_context))}
         navigate:
-          SUCCESS: print_success
-          FAILURE: print_failure
+          - SUCCESS: print_success
+          - FAILURE: print_failure
 
     - print_success:
         do:

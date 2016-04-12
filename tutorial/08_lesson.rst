@@ -323,8 +323,8 @@ New Code - Complete
             publish:
               - availability: ${available}
             navigate:
-              UNAVAILABLE: print_fail
-              AVAILABLE: print_finish
+              - UNAVAILABLE: print_fail
+              - AVAILABLE: print_finish
 
         - print_finish:
             do:
