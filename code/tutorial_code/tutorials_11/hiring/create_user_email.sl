@@ -24,8 +24,8 @@ flow:
         publish:
           - address: ${email_address}
         navigate:
-          SUCCESS: check_address
-          FAILURE: FAILURE
+          - SUCCESS: check_address
+          - FAILURE: FAILURE
 
     - check_address:
         do:
@@ -34,8 +34,8 @@ flow:
         publish:
           - availability: ${available}
         navigate:
-          UNAVAILABLE: UNAVAILABLE
-          AVAILABLE: CREATED
+          - UNAVAILABLE: UNAVAILABLE
+          - AVAILABLE: CREATED
 
   outputs:
     - address

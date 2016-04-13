@@ -33,9 +33,9 @@ flow:
             - CREATED
             - FAILURE
         navigate:
-          CREATED: print_finish
-          UNAVAILABLE: print_fail
-          FAILURE: print_fail
+          - CREATED: print_finish
+          - UNAVAILABLE: print_fail
+          - FAILURE: print_fail
 
     - print_finish:
         do:

@@ -60,8 +60,8 @@ Next let's create a ``workflow`` section and copy the
           publish:
             - availability: ${available}
           navigate:
-            UNAVAILABLE: print_fail
-            AVAILABLE: print_finish
+            - UNAVAILABLE: print_fail
+            - AVAILABLE: print_finish
 
 Fix Up Subflow
 --------------
@@ -103,8 +103,8 @@ or ``FAILURE``, we can route ``SUCCESS`` to the next task and
         publish:
           - address: ${email_address}
         navigate:
-          SUCCESS: check_address
-          FAILURE: FAILURE
+          - SUCCESS: check_address
+          - FAILURE: FAILURE
 
 For the ``check_address`` task, whose operation returns ``UNAVAILABLE``
 or ``AVAILABLE``, we can route ``UNAVAILABLE`` to the ``UNAVAILABLE``
@@ -120,8 +120,8 @@ flow.
         publish:
           - availability: ${available}
         navigate:
-          UNAVAILABLE: UNAVAILABLE
-          AVAILABLE: CREATED
+          - UNAVAILABLE: UNAVAILABLE
+          - AVAILABLE: CREATED
 
 Finally, we can pass along the outputs published in the tasks as flow
 outputs.
@@ -174,9 +174,9 @@ navigation.
         publish:
           - address
         navigate:
-          CREATED: print_finish
-          UNAVAILABLE: print_fail
-          FAILURE: print_fail
+          - CREATED: print_finish
+          - UNAVAILABLE: print_fail
+          - FAILURE: print_fail
 
 All that's left now is to change the text of the messages sent in the
 ``print_finish`` and ``print_fail`` tasks to better reflect what is
@@ -258,9 +258,9 @@ New Code - Complete
             publish:
               - address
             navigate:
-              CREATED: print_finish
-              UNAVAILABLE: print_fail
-              FAILURE: print_fail
+              - CREATED: print_finish
+              - UNAVAILABLE: print_fail
+              - FAILURE: print_fail
 
         - print_finish:
             do:
@@ -300,8 +300,8 @@ New Code - Complete
             publish:
               - address: ${email_address}
             navigate:
-              SUCCESS: check_address
-              FAILURE: FAILURE
+              - SUCCESS: check_address
+              - FAILURE: FAILURE
 
         - check_address:
             do:
@@ -310,8 +310,8 @@ New Code - Complete
             publish:
               - availability: ${available}
             navigate:
-              UNAVAILABLE: UNAVAILABLE
-              AVAILABLE: CREATED
+              - UNAVAILABLE: UNAVAILABLE
+              - AVAILABLE: CREATED
 
       outputs:
         - address

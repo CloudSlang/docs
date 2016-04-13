@@ -18,8 +18,8 @@ operation:
       if rand == 0: print 'Unavailable'
 
   outputs:
-    - unavailable: ${not_ordered}
-    - cost: ${price}
+    - not_ordered
+    - price
 
   results:
     - UNAVAILABLE: ${rand == 0}

@@ -23,9 +23,9 @@ Operation
 The ``order`` operation, as we'll call it, looks very similar to our
 ``check_availability`` operation. It uses a random number to simulate
 whether a given item is available. If the item is available, it will
-return the ``cost`` of the item as one output and the ``unavailable``
+return the ``price`` of the item as one output and the ``not_ordered``
 output will be empty. If the item is unavailable, it will return ``0``
-for the cost of the item and the name of the item in the ``unavailable``
+for the ``price`` of the item and the name of the item in the ``not_ordered``
 output.
 
 .. code-block:: yaml
@@ -50,8 +50,8 @@ output.
           if rand == 0: print 'Unavailable'
 
       outputs:
-        - unavailable: ${not_ordered}
-        - cost: ${price}
+        - not_ordered
+        - price
 
       results:
         - UNAVAILABLE: ${rand == 0}
@@ -60,9 +60,10 @@ output.
 Task
 ----
 
-First, we'll go back to our flow and create a task, between
+Now let's go back to our flow and create a task, between
 ``create_email_address`` and ``print_finish``, to call our operation in
-a loop. This time we'll loop through a map of items and their prices.
+a loop. This time we'll loop through a map of items and their prices, named,
+``order_map`` that we'll define at the flow level in a few moments.
 
 .. code-block:: yaml
 
@@ -73,16 +74,24 @@ a loop. This time we'll loop through a map of items and their prices.
             order:
               - item
               - price
+              - missing: ${all_missing}
+              - cost: ${total_cost}
 
-We'll also need to create some input variables in the flow's ``inputs`` section
-first. One variable, that we'll call ``order_map``, will contain the map we're
-looping on. Notice how a map is most easily passed as an input value using the
-``default`` property.
+Notice the ``missing`` and ``cost`` variables. These are not for inputs in the
+``order`` operation. That operation only takes the ``item`` and ``price``
+inputs. We will be using ``missing`` and ``cost`` together with some flow-level
+variables to perform the loop aggregation.
 
-Also, each time through the loop we want to aggregate the data that is output.
-We'll create two variables, ``missing`` and ``total_cost``, for this
-purpose, defining them as ``overridable`` and giving them default values
-to start with.
+Now let's create those flow-level variables in the flow's ``inputs`` section.
+Each time through the loop we want to aggregate the data that the ``order``
+operation outputs. We'll create two variables, ``all_missing`` and
+``total_cost``, for this purpose, defining them as ``overridable`` and giving
+them default values to start with.
+
+Also, we'll declare another variable called ``order_map`` that will contain the
+map we're looping on. Notice how a map is most easily passed as an input value
+using the ``default`` property.
+
 
 .. code-block:: yaml
 
@@ -101,23 +110,22 @@ to start with.
           default: {'laptop': 1000, 'docking station':200, 'monitor': 500, 'phone': 100}
 
 Now we can perform the aggregation. In the ``get_equipment`` task's publish
-section, we'll add the output variables to the ones we just created in
-the flow inputs and publish them back to the flow. This will run for
+section, we'll add the values output from the ``order`` operation
+(``not_ordered`` and ``price``) to the task arguments we just created in
+the ``get_equipment`` task (``missing`` and ``cost``) and publish them back to
+the flow-level variables (``all_missing`` and ``total_cost``). This will run for
 each iteration after the operation has completed, aggregating all the
-data. For example, each time through the loop a ``cost`` is output from the
-``order`` operation. That ``cost`` is added to the ``total_cost`` variable for
-each iteration in the publish section of the ``get_equipment`` task.
-
-Notice the usage of the ``self['']`` syntax to indicate that we're
-referring to the variable that exists on the flow level and not a
-variable with the same name that might have been returned from the
-operation.
+data. For example, each time through the loop the ``cost`` is updated with the
+current ``total_cost``. Then the ``order`` operation runs and a ``price`` is
+output. That ``price`` is added to the task's ``cost`` variable and published
+back into the flow-level ``total_cost`` for each iteration of the
+``get_equipment`` task.
 
 .. code-block:: yaml
 
     publish:
-      - missing: ${self['missing'] + unavailable}
-      - total_cost: ${self['total_cost'] + cost}
+      - all_missing: ${missing + not_ordered}
+      - total_cost: ${cost + price}
 
 Finally we have to rewire all the navigation logic to take into account
 our new task.
@@ -128,9 +136,9 @@ successful email address creations to ``get_equipment``.
 .. code-block:: yaml
 
     navigate:
-      CREATED: get_equipment
-      UNAVAILABLE: print_fail
-      FAILURE: print_fail
+      - CREATED: get_equipment
+      - UNAVAILABLE: print_fail
+      - FAILURE: print_fail
 
 And we need to add navigation to the ``get_equipment`` task. We'll
 always go to ``print_finish`` no matter what happens.
@@ -138,8 +146,8 @@ always go to ``print_finish`` no matter what happens.
 .. code-block:: yaml
 
     navigate:
-      AVAILABLE: print_finish
-      UNAVAILABLE: print_finish
+      - AVAILABLE: print_finish
+      - UNAVAILABLE: print_finish
 
 Finish
 ------
@@ -154,7 +162,7 @@ reflects the status the equipment order.
           base.print:
             - text: >
                 ${'Created address: ' + address + ' for: ' + first_name + ' ' + last_name + '\n' +
-                'Missing items: ' + missing + ' Cost of ordered items: ' + str(total_cost)}
+                'Missing items: ' + all_missing + ' Cost of ordered items: ' + str(total_cost)}
 
 Run It
 ------
@@ -196,7 +204,7 @@ New Code - Complete
         - middle_name:
             required: false
         - last_name
-        - missing:
+        - all_missing:
             default: ""
             overridable: false
         - total_cost:
@@ -226,9 +234,9 @@ New Code - Complete
                 - CREATED
                 - FAILURE
             navigate:
-              CREATED: get_equipment
-              UNAVAILABLE: print_fail
-              FAILURE: print_fail
+              - CREATED: get_equipment
+              - UNAVAILABLE: print_fail
+              - FAILURE: print_fail
 
         - get_equipment:
             loop:
@@ -237,19 +245,21 @@ New Code - Complete
                 order:
                   - item
                   - price
+                  - missing: ${all_missing}
+                  - cost: ${total_cost}
               publish:
-                - missing: ${self['missing'] + unavailable}
-                - total_cost: ${self['total_cost'] + cost}
+                - all_missing: ${missing + not_ordered}
+                - total_cost: ${cost + price}
             navigate:
-              AVAILABLE: print_finish
-              UNAVAILABLE: print_finish
+              - AVAILABLE: print_finish
+              - UNAVAILABLE: print_finish
 
         - print_finish:
             do:
               base.print:
                 - text: >
                     ${'Created address: ' + address + ' for: ' + first_name + ' ' + last_name + '\n' +
-                    'Missing items: ' + missing + ' Cost of ordered items: ' + str(total_cost)}
+                    'Missing items: ' + all_missing + ' Cost of ordered items: ' + str(total_cost)}
 
         - on_failure:
           - print_fail:
@@ -281,8 +291,8 @@ New Code - Complete
           if rand == 0: print 'Unavailable'
 
       outputs:
-        - unavailable: ${not_ordered}
-        - cost: ${price}
+        - not_ordered
+        - price
 
       results:
         - UNAVAILABLE: ${rand == 0}

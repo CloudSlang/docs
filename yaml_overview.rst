@@ -27,8 +27,8 @@ publish and navigate keys**
         publish:
           - answer: ${quotient}
         navigate:
-          ILLEGAL: FAILURE
-          SUCCESS: printer
+          - ILLEGAL: FAILURE
+          - SUCCESS: printer
 
 Lists
 =====
@@ -57,8 +57,8 @@ results and their targets**
 .. code:: yaml
 
     navigate:
-      ILLEGAL: FAILURE
-      SUCCESS: printer
+      - ILLEGAL: FAILURE
+      - SUCCESS: printer
 
 Strings
 =======

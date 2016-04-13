@@ -54,14 +54,14 @@ user-defined result of ``ILLEGAL``.
             publish:
               - answer: ${quotient}
             navigate:
-              ILLEGAL: ILLEGAL
-              SUCCESS: printer
+              - ILLEGAL: ILLEGAL
+              - SUCCESS: printer
         - printer:
             do:
               print:
                 - text: ${input1 + "/" + input2 + " = " + str(answer)}
             navigate:
-              SUCCESS: SUCCESS
+              - SUCCESS: SUCCESS
 
       outputs:
         - quotient: ${answer}
@@ -256,8 +256,8 @@ the flow ends with a result of ``SUCCESS``.
             publish:
               - ans: ${quotient}
             navigate:
-              SUCCESS: division2
-              ILLEGAL: failure_task
+              - SUCCESS: division2
+              - ILLEGAL: failure_task
         - division2:
             do:
               division:
@@ -266,8 +266,8 @@ the flow ends with a result of ``SUCCESS``.
             publish:
               - ans: ${quotient}
             navigate:
-              SUCCESS: SUCCESS
-              ILLEGAL: failure_task
+              - SUCCESS: SUCCESS
+              - ILLEGAL: failure_task
         - on_failure:
           - failure_task:
               do:
@@ -304,8 +304,8 @@ looped on and various methods for handling loop breaks.
                 fail3:
                   - text: ${value}
             navigate:
-              SUCCESS: fail3b
-              FAILURE: fail3b
+              - SUCCESS: fail3b
+              - FAILURE: fail3b
         - fail3b:
             loop:
               for: value in [1,2,3,4,5]
@@ -322,8 +322,8 @@ looped on and various methods for handling loop breaks.
               break:
                 - CUSTOM
             navigate:
-              CUSTOM: aggregate
-              SUCCESS: skip_this
+              - CUSTOM: aggregate
+              - SUCCESS: skip_this
         - skip_this:
             do:
               print:
@@ -334,8 +334,9 @@ looped on and various methods for handling loop breaks.
               do:
                 print:
                   - text: ${value}
+                  - sum
               publish:
-                - sum: ${self['sum'] + out}
+                - sum: ${sum + out}
         - print:
             do:
               print:
@@ -357,26 +358,7 @@ looped on and various methods for handling loop breaks.
         python_script: print text
 
       results:
-        - CUSTOM: ${int(self['text']) == 3}
-        - SUCCESS
-
-**Operation - fail3.sl**
-
-.. code-block:: yaml
-
-    namespace: examples.loops
-
-    operation:
-      name: fail3
-
-      inputs:
-        - text
-
-      action:
-        python_script: print text
-
-      results:
-        - FAILURE: ${int(self['text']) == 3}
+        - CUSTOM: ${int(text) == 3}
         - SUCCESS
 
 **Operation - print.sl**

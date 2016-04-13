@@ -10,5 +10,5 @@ operation:
     python_script: print text
 
   results:
-    - FAILURE: ${int(self['text']) == 3}
+    - FAILURE: ${int(text) == 3}
     - SUCCESS

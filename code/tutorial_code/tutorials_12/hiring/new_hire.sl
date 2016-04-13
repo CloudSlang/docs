@@ -13,7 +13,7 @@ flow:
     - middle_name:
         required: false
     - last_name
-    - missing:
+    - all_missing:
         default: ""
         overridable: false
     - total_cost:
@@ -21,6 +21,7 @@ flow:
         overridable: false
     - order_map:
         default: {'laptop': 1000, 'docking station': 200, 'monitor': 500, 'phone': 100}
+
   workflow:
     - print_start:
         do:
@@ -33,8 +34,7 @@ flow:
           do:
             hiring.create_user_email:
               - first_name
-              - middle_name:
-                  required: false
+              - middle_name
               - last_name
               - attempt
           publish:
@@ -43,30 +43,32 @@ flow:
             - CREATED
             - FAILURE
         navigate:
-          CREATED: get_equipment
-          UNAVAILABLE: print_fail
-          FAILURE: print_fail
+          - CREATED: get_equipment
+          - UNAVAILABLE: print_fail
+          - FAILURE: print_fail
 
     - get_equipment:
         loop:
           for: item, price in order_map
           do:
-            hiring.order:
+            order:
               - item
               - price
+              - missing: ${all_missing}
+              - cost: ${total_cost}
           publish:
-            - missing: ${self['missing'] + unavailable}
-            - total_cost: ${self['total_cost'] + cost}
+            - all_missing: ${missing + not_ordered}
+            - total_cost: ${cost + price}
         navigate:
-          AVAILABLE: print_finish
-          UNAVAILABLE: print_finish
+          - AVAILABLE: print_finish
+          - UNAVAILABLE: print_finish
 
     - print_finish:
         do:
           base.print:
             - text: >
                 ${'Created address: ' + address + ' for: ' + first_name + ' ' + last_name + '\n' +
-                'Missing items: ' + missing + ' Cost of ordered items: ' + str(total_cost)}
+                'Missing items: ' + all_missing + ' Cost of ordered items: ' + str(total_cost)}
 
     - send_mail:
        do:
@@ -78,10 +80,10 @@ flow:
            - subject: "${'New Hire: ' + first_name + ' ' + last_name}"
            - body: >
                ${'Created address: ' + address + ' for: ' + first_name + ' ' + last_name + '<br>' +
-               'Missing items: ' + missing + ' Cost of ordered items: ' + str(total_cost)}
+               'Missing items: ' + all_missing + ' Cost of ordered items: ' + str(total_cost)}
        navigate:
-         FAILURE: FAILURE
-         SUCCESS: SUCCESS
+         - FAILURE: FAILURE
+         - SUCCESS: SUCCESS
 
     - on_failure:
       - print_fail:
