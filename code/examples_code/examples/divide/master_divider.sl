@@ -18,8 +18,8 @@ flow:
         publish:
           - ans: ${quotient}
         navigate:
-          SUCCESS: division2
-          ILLEGAL: failure_step
+          - SUCCESS: division2
+          - ILLEGAL: failure_step
     - division2:
         do:
           division:
@@ -28,8 +28,8 @@ flow:
         publish:
           - ans: ${quotient}
         navigate:
-          SUCCESS: SUCCESS
-          ILLEGAL: failure_step
+          - SUCCESS: SUCCESS
+          - ILLEGAL: failure_step
     - on_failure:
       - failure_step:
           do:

@@ -114,7 +114,7 @@ call the ``send_mail`` operation. Let's put it right after the
 subject and body. You'll need to substitute the values in angle brackets
 (``<>``) to work for your email host. Notice that the body value is
 taken directly from the ``print_finish`` task with the slight change of
-turning the ``\n`` into a ``<br>`` since the ``htmlEmail`` input
+turning the ``\n`` into a ``<br>`` since the ``html_email`` input
 defaults to true.
 
 .. code-block:: yaml
@@ -129,10 +129,10 @@ defaults to true.
             - subject: "${'New Hire: ' + first_name + ' ' + last_name}"
             - body: >
                 ${'Created address: ' + address + ' for: ' + first_name + ' ' + last_name + '<br>' +
-                'Missing items: ' + missing + ' Cost of ordered items: ' + str(total_cost)}
+                'Missing items: ' + all_missing + ' Cost of ordered items: ' + str(total_cost)}
         navigate:
-          FAILURE: FAILURE
-          SUCCESS: SUCCESS
+          - FAILURE: FAILURE
+          - SUCCESS: SUCCESS
 
 Run It
 ------
@@ -176,7 +176,7 @@ New Code - Complete
         - middle_name:
             required: false
         - last_name
-        - missing:
+        - all_missing:
             default: ""
             overridable: false
         - total_cost:
@@ -206,9 +206,9 @@ New Code - Complete
                 - CREATED
                 - FAILURE
             navigate:
-              CREATED: get_equipment
-              UNAVAILABLE: print_fail
-              FAILURE: print_fail
+              - CREATED: get_equipment
+              - UNAVAILABLE: print_fail
+              - FAILURE: print_fail
 
         - get_equipment:
             loop:
@@ -217,19 +217,21 @@ New Code - Complete
                 order:
                   - item
                   - price
+                  - missing: ${all_missing}
+                  - cost: ${total_cost}
               publish:
-                - missing: ${self['missing'] + unavailable}
-                - total_cost: ${self['total_cost'] + cost}
+                - all_missing: ${missing + not_ordered}
+                - total_cost: ${cost + price}
             navigate:
-              AVAILABLE: print_finish
-              UNAVAILABLE: print_finish
+              - AVAILABLE: print_finish
+              - UNAVAILABLE: print_finish
 
         - print_finish:
             do:
               base.print:
                 - text: >
                     ${'Created address: ' + address + ' for: ' + first_name + ' ' + last_name + '\n' +
-                    'Missing items: ' + missing + ' Cost of ordered items: ' + str(total_cost)}
+                    'Missing items: ' + all_missing + ' Cost of ordered items: ' + str(total_cost)}
 
         - send_mail:
             do:
@@ -241,10 +243,10 @@ New Code - Complete
                 - subject: "${'New Hire: ' + first_name + ' ' + last_name}"
                 - body: >
                     ${'Created address: ' + address + ' for: ' + first_name + ' ' + last_name + '<br>' +
-                    'Missing items: ' + missing + ' Cost of ordered items: ' + str(total_cost)}
+                    'Missing items: ' + all_missing + ' Cost of ordered items: ' + str(total_cost)}
             navigate:
-              FAILURE: FAILURE
-              SUCCESS: SUCCESS
+              - FAILURE: FAILURE
+              - SUCCESS: SUCCESS
 
         - on_failure:
           - print_fail:

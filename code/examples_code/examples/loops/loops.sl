@@ -16,8 +16,8 @@ flow:
             fail3:
               - text: ${value}
         navigate:
-          SUCCESS: fail3b
-          FAILURE: fail3b
+          - SUCCESS: fail3b
+          - FAILURE: fail3b
     - fail3b:
         loop:
           for: value in [1,2,3,4,5]
@@ -34,8 +34,8 @@ flow:
           break:
             - CUSTOM
         navigate:
-          CUSTOM: aggregate
-          SUCCESS: skip_this
+          - CUSTOM: aggregate
+          - SUCCESS: skip_this
     - skip_this:
         do:
           print:
@@ -46,8 +46,9 @@ flow:
           do:
             print:
               - text: ${value}
+              - sum
           publish:
-            - sum: ${self['sum'] + out}
+            - sum: ${sum + out}
     - print:
         do:
           print:

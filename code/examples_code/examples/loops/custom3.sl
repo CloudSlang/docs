@@ -10,5 +10,5 @@ operation:
     python_script: print text
 
   results:
-    - CUSTOM: ${int(self['text']) == 3}
+    - CUSTOM: ${int(text) == 3}
     - SUCCESS

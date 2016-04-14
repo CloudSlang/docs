@@ -38,9 +38,9 @@ numbers.
           publish:
             - address
         navigate:
-          CREATED: print_finish
-          UNAVAILABLE: print_fail
-          FAILURE: print_fail
+          - CREATED: print_finish
+          - UNAVAILABLE: print_fail
+          - FAILURE: print_fail
 
 .. note::
 
@@ -150,9 +150,9 @@ to break on, which in our case is ``CREATED`` or ``FAILURE``.
             - CREATED
             - FAILURE
         navigate:
-          CREATED: print_finish
-          UNAVAILABLE: print_fail
-          FAILURE: print_fail
+          - CREATED: print_finish
+          - UNAVAILABLE: print_fail
+          - FAILURE: print_fail
 
 In a case where we want the loop to continue no matter what happens, we
 would have to override the default break on a result of failure by
@@ -240,9 +240,9 @@ New Code - Complete
                 - CREATED
                 - FAILURE
             navigate:
-              CREATED: print_finish
-              UNAVAILABLE: print_fail
-              FAILURE: print_fail
+              - CREATED: print_finish
+              - UNAVAILABLE: print_fail
+              - FAILURE: print_fail
 
         - print_finish:
             do:

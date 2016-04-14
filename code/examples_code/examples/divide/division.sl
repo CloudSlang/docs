@@ -16,14 +16,14 @@ flow:
         publish:
           - answer: ${quotient}
         navigate:
-          ILLEGAL: ILLEGAL
-          SUCCESS: printer
+          - ILLEGAL: ILLEGAL
+          - SUCCESS: printer
     - printer:
         do:
           print:
             - text: ${input1 + "/" + input2 + " = " + str(answer)}
         navigate:
-          SUCCESS: SUCCESS
+          - SUCCESS: SUCCESS
 
   outputs:
     - quotient: ${answer}
