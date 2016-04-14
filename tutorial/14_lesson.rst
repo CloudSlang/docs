@@ -121,12 +121,12 @@ email.
    implementation of Python 2.7. For information on Jython's limitations,
    see the `Jython FAQ <https://wiki.python.org/jython/JythonFaq>`__.
 
-Task
+Step
 ----
 
-Now we can create a task in the ``new_hire`` flow to send some text to
+Now we can create a step in the ``new_hire`` flow to send some text to
 the ``fancy_text`` operation and publish the output so we can use it in
-our email. We'll put the new task between ``print_finish`` and
+our email. We'll put the new step between ``print_finish`` and
 ``send_mail``.
 
 .. code:: yaml

@@ -19,7 +19,7 @@ flow:
           - ans: ${quotient}
         navigate:
           - SUCCESS: division2
-          - ILLEGAL: failure_task
+          - ILLEGAL: failure_step
     - division2:
         do:
           division:
@@ -29,9 +29,9 @@ flow:
           - ans: ${quotient}
         navigate:
           - SUCCESS: SUCCESS
-          - ILLEGAL: failure_task
+          - ILLEGAL: failure_step
     - on_failure:
-      - failure_task:
+      - failure_step:
           do:
             print:
               - text: ${ans}

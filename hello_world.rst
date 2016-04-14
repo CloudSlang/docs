@@ -106,13 +106,13 @@ to the ``print`` operation, so we must add its location to the classpath.
    classpath in this instance is not necessary.
 
 The :ref:`flow` named ``hello_world`` begins its :ref:`workflow`. The
-:ref:`workflow` has one :ref:`task` named ``sayHi`` which
+:ref:`workflow` has one :ref:`step` named ``sayHi`` which
 calls the ``print`` :ref:`operation`. The :ref:`flow` passes the string
 ``"Hello, World"`` to the ``text`` :ref:`input <inputs>` of the ``print``
 :ref:`operation`. The print :ref:`operation` performs its :ref:`action`, which
 is a simple Python script that prints the :ref:`input <inputs>`, and then
 returns a :ref:`result <results>` of ``SUCCESS``. Since the flow does not
-contain any more :ref:`tasks <task>` the :ref:`flow` finishes with a
+contain any more :ref:`steps <step>` the :ref:`flow` finishes with a
 :ref:`result <results>` of ``SUCCESS``.
 
 More

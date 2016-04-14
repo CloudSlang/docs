@@ -9,13 +9,13 @@ In this lesson we'll learn how to aggregate output from a loop.
 Get Started
 -----------
 
-We'll create a new task to simulate ordering equipment. Internally it
+We'll create a new step to simulate ordering equipment. Internally it
 will randomly decide whether a piece of equipment is available or not.
-Then we'll run that task in a loop from the main flow and record the
+Then we'll run that step in a loop from the main flow and record the
 cost of the ordered equipment and which items were unavailable. Create a
 new file named **order.sl** in the **tutorials/hiring** folder to house
 the new operation we'll write and get the **new_hire.sl** file ready
-because we'll need to add a task to the main flow.
+because we'll need to add a step to the main flow.
 
 Operation
 ---------
@@ -57,10 +57,10 @@ output.
         - UNAVAILABLE: ${rand == 0}
         - AVAILABLE
 
-Task
+Step
 ----
 
-Now let's go back to our flow and create a task, between
+Now let's go back to our flow and create a step, between
 ``create_email_address`` and ``print_finish``, to call our operation in
 a loop. This time we'll loop through a map of items and their prices, named,
 ``order_map`` that we'll define at the flow level in a few moments.
@@ -109,17 +109,17 @@ using the ``default`` property.
       - order_map:
           default: {'laptop': 1000, 'docking station':200, 'monitor': 500, 'phone': 100}
 
-Now we can perform the aggregation. In the ``get_equipment`` task's publish
+Now we can perform the aggregation. In the ``get_equipment`` step's publish
 section, we'll add the values output from the ``order`` operation
-(``not_ordered`` and ``price``) to the task arguments we just created in
-the ``get_equipment`` task (``missing`` and ``cost``) and publish them back to
+(``not_ordered`` and ``price``) to the step arguments we just created in
+the ``get_equipment`` step (``missing`` and ``cost``) and publish them back to
 the flow-level variables (``all_missing`` and ``total_cost``). This will run for
 each iteration after the operation has completed, aggregating all the
 data. For example, each time through the loop the ``cost`` is updated with the
 current ``total_cost``. Then the ``order`` operation runs and a ``price`` is
-output. That ``price`` is added to the task's ``cost`` variable and published
+output. That ``price`` is added to the step's ``cost`` variable and published
 back into the flow-level ``total_cost`` for each iteration of the
-``get_equipment`` task.
+``get_equipment`` step.
 
 .. code-block:: yaml
 
@@ -128,9 +128,9 @@ back into the flow-level ``total_cost`` for each iteration of the
       - total_cost: ${cost + price}
 
 Finally we have to rewire all the navigation logic to take into account
-our new task.
+our new step.
 
-We need to change the ``create_email_address`` task to forward
+We need to change the ``create_email_address`` step to forward
 successful email address creations to ``get_equipment``.
 
 .. code-block:: yaml
@@ -140,7 +140,7 @@ successful email address creations to ``get_equipment``.
       - UNAVAILABLE: print_fail
       - FAILURE: print_fail
 
-And we need to add navigation to the ``get_equipment`` task. We'll
+And we need to add navigation to the ``get_equipment`` step. We'll
 always go to ``print_finish`` no matter what happens.
 
 .. code-block:: yaml

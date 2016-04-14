@@ -120,14 +120,14 @@ Example 2 - Default Navigation
 ==============================
 
 In this example the flow takes in two inputs, one of which determines
-the success of its first task.
+the success of its first step.
 
--  If the first task succeeds, the flow continues with the default
-   navigation sequentially by performing the next task. That task
+-  If the first step succeeds, the flow continues with the default
+   navigation sequentially by performing the next step. That step
    returns a default result of ``SUCCESS`` and therefore skips the
-   ``on_failure`` task, ending the flow with a result of ``SUCCESS``.
--  If the first task fails, the flow moves to the ``on_failure`` task by
-   default navigation. When the ``on_failure`` task is done, the flow
+   ``on_failure`` step, ending the flow with a result of ``SUCCESS``.
+-  If the first step fails, the flow moves to the ``on_failure`` step by
+   default navigation. When the ``on_failure`` step is done, the flow
    ends with a default result of ``FAILURE``.
 
 :download:`Download code </code/examples_code/examples/defaultnav.zip>`
@@ -151,12 +151,12 @@ the success of its first task.
               produce_default_navigation:
                 - navigation_type
 
-        # default navigation - go to this task on success
+        # default navigation - go to this step on success
         - do_something:
             do:
               something:
 
-        # default navigation - go to this task on failure
+        # default navigation - go to this step on failure
         - on_failure:
           - send_error_mail:
               do:
@@ -220,8 +220,8 @@ Example 3 - Subflow
 This example uses the flow from **Example 1** as a subflow. It takes in
 four numbers (or uses default ones) to call ``division_flow`` twice. If
 either division returns the ``ILLEGAL`` result, navigation is routed to
-the ``on_failure`` task and the flow ends with a result of ``FAILURE``.
-If both divisions are successful, the ``on_failure`` task is skipped and
+the ``on_failure`` step and the flow ends with a result of ``FAILURE``.
+If both divisions are successful, the ``on_failure`` step is skipped and
 the flow ends with a result of ``SUCCESS``.
 
 .. note::
@@ -257,7 +257,7 @@ the flow ends with a result of ``SUCCESS``.
               - ans: ${quotient}
             navigate:
               - SUCCESS: division2
-              - ILLEGAL: failure_task
+              - ILLEGAL: failure_step
         - division2:
             do:
               division:
@@ -267,9 +267,9 @@ the flow ends with a result of ``SUCCESS``.
               - ans: ${quotient}
             navigate:
               - SUCCESS: SUCCESS
-              - ILLEGAL: failure_task
+              - ILLEGAL: failure_step
         - on_failure:
-          - failure_task:
+          - failure_step:
               do:
                 print:
                   - text: ${ans}
@@ -453,7 +453,7 @@ Example 6 - Operation Paths
 ===========================
 
 This example demonstrates the various ways to reference an operation or
-subflow from a flow task.
+subflow from a flow step.
 
 This example uses the following folder structure:
 

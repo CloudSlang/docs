@@ -299,11 +299,11 @@ To change the verbosity level, use the ``--v`` flag.
 +-----------------+-------------------------------------------+----------------------------+
 | Verbosity level | Printed to the screen                     | Syntax                     |
 +=================+===========================================+============================+
-| ``default``     | task names and top-level outputs          | no flag or ``--v default`` |
+| ``default``     | step names and top-level outputs          | no flag or ``--v default`` |
 +-----------------+-------------------------------------------+----------------------------+
 | ``quiet``       | top-level outputs                         | ``--v quiet``              |
 +-----------------+-------------------------------------------+----------------------------+
-| ``debug``       | default + each task's published variables | ``--v`` or ``--v debug``   |
+| ``debug``       | default + each step's published variables | ``--v`` or ``--v debug``   |
 +-----------------+-------------------------------------------+----------------------------+
 
 Run in quiet mode:

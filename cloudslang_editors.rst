@@ -64,13 +64,13 @@ The following snippets are provided:
 +-----------------------+-----------------------------------------------------+
 | navigate              | template for a result mapped to a navigation target |
 +-----------------------+-----------------------------------------------------+
-| task                  | template for a standard task                        |
+| step                  | template for a standard step                        |
 +-----------------------+-----------------------------------------------------+
-| on_failure            | template for an on_failure task                     |
+| on_failure            | template for an on_failure step                     |
 +-----------------------+-----------------------------------------------------+
-| for                   | template for an iterative task                      |
+| for                   | template for an iterative step                      |
 +-----------------------+-----------------------------------------------------+
-| async                 | template for an asynchronous task                   |
+| async                 | template for an asynchronous step                   |
 +-----------------------+-----------------------------------------------------+
 | property              | template for a system property                      |
 +-----------------------+-----------------------------------------------------+
