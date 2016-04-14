@@ -26,7 +26,7 @@ file names end with the **.prop.sl** extension.
 
 There are three types of CloudSlang files:
 
--  flow - contains a list of tasks and navigation logic that calls
+-  flow - contains a list of steps and navigation logic that calls
    operations or subflows
 -  operation - contains an action that runs a script or method
 -  system properties - contains a map of system property keys and values
@@ -72,13 +72,13 @@ and concepts are explained in detail below.
 
    -  `workflow <#workflow>`__
 
-      -  `task(s) <#task>`__
+      -  `step(s) <#step>`__
 
          -  `do <#do>`__
          -  `publish <#publish>`__
          -  `navigate <#navigate>`__
 
-      -  `iterative task <#iterative-task>`__
+      -  `iterative step <#iterative-step>`__
 
          -  `loop <#loop>`__
 
@@ -89,7 +89,7 @@ and concepts are explained in detail below.
 
          -  `navigate <#navigate>`__
 
-      -  `asynchronous task <#asynchronous-task>`__
+      -  `asynchronous step <#asynchronous-step>`__
 
          -  `async_loop <#async-loop>`__
 
@@ -163,7 +163,7 @@ quoted.
     name: flow_name #expression not allowed - unquoted literal string
 
     workflow:
-      - task1:
+      - step1:
           do:
             print:
               - text: "hello" #expression allowed - quoted literal string
@@ -573,15 +573,15 @@ aggregate
 ---------
 
 The key ``aggregate`` is a property of an `asynchronous
-task <#asynchronous-task>`__ name. It is mapped to key:value pairs where
+step <#asynchronous-step>`__ name. It is mapped to key:value pairs where
 the key is the variable name to publish to the `flow's <#flow>`__ scope
 and the value is the aggregation `expression <#expressions>`__.
 
 Defines the aggregation logic for an `asynchronous
-task <#asynchronous-task>`__, generally making us of the
+step <#asynchronous-step>`__, generally making us of the
 `branches_context <#branches-context>`__ construct.
 
-After all branches of an `asynchronous task <#asynchronous-task>`__ have
+After all branches of an `asynchronous step <#asynchronous-step>`__ have
 completed, execution of the flow continues with the ``aggregate`` section. The
 expression of each name:value pair is evaluated and published to the
 `flow's <#flow>`__ scope. The expression generally makes use of the
@@ -604,13 +604,13 @@ async_loop
 -----------
 
 The key ``asyc_loop`` is a property of an `asynchronous
-task's <#asynchronous-task>`__ name. It is mapped to the `asynchronous
-task's <#asynchronous-task>`__ properties.
+step's <#asynchronous-step>`__ name. It is mapped to the `asynchronous
+step's <#asynchronous-step>`__ properties.
 
 For each value in the loop's list a branch is created and the ``do``
 will run an `operation <#operation>`__ or `subflow <#flow>`__. When all
 the branches have finished, the `asynchronous
-task's <#asynchronous-task>`__ `aggregation <#aggregate>`__ and
+step's <#asynchronous-step>`__ `aggregation <#aggregate>`__ and
 `navigation <#navigate>`__ will run.
 
 +---------------+------------+-----------+-----------------------------+---------------------------------------------------------------------------+----------------------------------------------------------------------------+
@@ -618,7 +618,7 @@ task's <#asynchronous-task>`__ `aggregation <#aggregate>`__ and
 +===============+============+===========+=============================+===========================================================================+============================================================================+
 | ``for``       | yes        | --        | variable ``in`` list        | loop values                                                               | `for <#for>`__                                                             |
 +---------------+------------+-----------+-----------------------------+---------------------------------------------------------------------------+----------------------------------------------------------------------------+
-| ``do``        | yes        | --        | operation or subflow call   | the operation or subflow this task will run in parallel                   | `do <#do>`__, `operation <#operation>`__, `flow <#flow>`__                 |
+| ``do``        | yes        | --        | operation or subflow call   | the operation or subflow this step will run in parallel                   | `do <#do>`__, `operation <#operation>`__, `flow <#flow>`__                 |
 +---------------+------------+-----------+-----------------------------+---------------------------------------------------------------------------+----------------------------------------------------------------------------+
 | ``publish``   | no         | --        | list of key:value pairs     | operation or subflow outputs to aggregate and publish to the flow level   | `publish <#publish>`__, `aggregate <#aggregate>`__, `outputs <#outputs>`__ |
 +---------------+------------+-----------+-----------------------------+---------------------------------------------------------------------------+----------------------------------------------------------------------------+
@@ -647,7 +647,7 @@ branches_context
 -----------------
 
 May appear in the `aggregate <#aggregate>`__ section of an `asynchronous
-task <#asynchronous-task>`__.
+step <#asynchronous-step>`__.
 
 As branches of an `async_loop <#async-loop>`__ complete, their
 published values get placed as a dictionary into the
@@ -684,8 +684,8 @@ The key ``break`` is a property of a `loop <#loop>`__. It is mapped to a
 list of results on which to break out of the loop or an empty list
 (``[]``) to override the default breaking behavior for a list. When the
 `operation <#operation>`__ or `subflow <#flow>`__ of the `iterative
-task <#iterative-task>`__ returns a result in the break's list, the
-iteration halts and the `iterative task's <#iterative-task>`__
+step <#iterative-step>`__ returns a result in the break's list, the
+iteration halts and the `iterative step's <#iterative-step>`__
 `navigation <#navigate>`__ logic is run.
 
 If the ``break`` property is not defined, the loop will break on results
@@ -764,7 +764,7 @@ to the `input <#inputs>`__ parameter's key.
 do
 --
 
-The key ``do`` is a property of a `task <#task>`__ name, a
+The key ``do`` is a property of a `step <#step>`__ name, a
 `loop <#loop>`__, or an `async_loop <#async-loop>`__. It is mapped to a
 property that references an `operation <#operation>`__ or
 `flow <#flow>`__.
@@ -794,13 +794,13 @@ several ways:
 For more information, see the :ref:`Operation Paths <example_operation_paths>`
 example.
 
-Arguments are passed to a `task <#task>`__ using a list of argument names and
+Arguments are passed to a `step <#step>`__ using a list of argument names and
 optional mapped `expressions <#expressions>`__.
 
 `Expression <#expressions>`__ values will supersede values bound to flow
 `inputs <#inputs>`__ with the same name.
 
-**Example - call to a divide operation with list of mapped task arguments**
+**Example - call to a divide operation with list of mapped step arguments**
 
 .. code-block:: yaml
 
@@ -819,7 +819,7 @@ contents.
 
 A flow is the basic executable unit of CloudSlang. A flow can run on its
 own or it can be used by another flow in the `do <#do>`__ property of a
-`task <#task>`__.
+`step <#step>`__.
 
 +----------------+------------+--------------------------------+----------------+--------------------------------+----------------------------+
 | Property       | Required   | Default                        | Value Type     | Description                    | More Info                  |
@@ -828,7 +828,7 @@ own or it can be used by another flow in the `do <#do>`__ property of a
 +----------------+------------+--------------------------------+----------------+--------------------------------+----------------------------+
 | ``inputs``     | no         | --                             | list           | inputs for the flow            | `inputs <#inputs>`__       |
 +----------------+------------+--------------------------------+----------------+--------------------------------+----------------------------+
-| ``workflow``   | yes        | --                             | map of tasks   | container for set of tasks     | `workflow <#workflow>`__   |
+| ``workflow``   | yes        | --                             | list of steps  | container for workflow steps   | `workflow <#workflow>`__   |
 +----------------+------------+--------------------------------+----------------+--------------------------------+----------------------------+
 | ``outputs``    | no         | --                             | list           | list of outputs                | `outputs <#outputs>`__     |
 +----------------+------------+--------------------------------+----------------+--------------------------------+----------------------------+
@@ -885,7 +885,7 @@ loop: for
 A for loop iterates through a `list <#iterating-through-a-list>`__ or a
 `map <#iterating-through-a-map>`__.
 
-The `iterative task <#iterative-task>`__ will run once for each element
+The `iterative step <#iterative-step>`__ will run once for each element
 in the list or key in the map.
 
 Iterating through a list
@@ -937,7 +937,7 @@ When iterating through a map, the ``for`` key is mapped to iteration
 variables for the key and value followed by ``in`` followed by a map or
 an expression that evaluates to a map.
 
-**Example - task that iterates through the values returned from an
+**Example - step that iterates through the values returned from an
 expression**
 
 .. code-block:: yaml
@@ -955,13 +955,13 @@ async_loop: for
 
 An asynchronous for loops in parallel branches over the items in a list.
 
-The `asynchronous task <#asynchronous-task>`__ will run one branch for
+The `asynchronous step <#asynchronous-step>`__ will run one branch for
 each element in the list.
 
 The ``for`` key is mapped to an iteration variable followed by ``in``
 followed by a list or an expression that evaluates to a list.
 
-**Example - task that asynchronously loops through the values in a
+**Example - step that asynchronously loops through the values in a
 list**
 
 .. code-block:: yaml
@@ -1000,7 +1000,7 @@ returns the ``default_value``.
           overridable: false
 
     workflow:
-      - task1:
+      - step1:
           do:
             print:
               - text: ${input1_safe}
@@ -1015,7 +1015,7 @@ returns the ``default_value``.
 get_sp()
 --------
 May appear in the value of an `input <#inputs>`__,
-`task <#task>`__ argument, `publish <#publish>`__, `output <#outputs>`__ or
+`step <#step>`__ argument, `publish <#publish>`__, `output <#outputs>`__ or
 `result <#results>`__ `expression <#expressions>`__.
 
 The function in the form of ``get_sp('key', 'default_value')`` returns the
@@ -1078,9 +1078,9 @@ aliases they will be referenced by in the file.
 
 Using an alias is one way to reference the
 `operations <#operation>`__ and `subflows <#flow>`__ used in a
-`flow's <#flow>`__ `tasks <#task>`__. For all the ways to reference
+`flow's <#flow>`__ `steps <#step>`__. For all the ways to reference
 `operations <#operation>`__ and `subflows <#flow>`__ used in a
-`flow's <#flow>`__ `tasks <#task>`__, see the `do <#do>`__ keyword and the
+`flow's <#flow>`__ `steps <#step>`__, see the `do <#do>`__ keyword and the
 :ref:`Operation Paths example <example_operation_paths>`.
 
 **Example - import operations and sublflow into flow**
@@ -1106,10 +1106,10 @@ Using an alias is one way to reference the
                 - input2: "3"
 
 In this example, the ``ops`` alias refers to the ```examples.utils`` namespace.
-This alias is used in the ``print_hi`` task to refer to the ``print`` operation,
+This alias is used in the ``print_hi`` step to refer to the ``print`` operation,
 whose source file defines its namespace as ``examples.utils``. Similarly, the
 ``subs`` alias refers to the ``examples.subflows`` namespace. The ``subs`` alias
-is used in the ``run_subflow`` task to refer to the ``division`` subflow, whose
+is used in the ``run_subflow`` step to refer to the ``division`` subflow, whose
 source file defines its namespace as ``examples.subflows``.
 
 .. _inputs:
@@ -1153,21 +1153,21 @@ loop
 ----
 
 The key ``loop`` is a property of an `iterative
-task's <#iterative-task>`__ name. It is mapped to the `iterative
-task's <#iterative-task>`__ properties.
+step's <#iterative-step>`__ name. It is mapped to the `iterative
+step's <#iterative-step>`__ properties.
 
 For each value in the loop's list the ``do`` will run an
 `operation <#operation>`__ or `subflow <#flow>`__. If the returned
 result is in the ``break`` list, or if ``break`` does not appear and the
 returned result is ``FAILURE``, or if the list has been exhausted, the
-task's navigation will run.
+step's navigation will run.
 
 +---------------+------------+-----------+-------------------------------------------------+--------------------------------------------------------------------------------+------------------------------------------------------------+
 | Property      | Required   | Default   | Value Type                                      | Description                                                                    | More Info                                                  |
 +===============+============+===========+=================================================+================================================================================+============================================================+
 | ``for``       | yes        | --        | variable ``in`` list or key, value ``in`` map   | iteration logic                                                                | `for <#for>`__                                             |
 +---------------+------------+-----------+-------------------------------------------------+--------------------------------------------------------------------------------+------------------------------------------------------------+
-| ``do``        | yes        | --        | operation or subflow call                       | the operation or subflow this task will run iteratively                        | `do <#do>`__, `operation <#operation>`__, `flow <#flow>`__ |
+| ``do``        | yes        | --        | operation or subflow call                       | the operation or subflow this step will run iteratively                        | `do <#do>`__, `operation <#operation>`__, `flow <#flow>`__ |
 +---------------+------------+-----------+-------------------------------------------------+--------------------------------------------------------------------------------+------------------------------------------------------------+
 | ``publish``   | no         | --        | list of key:value pairs                         | operation or subflow outputs to aggregate and publish to the flow level        | `publish <#publish>`__, `outputs <#outputs>`__             |
 +---------------+------------+-----------+-------------------------------------------------+--------------------------------------------------------------------------------+------------------------------------------------------------+
@@ -1200,7 +1200,7 @@ The key ``name`` is a property of `flow <#flow>`__ and
 name of the `flow <#flow>`__ or `operation <#operation>`__.
 
 The name of a `flow <#flow>`__ or `operation <#operation>`__ may be used
-when called from a `flow <#flow>`__'s `task <#task>`__.
+when called from a `flow <#flow>`__'s `step <#step>`__.
 
 The name of a `flow <#flow>`__ or `operation <#operation>`__ must match the name
 of the file in which it resides, excluding the extension.
@@ -1251,36 +1251,36 @@ section.
 navigate
 --------
 
-The key ``navigate`` is a property of a `task <#task>`__ name. It is
+The key ``navigate`` is a property of a `step <#step>`__ name. It is
 mapped to key:value pairs where the key is the received
-`result <#results>`__ and the value is the target `task <#task>`__ or
+`result <#results>`__ and the value is the target `step <#step>`__ or
 `flow <#flow>`__ `result <#results>`__.
 
-Defines the navigation logic for a `standard task <#standard-task>`__,
-an `iterative task <#iterative-task>`__ or an `asynchronous
-task <#asynchronous-task>`__. The flow will continue with the
-`task <#task>`__ or `flow <#flow>`__ `result <#results>`__ whose value
+Defines the navigation logic for a `standard step <#standard-step>`__,
+an `iterative step <#iterative-step>`__ or an `asynchronous
+step <#asynchronous-step>`__. The flow will continue with the
+`step <#step>`__ or `flow <#flow>`__ `result <#results>`__ whose value
 is mapped to the `result <#results>`__ returned by the called
 `operation <#operation>`__ or `subflow <#flow>`__.
 
 The default navigation is ``SUCCESS`` except for the
-`on_failure <#on-failure>`__ `task <#task>`__ whose default navigation
+`on_failure <#on-failure>`__ `step <#step>`__ whose default navigation
 is ``FAILURE``. All possible `results <#results>`__ returned by the
 called `operation <#operation>`__ or subflow must be handled.
 
-For a `standard task <#standard-task>`__ the navigation logic runs when
-the `task <#task>`__ is completed.
+For a `standard step <#standard-step>`__ the navigation logic runs when
+the `step <#step>`__ is completed.
 
-For an `iterative task <#iterative-task>`__ the navigation logic runs
-when the last iteration of the `task <#task>`__ is completed or after
+For an `iterative step <#iterative-step>`__ the navigation logic runs
+when the last iteration of the `step <#step>`__ is completed or after
 exiting the iteration due to a `break <#break>`__.
 
-For an `asynchronous task <#asynchronous-task>`__ the navigation logic
+For an `asynchronous step <#asynchronous-step>`__ the navigation logic
 runs after the last branch has completed. If any of the branches
 returned a `result <#results>`__ of ``FAILURE``, the `flow <#flow>`__
-will navigate to the `task <#task>`__ or `flow <#flow>`__
+will navigate to the `step <#step>`__ or `flow <#flow>`__
 `result <#results>`__ mapped to ``FAILURE``. Otherwise, the
-`flow <#flow>`__ will navigate to the `task <#task>`__ or
+`flow <#flow>`__ will navigate to the `step <#step>`__ or
 `flow <#flow>`__ `result <#results>`__ mapped to ``SUCCESS``. Note that
 the only `results <#results>`__ of an `operation <#operation>`__ or
 `subflow <#flow>`__ called in an `async_loop <#async-loop>`__ that are
@@ -1288,7 +1288,7 @@ evaluated are ``SUCCESS`` and ``FAILURE``. Any other results will be
 evaluated as ``SUCCESS``.
 
 **Example - ILLEGAL result will navigate to flow's FAILURE result and
-SUCCESS result will navigate to task named *printer***
+SUCCESS result will navigate to step named *printer***
 
 .. code-block:: yaml
 
@@ -1302,15 +1302,15 @@ on_failure
 -----------
 
 The key ``on_failure`` is a property of a `workflow <#workflow>`__. It
-is mapped to a `task <#task>`__.
+is mapped to a `step <#step>`__.
 
-Defines the `task <#task>`__, which when using default
+Defines the `step <#step>`__, which when using default
 `navigation <#navigate>`__, is the target of a ``FAILURE``
 `result <#results>`__ returned from an `operation <#operation>`__ or
-`flow <#flow>`__. The ``on_failure`` `task's <#task>`__
+`flow <#flow>`__. The ``on_failure`` `step's <#step>`__
 `navigation <#navigate>`__ defaults to ``FAILURE``.
 
-**Example - failure task which call a print operation to print an error
+**Example - failure step which call a print operation to print an error
 message**
 
 .. code-block:: yaml
@@ -1373,8 +1373,8 @@ names which may also contain `expression <#expressions>`__ values.
 Output `expressions <#expressions>`__ must evaluate to strings.
 
 Defines the parameters a `flow <#flow>`__ or `operation <#operation>`__
-exposes to possible `publication <#publish>`__ by a `task <#task>`__.
-The calling `task <#task>`__ refers to an output by its name.
+exposes to possible `publication <#publish>`__ by a `step <#step>`__.
+The calling `step <#step>`__ refers to an output by its name.
 
 See also `self <#self>`__.
 
@@ -1456,7 +1456,7 @@ An empty system properties file can be defined using an empty map.
 publish
 -------
 
-The key ``publish`` is a property of a `task <#task>`__ name, a
+The key ``publish`` is a property of a `step <#step>`__ name, a
 `loop <#loop>`__ or an `async_loop <#async-loop>`__. It is mapped to a
 list of key:value pairs where the key is the published variable name and
 the value is an `expression <#expressions>`__, usually involving an `output <#outputs>`__ received
@@ -1465,11 +1465,11 @@ from an `operation <#operation>`__ or `flow <#flow>`__.
 Standard publish
 ~~~~~~~~~~~~~~~~
 
-In a `standard task <#standard-task>`__, ``publish`` binds an
+In a `standard step <#standard-step>`__, ``publish`` binds an
 `expression <#expressions>`__, usually involving an
 `output <#outputs>`__ from an `operation <#operation>`__ or
 `flow <#flow>`__, to a variable whose scope is the current
-`flow <#flow>`__ and can therefore be used by other `tasks <#task>`__ or
+`flow <#flow>`__ and can therefore be used by other `steps <#step>`__ or
 as the `flow's <#flow>`__ own `output <#outputs>`__.
 
 **Example - publish the quotient output as ans**
@@ -1487,11 +1487,11 @@ as the `flow's <#flow>`__ own `output <#outputs>`__.
 Iterative publish
 ~~~~~~~~~~~~~~~~~
 
-In an `iterative task <#iterative-task>`__ the publish mechanism is run
+In an `iterative step <#iterative-step>`__ the publish mechanism is run
 during each iteration after the `operation <#operation>`__ or
 `subflow <#flow>`__ has completed, therefore allowing for aggregation.
 
-**Example - publishing in an iterative task to aggregate output**
+**Example - publishing in an iterative step to aggregate output**
 
 .. code-block:: yaml
 
@@ -1507,14 +1507,14 @@ during each iteration after the `operation <#operation>`__ or
 Asynchronous publish
 ~~~~~~~~~~~~~~~~~~~~
 
-In an `asynchronous task <#asynchronous-task>`__ the publish mechanism
+In an `asynchronous step <#asynchronous-step>`__ the publish mechanism
 is run during each branch after the `operation <#operation>`__ or
 `subflow <#flow>`__ has completed. Published variables and their values
 are added as a dictionary to the
 `branches_context <#branches-context>`__ list in the order they are
 received from finished branches, allowing for aggregation.
 
-**Example - publishing in an iterative task to aggregate output**
+**Example - publishing in an iterative step to aggregate output**
 
 .. code-block:: yaml
 
@@ -1538,7 +1538,7 @@ The key ``results`` is a property of a `flow <#flow>`__ or
 `operation <#operation>`__.
 
 The results of a `flow <#flow>`__ or `operation <#operation>`__ can be
-used by the calling `task <#task>`__ for `navigation <#navigate>`__
+used by the calling `step <#step>`__ for `navigation <#navigate>`__
 purposes.
 
 .. note::
@@ -1563,7 +1563,7 @@ to be used.
 
 All result possibilities must be listed. When being used as a subflow
 all `flow <#flow>`__ results must be handled by the calling
-`task <#task>`__.
+`step <#step>`__.
 
 **Example - a user-defined result**
 
@@ -1584,10 +1584,10 @@ Defines the possible results of the `operation <#operation>`__. By
 default, if no results exist, the result is ``SUCCESS``. The first
 result in the list whose expression evaluates to true, or does not have
 an expression at all, will be passed back to the calling
-`task <#task>`__ to be used for `navigation <#navigate>`__ purposes.
+`step <#step>`__ to be used for `navigation <#navigate>`__ purposes.
 
 All `operation <#operation>`__ results must be handled by the calling
-`task <#task>`__.
+`step <#step>`__.
 
 **Example - three user-defined results**
 
@@ -1646,21 +1646,21 @@ scope**
     publish:
       - total_cost: ${self['total_cost'] + cost}
 
-.. _task:
+.. _step:
 
-task
+step
 ----
 
-A name of a task which is a property of `workflow <#workflow>`__ or
+A name of a step which is a property of `workflow <#workflow>`__ or
 `on_failure <#on-failure>`__.
 
-There are several types of tasks:
+There are several types of steps:
 
--  `standard <#standard-task>`__
--  `iterative <#iterative-task>`__
--  `asynchronous <#asynchronous-task>`__
+-  `standard <#standard-step>`__
+-  `iterative <#iterative-step>`__
+-  `asynchronous <#asynchronous-step>`__
 
-**Example - task with two inputs, one of which contains a default value**
+**Example - step with two inputs, one of which contains a default value**
 
 .. code-block:: yaml
 
@@ -1670,25 +1670,25 @@ There are several types of tasks:
             - host
             - port: 25
 
-Standard Task
+Standard Step
 ~~~~~~~~~~~~~
 
-A standard task calls an `operation <#operation>`__ or
+A standard step calls an `operation <#operation>`__ or
 `subflow <#flow>`__ once.
 
-The task name is mapped to the task's properties.
+The step name is mapped to the step's properties.
 
 +----------------+------------+-------------------------------------------------------------------+-----------------------------+---------------------------------------------------+------------------------------------------------------------+
 | Property       | Required   | Default                                                           | Value Type                  | Description                                       | More Info                                                  |
 +================+============+===================================================================+=============================+===================================================+============================================================+
-| ``do``         | yes        | --                                                                | operation or subflow call   | the operation or subflow this task will run       | `do <#do>`__, `operation <#operation>`__, `flow <#flow>`__ |
+| ``do``         | yes        | --                                                                | operation or subflow call   | the operation or subflow this step will run       | `do <#do>`__, `operation <#operation>`__, `flow <#flow>`__ |
 +----------------+------------+-------------------------------------------------------------------+-----------------------------+---------------------------------------------------+------------------------------------------------------------+
 | ``publish``    | no         | --                                                                | list of key:value pairs     | operation outputs to publish to the flow level    | `publish <#publish>`__, `outputs <#outputs>`__             |
 +----------------+------------+-------------------------------------------------------------------+-----------------------------+---------------------------------------------------+------------------------------------------------------------+
-| ``navigate``   | no         | ``FAILURE``: on_failure or flow finish; ``SUCCESS``: next task    | key:value pairs             | navigation logic from operation or flow results   | `navigation <#navigate>`__, `results <#results>`__         |
+| ``navigate``   | no         | ``FAILURE``: on_failure or flow finish; ``SUCCESS``: next step    | key:value pairs             | navigation logic from operation or flow results   | `navigation <#navigate>`__, `results <#results>`__         |
 +----------------+------------+-------------------------------------------------------------------+-----------------------------+---------------------------------------------------+------------------------------------------------------------+
 
-**Example - task that performs a division of two inputs, publishes the
+**Example - step that performs a division of two inputs, publishes the
 answer and navigates accordingly**
 
 .. code-block:: yaml
@@ -1704,24 +1704,24 @@ answer and navigates accordingly**
           ILLEGAL: FAILURE
           SUCCESS: printer
 
-Iterative Task
+Iterative Step
 ~~~~~~~~~~~~~~
 
-An iterative task calls an `operation <#operation>`__ or
+An iterative step calls an `operation <#operation>`__ or
 `subflow <#flow>`__ iteratively, for each value in a list.
 
-The task name is mapped to the iterative task's properties.
+The step name is mapped to the iterative step's properties.
 
 +----------------+------------+-------------------------------------------------------------------+-------------------+---------------------------------------------------------------------------------------------------------+-----------------------------------------------------+
 | Property       | Required   | Default                                                           | Value Type        | Description                                                                                             | More Info                                           |
 +================+============+===================================================================+===================+=========================================================================================================+=====================================================+
 | ``loop``       | yes        | --                                                                | key               | container for loop properties                                                                           | `for <#for>`__                                      |
 +----------------+------------+-------------------------------------------------------------------+-------------------+---------------------------------------------------------------------------------------------------------+-----------------------------------------------------+
-| ``navigate``   | no         | ``FAILURE``: on_failure or flow finish; ``SUCCESS``: next task    | key:value pairs   | navigation logic from `break <#break>`__ or the result of the last iteration of the operation or flow   | `navigation <#navigate>`__, `results <#results>`__  |
+| ``navigate``   | no         | ``FAILURE``: on_failure or flow finish; ``SUCCESS``: next step    | key:value pairs   | navigation logic from `break <#break>`__ or the result of the last iteration of the operation or flow   | `navigation <#navigate>`__, `results <#results>`__  |
 +----------------+------------+-------------------------------------------------------------------+-------------------+---------------------------------------------------------------------------------------------------------+-----------------------------------------------------+
 
-**Example - task prints all the values in value_list and then navigates
-to a task named "another_task"**
+**Example - step prints all the values in value_list and then navigates
+to a step named "another_step"**
 
 .. code-block:: yaml
 
@@ -1732,17 +1732,17 @@ to a task named "another_task"**
             print:
               - text: ${value}
         navigate:
-          SUCCESS: another_task
+          SUCCESS: another_step
           FAILURE: FAILURE
 
-Asynchronous Task
+Asynchronous Step
 ~~~~~~~~~~~~~~~~~
 
-An asynchronous task calls an `operation <#operation>`__ or
+An asynchronous step calls an `operation <#operation>`__ or
 `subflow <#flow>`__ asynchronously, in parallel branches, for each value
 in a list.
 
-The task name is mapped to the asynchronous task's properties.
+The step name is mapped to the asynchronous step's properties.
 
 +------------------+------------+-------------------------------------------------------------------+----------------------+-------------------------------------------+-----------------------------------------------------+
 | Property         | Required   | Default                                                           | Value Type           | Description                               | More Info                                           |
@@ -1751,11 +1751,11 @@ The task name is mapped to the asynchronous task's properties.
 +------------------+------------+-------------------------------------------------------------------+----------------------+-------------------------------------------+-----------------------------------------------------+
 | ``aggregate``    | no         | --                                                                | list of key:values   | values to aggregate from async branches   | `aggregate <#aggregate>`__                          |
 +------------------+------------+-------------------------------------------------------------------+----------------------+-------------------------------------------+-----------------------------------------------------+
-| ``navigate``     | no         | ``FAILURE``: on_failure or flow finish; ``SUCCESS``: next task    | key:value pairs      | navigation logic                          | `navigation <#navigate>`__, `results <#results>`__  |
+| ``navigate``     | no         | ``FAILURE``: on_failure or flow finish; ``SUCCESS``: next step    | key:value pairs      | navigation logic                          | `navigation <#navigate>`__, `results <#results>`__  |
 +------------------+------------+-------------------------------------------------------------------+----------------------+-------------------------------------------+-----------------------------------------------------+
 
-**Example - task prints all the values in value_list asynchronously and
-then navigates to a task named "another_task"**
+**Example - step prints all the values in value_list asynchronously and
+then navigates to a step named "another_step"**
 
 .. code-block:: yaml
 
@@ -1770,7 +1770,7 @@ then navigates to a task named "another_task"**
         aggregate:
             - name_list: ${map(lambda x:str(x['name']), branches_context)}
         navigate:
-            SUCCESS: another_task
+            SUCCESS: another_step
             FAILURE: FAILURE
 
 .. _workflow:
@@ -1779,13 +1779,13 @@ workflow
 --------
 
 The key ``workflow`` is a property of a `flow <#flow>`__. It is mapped
-to a list of the workflow's `tasks <#task>`__.
+to a list of the workflow's `steps <#step>`__.
 
-Defines a container for the `tasks <#task>`__, their `published
+Defines a container for the `steps <#step>`__, their `published
 variables <#publish>`__ and `navigation <#navigate>`__ logic.
 
-The first `task <#task>`__ in the workflow is the starting
-`task <#task>`__ of the flow. From there the flow continues sequentially
+The first `step <#step>`__ in the workflow is the starting
+`step <#step>`__ of the flow. From there the flow continues sequentially
 by default upon receiving `results <#results>`__ of ``SUCCESS``, to the
 flow finish or to `on_failure <#on-failure>`__ upon a
 `result <#results>`__ of ``FAILURE``, or following whatever overriding
@@ -1794,7 +1794,7 @@ flow finish or to `on_failure <#on-failure>`__ upon a
 +------------------+------------+-----------+--------------+---------------------------------------------+--------------------------------------------------+
 | Propery          | Required   | Default   | Value Type   | Description                                 | More Info                                        |
 +==================+============+===========+==============+=============================================+==================================================+
-| ``on_failure``   | no         | --        | task         | default navigation target for ``FAILURE``   | `on_failure <#on-failure>`__, `task <#task>`__   |
+| ``on_failure``   | no         | --        | step         | default navigation target for ``FAILURE``   | `on_failure <#on-failure>`__, `step <#step>`__   |
 +------------------+------------+-----------+--------------+---------------------------------------------+--------------------------------------------------+
 
 **Example - workflow that divides two numbers and prints them out if the

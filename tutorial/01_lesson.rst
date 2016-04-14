@@ -68,11 +68,11 @@ CloudSlang executable contructs, flows and operations.
 
 Generally, CloudSlang treats flows and operations similarly. Flows and
 operations can both receive inputs, produce outputs, return results and can be
-called by a flow’s task.
+called by a flow’s step.
 
 But flows and operations serve different purposes. An operation contains an
 action, which can be written in Python or Java. Operations perform the “work”
-part of the workflow. A flow contains tasks, which stitch together the actions
+part of the workflow. A flow contains steps, which stitch together the actions
 performed by operations (or subflows), navigating and passing data from one
 to the other based on operation results and outputs. Flows perform the “flow”
 part of the workflow.

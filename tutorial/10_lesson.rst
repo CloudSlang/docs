@@ -5,7 +5,7 @@ Goal
 ----
 
 In this lesson we'll learn how to use a for loop to create an iterative
-task.
+step.
 
 Get Started
 -----------
@@ -13,13 +13,13 @@ Get Started
 The idea here is to continually try the ``create_user_email`` subflow
 until it either creates an available address or fails. To do so, we
 should be able to leave the subflow as is and just work on the
-``create_email_address`` task in **new_hire.sl**.
+``create_email_address`` step in **new_hire.sl**.
 
 Loop Syntax
 -----------
 
-An iterative task looks very similar to a standard task that only runs
-once. To transform our ``create_email_address`` task into one that loops
+An iterative step looks very similar to a standard step that only runs
+once. To transform our ``create_email_address`` step into one that loops
 we'll add the ``loop`` key along with a loop expression and indent the
 ``do`` and ``publish`` sections. For now, we'll loop over a list of
 numbers.
@@ -102,7 +102,7 @@ are ``FAILURE``, the loop will continue to run.
 when the ``3`` is passed to its ``attempt`` input. The loop exits on the
 ``FAILURE`` result by default and goes to its navigate section which
 forwards it to ``print_fail``. Since ``print_fail`` is the
-``on_failure`` task, it ends the flow with a result of ``FAILURE``.
+``on_failure`` step, it ends the flow with a result of ``FAILURE``.
 
 **Case 2:** This case is very similar to the previous one. The only
 difference is that the ``generate_user_email`` operation will return a
@@ -118,10 +118,10 @@ it we removed the 4th item from the list the same thing will happen.
 returning results of either ``CREATED`` or ``UNAVAILABLE``. Since
 neither of those are ``FAILURE``, the loop will only exit when the list
 is exhausted. At that point the result from the last iteration of the
-task will be used by the navigation to see where the flow goes next. If
-the last iteration's result is ``CREATED``, the ``print_finish`` task
+step will be used by the navigation to see where the flow goes next. If
+the last iteration's result is ``CREATED``, the ``print_finish`` step
 will run and the flow will end with a result of ``SUCCESS``. If the last
-iteration's result is ``UNAVAILABLE``, the ``print_fail`` task will run
+iteration's result is ``UNAVAILABLE``, the ``print_fail`` step will run
 and the flow will end with a result of ``FAILURE``.
 
 Custom Break
@@ -160,7 +160,7 @@ mapping the ``break`` key to an empty list (``[]``).
 
 The published ``address`` variable will contain the ``address`` value
 from the last iteration of the loop. We can use at the same way
-published variables are used in regular tasks. However, when using
+published variables are used in regular steps. However, when using
 loops, you often want to aggregate the published output. We will do that
 in the next lesson.
 

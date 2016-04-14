@@ -26,7 +26,7 @@ workflow. It works the same way as inputs to an operation.
 
 Just as with an operation, values for the inputs of a flow are either
 passed via the :doc:`CloudSlang CLI <../cloudslang_cli>`, as we do below
-in this lesson, or from a task in a calling flow, as in lesson :doc:`9 -
+in this lesson, or from a step in a calling flow, as in lesson :doc:`9 -
 Subflows <09_lesson>`.
 
 Inputs can also have related parameters, such as ``required``,
@@ -34,14 +34,14 @@ Inputs can also have related parameters, such as ``required``,
 these parameters in lessons :doc:`8 - Input Parameters <08_lesson>` and
 :doc:`13 - System Properties <13_lesson>`.
 
-New Task
+New Step
 --------
 
-Now we can add a new task to our flow. We'll add it right after the
-``print_start`` task and call it ``check_address``. Here, since both the
+Now we can add a new step to our flow. We'll add it right after the
+``print_start`` step and call it ``check_address``. Here, since both the
 flow and the operation are in the same folder, the ``do`` section does
 not need to use an alias or path to reference the operation like we
-needed with the ``print`` operation in the ``print_start`` task.
+needed with the ``print`` operation in the ``print_start`` step.
 
 .. code-block:: yaml
 
@@ -52,9 +52,9 @@ needed with the ``print`` operation in the ``print_start`` task.
         publish:
           - availability: ${available}
 
-First note that in the ``check_address`` task, the ``address`` input
+First note that in the ``check_address`` step, the ``address`` input
 name is not given an explicit value, as the ``text`` input is given in
-the ``print_start`` task. It's not necessary here because the
+the ``print_start`` step. It's not necessary here because the
 ``address`` input name in the ``check_availability`` operation matches
 the ``address`` input name in the flow. The value input to the flow will
 get passed to the operation input with the same name.
@@ -62,25 +62,25 @@ get passed to the operation input with the same name.
 Publish
 -------
 
-Also notice that we've added the ``publish`` section to this task. This
+Also notice that we've added the ``publish`` section to this step. This
 is the spot where we publish the outputs returned from the operation to
 the flow's scope. In our case, the ``check_availability`` operation
 returns an output named ``available`` and we publish it to the flow's
 scope under the name ``availability``. We'll use the ``availability``
 variable momentarily in an input expression in another of the flow's
-tasks.
+steps.
 
 For more information, see :ref:`publish` in the DSL reference.
 
 Input Expression
 ----------------
 
-We'll add one more task to our flow for now to demonstrate the default
-navigation behavior. This new task calls the ``print`` operation again
+We'll add one more step to our flow for now to demonstrate the default
+navigation behavior. This new step calls the ``print`` operation again
 to print out whether the email address that was provided is available.
 We pass a string which contains a Python expression to the ``text``
 input. Note that we are using the published output from the previous
-task along with some of the flow input variables in the expression.
+step along with some of the flow input variables in the expression.
 
 .. code-block:: yaml
 
@@ -106,7 +106,7 @@ result is ``FAILURE``.
     run --f <folder path>/tutorials/hiring/new_hire.sl --cp <folder path>/tutorials --i address=john.doe@somecompany.com
 
 When the check_availability operation returns a result of ``SUCCESS``
-the flow continues with the next task and prints out the availability
+the flow continues with the next step and prints out the availability
 message. However, when the check_availability operation returns a
 result of ``FAILURE`` the flow ends immediately with a result of
 ``FAILURE``. This is the default navigation behavior.

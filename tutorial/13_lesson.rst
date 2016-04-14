@@ -55,7 +55,7 @@ documentation.
 Retrieve Values
 ---------------
 
-Now we'll use the system properties to place values in our inputs and task
+Now we'll use the system properties to place values in our inputs and step
 arguments. We retrieve system property values using the ``get_sp()`` function.
 We'll do this in two places.
 
@@ -85,7 +85,7 @@ argument.
 
 The second place we'll use system properties is in the ``new_hire``
 flow. Here we'll retrieve the system properties in the arguments of
-the ``send_mail`` task we created last lesson. We'll use the ``get_sp()``
+the ``send_mail`` step we created last lesson. We'll use the ``get_sp()``
 function to get the ``hostname``, ``port``, ``from`` and ``to`` default
 values from the system properties file.
 

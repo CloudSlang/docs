@@ -68,7 +68,7 @@ Loop Syntax
 An asynchronous loop looks pretty similar to a normal for loop, but with
 a few key differences.
 
-Let's create a new task named ``process_all`` in which we'll do our
+Let's create a new step named ``process_all`` in which we'll do our
 looping. Each branch of the loop will call the ``new_hire`` flow.
 
 .. code-block:: yaml
@@ -203,8 +203,8 @@ navigation path of ``FAILURE``. Otherwise, the flow will follow the
 Here we'll add navigation logic that mimics the default behavior. If any
 one of our branches returns a result of ``FAILURE`` because an email
 address was not generated or there was a problem sending an email, then
-the flow will navigate to the ``print_failure`` task. Otherwise, it will
-navigate to the ``print_success`` task.
+the flow will navigate to the ``print_failure`` step. Otherwise, it will
+navigate to the ``print_success`` step.
 
 .. code-block:: yaml
 
@@ -250,11 +250,11 @@ Here is the contents of our **hires.yaml** input file that we created in the
 
 For more information, see :ref:`Using an Inputs File <using_an_inputs_file>` in the CLI documentation.
 
-Tasks
+Steps
 -----
 
-Finally, we have to add the tasks we referred to in the navigation
-section. We can put them right after the ``process_all`` task.
+Finally, we have to add the steps we referred to in the navigation
+section. We can put them right after the ``process_all`` step.
 
 .. code-block:: yaml
 
@@ -278,7 +278,7 @@ Run It
 
 We can save the files and run the flow. It's a bit harder to track what
 has happened now because there are quite a few things happening at once.
-On careful inspection you will see that each task in the ``new_hire``
+On careful inspection you will see that each step in the ``new_hire``
 flow, and in each of its subflows, is run for each of the people in the
 ``names_list`` input.
 

@@ -42,7 +42,7 @@ Let's call the alias ``base``.
     imports:
       base: tutorials.base
 
-Now we can use ``base.print`` to refer to the ``print`` operation in a task.
+Now we can use ``base.print`` to refer to the ``print`` operation in a step.
 We'll do that in a moment.
 
 For more information, see :ref:`imports` in the DSL reference.
@@ -66,13 +66,13 @@ of the file it is stored in.
 
 For more information, see :ref:`flow` in the DSL reference.
 
-Tasks
+Steps
 -----
 
 The next part of our flow will be the workflow. The ``workflow`` key
-maps to a list of all the tasks in the flow. We'll start off with just
-one task, the one that calls our print operation. Each task in a
-workflow starts with a key that is its name. We'll call our task
+maps to a list of all the steps in the flow. We'll start off with just
+one step, the one that calls our print operation. Each step in a
+workflow starts with a key that is its name. We'll call our step
 ``print_start``.
 
 .. code-block:: yaml
@@ -82,7 +82,7 @@ workflow starts with a key that is its name. We'll call our task
 
 For more information, see :ref:`workflow` in the DSL reference.
 
-A task can contain several parts, but we'll start with a simple task
+A step can contain several parts, but we'll start with a simple step
 with the only required part, the ``do`` key. We want to call the print
 operation. In this case we'll reference it using the alias we created up
 in the flow's ``imports`` section. Also, we'll have to pass any required
@@ -95,7 +95,7 @@ which we'll add to a list under the operation call and pass it a value.
       base.print:
         - text: "Starting new hire process"
 
-In addition to the required ``do``, a task can also contain the optional
+In addition to the required ``do``, a step can also contain the optional
 ``publish`` and ``navigate`` keys. We begin to use their functionality
 in lessons :doc:`5 - Default Navigation <05_lesson>` and :doc:`7 - Custom
 Navigation <07_lesson>` respectively.
@@ -120,7 +120,7 @@ following at the prompt.
    :ref:`Run with Dependencies <run_with_dependencies>` in the DSL reference.
 
 
-You should see the name of the task and the string sent to the print
+You should see the name of the step and the string sent to the print
 operation printed to the screen.
 
 Download the Code

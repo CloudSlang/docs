@@ -37,7 +37,7 @@ the same time.
 There are two main types of CloudSlang content, operations and flows. An
 operation contains an action, which can be written in Python or Java.
 Operations perform the "work" part of the workflow. A flow contains
-tasks, which stitch together the actions performed by operations,
+steps, which stitch together the actions performed by operations,
 navigating and passing data from one to the other based on operation
 results and outputs. Flows perform the "flow" part of the workflow.
 

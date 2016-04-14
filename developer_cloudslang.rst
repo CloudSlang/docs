@@ -310,19 +310,19 @@ event data map keys are enclosed in square brackets - [KEYNAME].
 +-------------------------------+---------------------------------------------------+--------------------------------------------------------------------------+
 | EVENT_INPUT_END               | Input binding finished for flow or operation      | [BOUND_INPUTS]                                                           |
 +-------------------------------+---------------------------------------------------+--------------------------------------------------------------------------+
-| EVENT_TASK_START              | Task step started                                 |                                                                          |
+| EVENT_STEP_START              | Step started                                      |                                                                          |
 +-------------------------------+---------------------------------------------------+--------------------------------------------------------------------------+
-| EVENT_ARGUMENT_START          | Argument binding started for task                 | [ARGUMENTS]                                                              |
+| EVENT_ARGUMENT_START          | Argument binding started for step                 | [ARGUMENTS]                                                              |
 +-------------------------------+---------------------------------------------------+--------------------------------------------------------------------------+
-| EVENT_ARGUMENT_END            | Task arguments resolved                           | [BOUND_ARGUMENTS]                                                        |
+| EVENT_ARGUMENT_END            | Step arguments resolved                           | [BOUND_ARGUMENTS]                                                        |
 +-------------------------------+---------------------------------------------------+--------------------------------------------------------------------------+
 | EVENT_OUTPUT_START            | Output binding started for flow or operation      | [executableResults], [executableOutputs], [actionReturnValues]           |
 +-------------------------------+---------------------------------------------------+--------------------------------------------------------------------------+
 | EVENT_OUTPUT_END              | Output binding finished for flow or operation     | [OUTPUTS], [RESULT], [EXECUTABLE_NAME]                                   |
 +-------------------------------+---------------------------------------------------+--------------------------------------------------------------------------+
-| EVENT_OUTPUT_START            | Output binding started for task                   | [operationReturnValues], [taskNavigationValues], [taskPublishValues]     |
+| EVENT_OUTPUT_START            | Output binding started for step                   | [operationReturnValues], [stepNavigationValues], [stepPublishValues]     |
 +-------------------------------+---------------------------------------------------+--------------------------------------------------------------------------+
-| EVENT_OUTPUT_END              | Output binding finished for task                  | [nextPosition], [RESULT], [OUTPUTS]                                      |
+| EVENT_OUTPUT_END              | Output binding finished for step                  | [nextPosition], [RESULT], [OUTPUTS]                                      |
 +-------------------------------+---------------------------------------------------+--------------------------------------------------------------------------+
 | EVENT_EXECUTION_FINISHED      | Execution finished running                        | [RESULT], [OUTPUTS]                                                      |
 +-------------------------------+---------------------------------------------------+--------------------------------------------------------------------------+
@@ -338,7 +338,7 @@ event data map keys are enclosed in square brackets - [KEYNAME].
 +-------------------------------+---------------------------------------------------+--------------------------------------------------------------------------+
 | EVENT_BRANCH_END              | Async loop branch ended                           | [branchReturnValues]                                                     |
 +-------------------------------+---------------------------------------------------+--------------------------------------------------------------------------+
-| EVENT_JOIN_BRANCHES_START     | Async loop output binding started                 | [taskNavigationValues], [taskAggregateValues]                            |
+| EVENT_JOIN_BRANCHES_START     | Async loop output binding started                 | [stepNavigationValues], [stepAggregateValues]                            |
 +-------------------------------+---------------------------------------------------+--------------------------------------------------------------------------+
 | EVENT_JOIN_BRANCHES_END       | Async loop output binding finished                | [nextPosition], [RESULT], [OUTPUTS]                                      |
 +-------------------------------+---------------------------------------------------+--------------------------------------------------------------------------+
