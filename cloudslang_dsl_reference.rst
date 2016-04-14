@@ -983,6 +983,10 @@ May appear in the value of an `input <#inputs>`__,
 `expression <#expressions>`__ or `result <#results>`__
 `expression <#expressions>`__.
 
+The function in the form of ``get('key')`` returns the value associated with
+``key`` if the key is defined. If the key is undefined the function returns
+``None``.
+
 The function in the form of ``get('key', 'default_value')`` returns the
 value associated with ``key`` if the key is defined and its value is not
 ``None``. If the key is undefined or its value is ``None`` the function
