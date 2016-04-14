@@ -75,7 +75,7 @@ to print. We'll name our input ``text``.
 
 The values for the inputs are either passed via the :doc:`CloudSlang
 CLI <../cloudslang_cli>`, as we do below in this lesson, or from a
-task in a flow, as we will do in the next lesson.
+step in a flow, as we will do in the next lesson.
 
 Inputs can also have related parameters, such as ``required``,
 ``default`` and ``overridable``. We will discuss these parameters in lessons

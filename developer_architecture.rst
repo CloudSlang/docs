@@ -11,7 +11,7 @@ source file must undergo a process to transform it into a Score
 Precompilation
 --------------
 
-In the precompilation process, the source file is loaded, along with its 
+In the precompilation process, the source file is loaded, along with its
 dependencies if necessary, and parsed. The CloudSlang
 file's YAML structure is translated into Java maps by the ``YamlParser``
 using `snakeyaml <http://snakeyaml.org>`__. The parsed structure is
@@ -54,7 +54,7 @@ Generally, CloudSlang treats flows and operations similarly.
 Flows and operations both:
 
 -  Receive inputs, produce outputs, and have navigation logic.
--  Can be called by a flow's task.
+-  Can be called by a flow's step.
 -  Are compiled to ``ExecutionPlan``\ s that can be run by Score.
 
 Scoped Contexts
@@ -86,18 +86,18 @@ steps are built using their corresponding methods in the
 There are five types of :ref:`ExecutionSteps <execution_step>` used to build
 a CloudSlang :ref:`ExecutionPlan <execution_plan>`:
 
--  Start Step
+-  Start
+-  End 
+-  Begin Step
 -  End Step
--  Begin Task Step
--  End Task Step
--  Action Step
+-  Action
 
 An operation's :ref:`ExecutionPlan <execution_plan>`
 is built from a Start Step, an Action Step and an End Step.
 
 A flow's :ref:`ExecutionPlan <execution_plan>` is
-built from a Start Step, a series of Begin Task Steps and End Task
-Steps, and an End Step. The task steps hand off the execution to other
+built from a Start Step, a series of Begin Step Steps and End Step
+Steps, and an End Step. The step steps hand off the execution to other
 :ref:`ExecutionPlan <execution_plan>` objects representing operations or subflows.
 
 .. figure:: images/execution_steps.png

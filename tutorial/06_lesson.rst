@@ -18,8 +18,8 @@ Failure Handling
 ----------------
 
 There is special syntax that can be used for handling ``FAILURE``
-results by default. We wrap a task inside the ``on_failure`` key. Let's
-add this functionality after the ``print_finish`` task.
+results by default. We wrap a step inside the ``on_failure`` key. Let's
+add this functionality after the ``print_finish`` step.
 
 .. code-block:: yaml
 
@@ -29,8 +29,8 @@ add this functionality after the ``print_finish`` task.
             base.print:
               - text: "${'Failed to create address: ' + address}"
 
-Now, when any task receives a result of ``FAILURE`` from its operation
-the flow will navigate to the ``on_failure`` task by default.
+Now, when any step receives a result of ``FAILURE`` from its operation
+the flow will navigate to the ``on_failure`` step by default.
 
 For more information, see :ref:`on_failure` in the DSL reference.
 
@@ -46,14 +46,14 @@ lesson. This time, however, things should work slightly differently.
 
 In the case of the ``check_availability`` operation returning a result
 of ``SUCCESS`` we expect the flow to behave exactly as it did before.
-Notice that this means it will know not to run the ``on_failure`` task
+Notice that this means it will know not to run the ``on_failure`` step
 without us adding any navigation instructions. This is part of the
 default navigation behavior.
 
 In the case of the ``check_availability`` operation returning a result
 of ``FAILURE`` the flow will no longer terminate immediately with a
 result of ``FAILURE``. Instead, the flow will continue by running the
-``on_failure`` task, which in our case prints out an error message.
+``on_failure`` step, which in our case prints out an error message.
 
 Download the Code
 -----------------
