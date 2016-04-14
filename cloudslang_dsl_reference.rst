@@ -1657,7 +1657,7 @@ The step name is mapped to the step's properties.
 +----------------+------------+-------------------------------------------------------------------+-----------------------------+---------------------------------------------------+------------------------------------------------------------+
 | ``publish``    | no         | --                                                                | list of key:value pairs     | operation outputs to publish to the flow level    | `publish <#publish>`__, `outputs <#outputs>`__             |
 +----------------+------------+-------------------------------------------------------------------+-----------------------------+---------------------------------------------------+------------------------------------------------------------+
-| ``navigate``   | no         | ``FAILURE``: on_failure or flow finish; ``SUCCESS``: next step    | key:value pairs             | navigation logic from operation or flow results   | `navigation <#navigate>`__, `results <#results>`__         |
+| ``navigate``   | no         | ``FAILURE``: on_failure or flow finish; ``SUCCESS``: next step    | list of key:value pairs             | navigation logic from operation or flow results   | `navigation <#navigate>`__, `results <#results>`__         |
 +----------------+------------+-------------------------------------------------------------------+-----------------------------+---------------------------------------------------+------------------------------------------------------------+
 
 **Example - step that performs a division of two inputs, publishes the
