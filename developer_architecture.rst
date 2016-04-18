@@ -86,19 +86,20 @@ steps are built using their corresponding methods in the
 There are five types of :ref:`ExecutionSteps <execution_step>` used to build
 a CloudSlang :ref:`ExecutionPlan <execution_plan>`:
 
--  Start
--  End 
--  Begin Step
--  End Step
--  Action
+-  **Start**
+-  **End**
+-  **Begin Step**
+-  **End Step**
+-  **Action**
 
 An operation's :ref:`ExecutionPlan <execution_plan>`
-is built from a Start Step, an Action Step and an End Step.
+is built from a **Start** step, an **Action** step and an **End** step.
 
 A flow's :ref:`ExecutionPlan <execution_plan>` is
-built from a Start Step, a series of Begin Step Steps and End Step
-Steps, and an End Step. The step steps hand off the execution to other
-:ref:`ExecutionPlan <execution_plan>` objects representing operations or subflows.
+built from a **Start** step, a series of **Begin Step** steps and **End Step**
+steps, and an **End** step. Each step's ``ExecutionSteps`` hand off the
+execution to other :ref:`ExecutionPlan <execution_plan>` objects representing
+operations or subflows.
 
 .. figure:: images/execution_steps.png
    :alt: Execution Steps
