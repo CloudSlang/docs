@@ -719,6 +719,53 @@ empty list (``[]``).
           - text: ${value}
       break: []
 
+.. _check_empty:
+
+check_empty()
+-------------
+
+May appear in the value of an `input <#inputs>`__,
+`output <#outputs>`__, `publish <#publish>`__, `loop <#for>`__
+`expression <#expressions>`__ or `result <#results>`__
+`expression <#expressions>`__.
+
+The function in the form of ``check_empty(expression1, expression2)`` returns
+the value associated with ``expression1`` if ``expression1`` does not evaluate
+to ``None``. If ``expression1`` evaluates to ``None`` the function returns the
+value associated with ``expression2``.
+
+**Example - usage of check_empty to check operation output in a flow**
+
+.. code-block:: yaml
+
+    flow:
+      name: flow
+      inputs:
+        - in1
+      workflow:
+        - step1:
+            do:
+              operation:
+                - in1
+            publish:
+              - pub1: ${check_empty(out1, 'x marks the spot')}
+              #if in1 was not 'x' then out1 is 'not x' and pub1 is therefore 'not x'
+              #if in1 was 'x' then out1 is None and pub1 is therefore 'x marks the spot' 
+      outputs:
+        - pub1
+
+.. code-block:: yaml
+
+    operation:
+      name: operation
+      inputs:
+        - in1
+      action:
+        python_script: |
+          out1 = 'not x' if in1 != 'x' else None
+      outputs:
+        - out1
+
 .. _default:
 
 default
