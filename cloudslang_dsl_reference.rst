@@ -35,15 +35,18 @@ The following properties are for all types of CloudSlang files. For
 properties specific to `flow <#flow>`__, `operation <#operation>`__, or
 `system properties <#properties>`__ files, see their respective sections below.
 
-+-----------------+------------+-----------+---------------------------+-------------------------------------------+------------------------------+
-| Property        | Required   | Default   | Value Type                | Description                               | More Info                    |
-+=================+============+===========+===========================+===========================================+==============================+
-| ``namespace``   | no         | --        | string                    | namespace of the file                     | `namespace <#namespace>`__   |
-+-----------------+------------+-----------+---------------------------+-------------------------------------------+------------------------------+
-| ``imports``     | no         | --        | list of key:value pairs   | files to import                           | `imports <#imports>`__       |
-+-----------------+------------+-----------+---------------------------+-------------------------------------------+------------------------------+
-| ``extensions``  | no         | --        | --                        | information to be ignored by the compiler | `extensions <#extensions>`__ |
-+-----------------+------------+-----------+---------------------------+-------------------------------------------+------------------------------+
++----------------+----------+---------+-------------------+---------------------------+----------------------------+
+| Property       | Required | Default | Value Type        | Description               | More Info                  |
++================+==========+=========+===================+===========================+============================+
+| ``namespace``  | no       | --      | string            | | namespace               | `namespace <#namespace>`__ |
+|                |          |         |                   | | of the file             |                            |
++----------------+----------+---------+-------------------+---------------------------+----------------------------+
+| ``imports``    | no       | --      | | list of         | files to import           |  `imports <#imports>`__    |
+|                |          |         | | key:value pairs |                           |                            |
++----------------+----------+---------+-------------------+---------------------------+----------------------------+
+| ``extensions`` | no       | --      | --                | | information to be       | `extensions <#extensions>`_|
+|                |          |         |                   | | ignored by the compiler |                            |
++----------------+----------+---------+-------------------+---------------------------+----------------------------+
 
 Variable names in CloudSlang files cannot contain localized characters. In
 general, CloudSlang variable names must conform to both `Python's naming
