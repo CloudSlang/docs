@@ -10,9 +10,10 @@ instance of Score using the :ref:`Slang API <slang_api>`.
 
 This reference begins with a brief introduction to CloudSlang files and
 their structure, then continues with a brief explanation of CloudSlang
-expressions, and ends with an alphabetical listing of CloudSlang keywords
-and concepts. See the :doc:`examples <cloudslang_examples>` section for the full
-code examples from which many of the code snippets in this reference are taken.
+expressions and variable contexts, and ends with an alphabetical listing of
+CloudSlang keywords and concepts. See the :doc:`examples <cloudslang_examples>`
+section for the full code examples from which many of the code snippets in this
+reference are taken.
 
 .. _cloudslang_files:
 
@@ -226,6 +227,56 @@ approach detailed above is the recommended one.
     - map3: "${{'a key': 1, 'b': 'c'}}"
     - map4: >
         ${{'a key': 1, 'b': 'c'}}
+
+.. _contexts:
+
+Contexts
+========
+
+Throughout the execution of a flow, its steps, operations and subflows there are
+different variable contexts that are accessible. Which contexts are accessible
+depends on the current section of the flow or operation.
+
+The table below summarizes the accessible contexts at any given location in a
+flow or operation. At locations where more than one context is accessible, the
+context labeled as **P0** overrides the context labeled as **P1**.
+
++------------------+--------------+-----------+-------------+-----------+-------------+-------------+--------------------+----------------+
+| | Contexts/      | | Context    | | Flow    | | Operation | | Action  | | Subflow/  | | Step      | | Branched         | | Already      |
+| | Location       | | Passed To  | | Context | | Context   | | Outputs | | Operation | | Arguments | | Step             | | Bound        |
+|                  | | Executable |           |             | | Context | | Outputs   |             | | Published        | | Values       |
+|                  |              |           |             |           | | Context   |             | | Values           |                |
++==================+==============+===========+=============+===========+=============+=============+====================+================+
+| | **flow**       | Yes          |           |             |           |             |             |                    | Yes            |
+| | **inputs**     |              |           |             |           |             |             |                    |                |
++------------------+--------------+-----------+-------------+-----------+-------------+-------------+--------------------+----------------+
+| | **flow**       |              | Yes       |             |           |             |             |                    | Yes            |
+| | **outputs**    |              |           |             |           |             |             |                    |                |
++------------------+--------------+-----------+-------------+-----------+-------------+-------------+--------------------+----------------+
+| | **operation**  | Yes          |           |             |           |             |             |                    | Yes            |
+| | **inputs**     |              |           |             |           |             |             |                    |                |
++------------------+--------------+-----------+-------------+-----------+-------------+-------------+--------------------+----------------+
+| | **operation**  |              |           | Yes         | Yes       |             |             |                    | Yes            |
+| | **outputs**    |              |           | (P1)        | (P0)      |             |             |                    |                |
++------------------+--------------+-----------+-------------+-----------+-------------+-------------+--------------------+----------------+
+| | **operation**  |              |           | Yes         | Yes       |             |             |                    |                |
+| | **results**    |              |           | (P1)        | (P0)      |             |             |                    |                |
++------------------+--------------+-----------+-------------+-----------+-------------+-------------+--------------------+----------------+
+| | **step**       |              | Yes       |             |           |             |             |                    | Yes            |
+| | **arguments**  |              |           |             |           |             |             |                    |                |
++------------------+--------------+-----------+-------------+-----------+-------------+-------------+--------------------+----------------+
+| | **step**       |              |           |             |           | Yes         | Yes         |                    | Yes            |
+| | **publish**    |              |           |             |           | (P0)        | (P1)        |                    |                |
++------------------+--------------+-----------+-------------+-----------+-------------+-------------+--------------------+----------------+
+| | **step**       |              |           |             |           | Yes         | Yes         |                    |                |
+| | **navigation** |              |           |             |           | (P0)        | (P1)        |                    |                |
++------------------+--------------+-----------+-------------+-----------+-------------+-------------+--------------------+----------------+
+| | **step**       |              |           |             |           |             |             | | Yes* - using     |                |
+| | **aggregate**  |              |           |             |           |             |             | | branches_context |                |
++------------------+--------------+-----------+-------------+-----------+-------------+-------------+--------------------+----------------+
+| | **action**     |              |           | Yes         |           |             |             |                    |                |
+| | **inputs**     |              |           |             |           |             |             |                    |                |
++------------------+--------------+-----------+-------------+-----------+-------------+-------------+--------------------+----------------+
 
 Keywords (A-Z)
 ==============
@@ -588,6 +639,9 @@ expression of each name:value pair is evaluated and published to the
 `branches_context <#branches-context>`__ construct to access the values
 published by each of the `asynchronous loop's <#async_loop>`__ branches.
 
+For a list of which contexts are available in the ``aggregate`` section of a
+`step <#step>`__, see `Contexts <#contexts>`__.
+
 For more information, see the :ref:`Asynchronous Loop <example_asynchronous_loop>`
 example.
 
@@ -770,7 +824,7 @@ property that references an `operation <#operation>`__ or
 `flow <#flow>`__.
 
 Calls an `operation <#operation>`__ or `flow <#flow>`__ and passes in
-relevant `input <#inputs>`__.
+relevant arguments.
 
 The `operation <#operation>`__ or `flow <#flow>`__ may be called in
 several ways:
@@ -802,6 +856,10 @@ supersede values bound to flow `inputs <#inputs>`__ with the same name. To force
 the `operation <#operation>`__ or `subflow <#flow>`__ being called to use it's
 own default value, as opposed to a value passed in via expression or the flow
 context, omit the variable from the calling `step's <#step>`__ argument list.
+
+For a list of which contexts are available in the arguments section of a
+`step <#step>`__, see `Contexts <#contexts>`__.
+
 
 **Example - call to a divide operation with list of mapped step arguments**
 
@@ -1162,6 +1220,9 @@ input name may in turn be mapped to its properties or an input
 Inputs are used to pass parameters to `flows <#flow>`__ or
 `operations <#operation>`__.
 
+For a list of which contexts are available in the ``inputs`` section of a
+`flow <#flow>`__ or `operation <#operation>`__, see `Contexts <#contexts>`__.
+
 +-----------------------+------------+-----------+--------------+-----------------------------------------------------------------+-------------------------------------------+
 | Property              | Required   | Default   | Value Type   | Description                                                     | More info                                 |
 +=======================+============+===========+==============+=================================================================+===========================================+
@@ -1324,6 +1385,9 @@ the only `results <#results>`__ of an `operation <#operation>`__ or
 evaluated are ``SUCCESS`` and ``FAILURE``. Any other results will be
 evaluated as ``SUCCESS``.
 
+For a list of which contexts are available in the ``navigate`` section of a
+`step <#step>`__, see `Contexts <#contexts>`__.
+
 **Example - ILLEGAL result will navigate to flow's FAILURE result and
 SUCCESS result will navigate to step named *printer***
 
@@ -1413,6 +1477,9 @@ Defines the parameters a `flow <#flow>`__ or `operation <#operation>`__
 exposes to possible `publication <#publish>`__ by a `step <#step>`__.
 The calling `step <#step>`__ refers to an output by its name.
 
+For a list of which contexts are available in the ``outputs`` section of a
+`flow <#flow>`__ or `operation <#operation>`__, see `Contexts <#contexts>`__.
+
 **Example - various types of outputs**
 
 .. code-block:: yaml
@@ -1495,6 +1562,9 @@ The key ``publish`` is a property of a `step <#step>`__ name, a
 list of key:value pairs where the key is the published variable name and
 the value is an `expression <#expressions>`__, usually involving an `output <#outputs>`__ received
 from an `operation <#operation>`__ or `flow <#flow>`__.
+
+For a list of which contexts are available in the ``publish`` section of a
+`step <#step>`__, see `Contexts <#contexts>`__.
 
 Standard publish
 ~~~~~~~~~~~~~~~~
@@ -1623,6 +1693,9 @@ an expression at all, will be passed back to the calling
 
 All `operation <#operation>`__ results must be handled by the calling
 `step <#step>`__.
+
+For a list of which contexts are available in the ``results`` section of an
+`operation <#operation>`__, see `Contexts <#contexts>`__.
 
 **Example - three user-defined results**
 
