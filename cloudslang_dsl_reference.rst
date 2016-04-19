@@ -48,10 +48,11 @@ general, CloudSlang variable names must conform to both `Python's naming
 constraints <https://docs.python.org/2/reference/lexical_analysis.html>`__
 as well as `Java's naming constraints <https://docs.oracle.com/javase/tutorial/java/nutsandbolts/variables.html>`__.
 
-When using the CLI, CloudSlang will use the encoding found in the CLI
-:ref:`configuration file <configure_cli>` for input values. If no encoding is
-found in the configuration file, the CLI will use the default charset of the
-Java virtual machine.
+When using the CLI or Build Tool, CloudSlang will use the encoding found in the
+:ref:`CLI configuration file <configure_cli>` or :ref:`Build Tool configuration
+file <configure_build_tool>` for input values respectively. If no encoding is
+found in the configuration file, the CLI or Build Tool will use the default
+charset of the Java virtual machine.
 
 The general structure of CloudSlang files is outlined here. Some of the
 properties that appear are optional. All CloudSlang keywords, properties
