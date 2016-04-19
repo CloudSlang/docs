@@ -13,12 +13,12 @@ flow:
           produce_default_navigation:
             - navigation_type
 
-    # default navigation - go to this task on success
+    # default navigation - go to this step on success
     - do_something:
         do:
           something:
 
-    # default navigation - go to this task on failure
+    # default navigation - go to this step on failure
     - on_failure:
       - send_error_mail:
           do:

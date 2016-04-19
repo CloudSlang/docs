@@ -36,9 +36,9 @@ Now that we've customized the result labels, the flow doesn't know what
 to do upon receipt of these results. Instead of relying on the default
 navigation, we'll have to explicitly tell the flow what to do next. For
 now, we'll just replicate what the flow would have done in the default
-navigation. We have to add navigation logic to the task for all possible
+navigation. We have to add navigation logic to the step for all possible
 results. We do so under the ``navigate`` key. Each possible result is a list
-item mapped to the task that should be navigated to when returned.
+item mapped to the step that should be navigated to when returned.
 
 .. code-block:: yaml
 

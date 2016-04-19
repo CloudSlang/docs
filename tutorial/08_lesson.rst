@@ -72,12 +72,12 @@ happens.
 Add to Flow
 -----------
 
-Let's add a task in the **new_hire** flow to call our new operation.
+Let's add a step in the **new_hire** flow to call our new operation.
 That will allow us to demonstrate how input properties affect the way
 variables are passed to operations.
 
-Between the ``print_start`` task and ``check_address`` task we'll put
-our new task named ``generate_address``.
+Between the ``print_start`` step and ``check_address`` step we'll put
+our new step named ``generate_address``.
 
 .. code-block:: yaml
 
@@ -95,7 +95,7 @@ our new task named ``generate_address``.
 We'll also have to change the inputs of the flow to reflect our new
 addition. We can remove the ``address`` from the flow inputs since we'll
 now be getting the address from the ``generate_user_email`` operation
-and publishing it in the ``generate_address`` task. Instead, we need to
+and publishing it in the ``generate_address`` step. Instead, we need to
 add the inputs necessary for the ``generate_user_email`` operation to
 the flow's inputs section.
 
@@ -229,7 +229,7 @@ above. You'll notice that no matter what is passed to the ``domain``
 input, ``acompany.com`` is what ends up in the email address. That's
 exactly what we want, but obviously there is no reason to pass values to
 the domain variable anymore. So let's just remove it from the flow
-inputs and the ``generate_address`` task.
+inputs and the ``generate_address`` step.
 
 .. code-block:: yaml
 
