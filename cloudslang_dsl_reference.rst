@@ -836,7 +836,7 @@ and can therefore be used for various purposes.
       workflow:
         - noop_step:
           do:
-            ops.noop: []
+            noop: []
 
     extensions:
       - some_key:
