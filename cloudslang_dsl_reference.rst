@@ -35,13 +35,15 @@ The following properties are for all types of CloudSlang files. For
 properties specific to `flow <#flow>`__, `operation <#operation>`__, or
 `system properties <#properties>`__ files, see their respective sections below.
 
-+-----------------+------------+-----------+---------------------------+-------------------------+------------------------------+
-| Property        | Required   | Default   | Value Type                | Description             | More Info                    |
-+=================+============+===========+===========================+=========================+==============================+
-| ``namespace``   | no         | --        | string                    | namespace of the file   | `namespace <#namespace>`__   |
-+-----------------+------------+-----------+---------------------------+-------------------------+------------------------------+
-| ``imports``     | no         | --        | list of key:value pairs   | files to import         | `imports <#imports>`__       |
-+-----------------+------------+-----------+---------------------------+-------------------------+------------------------------+
++-----------------+------------+-----------+---------------------------+-------------------------------------------+------------------------------+
+| Property        | Required   | Default   | Value Type                | Description                               | More Info                    |
++=================+============+===========+===========================+===========================================+==============================+
+| ``namespace``   | no         | --        | string                    | namespace of the file                     | `namespace <#namespace>`__   |
++-----------------+------------+-----------+---------------------------+-------------------------------------------+------------------------------+
+| ``imports``     | no         | --        | list of key:value pairs   | files to import                           | `imports <#imports>`__       |
++-----------------+------------+-----------+---------------------------+-------------------------------------------+------------------------------+
+| ``extensions``  | no         | --        | --                        | information to be ignored by the compiler | `extensions <#extensions>`__ |
++-----------------+------------+-----------+---------------------------+-------------------------------------------+------------------------------+
 
 Variable names in CloudSlang files cannot contain localized characters. In
 general, CloudSlang variable names must conform to both `Python's naming
@@ -105,6 +107,8 @@ and concepts are explained in detail below.
    -  `outputs <#outputs>`__
    -  `results <#results>`__
 
+-  `extensions <#extensions>`__
+
 **Operation file**
 
 -  `namespace <#namespace>`__
@@ -121,10 +125,13 @@ and concepts are explained in detail below.
    -  `outputs <#outputs>`__
    -  `results <#results>`__
 
+-  `extensions <#extensions>`__
+
 **System properties file**
 
 -  `namespace <#namespace>`__
 -  `properties <#properties>`__
+-  `extensions <#extensions>`__
 
 .. _expressions:
 
@@ -808,6 +815,34 @@ optional mapped `expressions <#expressions>`__.
       divide:
         - dividend: ${input1}
         - divisor: ${input2}
+
+.. _extensions:
+
+extensions
+----------
+
+The key ``extensions`` is mapped to information that the compiler will ignore
+and can therefore be used for various purposes.
+
+**Example - a flow that contains an extensions section**
+
+.. code-block:: yaml
+
+    namespace: examples.extensions
+
+    flow:
+      name: flow_with_extensions_tag
+
+      workflow:
+        - noop_step:
+          do:
+            ops.noop: []
+
+    extensions:
+      - some_key:
+          a: b
+          c: d
+      - another
 
 .. _flow:
 
