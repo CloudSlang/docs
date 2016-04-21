@@ -36,13 +36,18 @@ The following properties are for all types of CloudSlang files. For
 properties specific to `flow <#flow>`__, `operation <#operation>`__, or
 `system properties <#properties>`__ files, see their respective sections below.
 
-+-----------------+------------+-----------+---------------------------+-------------------------+------------------------------+
-| Property        | Required   | Default   | Value Type                | Description             | More Info                    |
-+=================+============+===========+===========================+=========================+==============================+
-| ``namespace``   | no         | --        | string                    | namespace of the file   | `namespace <#namespace>`__   |
-+-----------------+------------+-----------+---------------------------+-------------------------+------------------------------+
-| ``imports``     | no         | --        | list of key:value pairs   | files to import         | `imports <#imports>`__       |
-+-----------------+------------+-----------+---------------------------+-------------------------+------------------------------+
++----------------+----------+---------+-------------------+---------------------------+----------------------------+
+| Property       | Required | Default | Value Type        | Description               | More Info                  |
++================+==========+=========+===================+===========================+============================+
+| ``namespace``  | no       | --      | string            | | namespace               | `namespace <#namespace>`__ |
+|                |          |         |                   | | of the file             |                            |
++----------------+----------+---------+-------------------+---------------------------+----------------------------+
+| ``imports``    | no       | --      | | list of         | files to import           |  `imports <#imports>`__    |
+|                |          |         | | key:value pairs |                           |                            |
++----------------+----------+---------+-------------------+---------------------------+----------------------------+
+| ``extensions`` | no       | --      | --                | | information to be       | `extensions <#extensions>`_|
+|                |          |         |                   | | ignored by the compiler |                            |
++----------------+----------+---------+-------------------+---------------------------+----------------------------+
 
 Variable names in CloudSlang files cannot contain localized characters. In
 general, CloudSlang variable names must conform to both `Python's naming
@@ -107,6 +112,8 @@ and concepts are explained in detail below.
    -  `outputs <#outputs>`__
    -  `results <#results>`__
 
+-  `extensions <#extensions>`__
+
 **Operation file**
 
 -  `namespace <#namespace>`__
@@ -123,10 +130,13 @@ and concepts are explained in detail below.
    -  `outputs <#outputs>`__
    -  `results <#results>`__
 
+-  `extensions <#extensions>`__
+
 **System properties file**
 
 -  `namespace <#namespace>`__
 -  `properties <#properties>`__
+-  `extensions <#extensions>`__
 
 .. _expressions:
 
@@ -850,17 +860,20 @@ For more information, see the :ref:`Operation Paths <example_operation_paths>`
 example.
 
 Arguments are passed to a `step <#step>`__ using a list of argument names and
-optional mapped `expressions <#expressions>`__. An argument name without an
-expression, or with a ``null`` value will take its value from a variable with
-the same name in the flow context. `Expression <#expressions>`__ values will
-supersede values bound to flow `inputs <#inputs>`__ with the same name. To force
-the `operation <#operation>`__ or `subflow <#flow>`__ being called to use it's
-own default value, as opposed to a value passed in via expression or the flow
-context, omit the variable from the calling `step's <#step>`__ argument list.
+optional mapped `expressions <#expressions>`__. The step must pass values for
+all `inputs <#inputs>`__ found in the called `operation <#operation>`__ or
+`subflow <#flow>`__ that are required and don't have a default value.
+
+An argument name without an expression, or with a ``null`` value will take its
+value from a variable with the same name in the flow context.
+`Expression <#expressions>`__ values will supersede values bound to flow
+`inputs <#inputs>`__ with the same name. To force the `operation <#operation>`__
+or `subflow <#flow>`__ being called to use it's own default value, as opposed to
+a value passed in via expression or the flow context, omit the variable from the
+calling `step's <#step>`__ argument list.
 
 For a list of which contexts are available in the arguments section of a
 `step <#step>`__, see `Contexts <#contexts>`__.
-
 
 **Example - call to a divide operation with list of mapped step arguments**
 
@@ -900,6 +913,34 @@ For a list of which contexts are available in the arguments section of a
       action:
       python_script: |
         print text + punctuation
+
+.. _extensions:
+
+extensions
+----------
+
+The key ``extensions`` is mapped to information that the compiler will ignore
+and can therefore be used for various purposes.
+
+**Example - a flow that contains an extensions section**
+
+.. code-block:: yaml
+
+    namespace: examples.extensions
+
+    flow:
+      name: flow_with_extensions_tag
+
+      workflow:
+        - noop_step:
+          do:
+            noop: []
+
+    extensions:
+      - some_key:
+          a: b
+          c: d
+      - another
 
 .. _flow:
 
@@ -1138,7 +1179,7 @@ For a list of which contexts are available in the ``inputs`` section of a
 +--------------+----------+---------+-------------+-----------------------------+--------------------------+
 | ``default``  | no       | --      | expression  | default value of the input  | `default <#default>`__   |
 +--------------+----------+---------+-------------+-----------------------------+--------------------------+
-| ``private``  | no       | true    | boolean     | | if true, the default      | `private <#private>`__   |
+| ``private``  | no       | false   | boolean     | | if true, the default      | `private <#private>`__   |
 |              |          |         |             | | value always overrides    |                          |
 |              |          |         |             | | values passed in          |                          |
 +--------------+----------+---------+-------------+-----------------------------+--------------------------+
@@ -1409,9 +1450,10 @@ is mapped to a boolean value.
 
 A value of ``true`` will ensure that the `input <#inputs>`__
 parameter's `default <#default>`__ value will not be overridden by
-values passed into the `flow <#flow>`__ or `operation <#operation>`__.
-If ``private`` is not defined, values passed in will override the
-`default <#default>`__ value.
+values passed into the `flow <#flow>`__ or `operation <#operation>`__. An
+`input <#inputs>`__ set as ``private: true`` must also declare a
+`default <#default>`__ value. If ``private`` is not defined, values passed
+in will override the `default <#default>`__ value.
 
 **Example - default value of text input parameter will not be overridden by values passed in**
 
@@ -1626,7 +1668,8 @@ mapped to a boolean value.
 A value of ``false`` will allow the `flow <#flow>`__ or
 `operation <#operation>`__ to be called without passing the
 `input <#inputs>`__ parameter. If ``required`` is not defined, the
-`input <#inputs>`__ parameter defaults to being required.
+`input <#inputs>`__ parameter defaults to being required. Required inputs must
+receive a value or declare a `default <#default>`__ value.
 
 **Example - input2 is optional**
 
