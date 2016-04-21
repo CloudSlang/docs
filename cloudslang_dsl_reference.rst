@@ -860,17 +860,20 @@ For more information, see the :ref:`Operation Paths <example_operation_paths>`
 example.
 
 Arguments are passed to a `step <#step>`__ using a list of argument names and
-optional mapped `expressions <#expressions>`__. An argument name without an
-expression, or with a ``null`` value will take its value from a variable with
-the same name in the flow context. `Expression <#expressions>`__ values will
-supersede values bound to flow `inputs <#inputs>`__ with the same name. To force
-the `operation <#operation>`__ or `subflow <#flow>`__ being called to use it's
-own default value, as opposed to a value passed in via expression or the flow
-context, omit the variable from the calling `step's <#step>`__ argument list.
+optional mapped `expressions <#expressions>`__. The step must pass values for
+all `inputs <#inputs>`__ found in the called `operation <#operation>`__ or
+`subflow <#flow>`__ that are required and don't have a default value.
+
+An argument name without an expression, or with a ``null`` value will take its
+value from a variable with the same name in the flow context.
+`Expression <#expressions>`__ values will supersede values bound to flow
+`inputs <#inputs>`__ with the same name. To force the `operation <#operation>`__
+or `subflow <#flow>`__ being called to use it's own default value, as opposed to
+a value passed in via expression or the flow context, omit the variable from the
+calling `step's <#step>`__ argument list.
 
 For a list of which contexts are available in the arguments section of a
 `step <#step>`__, see `Contexts <#contexts>`__.
-
 
 **Example - call to a divide operation with list of mapped step arguments**
 
@@ -1445,9 +1448,10 @@ is mapped to a boolean value.
 
 A value of ``false`` will ensure that the `input <#inputs>`__
 parameter's `default <#default>`__ value will not be overridden by
-values passed into the `flow <#flow>`__ or `operation <#operation>`__.
-If ``overridable`` is not defined, values passed in will override the
-`default <#default>`__ value.
+values passed into the `flow <#flow>`__ or `operation <#operation>`__. An
+`input <#inputs>`__ set as ``overridable: false`` must also declare a
+`default <#default>`__ value. If ``overridable`` is not defined, values passed
+in will override the `default <#default>`__ value.
 
 **Example - default value of text input parameter will not be overridden
 by values passed in**
@@ -1663,7 +1667,8 @@ mapped to a boolean value.
 A value of ``false`` will allow the `flow <#flow>`__ or
 `operation <#operation>`__ to be called without passing the
 `input <#inputs>`__ parameter. If ``required`` is not defined, the
-`input <#inputs>`__ parameter defaults to being required.
+`input <#inputs>`__ parameter defaults to being required. Required inputs must
+receive a value or declare a `default <#default>`__ value.
 
 **Example - input2 is optional**
 
