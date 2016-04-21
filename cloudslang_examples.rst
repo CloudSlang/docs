@@ -116,6 +116,8 @@ user-defined result of ``ILLEGAL``.
       results:
         - SUCCESS
 
+.. _example_default_navigation:
+
 Example 2 - Default Navigation
 ==============================
 

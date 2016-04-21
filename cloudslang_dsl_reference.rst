@@ -1302,8 +1302,8 @@ navigate
 
 The key ``navigate`` is a property of a `step <#step>`__ name. It is
 mapped to a list of key:value pairs where the key is the received
-`result <#results>`__ and the value is the target `step <#step>`__ or
-`flow <#flow>`__ `result <#results>`__.
+`result <#results>`__ and the value is the target `step <#step>`__,
+`flow <#flow>`__ `result <#results>`__ or ``on_failure``.
 
 Defines the navigation logic for a `standard step <#standard-step>`__,
 an `iterative step <#iterative-step>`__ or an `asynchronous
@@ -1312,10 +1312,15 @@ step <#asynchronous-step>`__. The flow will continue with the
 is mapped to the `result <#results>`__ returned by the called
 `operation <#operation>`__ or `subflow <#flow>`__.
 
-The default navigation is ``SUCCESS`` except for the
-`on_failure <#on-failure>`__ `step <#step>`__ whose default navigation
-is ``FAILURE``. All possible `results <#results>`__ returned by the
-called `operation <#operation>`__ or subflow must be handled.
+By default, if no ``navigate`` section navigation is present, the flow continues
+with the next `step <#step>`__ or navigates to the ``SUCCESS`` result of the
+flow if the `step <#step>`__ is the final non-on_failure step. By default the
+`on_failure <#on-failure>`__ `step <#step>`__ navigates to the ``FAILURE``
+result of the flow. For more information, see the
+:ref:`Default Navigation <example_default_navigation>` example.
+
+All possible `results <#results>`__ returned by the
+called `operation <#operation>`__ or `subflow <#flow>`__ must be handled.
 
 For a `standard step <#standard-step>`__ the navigation logic runs when
 the `step <#step>`__ is completed.
@@ -1345,8 +1350,9 @@ SUCCESS result will navigate to step named *printer***
 .. code-block:: yaml
 
     navigate:
-      - ILLEGAL: FAILURE
       - SUCCESS: printer
+      - ILLEGAL: ILLEGAL
+      - FAILURE: on_failure
 
 .. _on_failure:
 
