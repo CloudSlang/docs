@@ -14,7 +14,7 @@ Unlike many programming, markup, and data serialization languages,
 whitespace is syntactically significant. Indentation is used to denote
 scope and is always achieved using spaces. Never use tabs.
 
-**Example: a CloudSlang task (in this case named divider) contains do,
+**Example: a CloudSlang step (in this case named divider) contains do,
 publish and navigate keys**
 
 .. code:: yaml
@@ -51,7 +51,7 @@ Maps
 Maps are denoted use a colon (``:``) and a space between each key value
 pair.
 
-**Example: a CloudSlang task's navigate key is mapped to a mapping of
+**Example: a CloudSlang step's navigate key is mapped to a mapping of
 results and their targets**
 
 .. code:: yaml
