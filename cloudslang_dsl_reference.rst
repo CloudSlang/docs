@@ -70,7 +70,7 @@ and concepts are explained in detail below.
 
       -  `required <#required>`__
       -  `default <#default>`__
-      -  `overridable <#overridable>`__
+      -  `private <#private>`__
 
    -  `workflow <#workflow>`__
 
@@ -117,7 +117,7 @@ and concepts are explained in detail below.
 
       -  `required <#required>`__
       -  `default <#default>`__
-      -  `overridable <#overridable>`__
+      -  `private <#private>`__
 
    -  `action <#action>`__
    -  `outputs <#outputs>`__
@@ -785,7 +785,7 @@ mapped to an `expression <#expressions>`__ value.
 The expression's value will be passed to the `flow <#flow>`__ or
 `operation <#operation>`__ if no other value for that
 `input <#inputs>`__ parameter is explicitly passed or if the input's
-`overridable <#overridable>`__ parameter is set to ``false``.
+`private <#private>`__ parameter is set to ``true``.
 
 **Example - default values**
 
@@ -1131,15 +1131,17 @@ Inputs are used to pass parameters to `flows <#flow>`__ or
 For a list of which contexts are available in the ``inputs`` section of a
 `flow <#flow>`__ or `operation <#operation>`__, see `Contexts <#contexts>`__.
 
-+-----------------------+------------+-----------+--------------+-----------------------------------------------------------------+-------------------------------------------+
-| Property              | Required   | Default   | Value Type   | Description                                                     | More info                                 |
-+=======================+============+===========+==============+=================================================================+===========================================+
-| ``required``          | no         | true      | boolean      | is the input required                                           | `required <#required>`__                  |
-+-----------------------+------------+-----------+--------------+-----------------------------------------------------------------+-------------------------------------------+
-| ``default``           | no         | --        | expression   | default value of the input                                      | `default <#default>`__                    |
-+-----------------------+------------+-----------+--------------+-----------------------------------------------------------------+-------------------------------------------+
-| ``overridable``       | no         | true      | boolean      | if false, the default value always overrides values passed in   | `overridable <#overridable>`__            |
-+-----------------------+------------+-----------+--------------+-----------------------------------------------------------------+-------------------------------------------+
++--------------+----------+---------+-------------+-----------------------------+--------------------------+
+| Property     | Required | Default | Value Type  | Description                 | More info                |
++==============+==========+=========+=============+=============================+==========================+
+| ``required`` | no       | true    | boolean     | is the input required       | `required <#required>`__ |
++--------------+----------+---------+-------------+-----------------------------+--------------------------+
+| ``default``  | no       | --      | expression  | default value of the input  | `default <#default>`__   |
++--------------+----------+---------+-------------+-----------------------------+--------------------------+
+| ``private``  | no       | true    | boolean     | | if true, the default      | `private <#private>`__   |
+|              |          |         |             | | value always overrides    |                          |
+|              |          |         |             | | values passed in          |                          |
++--------------+----------+---------+-------------+-----------------------------+--------------------------+
 
 **Example - several inputs**
 
@@ -1148,7 +1150,7 @@ For a list of which contexts are available in the ``inputs`` section of a
     inputs:
       - input1:
           default: "default value"
-          overridable: false
+          private: true
       - input2
       - input3: "default value"
       - input4: ${'var1 is ' + var1}
@@ -1397,29 +1399,28 @@ For a list of which contexts are available in the ``outputs`` section of a
       - output2: ${some_variable}
       - output3: ${5 + 6}
 
-.. _overridable:
+.. _private:
 
-overridable
------------
+private
+-------
 
-The key ``overridable`` is a property of an `input <#inputs>`__ name. It
+The key ``private`` is a property of an `input <#inputs>`__ name. It
 is mapped to a boolean value.
 
-A value of ``false`` will ensure that the `input <#inputs>`__
+A value of ``true`` will ensure that the `input <#inputs>`__
 parameter's `default <#default>`__ value will not be overridden by
 values passed into the `flow <#flow>`__ or `operation <#operation>`__.
-If ``overridable`` is not defined, values passed in will override the
+If ``private`` is not defined, values passed in will override the
 `default <#default>`__ value.
 
-**Example - default value of text input parameter will not be overridden
-by values passed in**
+**Example - default value of text input parameter will not be overridden by values passed in**
 
 .. code-block:: yaml
 
     inputs:
       - text:
           default: "default text"
-          overridable: false
+          private: true
 
 .. _properties:
 
@@ -1884,7 +1885,7 @@ returns the ``default_value``.
           required: false
       - input1_safe:
           default: ${get('input1', 'default_input')}
-          overridable: false
+          private: true
 
     workflow:
       - step1:

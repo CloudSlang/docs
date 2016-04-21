@@ -6,7 +6,7 @@ flow:
   inputs:
     - sum:
         default: 0
-        overridable: false
+        private: true
 
   workflow:
     - fail3a:

@@ -294,7 +294,7 @@ looped on and various methods for handling loop breaks.
       inputs:
         - sum:
             default: 0
-            overridable: false
+            private: true
 
       workflow:
         - fail3a:
