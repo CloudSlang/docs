@@ -1693,6 +1693,9 @@ step
 A name of a step which is a property of `workflow <#workflow>`__ or
 `on_failure <#on-failure>`__.
 
+Every step which is not an `on_failure <#on-failure>`__ step must be reachable
+from another step.
+
 There are several types of steps:
 
 -  `standard <#standard-step>`__
