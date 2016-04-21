@@ -10,10 +10,10 @@ instance of Score using the :ref:`Slang API <slang_api>`.
 
 This reference begins with a brief introduction to CloudSlang files and
 their structure, then continues with a brief explanation of CloudSlang
-expressions and variable contexts, and ends with an alphabetical listing of
-CloudSlang keywords and concepts. See the :doc:`examples <cloudslang_examples>`
-section for the full code examples from which many of the code snippets in this
-reference are taken.
+expressions and variable contexts. Finally, there are alphabetical listings of
+the CloudSlang keywords and functions. See the
+:doc:`examples <cloudslang_examples>` section for the full code examples from
+which many of the code snippets in this reference are taken.
 
 .. _cloudslang_files:
 
@@ -1065,99 +1065,6 @@ list**
             print_branch:
               - ID: ${value}
 
-.. _get:
-
-get()
------
-
-May appear in the value of an `input <#inputs>`__,
-`output <#outputs>`__, `publish <#publish>`__, `loop <#for>`__
-`expression <#expressions>`__ or `result <#results>`__
-`expression <#expressions>`__.
-
-The function in the form of ``get('key')`` returns the value associated with
-``key`` if the key is defined. If the key is undefined the function returns
-``None``.
-
-The function in the form of ``get('key', 'default_value')`` returns the
-value associated with ``key`` if the key is defined and its value is not
-``None``. If the key is undefined or its value is ``None`` the function
-returns the ``default_value``.
-
-**Example - usage of get function in inputs and outputs**
-
-.. code-block:: yaml
-
-    inputs:
-      - input1:
-          required: false
-      - input1_safe:
-          default: ${get('input1', 'default_input')}
-          overridable: false
-
-    workflow:
-      - step1:
-          do:
-            print:
-              - text: ${input1_safe}
-          publish:
-            - some_output: ${get('output1', 'default_output')}
-
-    outputs:
-      - some_output
-
-.. _get_sp:
-
-get_sp()
---------
-May appear in the value of an `input <#inputs>`__,
-`step <#step>`__ argument, `publish <#publish>`__, `output <#outputs>`__ or
-`result <#results>`__ `expression <#expressions>`__.
-
-The function in the form of ``get_sp('key', 'default_value')`` returns the
-value associated with the `system property <#properties>`__ named ``key`` if the
-key is defined and its value is not ``null``. If the key is undefined or its
-value is ``null`` the function returns the ``default_value``. The ``key`` is the
-fully qualified name of the `system property <#properties>`__, meaning the
-namespace (if there is one) of the file in which it is found followed by a dot
-``.`` and the name of the key.
-
-`System property <#properties>`__ values are always strings or ``null``. Values
-of other types (numeric, list, map, etc.) are converted to string
-representations.
-
-`System properties <#properties>`__ are not enforced at compile time. They are
-assigned at runtime.
-
-.. note::
-
-   If multiple system properties files are being used and they
-   contain a `system property <#properties>`__ with the same fully qualified name,
-   the property in the file that is loaded last will overwrite the others with
-   the same name.
-
-**Example - system properties file**
-
-.. code-block:: yaml
-
-    namespace: examples.sysprops
-
-    properties:
-      host: 'localhost'
-      port: 8080
-
-
-**Example - system properties used as input values**
-
-.. code-block:: yaml
-
-    inputs:
-      - host: ${get_sp('examples.sysprops.hostname')}
-      - port: ${get_sp('examples.sysprops.port', '8080')}
-
-To pass a system properties file to the CLI, see :ref:`Run with System
-Properties <run_with_system_properties>`.
-
 .. _imports:
 
 imports
@@ -1900,3 +1807,144 @@ division was legal**
           do:
             print:
               - text: ${input1 + "/" + input2 + " = " + answer}
+
+Functions (A-Z)
+===============
+
+.. _check_empty:
+
+check_empty()
+-------------
+
+May appear in the value of an `input <#inputs>`__,
+`output <#outputs>`__, `publish <#publish>`__ or `result <#results>`__
+`expression <#expressions>`__.
+
+The function in the form of ``check_empty(expression1, expression2)`` returns
+the value associated with ``expression1`` if ``expression1`` does not evaluate
+to ``None``. If ``expression1`` evaluates to ``None`` the function returns the
+value associated with ``expression2``.
+
+**Example - usage of check_empty to check operation output in a flow**
+
+.. code-block:: yaml
+
+    flow:
+      name: flow
+      inputs:
+        - in1
+      workflow:
+        - step1:
+            do:
+              operation:
+                - in1
+            publish:
+              - pub1: ${check_empty(out1, 'x marks the spot')}
+              #if in1 was not 'x' then out1 is 'not x' and pub1 is therefore 'not x'
+              #if in1 was 'x' then out1 is None and pub1 is therefore 'x marks the spot'
+      outputs:
+        - pub1
+
+.. code-block:: yaml
+
+    operation:
+      name: operation
+      inputs:
+        - in1
+      action:
+        python_script: |
+          out1 = 'not x' if in1 != 'x' else None
+      outputs:
+        - out1
+
+.. _get:
+
+get()
+-----
+
+May appear in the value of an `input <#inputs>`__,
+`output <#outputs>`__, `publish <#publish>`__ or `result <#results>`__
+`expression <#expressions>`__.
+
+The function in the form of ``get('key')`` returns the value associated with
+``key`` if the key is defined. If the key is undefined the function returns
+``None``.
+
+The function in the form of ``get('key', 'default_value')`` returns the
+value associated with ``key`` if the key is defined and its value is not
+``None``. If the key is undefined or its value is ``None`` the function
+returns the ``default_value``.
+
+**Example - usage of get function in inputs and outputs**
+
+.. code-block:: yaml
+
+    inputs:
+      - input1:
+          required: false
+      - input1_safe:
+          default: ${get('input1', 'default_input')}
+          overridable: false
+
+    workflow:
+      - step1:
+          do:
+            print:
+              - text: ${input1_safe}
+          publish:
+            - some_output: ${get('output1', 'default_output')}
+
+    outputs:
+      - some_output
+
+.. _get_sp:
+
+get_sp()
+--------
+May appear in the value of an `input <#inputs>`__,
+`step <#step>`__ argument, `publish <#publish>`__, `output <#outputs>`__ or
+`result <#results>`__ `expression <#expressions>`__.
+
+The function in the form of ``get_sp('key', 'default_value')`` returns the
+value associated with the `system property <#properties>`__ named ``key`` if the
+key is defined and its value is not ``null``. If the key is undefined or its
+value is ``null`` the function returns the ``default_value``. The ``key`` is the
+fully qualified name of the `system property <#properties>`__, meaning the
+namespace (if there is one) of the file in which it is found followed by a dot
+``.`` and the name of the key.
+
+`System property <#properties>`__ values are always strings or ``null``. Values
+of other types (numeric, list, map, etc.) are converted to string
+representations.
+
+`System properties <#properties>`__ are not enforced at compile time. They are
+assigned at runtime.
+
+.. note::
+
+   If multiple system properties files are being used and they
+   contain a `system property <#properties>`__ with the same fully qualified name,
+   the property in the file that is loaded last will overwrite the others with
+   the same name.
+
+**Example - system properties file**
+
+.. code-block:: yaml
+
+    namespace: examples.sysprops
+
+    properties:
+      host: 'localhost'
+      port: 8080
+
+
+**Example - system properties used as input values**
+
+.. code-block:: yaml
+
+    inputs:
+      - host: ${get_sp('examples.sysprops.hostname')}
+      - port: ${get_sp('examples.sysprops.port', '8080')}
+
+To pass a system properties file to the CLI, see :ref:`Run with System
+Properties <run_with_system_properties>`.
