@@ -38,7 +38,7 @@ this section.
         - attempt
 
 Next let's create a ``workflow`` section and copy the
-``generate_address`` and ``check_address`` tasks into it.
+``generate_address`` and ``check_address`` steps into it.
 
 .. code-block:: yaml
 
@@ -84,11 +84,11 @@ of three result options.
       - UNAVAILABLE
       - FAILURE
 
-Now we can reroute the tasks' navigation to point to the flow results we
+Now we can reroute the steps' navigation to point to the flow results we
 just defined.
 
-For the ``generate_address`` task, whose operation returns ``SUCCESS``
-or ``FAILURE``, we can route ``SUCCESS`` to the next task and
+For the ``generate_address`` step, whose operation returns ``SUCCESS``
+or ``FAILURE``, we can route ``SUCCESS`` to the next step and
 ``FAILURE`` to the ``FAILURE`` result of the flow.
 
 .. code-block:: yaml
@@ -106,7 +106,7 @@ or ``FAILURE``, we can route ``SUCCESS`` to the next task and
           - SUCCESS: check_address
           - FAILURE: FAILURE
 
-For the ``check_address`` task, whose operation returns ``UNAVAILABLE``
+For the ``check_address`` step, whose operation returns ``UNAVAILABLE``
 or ``AVAILABLE``, we can route ``UNAVAILABLE`` to the ``UNAVAILABLE``
 result of the flow and ``AVAILABLE`` to the ``CREATED`` result of the
 flow.
@@ -123,7 +123,7 @@ flow.
           - UNAVAILABLE: UNAVAILABLE
           - AVAILABLE: CREATED
 
-Finally, we can pass along the outputs published in the tasks as flow
+Finally, we can pass along the outputs published in the steps as flow
 outputs.
 
 .. code-block:: yaml
@@ -150,15 +150,15 @@ Fix Up Parent Flow
 Finally, let's make changes to our original flow so that it makes use of
 the subflow we just created.
 
-First let's replace the two tasks we took out with one new task that
+First let's replace the two steps we took out with one new step that
 calls the subflow instead of an operation. You may have noticed that
 both flows and operations take inputs, return outputs and return
 results. That allows us to use them almost interchangeably. We've run
 both flows and operations using the CLI. Now we see that we can call
-them both from tasks as well.
+them both from steps as well.
 
-Delete the ``generate_address`` and ``check_address`` tasks. We'll now replace
-them with a new task called ``create_email_address``. It will pass along the
+Delete the ``generate_address`` and ``check_address`` steps. We'll now replace
+them with a new step called ``create_email_address``. It will pass along the
 flow inputs, publish the necessary outputs and wire up the appropriate
 navigation.
 
@@ -179,7 +179,7 @@ navigation.
           - FAILURE: print_fail
 
 All that's left now is to change the text of the messages sent in the
-``print_finish`` and ``print_fail`` tasks to better reflect what is
+``print_finish`` and ``print_fail`` steps to better reflect what is
 happening.
 
 .. code-block:: bash
@@ -217,7 +217,7 @@ Download the Code
 Up Next
 -------
 
-In the next lesson we'll change our new task to include a loop which
+In the next lesson we'll change our new step to include a loop which
 will retry the email creation several times if necessary.
 
 New Code - Complete

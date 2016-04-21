@@ -105,15 +105,15 @@ it doesn't reside where our other operations and subflows do.
 
 For more information, see :ref:`imports` in the DSL reference.
 
-Task
+Step
 ----
 
-Then, all we really need to do is create a task in our flow that will
+Then, all we really need to do is create a step in our flow that will
 call the ``send_mail`` operation. Let's put it right after the
 ``print_finish`` operation. We need to pass a host, port, from, to,
 subject and body. You'll need to substitute the values in angle brackets
 (``<>``) to work for your email host. Notice that the body value is
-taken directly from the ``print_finish`` task with the slight change of
+taken directly from the ``print_finish`` step with the slight change of
 turning the ``\n`` into a ``<br>`` since the ``html_email`` input
 defaults to true.
 
