@@ -33,6 +33,20 @@ Download the Build Tool
 The CloudSlang Build Tool can be downloaded from
 `here <https://github.com/CloudSlang/cloud-slang/releases/latest>`__.
 
+.. _configure_build_tool:
+
+Configure the Build Tool
+========================
+
+The Build Tool can be configured using the configuration file found at
+``cslang-builder/configuration/cslang.properties``.
+
++---------------------+---------------+-----------------------------------------------------+
+| Configuration key   | Default value | Description                                         |
++=====================+===============+=====================================================+
+| cslang.encoding     | utf-8         | Character encoding for input values and input files |
++---------------------+---------------+-----------------------------------------------------+
+
 Use the Build Tool
 ==================
 

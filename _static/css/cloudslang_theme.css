@@ -20,3 +20,7 @@
 .rst-content code {
      white-space: pre-wrap;
 }
+
+table.docutils div.line-block {
+    margin-left: 0;
+}
