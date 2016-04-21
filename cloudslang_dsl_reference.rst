@@ -864,8 +864,6 @@ calling `step's <#step>`__ argument list.
 
 For a list of which contexts are available in the arguments section of a
 `step <#step>`__, see `Contexts <#contexts>`__.
->>>>>>> master
-
 
 **Example - call to a divide operation with list of mapped step arguments**
 
