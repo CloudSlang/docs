@@ -26,11 +26,13 @@ characters in YAML are:
 - ``-`` - Denotes a sequence entry
 - ``#`` - Starts a comment
 
-NOTE: You should be aware that YAML also supports very complex data, and
-has some special characters that you need to be aware of. Even if you
-never need to use those features, YAML will fail to parse if you
-accidently use a special character incorrectly. This is pretty easily
-avoided and covered more below.
+.. note::
+
+  You should be aware that YAML also supports very complex data, and has
+  some special characters that you need to be aware of. Even if you
+  never need to use those features, YAML will fail to parse if you
+  accidently use a special character incorrectly. This is pretty easily
+  avoided and covered more below.
 
 If you are familiar with the popular data language, JSON, then YAML
 should be easy to learn. Effectively YAML can be thought of as JSON
@@ -49,13 +51,17 @@ Indentation Scoping
 
 Much like the Python programming language, YAML uses indentation to
 denote a change in scope level. This means that leading whitespace is
-syntactically significant. Indentation is is always achieved using
-spaces. Tabs are not allowed.
+syntactically significant. Indentation is always achieved using spaces.
+Tabs are not allowed.
 
 While any number of spaces can be used for a given scope, it a best
 practice to always use 2 spaces. This makes the YAML be more consistent
-and readable. NOTE: The ``- `` characters at the start of a sequence
-entry count as indentation.
+and readable.
+
+.. note::
+
+  The ``- `` characters at the start of a sequence entry count as
+  indentation.
 
 **Example: a CloudSlang step (in this case named divider) contains do,
 publish and navigate keys**
@@ -65,30 +71,30 @@ publish and navigate keys**
     - divider:
         do:
           divide:
-          - dividend: ${input1}
-          - divisor: ${input2}
+            - dividend: ${input1}
+            - divisor: ${input2}
         publish:
-        - answer: ${quotient}
+          - answer: ${quotient}
         navigate:
-        - ILLEGAL: FAILURE
-        - SUCCESS: printer
+          - ILLEGAL: FAILURE
+          - SUCCESS: printer
 
 YAML calls the indentation style "block" and the JSON style "flow". Flow
 style can be used at any point within the block style. Flow style
 doesn't need quoting either. It is a best practice to only use flow
 style for small structures on a single line.
 
-**Example: Above document using flow style**
+**Example: above document using flow style**
 
 .. code:: yaml
 
     - divider:
         do:
-          divide: [
-          - dividend: ${input1}
-          - divisor: ${input2}
+          divide:
+            - dividend: ${input1}
+            - divisor: ${input2}
         publish:
-        - answer: ${quotient}
+          - answer: ${quotient}
         navigate: [{ILLEGAL: FAILURE, SUCCESS: printer}]
 
 Mappings (Hashes, Objects, Dictionaries)
@@ -97,7 +103,7 @@ Mappings (Hashes, Objects, Dictionaries)
 Mappings (maps) are a set of key/value pairs. Each key and value is
 separated be a colon (``:``). The colon must be followed by a whitespace
 character (space or newline). The value can be a scalar (string/number)
-value a newly indented mapping or sequence.
+value, a newly indented mapping or sequence.
 
 **Example: a CloudSlang step's navigate key is mapped to a mapping of
 results and their targets**
@@ -105,8 +111,8 @@ results and their targets**
 .. code:: yaml
 
     navigate:
-    - ILLEGAL: FAILURE
-    - SUCCESS: printer
+      - ILLEGAL: FAILURE
+      - SUCCESS: printer
 
 Sequences (Lists, Arrays)
 =========================
@@ -120,8 +126,8 @@ mapped to the results key**
 .. code:: yaml
 
     results:
-    - ILLEGAL
-    - SUCCESS
+      - ILLEGAL
+      - SUCCESS
 
 Scalars (Strings, Numbers, Values)
 ==================================
@@ -172,7 +178,7 @@ quoted style**
     - sayHi:
         do:
           print:
-          - text: "Hello, World\n"
+            - text: "Hello, World\n"
 
 **Example: the pipe is used in CloudSlang to indicate a multi-line
 Python script**
@@ -186,8 +192,10 @@ Python script**
         else:
           quotient = float(dividend) / float(divisor)
 
-Note: Learning the scalar styles and their specifics will help you write
-YAML files that are clear and concise.
+.. note::
+
+  Learning the scalar styles and their specifics will help you write
+  YAML files that are clear and concise.
 
 Comments
 ========
