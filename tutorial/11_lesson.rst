@@ -85,7 +85,7 @@ variables to perform the loop aggregation.
 Now let's create those flow-level variables in the flow's ``inputs`` section.
 Each time through the loop we want to aggregate the data that the ``order``
 operation outputs. We'll create two variables, ``all_missing`` and
-``total_cost``, for this purpose, defining them as ``overridable`` and giving
+``total_cost``, for this purpose, defining them as ``private`` and giving
 them default values to start with.
 
 Also, we'll declare another variable called ``order_map`` that will contain the
@@ -102,10 +102,10 @@ using the ``default`` property.
       - last_name
       - missing:
           default: ""
-          overridable: false
+          private: true
       - total_cost:
           default: 0
-          overridable: false
+          private: true
       - order_map:
           default: {'laptop': 1000, 'docking station':200, 'monitor': 500, 'phone': 100}
 
@@ -206,10 +206,10 @@ New Code - Complete
         - last_name
         - all_missing:
             default: ""
-            overridable: false
+            private: true
         - total_cost:
             default: 0
-            overridable: false
+            private: true
         - order_map:
             default: {'laptop': 1000, 'docking station':200, 'monitor': 500, 'phone': 100}
 

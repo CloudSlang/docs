@@ -10,7 +10,7 @@ operation:
     - last_name
     - domain:
         default: "acompany.com"
-        overridable: false
+        private: true
     - attempt
 
   action:

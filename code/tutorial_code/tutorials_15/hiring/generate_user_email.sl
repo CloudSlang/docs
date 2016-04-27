@@ -10,7 +10,7 @@ operation:
     - last_name
     - domain:
         default: ${get_sp('tutorials.properties.domain', 'acompany.com')}
-        overridable: false
+        private: true
     - attempt
 
   action:

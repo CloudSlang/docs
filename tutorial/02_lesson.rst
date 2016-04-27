@@ -78,11 +78,11 @@ CLI <../cloudslang_cli>`, as we do below in this lesson, or from a
 step in a flow, as we will do in the next lesson.
 
 Inputs can also have related parameters, such as ``required``,
-``default`` and ``overridable``. We will discuss these parameters in lessons
+``default`` and ``private``. We will discuss these parameters in lessons
 :doc:`8 - Input Parameters <08_lesson>`.
 
 For more information, see :ref:`inputs`, :ref:`required`, :ref:`default` and
-:ref:`overridable` in the DSL reference.
+:ref:`private` in the DSL reference.
 
 Action
 ------
