@@ -149,7 +149,7 @@ these cases:
   - One of ``!#%@&*`?|>{[`` or ``-``.
 
 - The string starts or ends with whitespace characters.
-- The string contains ``: `` or `` #`` character sequences.
+- The string contains ``:`` or ``#`` character sequences.
 - The string ends with a colon.
 - The value looks like a number or boolean (``123``, ``1.23``, ``true``,
   ``false``, ``null``) but should be a string.
