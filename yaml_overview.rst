@@ -60,7 +60,7 @@ and readable.
 
 .. note::
 
-  The ``- `` characters at the start of a sequence entry count as
+  The ``-`` characters at the start of a sequence entry count as
   indentation.
 
 **Example: a CloudSlang step (in this case named divider) contains do,
@@ -117,7 +117,7 @@ results and their targets**
 Sequences (Lists, Arrays)
 =========================
 
-Sequences (seqs) are denoted with a hypen and a space (``- ``) preceding
+Sequences (seqs) are denoted with a hypen and a space (``-``) preceding
 each entry.
 
 **Example: a CloudSlang flow's possible results are defined using a list
@@ -145,7 +145,9 @@ While most strings should be left unquoted, quotes are required for
 these cases:
 
 - The string starts with a special character:
-  - One of ``!#%@&*`?|>{[`` or ``- ``.
+
+  - One of ``!#%@&*`?|>{[`` or ``-``.
+
 - The string starts or ends with whitespace characters.
 - The string contains ``: `` or `` #`` character sequences.
 - The string ends with a colon.
@@ -218,4 +220,4 @@ things have special meaning to YAML that you might not expect.
 
 If you need more help, there are lots of resources about YAML on the
 web. You may want to check out the `YAML Reference
-Card`<http://www.yaml.org/refcard.html>__.
+Card <http://www.yaml.org/refcard.html>`__.
