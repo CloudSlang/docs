@@ -205,10 +205,10 @@ New Code - Complete
         - last_name
         - all_missing:
             default: ""
-            overridable: false
+            private: true
         - total_cost:
             default: 0
-            overridable: false
+            private: true
         - order_map:
             default: {'laptop': 1000, 'docking station':200, 'monitor': 500, 'phone': 100}
 

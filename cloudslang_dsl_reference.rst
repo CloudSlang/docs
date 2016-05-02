@@ -75,7 +75,7 @@ and concepts are explained in detail below.
 
       -  `required <#required>`__
       -  `default <#default>`__
-      -  `overridable <#overridable>`__
+      -  `private <#private>`__
 
    -  `workflow <#workflow>`__
 
@@ -124,7 +124,7 @@ and concepts are explained in detail below.
 
       -  `required <#required>`__
       -  `default <#default>`__
-      -  `overridable <#overridable>`__
+      -  `private <#private>`__
 
    -  `action <#action>`__
    -  `outputs <#outputs>`__
@@ -795,7 +795,7 @@ mapped to an `expression <#expressions>`__ value.
 The expression's value will be passed to the `flow <#flow>`__ or
 `operation <#operation>`__ if no other value for that
 `input <#inputs>`__ parameter is explicitly passed or if the input's
-`overridable <#overridable>`__ parameter is set to ``false``.
+`private <#private>`__ parameter is set to ``true``.
 
 **Example - default values**
 
@@ -1172,15 +1172,17 @@ Inputs are used to pass parameters to `flows <#flow>`__ or
 For a list of which contexts are available in the ``inputs`` section of a
 `flow <#flow>`__ or `operation <#operation>`__, see `Contexts <#contexts>`__.
 
-+-----------------------+------------+-----------+--------------+-----------------------------------------------------------------+-------------------------------------------+
-| Property              | Required   | Default   | Value Type   | Description                                                     | More info                                 |
-+=======================+============+===========+==============+=================================================================+===========================================+
-| ``required``          | no         | true      | boolean      | is the input required                                           | `required <#required>`__                  |
-+-----------------------+------------+-----------+--------------+-----------------------------------------------------------------+-------------------------------------------+
-| ``default``           | no         | --        | expression   | default value of the input                                      | `default <#default>`__                    |
-+-----------------------+------------+-----------+--------------+-----------------------------------------------------------------+-------------------------------------------+
-| ``overridable``       | no         | true      | boolean      | if false, the default value always overrides values passed in   | `overridable <#overridable>`__            |
-+-----------------------+------------+-----------+--------------+-----------------------------------------------------------------+-------------------------------------------+
++--------------+----------+---------+-------------+-----------------------------+--------------------------+
+| Property     | Required | Default | Value Type  | Description                 | More info                |
++==============+==========+=========+=============+=============================+==========================+
+| ``required`` | no       | true    | boolean     | is the input required       | `required <#required>`__ |
++--------------+----------+---------+-------------+-----------------------------+--------------------------+
+| ``default``  | no       | --      | expression  | default value of the input  | `default <#default>`__   |
++--------------+----------+---------+-------------+-----------------------------+--------------------------+
+| ``private``  | no       | false   | boolean     | | if true, the default      | `private <#private>`__   |
+|              |          |         |             | | value always overrides    |                          |
+|              |          |         |             | | values passed in          |                          |
++--------------+----------+---------+-------------+-----------------------------+--------------------------+
 
 **Example - several inputs**
 
@@ -1189,7 +1191,7 @@ For a list of which contexts are available in the ``inputs`` section of a
     inputs:
       - input1:
           default: "default value"
-          overridable: false
+          private: true
       - input2
       - input3: "default value"
       - input4: ${'var1 is ' + var1}
@@ -1444,30 +1446,29 @@ For a list of which contexts are available in the ``outputs`` section of a
       - output2: ${some_variable}
       - output3: ${5 + 6}
 
-.. _overridable:
+.. _private:
 
-overridable
------------
+private
+-------
 
-The key ``overridable`` is a property of an `input <#inputs>`__ name. It
+The key ``private`` is a property of an `input <#inputs>`__ name. It
 is mapped to a boolean value.
 
-A value of ``false`` will ensure that the `input <#inputs>`__
+A value of ``true`` will ensure that the `input <#inputs>`__
 parameter's `default <#default>`__ value will not be overridden by
 values passed into the `flow <#flow>`__ or `operation <#operation>`__. An
-`input <#inputs>`__ set as ``overridable: false`` must also declare a
-`default <#default>`__ value. If ``overridable`` is not defined, values passed
+`input <#inputs>`__ set as ``private: true`` must also declare a
+`default <#default>`__ value. If ``private`` is not defined, values passed
 in will override the `default <#default>`__ value.
 
-**Example - default value of text input parameter will not be overridden
-by values passed in**
+**Example - default value of text input parameter will not be overridden by values passed in**
 
 .. code-block:: yaml
 
     inputs:
       - text:
           default: "default text"
-          overridable: false
+          private: true
 
 .. _properties:
 
@@ -1693,6 +1694,9 @@ step
 A name of a step which is a property of `workflow <#workflow>`__ or
 `on_failure <#on-failure>`__.
 
+Every step which is not an `on_failure <#on-failure>`__ step must be reachable
+from another step.
+
 There are several types of steps:
 
 -  `standard <#standard-step>`__
@@ -1717,15 +1721,21 @@ A standard step calls an `operation <#operation>`__ or
 
 The step name is mapped to the step's properties.
 
-+----------------+------------+-------------------------------------------------------------------+-----------------------------+---------------------------------------------------+------------------------------------------------------------+
-| Property       | Required   | Default                                                           | Value Type                  | Description                                       | More Info                                                  |
-+================+============+===================================================================+=============================+===================================================+============================================================+
-| ``do``         | yes        | --                                                                | operation or subflow call   | the operation or subflow this step will run       | `do <#do>`__, `operation <#operation>`__, `flow <#flow>`__ |
-+----------------+------------+-------------------------------------------------------------------+-----------------------------+---------------------------------------------------+------------------------------------------------------------+
-| ``publish``    | no         | --                                                                | list of key:value pairs     | operation outputs to publish to the flow level    | `publish <#publish>`__, `outputs <#outputs>`__             |
-+----------------+------------+-------------------------------------------------------------------+-----------------------------+---------------------------------------------------+------------------------------------------------------------+
-| ``navigate``   | no         | ``FAILURE``: on_failure or flow finish; ``SUCCESS``: next step    | list of key:value pairs     | navigation logic from operation or flow results   | `navigation <#navigate>`__, `results <#results>`__         |
-+----------------+------------+-------------------------------------------------------------------+-----------------------------+---------------------------------------------------+------------------------------------------------------------+
++--------------+----------+---------------------------+--------------+---------------------+---------------------------------------------+
+| Property     | Required | Default                   | Value Type   | Description         | More Info                                   |
++==============+==========+===========================+==============+=====================+=============================================+
+| ``do``       | yes      | --                        | | operation  | | the operation or  | | `do <#do>`__                              |
+|              |          |                           | | or subflow | | subflow this step | | `flow <#flow>`__                          |
+|              |          |                           | | call       | | will run          | | `operation <#operation>`__                |
++--------------+----------+---------------------------+--------------+---------------------+---------------------------------------------+
+| ``publish``  | no       | --                        | | list of    | | operation outputs | | `publish <#publish>`__,                   |
+|              |          |                           | | key:value  | | to publish to the | | `outputs <#outputs>`__                    |
+|              |          |                           | | pairs      | |  flow level       |                                             |
++--------------+----------+---------------------------+--------------+---------------------+---------------------------------------------+
+| ``navigate`` | no       | | ``FAILURE``: on_failure | | list of    | | navigation logic  | | `navigation <#navigate>`__                |
+|              |          | | or flow finish          | | key:value  | | from operation or | | `results <#results>`__                    |
+|              |          | | ``SUCCESS``: next step  | | pairs      | | flow results      |                                             |
++--------------+----------+---------------------------+--------------+---------------------+---------------------------------------------+
 
 **Example - step that performs a division of two inputs, publishes the
 answer and navigates accordingly**
@@ -1751,13 +1761,18 @@ An iterative step calls an `operation <#operation>`__ or
 
 The step name is mapped to the iterative step's properties.
 
-+----------------+------------+-------------------------------------------------------------------+-------------------+---------------------------------------------------------------------------------------------------------+-----------------------------------------------------+
-| Property       | Required   | Default                                                           | Value Type        | Description                                                                                             | More Info                                           |
-+================+============+===================================================================+===================+=========================================================================================================+=====================================================+
-| ``loop``       | yes        | --                                                                | key               | container for loop properties                                                                           | `for <#for>`__                                      |
-+----------------+------------+-------------------------------------------------------------------+-------------------+---------------------------------------------------------------------------------------------------------+-----------------------------------------------------+
-| ``navigate``   | no         | ``FAILURE``: on_failure or flow finish; ``SUCCESS``: next step    | key:value pairs   | navigation logic from `break <#break>`__ or the result of the last iteration of the operation or flow   | `navigation <#navigate>`__, `results <#results>`__  |
-+----------------+------------+-------------------------------------------------------------------+-------------------+---------------------------------------------------------------------------------------------------------+-----------------------------------------------------+
++--------------+----------+---------------------------+-------------+------------------------------------+------------------------------+
+| Property     | Required | Default                   | Value Type  | Description                        | More Info                    |
++==============+==========+===========================+=============+====================================+==============================+
+| ``loop``     | yes      | --                        | key         | | container for                    | `for <#for>`__               |
+|              |          |                           |             | | loop properties                  |                              |
++--------------+----------+---------------------------+-------------+------------------------------------+------------------------------+
+| ``navigate`` | no       | | ``FAILURE``:            | | key:value | | navigation logic from            | | `navigation <#navigate>`__ |
+|              |          | | on_failure              | | pairs     | | `break <#break>`__ or the result | | `results <#results>`__     |
+|              |          | | or flow finish          |             | | of the last iteration of         |                              |
+|              |          | | ``SUCCESS``:            |             | | the operation or flow            |                              |
+|              |          | | next step               |             |                                    |                              |
++--------------+----------+---------------------------+-------------+------------------------------------+------------------------------+
 
 **Example - step prints all the values in value_list and then navigates
 to a step named "another_step"**
@@ -1783,15 +1798,22 @@ in a list.
 
 The step name is mapped to the asynchronous step's properties.
 
-+------------------+------------+-------------------------------------------------------------------+----------------------+-------------------------------------------+-----------------------------------------------------+
-| Property         | Required   | Default                                                           | Value Type           | Description                               | More Info                                           |
-+==================+============+===================================================================+======================+===========================================+=====================================================+
-| ``async_loop``   | yes        | --                                                                | key                  | container for async loop properties       | `async_loop <#async-loop>`__                        |
-+------------------+------------+-------------------------------------------------------------------+----------------------+-------------------------------------------+-----------------------------------------------------+
-| ``aggregate``    | no         | --                                                                | list of key:values   | values to aggregate from async branches   | `aggregate <#aggregate>`__                          |
-+------------------+------------+-------------------------------------------------------------------+----------------------+-------------------------------------------+-----------------------------------------------------+
-| ``navigate``     | no         | ``FAILURE``: on_failure or flow finish; ``SUCCESS``: next step    | key:value pairs      | navigation logic                          | `navigation <#navigate>`__, `results <#results>`__  |
-+------------------+------------+-------------------------------------------------------------------+----------------------+-------------------------------------------+-----------------------------------------------------+
++----------------+----------+---------------------------+--------------+-----------------------+----------------------------+
+| Property       | Required | Default                   | Value Type   | Description           | More Info                  |
++================+==========+===========================+==============+=======================+============================+
+| ``async_loop`` | yes      | --                        | key          | | container for       | `async_loop <#async-loop>`_|
+|                |          |                           |              | | async loop          |                            |
+|                |          |                           |              | | properties          |                            |
++----------------+----------+---------------------------+--------------+-----------------------+----------------------------+
+| ``aggregate``  | no       | --                        | | list of    | | values to           | `aggregate <#aggregate>`__ |
+|                |          |                           | | key:values | | aggregate from      |                            |
+|                |          |                           |              | | async branches      |                            |
+|                |          |                           |              | | loop properties     |                            |
++----------------+----------+---------------------------+--------------+-----------------------+----------------------------+
+| ``navigate``   | no       | | ``FAILURE``: on_failure | | key:value  | navigation logic      | | `navigation <#navigate>`_|
+|                |          | | or flow finish          | | pairs      |                       | | `results <#results>`__   |
+|                |          | | ``SUCCESS``: next step  |              |                       |                            |
++----------------+----------+---------------------------+--------------+-----------------------+----------------------------+
 
 **Example - step prints all the values in value_list asynchronously and
 then navigates to a step named "another_step"**
@@ -1933,7 +1955,7 @@ returns the ``default_value``.
           required: false
       - input1_safe:
           default: ${get('input1', 'default_input')}
-          overridable: false
+          private: true
 
     workflow:
       - step1:

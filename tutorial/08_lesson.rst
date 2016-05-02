@@ -198,14 +198,14 @@ for the middle name.
 
 For more information, see :ref:`default` in the DSL reference.
 
-Overridable
------------
+Private
+-------
 
 The default value is only used if another value is not passed to the
 operation. But sometimes we want to force the default value to be the
 one used, even if a different value is passed from a flow. Let's do that
 to the ``domain`` input of the ``generate_user_email`` operation. To do
-so, we set the input's ``overridable`` parameter to false. We'll also
+so, we set the input's ``private`` parameter to ``true``. We'll also
 have to set a default value for the input.
 
 .. code-block:: yaml
@@ -221,7 +221,7 @@ have to set a default value for the input.
         - last_name
         - domain:
             default: "acompany.com"
-            overridable: false
+            private: true
         - attempt
 
 We can save the file and then run the flow using the same command as
@@ -255,7 +255,7 @@ inputs and the ``generate_address`` step.
         publish:
           - address: ${email_address}
 
-For more information, see :ref:`overridable` in the DSL reference.
+For more information, see :ref:`private` in the DSL reference.
 
 Run It
 ------
@@ -354,7 +354,7 @@ New Code - Complete
         - last_name
         - domain:
             default: "acompany.com"
-            overridable: false
+            private: true
         - attempt
 
       action:

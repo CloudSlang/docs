@@ -30,7 +30,7 @@ in this lesson, or from a step in a calling flow, as in lesson :doc:`9 -
 Subflows <09_lesson>`.
 
 Inputs can also have related parameters, such as ``required``,
-``default``, ``overridable`` and ``system_property``. We will discuss
+``default``, ``private`` and ``system_property``. We will discuss
 these parameters in lessons :doc:`8 - Input Parameters <08_lesson>` and
 :doc:`13 - System Properties <13_lesson>`.
 
