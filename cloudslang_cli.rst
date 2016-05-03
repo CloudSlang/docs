@@ -223,7 +223,7 @@ or operation's folder is added to the classpath by default.
 Run with System Properties
 --------------------------
 
-A system properties file is a type of CloudSlang file that contains a map of
+A system properties file is a type of CloudSlang file that contains a list of
 system property keys and values. If multiple system properties files are being
 used and they contain a system property with the same fully qualified name,
 the property in the file that is loaded last will overwrite the others with the
@@ -250,8 +250,8 @@ requires a system properties file that is not loaded automatically, use the
     namespace: examples.sysprops
 
     properties:
-      host: 'localhost'
-      port: 8080
+      - host: 'localhost'
+      - port: 8080
 
 .. note::
 
@@ -259,7 +259,7 @@ requires a system properties file that is not loaded automatically, use the
    etc.) are converted to string representations. A system property may have a
    value of ``null``.
 
-An empty system properties file can be defined using an empty map.
+An empty system properties file can be defined using an empty list.
 
 **Example: empty system properties file**
 
@@ -267,7 +267,7 @@ An empty system properties file can be defined using an empty map.
 
      namespace: examples.sysprops
 
-     properties: {}
+     properties: []
 
 Run in Non-Interactive Mode
 ---------------------------

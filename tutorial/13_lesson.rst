@@ -21,8 +21,8 @@ System Properties File
 
 A system properties file ends with the **.prop.sl** extension and can include a
 namespace. A system properties file also contains the ``properties`` keyword
-which is mapped to ``key:value`` pairs that define system property names and
-values.
+which is mapped to a list of ``key:value`` pairs that define system property
+names and values.
 
 Here's what the contents of our system properties file looks like:
 
@@ -31,11 +31,11 @@ Here's what the contents of our system properties file looks like:
     namespace: tutorials.properties
 
     properties:
-      domain: bcompany.com
-      hostname: <host>
-      port: 25
-      system_address: <test@test.com>
-      hr_address: <test@test.com>
+      - domain: bcompany.com
+      - hostname: <host>
+      - port: 25
+      - system_address: <test@test.com>
+      - hr_address: <test@test.com>
 
 
 You'll need to substitute the values in angle brackets (``<>``) to work
@@ -282,11 +282,11 @@ New Code - Complete
     namespace: tutorials.properties
 
     properties:
-      domain: bcompany.com
-      hostname: <host>
-      port: 25
-      system_address: <test@test.com>
-      hr_address: <test@test.com>
+      - domain: bcompany.com
+      - hostname: <host>
+      - port: 25
+      - system_address: <test@test.com>
+      - hr_address: <test@test.com>
 
 .. note::
 

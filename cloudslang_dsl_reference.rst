@@ -30,7 +30,7 @@ There are three types of CloudSlang files:
 -  flow - contains a list of steps and navigation logic that calls
    operations or subflows
 -  operation - contains an action that runs a script or method
--  system properties - contains a map of system property keys and values
+-  system properties - contains a list of system property keys and values
 
 The following properties are for all types of CloudSlang files. For
 properties specific to `flow <#flow>`__, `operation <#operation>`__, or
@@ -1475,8 +1475,8 @@ in will override the `default <#default>`__ value.
 properties
 ----------
 
-The key ``properties`` is mapped to ``key:value`` pairs that define one or more
-system properties.
+The key ``properties`` is mapped to a list of ``key:value`` pairs that define
+one or more system properties.
 
 System property names (keys) can contain alphanumeric characters (A-Za-z0-9),
 underscores (_) and hyphens (-).
@@ -1496,10 +1496,10 @@ System property values are retrieved using the `get_sp() <#get-sp>`__ function.
     namespace: examples.sysprops
 
     properties:
-      host: 'localhost'
-      port: 8080
+      - host: 'localhost'
+      - port: 8080
 
-An empty system properties file can be defined using an empty map.
+An empty system properties file can be defined using an empty list.
 
 **Example - empty system properties file**
 
@@ -1507,7 +1507,7 @@ An empty system properties file can be defined using an empty map.
 
      namespace: examples.sysprops
 
-     properties: {}
+     properties: []
 
 .. _publish:
 
@@ -2005,8 +2005,8 @@ assigned at runtime.
     namespace: examples.sysprops
 
     properties:
-      host: 'localhost'
-      port: 8080
+      - host: 'localhost'
+      - port: 8080
 
 
 **Example - system properties used as input values**
