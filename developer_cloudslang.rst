@@ -303,44 +303,71 @@ event data map keys are enclosed in square brackets - [KEYNAME].
 -  [STEP_NAME]
 -  [TYPE]
 
-+-------------------------------+---------------------------------------------------+--------------------------------------------------------------------------+
-| Type [TYPE]                   | Usage                                             | Event Data                                                               |
-+===============================+===================================================+==========================================================================+
-| EVENT_INPUT_START             | Input binding started for flow or operation       | [INPUTS]                                                                 |
-+-------------------------------+---------------------------------------------------+--------------------------------------------------------------------------+
-| EVENT_INPUT_END               | Input binding finished for flow or operation      | [BOUND_INPUTS]                                                           |
-+-------------------------------+---------------------------------------------------+--------------------------------------------------------------------------+
-| EVENT_STEP_START              | Step started                                      |                                                                          |
-+-------------------------------+---------------------------------------------------+--------------------------------------------------------------------------+
-| EVENT_ARGUMENT_START          | Argument binding started for step                 | [ARGUMENTS]                                                              |
-+-------------------------------+---------------------------------------------------+--------------------------------------------------------------------------+
-| EVENT_ARGUMENT_END            | Step arguments resolved                           | [BOUND_ARGUMENTS]                                                        |
-+-------------------------------+---------------------------------------------------+--------------------------------------------------------------------------+
-| EVENT_OUTPUT_START            | Output binding started for flow or operation      | [executableResults], [executableOutputs], [actionReturnValues]           |
-+-------------------------------+---------------------------------------------------+--------------------------------------------------------------------------+
-| EVENT_OUTPUT_END              | Output binding finished for flow or operation     | [OUTPUTS], [RESULT], [EXECUTABLE_NAME]                                   |
-+-------------------------------+---------------------------------------------------+--------------------------------------------------------------------------+
-| EVENT_OUTPUT_START            | Output binding started for step                   | [operationReturnValues], [stepNavigationValues], [stepPublishValues]     |
-+-------------------------------+---------------------------------------------------+--------------------------------------------------------------------------+
-| EVENT_OUTPUT_END              | Output binding finished for step                  | [nextPosition], [RESULT], [OUTPUTS]                                      |
-+-------------------------------+---------------------------------------------------+--------------------------------------------------------------------------+
-| EVENT_EXECUTION_FINISHED      | Execution finished running                        | [RESULT], [OUTPUTS]                                                      |
-+-------------------------------+---------------------------------------------------+--------------------------------------------------------------------------+
-| EVENT_ACTION_START            | Before action invocation                          | [TYPE], [CALL_ARGUMENTS]                                                 |
-+-------------------------------+---------------------------------------------------+--------------------------------------------------------------------------+
-| EVENT_ACTION_END              | After successful action invocation                | [RETURN_VALUES]                                                          |
-+-------------------------------+---------------------------------------------------+--------------------------------------------------------------------------+
-| EVENT_ACTION_ERROR            | Exception in action execution                     | [EXCEPTION]                                                              |
-+-------------------------------+---------------------------------------------------+--------------------------------------------------------------------------+
-| EVENT_SPLIT_BRANCHES          | Async loop expression bound                       | [BOUND_ASYNC_LOOP_EXPRESSION]                                            |
-+-------------------------------+---------------------------------------------------+--------------------------------------------------------------------------+
-| EVENT_BRANCH_START            | Async loop branch created                         | [splitItem], [refId]                                                     |
-+-------------------------------+---------------------------------------------------+--------------------------------------------------------------------------+
-| EVENT_BRANCH_END              | Async loop branch ended                           | [branchReturnValues]                                                     |
-+-------------------------------+---------------------------------------------------+--------------------------------------------------------------------------+
-| EVENT_JOIN_BRANCHES_START     | Async loop output binding started                 | [stepNavigationValues], [stepAggregateValues]                            |
-+-------------------------------+---------------------------------------------------+--------------------------------------------------------------------------+
-| EVENT_JOIN_BRANCHES_END       | Async loop output binding finished                | [nextPosition], [RESULT], [OUTPUTS]                                      |
-+-------------------------------+---------------------------------------------------+--------------------------------------------------------------------------+
-| SLANG_EXECUTION_EXCEPTION     | Exception in previous step                        | [IS_BRANCH], [executionIdContext], [systemContext], [EXECUTION_CONTEXT]  |
-+-------------------------------+---------------------------------------------------+--------------------------------------------------------------------------+
++---------------------------+-----------------------+-------------------------------+
+| Type [TYPE]               | Usage                 | Event Data                    |
++===========================+=======================+===============================+
+| EVENT_INPUT_START         | | Input binding       | [INPUTS]                      |
+|                           | | started for         |                               |
+|                           | | flow or operation   |                               |
++---------------------------+-----------------------+-------------------------------+
+| EVENT_INPUT_END           | | Input binding       | [BOUND_INPUTS]                |
+|                           | | finished for        |                               |
+|                           | | flow or operation   |                               |
++---------------------------+-----------------------+-------------------------------+
+| EVENT_STEP_START          | Step started          |                               |
++---------------------------+-----------------------+-------------------------------+
+| EVENT_ARGUMENT_START      | | Argument binding    | [ARGUMENTS]                   |
+|                           | | started for step    |                               |
++---------------------------+-----------------------+-------------------------------+
+| EVENT_ARGUMENT_END        | | Step arguments      | [BOUND_ARGUMENTS]             |
+|                           | | resolved            |                               |
++---------------------------+-----------------------+-------------------------------+
+| EVENT_OUTPUT_START        | | Output binding      | | [executableResults]         |
+|                           | | started for         | | [executableOutputs]         |
+|                           | | flow or operation   | | [actionReturnValues]        |
++---------------------------+-----------------------+-------------------------------+
+| EVENT_OUTPUT_END          | | Output binding      | | [OUTPUTS]                   |
+|                           | | finished for        | | [RESULT]                    |
+|                           | | flow or operation   | | [EXECUTABLE_NAME]           |
++---------------------------+-----------------------+-------------------------------+
+| EVENT_OUTPUT_START        | | Output binding      | | [operationReturnValues]     |
+|                           | | started for step    | | [stepNavigationValues]      |
+|                           |                       | | [stepPublishValues]         |
++---------------------------+-----------------------+-------------------------------+
+| EVENT_OUTPUT_END          | | Output binding      | | [nextPosition]              |
+|                           | | finished for step   | | [RESULT]                    |
+|                           |                       | | [OUTPUTS]                   |
++---------------------------+-----------------------+-------------------------------+
+| EVENT_EXECUTION_FINISHED  | | Execution finished  | | [RESULT]                    |
+|                           | | running             | | [OUTPUTS]                   |
++---------------------------+-----------------------+-------------------------------+
+| EVENT_ACTION_START        | | Before action       | | [TYPE]                      |
+|                           | | invocation          | | [CALL_ARGUMENTS]            |
++---------------------------+-----------------------+-------------------------------+
+| EVENT_ACTION_END          | | After successful    | [RETURN_VALUES]               |
+|                           | | action invocation   |                               |
++---------------------------+-----------------------+-------------------------------+
+| EVENT_ACTION_ERROR        | | Exception in        | [EXCEPTION]                   |
+|                           | | action execution    |                               |
++---------------------------+-----------------------+-------------------------------+
+| EVENT_SPLIT_BRANCHES      | | Async loop          | [BOUND_ASYNC_LOOP_EXPRESSION] |
+|                           | | expression bound    |                               |
++---------------------------+-----------------------+-------------------------------+
+| EVENT_BRANCH_START        | | Async loop          | | [splitItem]                 |
+|                           | | branch created      | | [refId]                     |
++---------------------------+-----------------------+-------------------------------+
+| EVENT_BRANCH_END          | | Async loop          | [branchReturnValues]          |
+|                           | | branch ended        |                               |
++---------------------------+-----------------------+-------------------------------+
+| EVENT_JOIN_BRANCHES_START | | Async loop output   | | [stepNavigationValues]      |
+|                           | | binding started     | | [stepAggregateValues]       |
++---------------------------+-----------------------+-------------------------------+
+| EVENT_JOIN_BRANCHES_END   | | Async loop output   | | [nextPosition]              |
+|                           | | binding finished    | | [RESULT]                    |
+|                           |                       | | [OUTPUTS]                   |
++---------------------------+-----------------------+-------------------------------+
+| SLANG_EXECUTION_EXCEPTION | | Exception in        | | [IS_BRANCH]                 |
+|                           | | previous step       | | [executionIdContext]        |
+|                           |                       | | [systemContext]             |
+|                           |                       | | [EXECUTION_CONTEXT]         |
++---------------------------+-----------------------+-------------------------------+
