@@ -685,11 +685,11 @@ step's <#asynchronous-step>`__ `aggregation <#aggregate>`__ and
 |             |          |         | | list            |                                 |                              |
 +-------------+----------+---------+-------------------+---------------------------------+------------------------------+
 | ``do``      | yes      | --      | | operation or    | | operation or subflow          | | `do <#do>`__               |
-|             |          |         | | subflow call    | | this step will                | | `operation <#operation>`_  |
+|             |          |         | | subflow call    | | this step will                | | `operation <#operation>`__ |
 |             |          |         |                   | | run in parallel               | | `flow <#flow>`__           |
 +-------------+----------+---------+-------------------+---------------------------------+------------------------------+
 | ``publish`` | no       | --      | | list of         | | operation or subflow          | | `publish <#publish>`__     |
-|             |          |         | | key:value       | | outputs to aggregate          | | `aggregate <#aggregate>`_  |
+|             |          |         | | key:value       | | outputs to aggregate          | | `aggregate <#aggregate>`__ |
 |             |          |         | | pairs           | | and publish to the flow level | | `outputs <#outputs>`__     |
 +-------------+----------+---------+-------------------+---------------------------------+------------------------------+
 
@@ -959,21 +959,21 @@ A flow is the basic executable unit of CloudSlang. A flow can run on its
 own or it can be used by another flow in the `do <#do>`__ property of a
 `step <#step>`__.
 
-+--------------+----------+------------------+----------------+---------------------+-------------------------+
-| Property     | Required | Default          | Value Type     | Description         | More Info               |
-+==============+==========+==================+================+=====================+=========================+
-| ``name``     | yes      | --               | string         | name of the flow    | `name <#name>`__        |
-+--------------+----------+------------------+----------------+---------------------+-------------------------+
-| ``inputs``   | no       | --               | list           | inputs for the flow | `inputs <#inputs>`__    |
-+--------------+----------+------------------+----------------+---------------------+-------------------------+
-| ``workflow`` | yes      | --               | list of steps  | | container for     | `workflow <#workflow>`__|
-|              |          |                  |                | | workflow steps    |                         |
-+--------------+----------+------------------+----------------+---------------------+-------------------------+
-| ``outputs``  | no       | --               | list           | list of outputs     | `outputs <#outputs>`__  |
-+--------------+----------+------------------+----------------+---------------------+-------------------------+
-| ``results``  | no       | | (``SUCCESS`` / | list           | | possible results  | `results <#results>`__  |
-|              |          | | ``FAILURE`` )  |                | | of the flow       |                         |
-+--------------+----------+------------------+----------------+---------------------+-------------------------+
++--------------+----------+------------------+----------------+---------------------+--------------------------+
+| Property     | Required | Default          | Value Type     | Description         | More Info                |
++==============+==========+==================+================+=====================+==========================+
+| ``name``     | yes      | --               | string         | name of the flow    | `name <#name>`__         |
++--------------+----------+------------------+----------------+---------------------+--------------------------+
+| ``inputs``   | no       | --               | list           | inputs for the flow | `inputs <#inputs>`__     |
++--------------+----------+------------------+----------------+---------------------+--------------------------+
+| ``workflow`` | yes      | --               | list of steps  | | container for     | `workflow <#workflow>`__ |
+|              |          |                  |                | | workflow steps    |                          |
++--------------+----------+------------------+----------------+---------------------+--------------------------+
+| ``outputs``  | no       | --               | list           | list of outputs     | `outputs <#outputs>`__   |
++--------------+----------+------------------+----------------+---------------------+--------------------------+
+| ``results``  | no       | | (``SUCCESS`` / | list           | | possible results  | `results <#results>`__   |
+|              |          | | ``FAILURE`` )  |                | | of the flow       |                          |
++--------------+----------+------------------+----------------+---------------------+--------------------------+
 
 **Example - a flow that performs a division of two numbers**
 
@@ -1233,7 +1233,7 @@ step's navigation will run.
 |             |          |         | | key:value pairs              | | outputs to aggregate and                    | | `outputs <#outputs>`__     |
 |             |          |         |                                | | publish to the flow level                   |                              |
 +-------------+----------+---------+--------------------------------+-----------------------------------------------+------------------------------+
-| ``break``   | no       | --      | list of `results <#results>`__ | | operation or subflow                        | `break <#break>`_            |
+| ``break``   | no       | --      | list of `results <#results>`__ | | operation or subflow                        | `break <#break>`__           |
 |             |          |         |                                | | `results <#results>`__ on which to          |                              |
 |             |          |         |                                | | break out of the loop                       |                              |
 +-------------+----------+---------+--------------------------------+-----------------------------------------------+------------------------------+
