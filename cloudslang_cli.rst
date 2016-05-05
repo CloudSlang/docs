@@ -58,11 +58,52 @@ the CloudSlang CLI, Java JRE version 7 or higher is required.
 Docker Image
 ============
 
-- Pull the image: ``docker pull cloudslang/cloudslang``.
-- Run the CLI
+There are two CloudSlang Docker images. One (cloudslang/cloudslang) is a
+lightweight image meant to get you running CloudSlang flows as quickly as
+possible. The other image (cloudslang/cloudslang-dev) adds the tools necessary
+to develop CloudSlang flows.
 
-   - With prompt: ``docker run -it cloudslang/cloudslang``.
-   - Without prompt: ``docker run --rm -ti cloudslang run --f ../content/io/cloudslang/.../flow.sl --i input1=value1``
+cloudslang/cloudslang
+---------------------
+
+This image includes:
+
+- Java
+- CloudSlang CLI
+- CloudSlang content
+
+To get and run the image:
+
+-  ``docker pull cloudslang/cloudslang``
+-  ``docker run -it cloudslang/cloudslang``
+-  At the prompt enter:
+
+.. code-block:: bash
+
+    run --f ../content/io/cloudslang/.../flow.sl --i input1=value1
+
+Or, to run the flow without the prompt:
+
+.. code-block:: bash
+
+    docker run --rm -ti cloudslang run --f ../content/io/cloudslang/.../flow.sl --i input1=value1
+
+cloudslang/cloudslang-dev
+-------------------------
+
+This image includes:
+
+- Java
+- CloudSlang CLI
+- CloudSlang content
+- Python
+- Pip
+- Vim
+- Emacs
+- SSH
+- Git
+- Atom
+- language-cloudslang Atom package
 
 .. _configure_cli:
 

@@ -22,8 +22,24 @@ Download, Unzip and Run
 Docker
 ======
 
--  docker pull cloudslang/cloudslang
--  docker run -it cloudslang/cloudslang
+There are two CloudSlang Docker images. One (cloudslang/cloudslang) is a
+lightweight image meant to get you running CloudSlang flows as quickly as
+possible. The other image (cloudslang/cloudslang-dev) adds the tools necessary
+to develop CloudSlang flows.
+
+cloudslang/cloudslang
+---------------------
+
+This image includes:
+
+- Java
+- CloudSlang CLI
+- CloudSlang content
+
+To get and run the image:
+
+-  ``docker pull cloudslang/cloudslang``
+-  ``docker run -it cloudslang/cloudslang``
 -  At the prompt enter:
 
 .. code-block:: bash
@@ -38,6 +54,27 @@ Or, to run the flow without the prompt:
 
 -  The CLI will run the ready-made ``print_text`` operation that will
    print the value passed to the variable ``text`` to the screen.
+
+cloudslang/cloudslang-dev
+-------------------------
+
+This image includes:
+
+- Java
+- CloudSlang CLI
+- CloudSlang content
+- Python
+- Pip
+- Vim
+- Emacs
+- SSH
+- Git
+- Atom
+- language-cloudslang Atom package
+
+To get the image:
+
+-  ``docker pull cloudslang/cloudslang-dev``
 
 Next Steps
 ==========
