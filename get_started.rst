@@ -36,24 +36,19 @@ This image includes:
 - CloudSlang CLI
 - CloudSlang content
 
-To get and run the image:
+To get and run the image: ``docker pull cloudslang/cloudslang``
 
--  ``docker pull cloudslang/cloudslang``
+To run a flow with a CloudSlang prompt:
+
 -  ``docker run -it cloudslang/cloudslang``
--  At the prompt enter:
-
-.. code-block:: bash
-
-    run --f ../content/io/cloudslang/base/print/print_text.sl --i text=Hi
+-  At the prompt enter: ``run --f ../content/io/cloudslang/base/print/print_text.sl --i text=Hi``
 
 Or, to run the flow without the prompt:
 
-.. code-block:: bash
+``docker run --rm -ti cloudslang run --f ../content/io/cloudslang/base/print/print_text.sl --i text=first_flow``
 
-    docker run --rm -ti cloudslang run --f ../content/io/cloudslang/base/print/print_text.sl --i text=first_flow
-
--  The CLI will run the ready-made ``print_text`` operation that will
-   print the value passed to the variable ``text`` to the screen.
+The CLI will run the ready-made ``print_text`` operation that will
+print the value passed to the variable ``text`` to the screen.
 
 cloudslang/cloudslang-dev
 -------------------------
@@ -72,9 +67,7 @@ This image includes:
 - Atom
 - language-cloudslang Atom package
 
-To get the image:
-
--  ``docker pull cloudslang/cloudslang-dev``
+To get the image: ``docker pull cloudslang/cloudslang-dev``
 
 Next Steps
 ==========
