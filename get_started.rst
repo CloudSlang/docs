@@ -45,7 +45,7 @@ To run a flow with a CloudSlang prompt:
 
 Or, to run the flow without the prompt:
 
-``docker run --rm -ti cloudslang run --f ../content/io/cloudslang/base/print/print_text.sl --i text=first_flow``
+``docker run --rm cloudslang/cloudslang run --f ../content/io/cloudslang/base/print/print_text.sl --i text=first_flow``
 
 The CLI will run the ready-made ``print_text`` operation that will
 print the value passed to the variable ``text`` to the screen.
