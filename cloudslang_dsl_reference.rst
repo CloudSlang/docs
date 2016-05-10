@@ -126,7 +126,15 @@ and concepts are explained in detail below.
       -  `default <#default>`__
       -  `private <#private>`__
 
-   -  `action <#action>`__
+   -  `python_action <#python-action>`__
+
+      -  `script <#script>`__
+
+   -  `java_action <#java-action>`__
+
+      -  `class_name <#class_name>`__
+      -  `method_name <#method_name>`__
+
    -  `outputs <#outputs>`__
    -  `results <#results>`__
 
@@ -292,22 +300,13 @@ context labeled as **P0** overrides the context labeled as **P1**.
 Keywords (A-Z)
 ==============
 
-.. _action:
-
-action
-------
-
-The key ``action`` is a property of an `operation <#operation>`__. It is
-mapped to a property that defines the type of action, which can be a
-`java_action <#java-action>`__ or `python_script <#python-script>`__.
-
 .. _java_action:
 
 java_action
-~~~~~~~~~~~~
+-----------
 
-The key ``java_action`` is a property of `action <#action>`__.
-It is mapped to the properties ``className`` and ``methodName`` that define the
+The key ``java_action`` is a property of an `operation <#operation>`__. It is
+mapped to the properties ``className`` and ``methodName`` that define the
 class and method where an annotated Java @Action resides.
 
 **Example - CloudSlang call to a Java action**
@@ -327,17 +326,16 @@ class and method where an annotated Java @Action resides.
       - subject
       - body
 
-      action:
-        java_action:
-          className: io.cloudslang.content.mail.actions.SendMailAction
-          methodName: execute
+      java_action:
+        className: io.cloudslang.content.mail.actions.SendMailAction
+        methodName: execute
 
       results:
       - SUCCESS: ${ returnCode == '0' }
       - FAILURE
 
 Existing Java Actions
-^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~
 
 There are many existing Java actions which are bundled with the
 :doc:`CloudSlang CLI <cloudslang_cli>`. The source code for these Java actions
@@ -345,7 +343,7 @@ can be found in the
 `score-actions <https://github.com/CloudSlang/score-actions>`__ repository.
 
 Adding a New Java Action
-^^^^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~
 
 To add a new Java action:
 
@@ -354,7 +352,7 @@ To add a new Java action:
   - `Add the Jar to the lib folder in the CLI <#add-the-jar-to-the-lib-folder-in-the-cli>`__
 
 Write an Annotated Java Method
-******************************
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Create a Java method that conforms to the signature
 ``public Map<String, String> doSomething(paramaters)`` and use the following
@@ -427,7 +425,7 @@ that matches a CloudSlang output.
     }
 
 Package the Method in a Jar
-***************************
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Use Maven to package the class containing the Java action method. Below is an
 example **pom.xml** file that can be used for your Maven project.
@@ -466,168 +464,11 @@ example **pom.xml** file that can be used for your Maven project.
     </project>
 
 Add the Jar to the lib Folder in the CLI
-****************************************
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Place the Jar created by Maven in the **cslang/lib** folder and restart the CLI.
 You can now call the Java action from a CloudSlang operation as explained
 `above <#java-action>`__.
-
-.. _python_script:
-
-python_script
-~~~~~~~~~~~~~
-
-The key ``python_script`` is a property of `action <#action>`__.
-It is mapped to a value containing a Python script.
-
-All variables in scope at the conclusion of the Python script must be
-serializable. If non-serializable variables are used, remove them from
-scope by using the ``del`` keyword before the script exits.
-
-.. note::
-
-   CloudSlang uses the `Jython <http://www.jython.org/>`__
-   implementation of Python 2.7. For information on Jython's limitations,
-   see the `Jython FAQ <https://wiki.python.org/jython/JythonFaq>`__.
-
-**Example - action with Python script that divides two numbers**
-
-.. code-block:: yaml
-
-    name: divide
-
-    inputs:
-      - dividend
-      - divisor
-
-    action:
-      python_script: |
-        if divisor == '0':
-          quotient = 'division by zero error'
-        else:
-          quotient = float(dividend) / float(divisor)
-
-    outputs:
-      - quotient
-
-    results:
-      - ILLEGAL: ${quotient == 'division by zero error'}
-      - SUCCESS
-
-.. note::
-
-   Single-line Python scripts can be written inline with the
-   ``python_script`` key. Multi-line Python scripts can use the YAML pipe
-   (``|``) indicator as in the example above.
-
-Importing External Python Packages
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-There are three approaches to importing and using external Python
-modules:
-
--  Installing packages into the **python-lib** folder
--  Editing the executable file
--  Adding the package location to ``sys.path``
-
-**Installing packages into the python-lib folder:**
-
-Prerequisites:  Python 2.7 and pip.
-
-You can download Python (version 2.7) from `here <https://www.python.org/>`__.
-Python 2.7.9 and later include pip by default. If you already have Python but
-don't have pip, see the pip
-`documentation <https://pip.pypa.io/en/latest/installing.html>`__ for
-installation instructions.
-
-1. Edit the **requirements.txt** file in the **python-lib** folder,
-   which is found at the same level as the **bin** folder that contains
-   the CLI executable.
-
-   -  If not using a pre-built CLI, you may have to create the
-      **python-lib** folder and **requirements.txt** file.
-
-2. Enter the Python package and all its dependencies in the requirements
-   file.
-
-   -  See the **pip**
-      `documentation <https://pip.pypa.io/en/latest/user_guide.html#requirements-files>`__
-      for information on how to format the requirements file (see
-      example below).
-
-3. Run the following command from inside the **python-lib** folder:
-   ``pip install -r requirements.txt -t``.
-
-   .. note::
-
-      If your machine is behind a proxy you will need to specify
-      the proxy using pip's ``--proxy`` flag.
-
-4. Import the package as you normally would in Python from within the
-   action's ``python_script``:
-
-.. code-block:: yaml
-
-    action:
-      python_script: |
-        from pyfiglet import Figlet
-        f = Figlet(font='slant')
-        print f.renderText(text)
-
-**Example - requirements file**
-
-::
-
-        pyfiglet == 0.7.2
-        setuptools
-
-.. note::
-
-   If you have defined a ``JYTHONPATH`` environment variable, you
-   will need to add the **python-lib** folder's path to its value.
-
-**Editing the executable file**
-
-1. Open the executable found in the **bin** folder for editing.
-2. Change the ``Dpython.path`` key's value to the desired path.
-3. Import the package as you normally would in Python from within the
-   action's ``python_script``.
-
-**Adding the package location to sys.path:**
-
-1. In the action's Pyton script, import the ``sys`` module.
-2. Use ``sys.path.append()`` to add the path to the desired module.
-3. Import the module and use it.
-
-**Example - takes path as input parameter, adds it to sys.path and
-imports desired module**
-
-.. code-block:: yaml
-
-    inputs:
-      - path
-    action:
-      python_script: |
-        import sys
-        sys.path.append(path)
-        import module_to_import
-        print module_to_import.something()
-
-Importing Python Scripts
-~~~~~~~~~~~~~~~~~~~~~~~~
-
-To import a Python script in a ``python_script`` action:
-
-1. Add the Python script to the **python-lib** folder, which is found at
-   the same level as the **bin** folder that contains the CLI
-   executable.
-2. Import the script as you normally would in Python from within the
-   action's ``python_script``.
-
-.. note::
-
-   If you have defined a ``JYTHONPATH`` environment variable, you
-   will need to add the **python-lib** folder's path to its value.
 
 .. _aggregate:
 
@@ -915,9 +756,9 @@ For a list of which contexts are available in the arguments section of a
       inputs:
         - text
         - punctuation: "."
-      action:
-      python_script: |
-        print text + punctuation
+      python_action:
+        script: |
+          print text + punctuation
 
 .. _extensions:
 
@@ -1402,22 +1243,23 @@ operation
 The key ``operation`` is mapped to the properties which make up the
 operation contents.
 
-+-------------+----------+-------------+------------------------+----------------------+--------------------------+
-| Property    | Required | Default     | Value Type             | Description          | More Info                |
-+=============+==========+=============+========================+======================+==========================+
-| ``name``    | yes      | --          | string                 | | name of the        | `name <#name>`__         |
-|             |          |             |                        | | operation          |                          |
-+-------------+----------+-------------+------------------------+----------------------+--------------------------+
-| ``inputs``  | no       | --          | list                   | operation inputs     | `inputs <#inputs>`__     |
-+-------------+----------+-------------+------------------------+----------------------+--------------------------+
-| ``action``  | yes      | --          | | ``python_script`` or | operation logic      | `action <#action>`__     |
-|             |          |             | | ``java_action``      |                      |                          |
-+-------------+----------+-------------+------------------------+----------------------+--------------------------+
-| ``outputs`` | no       | --          | list                   | operation outputs    | `outputs <#outputs>`__   |
-+-------------+----------+-------------+------------------------+----------------------+--------------------------+
-| ``results`` | no       | ``SUCCESS`` | list                   | | possible operation | `results <#results>`__   |
-|             |          |             |                        | | results            |                          |
-+-------------+----------+-------------+------------------------+----------------------+--------------------------+
++-------------------+----------+-------------+----------------+----------------------+------------------------------------+
+| Property          | Required | Default     | Value Type     | Description          | More Info                          |
++===================+==========+=============+================+======================+====================================+
+| ``name``          | yes      | --          | string         | | name of the        | `name <#name>`__                   |
+|                   |          |             |                | | operation          |                                    |
++-------------------+----------+-------------+----------------+----------------------+------------------------------------+
+| ``inputs``        | no       | --          | list           | operation inputs     | `inputs <#inputs>`__               |
++-------------------+----------+-------------+----------------+----------------------+------------------------------------+
+| ``python_action`` | no       | --          | ``script`` key | operation logic      | `python_action <#python-action>`__ |
++-------------------+----------+-------------+----------------+----------------------+------------------------------------+
+| ``java_action``   |          |             | map            | operation logic      | `java_action <#java-action>`__     |
++-------------------+----------+-------------+----------------+----------------------+------------------------------------+
+| ``outputs``       | no       | --          | list           | operation outputs    | `outputs <#outputs>`__             |
++-------------------+----------+-------------+----------------+----------------------+------------------------------------+
+| ``results``       | no       | ``SUCCESS`` | list           | | possible operation | `results <#results>`__             |
+|                   |          |             |                | | results            |                                    |
++-------------------+----------+-------------+----------------+----------------------+------------------------------------+
 
 **Example - operation that adds two inputs and outputs the answer**
 
@@ -1429,8 +1271,8 @@ operation contents.
       - left
       - right
 
-    action:
-      python_script: ans = left + right
+    python_action:
+      script: ans = left + right
 
     outputs:
       - out: ${ans}
@@ -1609,6 +1451,14 @@ received from finished branches, allowing for aggregation.
         aggregate:
             - name_list: ${map(lambda x:str(x['name']), branches_context)}
 
+.. _python_action:
+
+python_action
+-------------
+
+The key ``python_action`` is a property of an `operation <#operation>`__. It is
+mapped to a ``script`` property that contains the actual Python script.
+
 .. _results:
 
 results
@@ -1703,6 +1553,166 @@ receive a value or declare a `default <#default>`__ value.
       - input1
       - input2:
           required: false
+
+.. _script:
+
+script
+------
+
+The key ``script`` is a property of `python_action <#python-action>`__.
+It is mapped to a value containing a Python script.
+
+All variables in scope at the conclusion of the Python script must be
+serializable. If non-serializable variables are used, remove them from
+scope by using the ``del`` keyword before the script exits.
+
+.. note::
+
+   CloudSlang uses the `Jython <http://www.jython.org/>`__
+   implementation of Python 2.7. For information on Jython's limitations,
+   see the `Jython FAQ <https://wiki.python.org/jython/JythonFaq>`__.
+
+**Example - action with Python script that divides two numbers**
+
+.. code-block:: yaml
+
+    name: divide
+
+    inputs:
+      - dividend
+      - divisor
+
+    python_action:
+      script: |
+        if divisor == '0':
+          quotient = 'division by zero error'
+        else:
+          quotient = float(dividend) / float(divisor)
+
+    outputs:
+      - quotient
+
+    results:
+      - ILLEGAL: ${quotient == 'division by zero error'}
+      - SUCCESS
+
+.. note::
+
+   Single-line Python scripts can be written inline with the
+   ``script`` key. Multi-line Python scripts can use the YAML pipe
+   (``|``) indicator as in the example above.
+
+Importing External Python Packages
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+There are three approaches to importing and using external Python
+modules:
+
+-  Installing packages into the **python-lib** folder
+-  Editing the executable file
+-  Adding the package location to ``sys.path``
+
+Installing Packages into the python-lib Folder
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Prerequisites:  Python 2.7 and pip.
+
+You can download Python (version 2.7) from `here <https://www.python.org/>`__.
+Python 2.7.9 and later include pip by default. If you already have Python but
+don't have pip, see the pip
+`documentation <https://pip.pypa.io/en/latest/installing.html>`__ for
+installation instructions.
+
+1. Edit the **requirements.txt** file in the **python-lib** folder,
+   which is found at the same level as the **bin** folder that contains
+   the CLI executable.
+
+   -  If not using a pre-built CLI, you may have to create the
+      **python-lib** folder and **requirements.txt** file.
+
+2. Enter the Python package and all its dependencies in the requirements
+   file.
+
+   -  See the **pip**
+      `documentation <https://pip.pypa.io/en/latest/user_guide.html#requirements-files>`__
+      for information on how to format the requirements file (see
+      example below).
+
+3. Run the following command from inside the **python-lib** folder:
+   ``pip install -r requirements.txt -t``.
+
+   .. note::
+
+      If your machine is behind a proxy you will need to specify
+      the proxy using pip's ``--proxy`` flag.
+
+4. Import the package as you normally would in Python from within the
+   action's ``script``:
+
+.. code-block:: yaml
+
+    python_action:
+      script: |
+        from pyfiglet import Figlet
+        f = Figlet(font='slant')
+        print f.renderText(text)
+
+**Example - requirements file**
+
+::
+
+        pyfiglet == 0.7.2
+        setuptools
+
+.. note::
+
+   If you have defined a ``JYTHONPATH`` environment variable, you
+   will need to add the **python-lib** folder's path to its value.
+
+Editing the Executable File
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+1. Open the executable found in the **bin** folder for editing.
+2. Change the ``Dpython.path`` key's value to the desired path.
+3. Import the package as you normally would in Python from within the
+   action's ``script``.
+
+Adding the Package Location to sys.path
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+1. In the action's Pyton script, import the ``sys`` module.
+2. Use ``sys.path.append()`` to add the path to the desired module.
+3. Import the module and use it.
+
+**Example - takes path as input parameter, adds it to sys.path and
+imports desired module**
+
+.. code-block:: yaml
+
+    inputs:
+      - path
+    python_action:
+      script: |
+        import sys
+        sys.path.append(path)
+        import module_to_import
+        print module_to_import.something()
+
+Importing Python Scripts
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+To import a Python script in a ``python_action``:
+
+1. Add the Python script to the **python-lib** folder, which is found at
+   the same level as the **bin** folder that contains the CLI
+   executable.
+2. Import the script as you normally would in Python from within the
+   action's ``script``.
+
+.. note::
+
+   If you have defined a ``JYTHONPATH`` environment variable, you
+   will need to add the **python-lib** folder's path to its value.
 
 .. _step:
 
@@ -1941,8 +1951,8 @@ value associated with ``expression2``.
       name: operation
       inputs:
         - in1
-      action:
-        python_script: |
+      python_action:
+        script: |
           out1 = 'not x' if in1 != 'x' else None
       outputs:
         - out1

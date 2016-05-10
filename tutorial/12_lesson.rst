@@ -85,12 +85,6 @@ content folder or by running ``inspect`` on the flow.
 When calling the operation, we'll need to pass values for all the
 arguments listed in the documentation that are not optional.
 
-You might have noticed that operation and flow inputs are generally
-named using snake_case. This is in keeping with Python conventions,
-especially when using an operation that has a ``python_script`` type
-action. The ``send_mail`` operation though, uses a ``java_action`` so
-its inputs follow the Java camelCase convention.
-
 Imports
 -------
 

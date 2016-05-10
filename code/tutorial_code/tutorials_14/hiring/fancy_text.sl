@@ -6,8 +6,8 @@ operation:
   inputs:
     - text
 
-  action:
-    python_script: |
+  python_action:
+    script: |
       from pyfiglet import Figlet
       f = Figlet(font='slant')
       fancy = '<pre>' + f.renderText(text).replace('\n','<br>').replace(' ', '&nbsp') + '</pre>'
