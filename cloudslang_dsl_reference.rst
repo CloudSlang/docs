@@ -306,7 +306,7 @@ java_action
 -----------
 
 The key ``java_action`` is a property of an `operation <#operation>`__. It is
-mapped to the properties ``className`` and ``methodName`` that define the
+mapped to the properties ``class_name`` and ``method_name`` that define the
 class and method where an annotated Java @Action resides.
 
 **Example - CloudSlang call to a Java action**
@@ -319,20 +319,20 @@ class and method where an annotated Java @Action resides.
       name: send_mail
 
       inputs:
-      - hostname
-      - port
-      - from
-      - to
-      - subject
-      - body
+        - hostname
+        - port
+        - from
+        - to
+        - subject
+        - body
 
       java_action:
-        className: io.cloudslang.content.mail.actions.SendMailAction
-        methodName: execute
+        class_name: io.cloudslang.content.mail.actions.SendMailAction
+        method_name: execute
 
       results:
-      - SUCCESS: ${ returnCode == '0' }
-      - FAILURE
+        - SUCCESS: ${ returnCode == '0' }
+        - FAILURE
 
 Existing Java Actions
 ~~~~~~~~~~~~~~~~~~~~~

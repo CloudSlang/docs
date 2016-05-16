@@ -65,8 +65,8 @@ operation:
     - delimiter:
         required: false
   java_action:
-    className: io.cloudslang.content.mail.actions.SendMailAction
-    methodName: execute
+    class_name: io.cloudslang.content.mail.actions.SendMailAction
+    method_name: execute
   results:
     - SUCCESS: ${ returnCode == '0' }
     - FAILURE
