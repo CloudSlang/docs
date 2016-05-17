@@ -292,7 +292,7 @@ context labeled as **P0** overrides the context labeled as **P1**.
 Keywords (A-Z)
 ==============
 
-.. _action:
+.. _python_action:
 
 action
 ------
@@ -327,7 +327,7 @@ class and method where an annotated Java @Action resides.
       - subject
       - body
 
-      action:
+      python_action:
         java_action:
           className: io.cloudslang.content.mail.actions.SendMailAction
           methodName: execute
@@ -347,7 +347,7 @@ can be found in the
 Adding a New Java Action
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
-To add a new Java action:
+To add a new Java python_action:
 
   - `Write an annotated Java method <#write-an-annotated-java-method>`__
   - `Package the method in a Jar <#package-the-method-in-a-jar>`__
@@ -360,7 +360,7 @@ Create a Java method that conforms to the signature
 ``public Map<String, String> doSomething(paramaters)`` and use the following
 annotations from ``com.hp.oo.sdk.content.annotations``:
 
-   -  @Action: specifies action information
+   -  @python_action: specifies action information
 
         - name: name of the action
         - outputs: array of ``@Output`` annotations
@@ -472,7 +472,7 @@ Place the Jar created by Maven in the **cslang/lib** folder and restart the CLI.
 You can now call the Java action from a CloudSlang operation as explained
 `above <#java-action>`__.
 
-.. _python_script:
+.. _script:
 
 python_script
 ~~~~~~~~~~~~~
@@ -500,8 +500,8 @@ scope by using the ``del`` keyword before the script exits.
       - dividend
       - divisor
 
-    action:
-      python_script: |
+    python_action:
+      script: |
         if divisor == '0':
           quotient = 'division by zero error'
         else:
@@ -568,8 +568,8 @@ installation instructions.
 
 .. code-block:: yaml
 
-    action:
-      python_script: |
+    python_action:
+      script: |
         from pyfiglet import Figlet
         f = Figlet(font='slant')
         print f.renderText(text)
@@ -606,8 +606,8 @@ imports desired module**
 
     inputs:
       - path
-    action:
-      python_script: |
+    python_action:
+      script: |
         import sys
         sys.path.append(path)
         import module_to_import
@@ -616,7 +616,7 @@ imports desired module**
 Importing Python Scripts
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
-To import a Python script in a ``python_script`` action:
+To import a Python script in a ``python_script`` python_action:
 
 1. Add the Python script to the **python-lib** folder, which is found at
    the same level as the **bin** folder that contains the CLI
@@ -915,8 +915,8 @@ For a list of which contexts are available in the arguments section of a
       inputs:
         - text
         - punctuation: "."
-      action:
-      python_script: |
+      python_action:
+      script: |
         print text + punctuation
 
 .. _extensions:
@@ -1174,7 +1174,9 @@ input name may in turn be mapped to its properties or an input
 `expression <#expressions>`__.
 
 Inputs are used to pass parameters to `flows <#flow>`__ or
-`operations <#operation>`__.
+`operations <#operation>`__. Input names for a specific `flow <#flow>`__ or
+`operation <#operation>`__ must be different than the output names of the same
+`flow <#flow>`__ or `operation <#operation>`__.
 
 For a list of which contexts are available in the ``inputs`` section of a
 `flow <#flow>`__ or `operation <#operation>`__, see `Contexts <#contexts>`__.
@@ -1429,8 +1431,8 @@ operation contents.
       - left
       - right
 
-    action:
-      python_script: ans = left + right
+    python_action:
+      script: ans = left + right
 
     outputs:
       - out: ${ans}
@@ -1451,6 +1453,10 @@ Output `expressions <#expressions>`__ must evaluate to strings.
 Defines the parameters a `flow <#flow>`__ or `operation <#operation>`__
 exposes to possible `publication <#publish>`__ by a `step <#step>`__.
 The calling `step <#step>`__ refers to an output by its name.
+
+Output names for a specific `flow <#flow>`__ or
+`operation <#operation>`__ must be different than the input names of the same
+`flow <#flow>`__ or `operation <#operation>`__.
 
 For a list of which contexts are available in the ``outputs`` section of a
 `flow <#flow>`__ or `operation <#operation>`__, see `Contexts <#contexts>`__.
@@ -1941,8 +1947,8 @@ value associated with ``expression2``.
       name: operation
       inputs:
         - in1
-      action:
-        python_script: |
+      python_action:
+        script: |
           out1 = 'not x' if in1 != 'x' else None
       outputs:
         - out1

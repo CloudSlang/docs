@@ -99,8 +99,8 @@ value.
 
 .. code-block:: yaml
 
-    action:
-      python_script: print text
+    python_action:
+      script: print text
 
 .. note::
 
@@ -162,5 +162,5 @@ New Code - Complete
       inputs:
         - text
 
-      action:
-        python_script: print text
+      python_action:
+        script: print text

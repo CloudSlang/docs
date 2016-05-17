@@ -33,7 +33,7 @@ proper indentation.
 
     outputs:
       - address
-      - total_cost
+      - final_cost: ${total_cost}
 
 Parent Flow
 -----------
@@ -103,7 +103,7 @@ the published variables are not published to the flow's scope. Instead
 they publish operation or subflow outputs to be used for aggregation
 purposes in the ``aggregate`` section.
 
-Here we are publishing the ``address`` and ``total_cost`` outputs that
+Here we are publishing the ``address`` and ``final_cost`` outputs that
 we just added to the ``new_hire`` flow.
 
 .. code-block:: yaml
@@ -118,7 +118,7 @@ we just added to the ``new_hire`` flow.
               - last_name: ${name['last']}
           publish:
             - address
-            - total_cost
+            - final_cost
 
 For more information, see :ref:`publish` in the DSL reference.
 
@@ -137,9 +137,9 @@ In most cases the aggregation will make use of the ``branches_context``
 list. This is a list that is populated with all of the published outputs
 from all of the branchs. For example, in our case,
 ``branches_context[0]`` will contain keys, corresponding to the
-published variables ``address`` and ``total_cost``, mapped to the values
+published variables ``address`` and ``final_cost``, mapped to the values
 output by the first branch to complete. Similarly, ``branches_context[1]``
-will contain the keys ``address`` and ``total_cost`` mapped to the values output
+will contain the keys ``address`` and ``final_cost`` mapped to the values output
 by the second branch to complete.
 
 There is no way to predict the order in which branches will complete, so
@@ -159,10 +159,10 @@ aggregations.
               - last_name: ${name['last']}
           publish:
             - address
-            - total_cost
+            - final_cost
         aggregate:
           - email_list: ${filter(lambda x:x != '', map(lambda x:str(x['address']), branches_context))}
-          - cost: ${sum(map(lambda x:x['total_cost'], branches_context))}
+          - cost: ${sum(map(lambda x:x['final_cost'], branches_context))}
 
 In our case we use the ``map()``, ``filter()`` and ``sum()`` Python
 functions to create a list of all the email addresses that were created
@@ -170,15 +170,15 @@ and a sum of all the equipment costs.
 
 Let's look a bit closer at one of the aggregations to better understand what's
 going on. Each time a branch of the asynchronous loop is finished running the
-``new_hire`` subflow it publishes a ``total_cost`` value. Each of those
-individual ``total_cost`` values gets added to the ``branches_context`` list at
+``new_hire`` subflow it publishes a ``final_cost`` value. Each of those
+individual ``final_cost`` values gets added to the ``branches_context`` list at
 index ``n``, where ``n`` indicates the order the branches finish in, under the
-``total_cost`` key. So, if we were to loop through the ``branches_context`` we
-would find at ``branches_context[n][total_cost]`` the ``total_cost`` value that
+``final_cost`` key. So, if we were to loop through the ``branches_context`` we
+would find at ``branches_context[n][final_cost]`` the ``final_cost`` value that
 was published by the nth ``new_hire`` subflow to finish running. Instead of
 looping through the ``branches_context``, we use a Python lambda expression in
 conjunction with the ``map`` function to extract just the values of the
-``total_cost`` from each ``branches_context[n][total_cost]`` to a new list.
+``final_cost`` from each ``branches_context[n][final_cost]`` to a new list.
 Finally, we use the Python ``sum`` function to add up all the
 extracted values in our new list and publish that value as ``cost``.
 
@@ -218,10 +218,10 @@ navigate to the ``print_success`` step.
               - last_name: ${name['last']}
           publish:
             - address
-            - total_cost
+            - final_cost
         aggregate:
           - email_list: ${filter(lambda x:x != '', map(lambda x:str(x['address']), branches_context))}
-          - cost: ${sum(map(lambda x:x['total_cost'], branches_context))}
+          - cost: ${sum(map(lambda x:x['final_cost'], branches_context))}
         navigate:
           - SUCCESS: print_success
           - FAILURE: print_failure
@@ -358,7 +358,7 @@ New Code - Complete
                   - cost: ${total_cost}
               publish:
                 - all_missing: ${missing + not_ordered}
-                - total_cost: ${cost + price}
+                - total_cost: ${cost + spent}
             navigate:
               - AVAILABLE: print_finish
               - UNAVAILABLE: print_finish
@@ -401,7 +401,7 @@ New Code - Complete
 
       outputs:
         - address
-        - total_cost
+        - final_cost: ${total_cost}
 
 **hire_all.sl**
 
@@ -429,10 +429,10 @@ New Code - Complete
                   - last_name: ${name['last']}
               publish:
                 - address
-                - total_cost
+                - final_cost
             aggregate:
               - email_list: ${filter(lambda x:x != '', map(lambda x:str(x['address']), branches_context))}
-              - cost: ${sum(map(lambda x:x['total_cost'], branches_context))}
+              - cost: ${sum(map(lambda x:x['final_cost'], branches_context))}
             navigate:
               - SUCCESS: print_success
               - FAILURE: print_failure

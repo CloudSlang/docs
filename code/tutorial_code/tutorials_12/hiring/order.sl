@@ -7,19 +7,19 @@ operation:
     - item
     - price
 
-  action:
-    python_script: |
+  python_action:
+    script: |
       print 'Ordering: ' + item
       import random
       rand = random.randint(0, 2)
       available = rand != 0
       not_ordered = item + ';' if rand == 0 else ''
-      price = 0 if rand == 0 else price
+      spent = 0 if rand == 0 else price
       if rand == 0: print 'Unavailable'
 
   outputs:
     - not_ordered
-    - price
+    - spent
 
   results:
     - UNAVAILABLE: ${rand == 0}

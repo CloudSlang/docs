@@ -84,8 +84,8 @@ user-defined result of ``ILLEGAL``.
         - dividend
         - divisor
 
-      action:
-        python_script: |
+      python_action:
+        script: |
           if divisor == '0':
             quotient = 'division by zero error'
           else:
@@ -110,8 +110,8 @@ user-defined result of ``ILLEGAL``.
       inputs:
         - text
 
-      action:
-        python_script: print text
+      python_action:
+        script: print text
 
       results:
         - SUCCESS
@@ -178,8 +178,8 @@ the success of its first step.
       inputs:
         - navigation_type
 
-      action:
-        python_script: |
+      python_action:
+        script: |
           print 'Default navigation based on input of - ' + navigation_type
 
       results:
@@ -195,8 +195,8 @@ the success of its first step.
     operation:
       name: something
 
-      action:
-          python_script: |
+      python_action:
+          script: |
             print 'Doing something important'
 
 **Operation - send_email_mock.sl**
@@ -212,8 +212,8 @@ the success of its first step.
         - recipient
         - subject
 
-      action:
-        python_script: |
+      python_action:
+        script: |
           print 'Email sent to ' + recipient + ' with subject - ' + subject
 
 Example 3 - Subflow
@@ -356,8 +356,8 @@ looped on and various methods for handling loop breaks.
       inputs:
         - text
 
-      action:
-        python_script: print text
+      python_action:
+        script: print text
 
       results:
         - CUSTOM: ${int(text) == 3}
@@ -375,8 +375,8 @@ looped on and various methods for handling loop breaks.
       inputs:
         - text
 
-      action:
-        python_script: print text
+      python_action:
+        script: print text
 
       outputs:
         - out: ${text}
@@ -440,8 +440,8 @@ aggregation.
       inputs:
         - ID
 
-      action:
-        python_script: |
+      python_action:
+        script: |
             name = 'branch ' + str(ID)
             print 'Hello from ' + name
 
@@ -520,8 +520,8 @@ This example uses the following folder structure:
       inputs:
         - text
 
-      action:
-        python_script: print text
+      python_action:
+        script: print text
 
 **Operation - op2.sl**
 
@@ -535,8 +535,8 @@ This example uses the following folder structure:
       inputs:
         - text
 
-      action:
-        python_script: print text
+      python_action:
+        script: print text
 
 **Operation - op3.sl**
 
@@ -550,8 +550,8 @@ This example uses the following folder structure:
       inputs:
         - text
 
-      action:
-        python_script: print text
+      python_action:
+        script: print text
 
 **Operation - op4.sl**
 
@@ -565,5 +565,5 @@ This example uses the following folder structure:
       inputs:
         - text
 
-      action:
-        python_script: print text
+      python_action:
+        script: print text

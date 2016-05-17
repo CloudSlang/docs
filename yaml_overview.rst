@@ -187,8 +187,8 @@ Python script**
 
 .. code:: yaml
 
-    action:
-      python_script: |
+    python_action:
+      script: |
         if divisor == '0':
           quotient = 'division by zero error'
         else:
