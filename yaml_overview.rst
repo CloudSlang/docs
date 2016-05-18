@@ -129,6 +129,8 @@ mapped to the results key**
       - ILLEGAL
       - SUCCESS
 
+.. _scalars:
+
 Scalars (Strings, Numbers, Values)
 ==================================
 

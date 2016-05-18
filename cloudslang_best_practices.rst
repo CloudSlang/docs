@@ -35,6 +35,9 @@ CloudSlang Content Best Practices
 -  Assign only relevant default values. For example, 8080 is a good candidate
    for a port number, but john_doe is probably not a good candidate for a user
    name.
+-  String values are written in one of the YAML quoted styles (``'`` or ``"``)
+   or block styles (``|`` or ``>``). For more information, see
+   `YAML Overview - Scalars <#scalars>`__. 
 -  Flow and operation files begin with a commented description and list
    of annotated inputs, outputs and results (see `CloudSlang Comments
    Style Guide <#cloudslang-comments-style-guide>`__).
@@ -52,6 +55,9 @@ CloudSlang Tests Best Practices
    **print_text.sl** is tested by tests in
    **print_text.inputs.yaml**.
 -  Wrapper flows reside in the same folder as the tests call them.
+-  String values are written in one of the YAML quoted styles (``'`` or ``"``)
+   or block styles (``|`` or ``>``). For more information, see
+   `YAML Overview - Scalars <#scalars>`__.
 
 .. note::
    In future releases some of the above best practices may be required by the CloudSlang compiler.
