@@ -22,8 +22,8 @@ Download, Install and Configure Atom
   .. note::
 
      If you are behind a proxy server you may need to configure Atom as
-     described in their `documentation
-     <https://atom.io/docs/v1.1.0/getting-started-installing-atom#setting-up-a-proxy>`__.
+     described in their
+     `package manager documentation <https://github.com/atom/apm/blob/master/README.md>`__.
 
 3. Reload (**View > Reload**) or restart Atom.
 4. Files saved with the **.sl** extension will be recognized within Atom as
