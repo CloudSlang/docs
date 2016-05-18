@@ -325,11 +325,11 @@ event data map keys are enclosed in square brackets - [KEYNAME].
 | EVENT_OUTPUT_START        | | Output binding       | | [executableResults]            |
 |                           | | started for          | | [executableOutputs]            |
 |                           | | flow or operation    | | [actionReturnValues]           |
-+---------------------------+-----------------------+----------------------------------+
++---------------------------+-----------------------+-----------------------------------+
 | EVENT_OUTPUT_END          | | Output binding       | | [OUTPUTS]                      |
 |                           | | finished for         | | [RESULT]                       |
 |                           | | flow or operation    | | [EXECUTABLE_NAME]              |
-+---------------------------+-----------------------+----------------------------------+
++---------------------------+-----------------------+-----------------------------------+
 | EVENT_OUTPUT_START        | | Output binding       | | [operationReturnValues]        |
 |                           | | started for step     | | [stepNavigationValues]         |
 |                           |                        | | [stepPublishValues]            |
@@ -350,7 +350,7 @@ event data map keys are enclosed in square brackets - [KEYNAME].
 | EVENT_ACTION_ERROR        | | Exception in         | [EXCEPTION]                      |
 |                           | | action execution     |                                  |
 +---------------------------+------------------------+----------------------------------+
-| EVENT_SPLIT_BRANCHES      | | parallel loop        | [BOUND_parallel_loop_EXPRESSION] |
+| EVENT_SPLIT_BRANCHES      | | parallel loop        | [BOUND_PARALLEL_LOOP_EXPRESSION] |
 |                           | | expression bound     |                                  |
 +---------------------------+------------------------+----------------------------------+
 | EVENT_BRANCH_START        | | Parallel loop        | | [splitItem]                    |

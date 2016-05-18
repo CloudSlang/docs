@@ -296,49 +296,15 @@ context labeled as **P0** overrides the context labeled as **P1**.
 Keywords (A-Z)
 ==============
 
-.. _aggregate:
-
-aggregate
----------
-
-The key ``aggregate`` is a property of an `parallel
-step <#parallel-step>`__ name. It is mapped to key:value pairs where
-the key is the variable name to publish to the `flow's <#flow>`__ scope
-and the value is the aggregation `expression <#expressions>`__.
-
-Defines the aggregation logic for an `parallel
-step <#parallel-step>`__, generally making us of the
-`branches_context <#branches-context>`__ construct.
-
-After all branches of a `parallel step <#parallel-step>`__ have
-completed, execution of the flow continues with the ``publish`` section. The
-expression of each name:value pair is evaluated and published to the
-`flow's <#flow>`__ scope. The expression generally makes use of the
-`branches_context <#branches-context>`__ construct to access the values
-published by each of the `parallel loop's <#parallel_loop>`__ branches.
-
-For a list of which contexts are available in the ``publish`` section of a
-`step <#step>`__, see `Contexts <#contexts>`__.
-
-For more information, see the :ref:`Parallel Loop <example_parallel_loop>`
-example.
-
-**Example - aggregates all of the names into name_list**
-
-.. code-block:: yaml
-
-    publish:
-      - name_list: ${map(lambda x:str(x['name']), branches_context)}
-
 .. _branches_context:
 
 branches_context
 -----------------
 
-May appear in the `publish <#publish>`__ section of an `parallel
+May appear in the `publish <#publish>`__ section of a `parallel
 step <#parallel-step>`__.
 
-As branches of an `parallel_loop <#parallel-loop>`__ complete, values that have
+As branches of a `parallel_loop <#parallel-loop>`__ complete, values that have
 been output get placed as a dictionary into the
 ``branches_context`` list. The list is therefore in the order the
 branches have completed.
@@ -461,7 +427,7 @@ do
 --
 
 The key ``do`` is a property of a `step <#step>`__ name, a
-`loop <#loop>`__, or an `parallel_loop <#parallel-loop>`__. It is mapped to a
+`loop <#loop>`__, or a `parallel_loop <#parallel-loop>`__. It is mapped to a
 property that references an `operation <#operation>`__ or
 `flow <#flow>`__.
 
@@ -545,7 +511,7 @@ For a list of which contexts are available in the arguments section of a
         script: |
           print text + punctuation
 
-.. _extensions:
+.. _extensions_tag:
 
 extensions
 ----------
@@ -717,7 +683,7 @@ expression**
               - text2: ${v}
 
 parallel_loop: for
-~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~
 
 A parallel for loop loops in parallel branches over the items in a list.
 
@@ -1053,7 +1019,7 @@ step's navigation will run.
 .. _method_name:
 
 method_name
-----------
+-----------
 
 The key ``method_name`` is a property of a `java_action <#java-action>`__. It is
 mapped to the name of the Java method where an annotated @Action resides.
@@ -1125,7 +1091,7 @@ mapped to a list of key:value pairs where the key is the received
 `flow <#flow>`__ `result <#results>`__ or ``on_failure``.
 
 Defines the navigation logic for a `standard step <#standard-step>`__,
-an `iterative step <#iterative-step>`__ or an `parallel
+an `iterative step <#iterative-step>`__ or a `parallel
 step <#parallel-step>`__. The flow will continue with the
 `step <#step>`__ or `flow <#flow>`__ `result <#results>`__ whose value
 is mapped to the `result <#results>`__ returned by the called
@@ -1156,7 +1122,7 @@ will navigate to the `step <#step>`__ or `flow <#flow>`__
 `flow <#flow>`__ will navigate to the `step <#step>`__ or
 `flow <#flow>`__ `result <#results>`__ mapped to ``SUCCESS``. Note that
 the only `results <#results>`__ of an `operation <#operation>`__ or
-`subflow <#flow>`__ called in an `parallel_loop <#parallel-loop>`__ that are
+`subflow <#flow>`__ called in a `parallel_loop <#parallel-loop>`__ that are
 evaluated are ``SUCCESS`` and ``FAILURE``. Any other results will be
 evaluated as ``SUCCESS``.
 
@@ -1269,7 +1235,7 @@ For a list of which contexts are available in the ``outputs`` section of a
       - output2: ${some_variable}
       - output3: ${5 + 6}
 
-.. _parallel_loop:
+.. _parallel_loop_tag:
 
 parallel_loop
 -------------
@@ -1380,7 +1346,7 @@ publish
 -------
 
 The key ``publish`` is a property of a `step <#step>`__ name, a
-`loop <#loop>`__ or an `parallel_loop <#parallel-loop>`__. It is mapped to a
+`loop <#loop>`__ or a `parallel_loop <#parallel-loop>`__. It is mapped to a
 list of key:value pairs where the key is the published variable name and
 the value is an `expression <#expressions>`__, usually involving an `output <#outputs>`__ received
 from an `operation <#operation>`__ or `flow <#flow>`__.
@@ -1434,12 +1400,22 @@ during each iteration after the `operation <#operation>`__ or
 Parallel publish
 ~~~~~~~~~~~~~~~~
 
-In an `parallel step <#parallel-step>`__ the publish mechanism
-is run during each branch after the `operation <#operation>`__ or
-`subflow <#flow>`__ has completed. Published variables and their values
-are added as a dictionary to the
-`branches_context <#branches-context>`__ list in the order they are
-received from finished branches, allowing for aggregation.
+In a `parallel step <#parallel-step>`__ the publish mechanism defines the
+step's aggregation logic, generally making us of the
+`branches_context <#branches-context>`__ construct.
+
+After all branches of a `parallel step <#parallel-step>`__ have
+completed, execution of the flow continues with the ``publish`` section. The
+expression of each name:value pair is evaluated and published to the
+`flow's <#flow>`__ scope. The expression generally makes use of the
+`branches_context <#branches-context>`__ construct to access the values
+published by each of the `parallel loop's <#parallel_loop>`__ branches.
+
+For a list of which contexts are available in the ``publish`` section of a
+`step <#step>`__, see `Contexts <#contexts>`__.
+
+For more information, see the :ref:`Parallel Loop <example_parallel_loop>`
+example.
 
 **Example - publishing in an parallel step to aggregate output**
 
@@ -1477,7 +1453,7 @@ purposes.
 .. note::
 
    The only results of an `operation <#operation>`__ or
-   `subflow <#flow>`__ called in an `parallel_loop <#parallel-loop>`__ that are
+   `subflow <#flow>`__ called in a `parallel_loop <#parallel-loop>`__ that are
    evaluated are ``SUCCESS`` and ``FAILURE``. Any other results will be
    evaluated as ``SUCCESS``.
 

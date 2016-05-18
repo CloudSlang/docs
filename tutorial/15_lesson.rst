@@ -92,7 +92,8 @@ passed the corresponding name values. The various branches running the
 ``new_hire`` flow will run in parallel and the rest of the flow will
 continue only after all the branches have completed.
 
-For more information, see :ref:`parallel_loop` in the DSL reference.
+For more information, see :ref:`parallel_loop <parallel_loop_tag>` in the DSL
+reference.
 
 Publish
 ---------
