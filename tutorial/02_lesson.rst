@@ -92,10 +92,8 @@ two types of actions in CloudSlang, Python-based actions and Java-based
 actions.
 
 We'll start off by creating a Python action that simply prints the text
-that was input. To do so, we add an ``action`` key that maps to the
-action contents. Since our action is a python script we add a key:value
-pair with ``python_script`` as the key and the script itself as the
-value.
+that was input. To do so, we add ``python_action`` and ``script`` keys that map
+to the action contents.
 
 .. code-block:: yaml
 
@@ -112,7 +110,7 @@ Python scripts that need 3rd party packages may import them using the
 procedures described in lesson :doc:`14 - 3rd Party Python
 Packages <14_lesson>`.
 
-For more information, see :ref:`action` in the DSL reference.
+For more information, see :ref:`python_action` in the DSL reference.
 
 The usage of Java-based actions is beyond the scope of this tutorial.
 For more information, see the :ref:`java_action` in the DSL reference.

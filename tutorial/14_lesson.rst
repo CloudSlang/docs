@@ -5,7 +5,7 @@ Goal
 ----
 
 In this lesson we'll learn how to import 3rd party Python packages to
-use in an operation's ``python_script`` action.
+use in an operation's ``python_action``.
 
 Get Started
 -----------

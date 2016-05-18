@@ -109,8 +109,8 @@ The :ref:`flow` named ``hello_world`` begins its :ref:`workflow`. The
 :ref:`workflow` has one :ref:`step` named ``sayHi`` which
 calls the ``print`` :ref:`operation`. The :ref:`flow` passes the string
 ``"Hello, World"`` to the ``text`` :ref:`input <inputs>` of the ``print``
-:ref:`operation`. The print :ref:`operation` performs its :ref:`action`, which
-is a simple Python script that prints the :ref:`input <inputs>`, and then
+:ref:`operation`. The print :ref:`operation` performs its :ref:`python_action`,
+which is a simple Python script that prints the :ref:`input <inputs>`, and then
 returns a :ref:`result <results>` of ``SUCCESS``. Since the flow does not
 contain any more :ref:`steps <step>` the :ref:`flow` finishes with a
 :ref:`result <results>` of ``SUCCESS``.
