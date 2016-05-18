@@ -1317,10 +1317,6 @@ Output names for a specific `flow <#flow>`__ or `operation <#operation>`__ must
 be different than the `input <#inputs>`__ names of the same `flow <#flow>`__ or
 `operation <#operation>`__.
 
-Output names for a specific `flow <#flow>`__ or
-`operation <#operation>`__ must be different than the input names of the same
-`flow <#flow>`__ or `operation <#operation>`__.
-
 For a list of which contexts are available in the ``outputs`` section of a
 `flow <#flow>`__ or `operation <#operation>`__, see `Contexts <#contexts>`__.
 
