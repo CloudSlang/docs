@@ -6,8 +6,8 @@ operation:
   inputs:
      - ID
 
-  action:
-    python_script: |
+  python_action:
+    script: |
         name = 'branch ' + str(ID)
         print 'Hello from ' + name
 

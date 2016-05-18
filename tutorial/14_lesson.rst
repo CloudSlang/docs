@@ -5,7 +5,7 @@ Goal
 ----
 
 In this lesson we'll learn how to import 3rd party Python packages to
-use in an operation's ``python_script`` action.
+use in an operation's ``python_action``.
 
 Get Started
 -----------
@@ -106,8 +106,8 @@ email.
       inputs:
         - text
 
-      action:
-        python_script: |
+      python_action:
+        script: |
           from pyfiglet import Figlet
           f = Figlet(font='slant')
           fancy = '<pre>' + f.renderText(text).replace('\n','<br>').replace(' ', '&nbsp') + '</pre>'
@@ -301,8 +301,8 @@ New Code - Complete
       inputs:
         - text
 
-      action:
-        python_script: |
+      python_action:
+        script: |
           from pyfiglet import Figlet
           f = Figlet(font='slant')
           fancy = '<pre>' + f.renderText(text).replace('\n','<br>').replace(' ', '&nbsp') + '</pre>'

@@ -43,8 +43,8 @@ during testing to see that our operation is working as expected.
 
 .. code-block:: yaml
 
-    action:
-      python_script: |
+    python_action:
+      script: |
         import random
         rand = random.randint(0, 2)
         vacant = rand != 0
@@ -151,8 +151,8 @@ New Code - Complete
       inputs:
         - address
 
-      action:
-        python_script: |
+      python_action:
+        script: |
           import random
           rand = random.randint(0, 2)
           vacant = rand != 0

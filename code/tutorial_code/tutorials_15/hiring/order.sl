@@ -7,8 +7,8 @@ operation:
     - item
     - price
 
-  action:
-    python_script: |
+  python_action:
+    script: |
       print 'Ordering: ' + item
       import random
       rand = random.randint(0, 2)
