@@ -40,7 +40,7 @@ Running Content Dependent on External Python Modules
 ====================================================
 
 Some of the content is dependent on external python modules. To run this content
-follow the instructions found in the :ref:`python_script` section of the DSL
+follow the instructions found in the :ref:`python_action` section of the DSL
 Reference.
 
 Contributing Content

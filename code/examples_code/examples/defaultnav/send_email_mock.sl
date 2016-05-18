@@ -7,6 +7,6 @@ operation:
     - recipient
     - subject
 
-  action:
-    python_script: |
+  python_action:
+    script: |
       print 'Email sent to ' + recipient + ' with subject - ' + subject
