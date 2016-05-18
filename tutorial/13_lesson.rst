@@ -254,8 +254,8 @@ New Code - Complete
             private: true
         - attempt
 
-      action:
-        python_script: |
+      python_action:
+        script: |
           attempt = int(attempt)
           if attempt == 1:
             address = first_name[0:1] + '.' + last_name + '@' + domain

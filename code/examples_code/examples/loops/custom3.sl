@@ -6,8 +6,8 @@ operation:
   inputs:
     - text
 
-  action:
-    python_script: print text
+  python_action:
+    script: print text
 
   results:
     - CUSTOM: ${int(text) == 3}

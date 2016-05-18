@@ -6,8 +6,8 @@ operation:
   inputs:
     - navigation_type
 
-  action:
-    python_script: |
+  python_action:
+    script: |
       print 'Default navigation based on input of - ' + navigation_type
 
   results:

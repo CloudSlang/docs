@@ -3,6 +3,6 @@ namespace: examples.defaultnav
 operation:
   name: something
 
-  action:
-      python_script: |
+  python_action:
+      script: |
         print 'Doing something important'
