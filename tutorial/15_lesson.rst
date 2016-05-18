@@ -1,12 +1,12 @@
-Lesson 15 - Asynchronous Loop
+Lesson 15 - Parallel Loop
 =============================
 
 Goal
 ----
 
-In this lesson we'll learn how to loop asynchronously. When looping
-asynchronously, a new branch is created for each value in a list and the
-branches run in parallel.
+In this lesson we'll learn how to loop in parallel. When looping in parallel, a
+new branch is created for each value in a list and the action associated with
+the step is run for each branch in parallel.
 
 Get Started
 -----------
@@ -40,7 +40,7 @@ Parent Flow
 
 Our new ``hire_all`` flow is going to take in a list of names of people
 being hired and will call the ``new_hire`` flow for each one of them. It
-will be looping asynchronously, so all the ``new_hire`` flows will be
+will be looping in parallel, so all the ``new_hire`` flows will be
 running simultaneously.
 
 In **hire_all.sl** we can start off as usual by declaring a
@@ -65,7 +65,7 @@ which in our case is a list of names.
 Loop Syntax
 -----------
 
-An asynchronous loop looks pretty similar to a normal for loop, but with
+A parallel loop looks pretty similar to a normal for loop, but with
 a few key differences.
 
 Let's create a new step named ``process_all`` in which we'll do our
@@ -74,7 +74,7 @@ looping. Each branch of the loop will call the ``new_hire`` flow.
 .. code-block:: yaml
 
     - process_all:
-        async_loop:
+        parallel_loop:
           for: name in names_list
           do:
             new_hire:
@@ -83,7 +83,7 @@ looping. Each branch of the loop will call the ``new_hire`` flow.
               - last_name: ${name['last']}
 
 As you can see, so far it is almost identical to a regular for loop,
-except the ``loop`` key has been replaced by ``async_loop``.
+except the ``loop`` key has been replaced by ``parallel_loop``.
 
 The ``names_list`` input will be a list of dictionaries containing name
 information with the keys ``first``, ``middle`` and ``last``. For each
@@ -92,75 +92,39 @@ passed the corresponding name values. The various branches running the
 ``new_hire`` flow will run in parallel and the rest of the flow will
 continue only after all the branches have completed.
 
-For more information, see :ref:`async_loop` in the DSL reference.
+For more information, see :ref:`parallel_loop` in the DSL reference.
 
 Publish
--------
-
-As in a regular loop, you can also include a ``publish`` section in an
-asynchronous loop, but it works differently. In an asynchronous loop,
-the published variables are not published to the flow's scope. Instead
-they publish operation or subflow outputs to be used for aggregation
-purposes in the ``aggregate`` section.
-
-Here we are publishing the ``address`` and ``total_cost`` outputs that
-we just added to the ``new_hire`` flow.
-
-.. code-block:: yaml
-
-    - process_all:
-        async_loop:
-          for: name in names_list
-          do:
-            new_hire:
-              - first_name: ${name['first']}
-              - middle_name: ${name.get('middle','')}
-              - last_name: ${name['last']}
-          publish:
-            - address
-            - total_cost
-
-For more information, see :ref:`publish` in the DSL reference.
-
-Aggregate
 ---------
 
-Whereas aggregation takes place in the ``publish`` section of a normal for loop
-(as we did in lesson :doc:`11 - Loop Aggregation <11_lesson>`), in an
-asynchronous loop there is an additional ``aggregate`` section.
+Next we perform aggregation in the ``publish`` section in a similar manner to
+what we do in a normal for loop (as we did in lesson
+:doc:`11 - Loop Aggregation <11_lesson>`). Publish occurs only after all
+branches have completed.
 
-Notice that the ``aggregate`` key is indented to be in line with the
-``async_loop`` key, indicating that it does not run for each branch in the loop.
-Aggregation occurs only after all branches have completed.
-
-In most cases the aggregation will make use of the ``branches_context``
-list. This is a list that is populated with all of the published outputs
-from all of the branchs. For example, in our case,
-``branches_context[0]`` will contain keys, corresponding to the
-published variables ``address`` and ``total_cost``, mapped to the values
-output by the first branch to complete. Similarly, ``branches_context[1]``
-will contain the keys ``address`` and ``total_cost`` mapped to the values output
-by the second branch to complete.
+In most cases the publish will make use of the ``branches_context``
+list. This is a list that is populated with all of the outputs from
+all of the branches. For example, in our case,
+``branches_context[0]`` will contain keys ``address`` and ``total_cost``,
+corresponding to the values output by the first branch to complete. Similarly,
+``branches_context[1]`` will contain the keys ``address`` and ``total_cost``
+mapped to the values output by the second branch to complete.
 
 There is no way to predict the order in which branches will complete, so
-the ``branches_context`` is rarely accessed using particular indices.
-Instead, Python expressions are used to extract the desired
-aggregations.
+the ``branches_context`` is rarely accessed using a particular index. Instead,
+Python expressions are used to extract the desired aggregations.
 
 .. code-block:: yaml
 
     - process_all:
-        async_loop:
+        parallel_loop:
           for: name in names_list
           do:
             new_hire:
               - first_name: ${name['first']}
               - middle_name: ${name.get('middle','')}
               - last_name: ${name['last']}
-          publish:
-            - address
-            - total_cost
-        aggregate:
+        publish:
           - email_list: ${filter(lambda x:x != '', map(lambda x:str(x['address']), branches_context))}
           - cost: ${sum(map(lambda x:x['total_cost'], branches_context))}
 
@@ -168,8 +132,8 @@ In our case we use the ``map()``, ``filter()`` and ``sum()`` Python
 functions to create a list of all the email addresses that were created
 and a sum of all the equipment costs.
 
-Let's look a bit closer at one of the aggregations to better understand what's
-going on. Each time a branch of the asynchronous loop is finished running the
+Let's look a bit closer at one of the publish aggregations to better understand
+what's going on. Each time a branch of the parallel loop is finished running the
 ``new_hire`` subflow it publishes a ``total_cost`` value. Each of those
 individual ``total_cost`` values gets added to the ``branches_context`` list at
 index ``n``, where ``n`` indicates the order the branches finish in, under the
@@ -182,7 +146,7 @@ conjunction with the ``map`` function to extract just the values of the
 Finally, we use the Python ``sum`` function to add up all the
 extracted values in our new list and publish that value as ``cost``.
 
-For more information, see :ref:`aggregate` and :ref:`branches_context` in the
+For more information, see :ref:`publish` and :ref:`branches_context` in the
 DSL reference.
 
 For more information on the Python constructs used here, see
@@ -191,11 +155,10 @@ For more information on the Python constructs used here, see
 and `sum <https://docs.python.org/2.7/library/functions.html?highlight=map%20function#sum>`__
 in the Python documentation.
 
-
 Navigate
 --------
 
-Navigation also works a bit differently in an asynchronous loop. If any
+Navigation also works a bit differently in a parallel loop. If any
 of the branches return a result of ``FAILURE`` the flow will follow the
 navigation path of ``FAILURE``. Otherwise, the flow will follow the
 ``SUCCESS`` navigation path.
@@ -209,17 +172,14 @@ navigate to the ``print_success`` step.
 .. code-block:: yaml
 
     - process_all:
-        async_loop:
+        parallel_loop:
           for: name in names_list
           do:
             new_hire:
               - first_name: ${name['first']}
               - middle_name: ${name.get('middle','')}
               - last_name: ${name['last']}
-          publish:
-            - address
-            - total_cost
-        aggregate:
+        publish:
           - email_list: ${filter(lambda x:x != '', map(lambda x:str(x['address']), branches_context))}
           - cost: ${sum(map(lambda x:x['total_cost'], branches_context))}
         navigate:
@@ -420,17 +380,14 @@ New Code - Complete
 
       workflow:
         - process_all:
-            async_loop:
+            parallel_loop:
               for: name in names_list
               do:
                 new_hire:
                   - first_name: ${name['first']}
                   - middle_name: ${name.get('middle','')}
                   - last_name: ${name['last']}
-              publish:
-                - address
-                - total_cost
-            aggregate:
+            publish:
               - email_list: ${filter(lambda x:x != '', map(lambda x:str(x['address']), branches_context))}
               - cost: ${sum(map(lambda x:x['total_cost'], branches_context))}
             navigate:

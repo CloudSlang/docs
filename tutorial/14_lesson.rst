@@ -180,7 +180,7 @@ Download the Code
 Up Next
 -------
 
-In the next lesson we'll see how to use an asynchronous loop.
+In the next lesson we'll see how to use a parallel loop.
 
 New Code - Complete
 -------------------

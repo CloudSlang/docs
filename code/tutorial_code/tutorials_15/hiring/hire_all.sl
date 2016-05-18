@@ -11,17 +11,14 @@ flow:
 
   workflow:
     - process_all:
-        async_loop:
+        parallel_loop:
           for: name in names_list
           do:
             new_hire:
               - first_name: ${name['first']}
               - middle_name: ${name.get('middle','')}
               - last_name: ${name['last']}
-          publish:
-            - address
-            - total_cost
-        aggregate:
+        publish:
           - email_list: ${filter(lambda x:x != '', map(lambda x:str(x['address']), branches_context))}
           - cost: ${sum(map(lambda x:x['total_cost'], branches_context))}
         navigate:

@@ -9,7 +9,7 @@ concepts.
 -  `Example 2 - Default Navigation <#example-2-default-navigation>`__
 -  `Example 3 - Subflow <#example-3-subflow>`__
 -  `Example 4 - Loops <#example-4-loops>`__
--  `Example 5 - Asynchronous Loop <#example-5-asynchronous-loop>`__
+-  `Example 5 - Parallel Loop <#example-5-Parallel-loop>`__
 -  `Example 6 - Operation Paths <#example-6-operation-paths>`__
 
 Each of the examples below can be run by doing the following:
@@ -384,39 +384,36 @@ looped on and various methods for handling loop breaks.
       results:
         - SUCCESS
 
-.. _example_asynchronous_loop:
+.. _example_parallel_loop:
 
-Example 5 - Asynchronous Loop
+Example 5 - Parallel Loop
 =============================
 
-This example demonstrates the usage of an asynchronous loop including
+This example demonstrates the usage of a parallel loop including
 aggregation.
 
-:download:`Download code </code/examples_code/examples/async.zip>`
+:download:`Download code </code/examples_code/examples/parallel.zip>`
 
-**Flow - async_loop_aggregate.sl**
+**Flow - parallel_loop_aggregate.sl**
 
 .. code-block:: yaml
 
-    namespace: examples.async
+    namespace: examples.parallel
 
     flow:
-      name: async_loop_aggregate
+      name: parallel_loop_aggregate
 
       inputs:
       - values: [1,2,3,4]
 
       workflow:
         - print_values:
-            async_loop:
+            parallel_loop:
               for: value in values
               do:
                 print_branch:
                   - ID: ${value}
-              publish:
-                - name
-                - num
-            aggregate:
+            publish:
                 - name_list: ${map(lambda x:str(x['name']), branches_context)}
                 - first_name: ${branches_context[0]['name']}
                 - last_name: ${branches_context[-1]['name']}
@@ -432,7 +429,7 @@ aggregation.
 
 .. code-block:: yaml
 
-    namespace: examples.async
+    namespace: examples.parallel
 
     operation:
       name: print_branch
