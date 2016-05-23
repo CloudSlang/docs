@@ -299,7 +299,7 @@ Keywords (A-Z)
 .. _branches_context:
 
 branches_context
------------------
+----------------
 
 May appear in the `publish <#publish>`__ section of a `parallel
 step <#parallel-step>`__.
@@ -328,6 +328,25 @@ that have been published by all of the branches.
 
     publish:
       - name_list: ${map(lambda x:str(x['name']), branches_context)}
+
+.. _branch_result:
+
+branch_result
+-------------
+
+May appear in the `publish <#publish>`__ section of a `parallel
+step <#parallel-step>`__.
+
+As branches of a `parallel_loop <#parallel-loop>`__ complete, branch results get
+placed into the `branches_context <#branches-context>`__ list under the
+``branch_result`` key.
+
+**Example - aggregates branch results**
+
+.. code-block:: yaml
+
+    publish:
+      - branch_results_list: ${map(lambda x:str(x['branch_result']), branches_context)}
 
 .. _break:
 
@@ -1409,7 +1428,8 @@ completed, execution of the flow continues with the ``publish`` section. The
 expression of each name:value pair is evaluated and published to the
 `flow's <#flow>`__ scope. The expression generally makes use of the
 `branches_context <#branches-context>`__ construct to access the values
-published by each of the `parallel loop's <#parallel_loop>`__ branches.
+published by each of the `parallel loop's <#parallel_loop>`__ branches and their
+results using the `branch_result <#branch-result>`__ key.
 
 For a list of which contexts are available in the ``publish`` section of a
 `step <#step>`__, see `Contexts <#contexts>`__.
