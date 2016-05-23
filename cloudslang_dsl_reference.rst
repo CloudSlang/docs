@@ -275,19 +275,19 @@ context labeled as **P0** overrides the context labeled as **P1**.
 | | **inputs**     |              |           |             |           |             |             |                    |                |
 +------------------+--------------+-----------+-------------+-----------+-------------+-------------+--------------------+----------------+
 | | **operation**  |              |           | Yes         | Yes       |             |             |                    | Yes            |
-| | **outputs**    |              |           | (P1)        | (P0)      |             |             |                    |                |
+| | **outputs**    |              |           |             |           |             |             |                    |                |
 +------------------+--------------+-----------+-------------+-----------+-------------+-------------+--------------------+----------------+
 | | **operation**  |              |           | Yes         | Yes       |             |             |                    |                |
-| | **results**    |              |           | (P1)        | (P0)      |             |             |                    |                |
+| | **results**    |              |           |             |           |             |             |                    |                |
 +------------------+--------------+-----------+-------------+-----------+-------------+-------------+--------------------+----------------+
 | | **step**       |              | Yes       |             |           |             |             |                    | Yes            |
 | | **arguments**  |              |           |             |           |             |             |                    |                |
 +------------------+--------------+-----------+-------------+-----------+-------------+-------------+--------------------+----------------+
-| | **step**       |              |           |             |           | Yes         | Yes         | | Yes* - using     | Yes            |
-| | **publish**    |              |           |             |           | (P0)        | (P1)        | | branches_context |                |
+| | **step**       |              |           |             |           | Yes         | Yes         |                    | Yes            |
+| | **publish**    |              |           |             |           |             |             |                    |                |
 +------------------+--------------+-----------+-------------+-----------+-------------+-------------+--------------------+----------------+
 | | **step**       |              |           |             |           | Yes         | Yes         |                    |                |
-| | **navigation** |              |           |             |           | (P0)        | (P1)        |                    |                |
+| | **navigation** |              |           |             |           |             |             |                    |                |
 +------------------+--------------+-----------+-------------+-----------+-------------+-------------+--------------------+----------------+
 | | **action**     |              |           | Yes         |           |             |             |                    |                |
 | | **inputs**     |              |           |             |           |             |             |                    |                |
@@ -784,7 +784,9 @@ input name may in turn be mapped to its properties or an input
 `expression <#expressions>`__.
 
 Inputs are used to pass parameters to `flows <#flow>`__ or
-`operations <#operation>`__.
+`operations <#operation>`__. Input names for a specific `flow <#flow>`__ or
+`operation <#operation>`__ must be different than the `output <#outputs>`__
+names of the same `flow <#flow>`__ or `operation <#operation>`__.
 
 For a list of which contexts are available in the ``inputs`` section of a
 `flow <#flow>`__ or `operation <#operation>`__, see `Contexts <#contexts>`__.
@@ -1241,6 +1243,10 @@ Output `expressions <#expressions>`__ must evaluate to strings.
 Defines the parameters a `flow <#flow>`__ or `operation <#operation>`__
 exposes to possible `publication <#publish>`__ by a `step <#step>`__.
 The calling `step <#step>`__ refers to an output by its name.
+
+Output names for a specific `flow <#flow>`__ or `operation <#operation>`__ must
+be different than the `input <#inputs>`__ names of the same `flow <#flow>`__ or
+`operation <#operation>`__.
 
 For a list of which contexts are available in the ``outputs`` section of a
 `flow <#flow>`__ or `operation <#operation>`__, see `Contexts <#contexts>`__.

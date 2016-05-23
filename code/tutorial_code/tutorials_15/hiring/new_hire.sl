@@ -100,4 +100,8 @@ flow:
 
   outputs:
     - address
+<<<<<<< HEAD
     - final_cost
+=======
+    - final_cost: ${total_cost}
+>>>>>>> inputs_not_outputs

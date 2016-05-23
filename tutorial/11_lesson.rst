@@ -23,9 +23,9 @@ Operation
 The ``order`` operation, as we'll call it, looks very similar to our
 ``check_availability`` operation. It uses a random number to simulate
 whether a given item is available. If the item is available, it will
-return the ``price`` of the item as one output and the ``not_ordered``
+return the amount ``spent`` as one output and the ``not_ordered``
 output will be empty. If the item is unavailable, it will return ``0``
-for the ``price`` of the item and the name of the item in the ``not_ordered``
+for the ``spent`` output and the name of the item in the ``not_ordered``
 output.
 
 .. code-block:: yaml
@@ -125,7 +125,7 @@ back into the flow-level ``total_cost`` for each iteration of the
 
     publish:
       - all_missing: ${missing + not_ordered}
-      - total_cost: ${cost + price}
+      - total_cost: ${cost + spent}
 
 Finally we have to rewire all the navigation logic to take into account
 our new step.
@@ -249,7 +249,7 @@ New Code - Complete
                   - cost: ${total_cost}
               publish:
                 - all_missing: ${missing + not_ordered}
-                - total_cost: ${cost + price}
+                - total_cost: ${cost + spent}
             navigate:
               - AVAILABLE: print_finish
               - UNAVAILABLE: print_finish
