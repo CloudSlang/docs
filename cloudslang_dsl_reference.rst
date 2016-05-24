@@ -257,8 +257,7 @@ different variable contexts that are accessible. Which contexts are accessible
 depends on the current section of the flow or operation.
 
 The table below summarizes the accessible contexts at any given location in a
-flow or operation. At locations where more than one context is accessible, the
-context labeled as **P0** overrides the context labeled as **P1**.
+flow or operation.
 
 +------------------+--------------+-----------+-------------+-----------+-------------+-------------+--------------------+----------------+
 | | Contexts/      | | Context    | | Flow    | | Operation | | Action  | | Subflow/  | | Step      | | Branched         | | Already      |
