@@ -57,7 +57,7 @@ flow:
               - cost: ${total_cost}
           publish:
             - all_missing: ${missing + not_ordered}
-            - final_cost: ${cost + spent}
+            - total_cost: ${cost + spent}
         navigate:
           - AVAILABLE: print_finish
           - UNAVAILABLE: print_finish
@@ -67,7 +67,7 @@ flow:
           base.print:
             - text: >
                 ${'Created address: ' + address + ' for: ' + first_name + ' ' + last_name + '\n' +
-                'Missing items: ' + all_missing + ' Cost of ordered items: ' + str(final_cost)}
+                'Missing items: ' + all_missing + ' Cost of ordered items: ' + str(total_cost)}
 
     - fancy_name:
         do:
@@ -87,7 +87,7 @@ flow:
             - body: >
                 ${fancy_text + '<br>' +
                 'Created address: ' + address + ' for: ' + first_name + ' ' + last_name + '<br>' +
-                'Missing items: ' + all_missing + ' Cost of ordered items: ' + str(final_cost)}
+                'Missing items: ' + all_missing + ' Cost of ordered items: ' + str(total_cost)}
         navigate:
           - FAILURE: FAILURE
           - SUCCESS: SUCCESS
@@ -100,8 +100,4 @@ flow:
 
   outputs:
     - address
-<<<<<<< HEAD
-    - final_cost
-=======
     - final_cost: ${total_cost}
->>>>>>> inputs_not_outputs

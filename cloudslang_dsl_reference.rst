@@ -1456,6 +1456,32 @@ example.
         publish:
             - name_list: ${map(lambda x:str(x['name']), branches_context)}
 
+**Example - extracting information from a specific branch**
+
+.. code-block:: yaml
+
+    - print_values:
+        parallel_loop:
+          for: value in values_list
+          do:
+            print_branch:
+              - ID: ${value}
+        publish:
+            - first_name: ${branches_context[0]['name']}
+
+**Example - create a list of branch results**
+
+.. code-block:: yaml
+
+    - print_values:
+        parallel_loop:
+          for: value in values
+          do:
+            print_branch:
+              - ID: ${ value }
+        publish:
+          - branch_results_list: ${map(lambda x:str(x['branch_result']), branches_context)}
+
 .. _python_action:
 
 python_action

@@ -9,7 +9,7 @@ concepts.
 -  `Example 2 - Default Navigation <#example-2-default-navigation>`__
 -  `Example 3 - Subflow <#example-3-subflow>`__
 -  `Example 4 - Loops <#example-4-loops>`__
--  `Example 5 - Parallel Loop <#example-5-Parallel-loop>`__
+-  `Example 5 - Parallel Loop <#example-5-parallel-loop>`__
 -  `Example 6 - Operation Paths <#example-6-operation-paths>`__
 
 Each of the examples below can be run by doing the following:
@@ -387,7 +387,7 @@ looped on and various methods for handling loop breaks.
 .. _example_parallel_loop:
 
 Example 5 - Parallel Loop
-=============================
+=========================
 
 This example demonstrates the usage of a parallel loop including
 aggregation.
