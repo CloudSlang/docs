@@ -858,17 +858,25 @@ Inputs are used to pass parameters to `flows <#flow>`__ or
 For a list of which contexts are available in the ``inputs`` section of a
 `flow <#flow>`__ or `operation <#operation>`__, see `Contexts <#contexts>`__.
 
-+--------------+----------+---------+-------------+-----------------------------+--------------------------+
-| Property     | Required | Default | Value Type  | Description                 | More info                |
-+==============+==========+=========+=============+=============================+==========================+
-| ``required`` | no       | true    | boolean     | is the input required       | `required <#required>`__ |
-+--------------+----------+---------+-------------+-----------------------------+--------------------------+
-| ``default``  | no       | --      | expression  | default value of the input  | `default <#default>`__   |
-+--------------+----------+---------+-------------+-----------------------------+--------------------------+
-| ``private``  | no       | false   | boolean     | | if true, the default      | `private <#private>`__   |
-|              |          |         |             | | value always overrides    |                          |
-|              |          |         |             | | values passed in          |                          |
-+--------------+----------+---------+-------------+-----------------------------+--------------------------+
++---------------+----------+------------------------+------------+--------------------+----------------------------+
+| Property      | Required | Default                | Value Type | Description        | More info                  |
++===============+==========+========================+============+====================+============================+
+| ``required``  | no       | true                   | boolean    | | is the input     | `required <#required>`__   |
+|               |          |                        |            | | required         |                            |
++---------------+----------+------------------------+------------+--------------------+----------------------------+
+| ``default``   | no       | --                     | expression | | default value    | `default <#default>`__     |
+|               |          |                        |            | | of the input     |                            |
++---------------+----------+------------------------+------------+--------------------+----------------------------+
+| ``private``   | no       | false                  | boolean    | | if true, the     | `private <#private>`__     |
+|               |          |                        |            | | default value    |                            |
+|               |          |                        |            | | always overrides |                            |
+|               |          |                        |            | | values passed in |                            |
++---------------+----------+------------------------+------------+--------------------+----------------------------+
+| ``sensitive`` | no       | | sensitivity of value | boolean    | | is the input     | `sensitive <#sensitive>`__ |
+|               |          | | passed in or false   |            | | sensitive        |                            |
+|               |          | | if value doesn't     |            |                    |                            |
+|               |          | | have a sensitivity   |            |                    |                            |
++---------------+----------+------------------------+------------+--------------------+----------------------------+
 
 **Example - several inputs**
 
@@ -1304,8 +1312,10 @@ outputs
 
 The key ``outputs`` is a property of a `flow <#flow>`__ or
 `operation <#operation>`__. It is mapped to a list of output variable
-names which may also contain `expression <#expressions>`__ values.
-Output `expressions <#expressions>`__ must evaluate to strings.
+names. Each output name may in turn be mapped to its properties or an output
+`expression <#expressions>`__. Output `expressions <#expressions>`__ must
+evaluate to strings.
+
 
 Defines the parameters a `flow <#flow>`__ or `operation <#operation>`__
 exposes to possible `publication <#publish>`__ by a `step <#step>`__.
@@ -1313,6 +1323,16 @@ The calling `step <#step>`__ refers to an output by its name.
 
 For a list of which contexts are available in the ``outputs`` section of a
 `flow <#flow>`__ or `operation <#operation>`__, see `Contexts <#contexts>`__.
+
++---------------+----------+---------+------------+--------------------+----------------------------+
+| Property      | Required | Default | Value Type | Description        | More info                  |
++===============+==========+=========+============+====================+============================+
+| ``default``   | no       | --      | expression | | default value    | `default <#default>`__     |
+|               |          |         |            | | of the output    |                            |
++---------------+----------+---------+------------+--------------------+----------------------------+
+| ``sensitive`` | no       | false   | boolean    | | is the output    | `sensitive <#sensitive>`__ |
+|               |          |         |            | | sensitive        |                            |
++---------------+----------+---------+------------+--------------------+----------------------------+
 
 **Example - various types of outputs**
 
@@ -1730,6 +1750,18 @@ To import a Python script in a ``python_action``:
 
    If you have defined a ``JYTHONPATH`` environment variable, you
    will need to add the **python-lib** folder's path to its value.
+
+.. _sensitive:
+
+sensitive
+---------
+
+The key ``sensitive`` is a property of an `input <#inputs>`__  or
+`output <#outputs>`__ name. It is mapped to a boolean value.
+
+The values of variables marked as ``sensitive`` will not be printed in logs,
+events or in outputs of the :doc:`CLI <cloudslang_cli>` and 
+:doc:`Build Tool <cloudslang_build_tool>`.
 
 .. _step:
 
