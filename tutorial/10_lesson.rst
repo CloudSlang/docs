@@ -37,6 +37,7 @@ numbers.
               - attempt
           publish:
             - address
+            - password
         navigate:
           - CREATED: print_finish
           - UNAVAILABLE: print_fail
@@ -146,6 +147,7 @@ to break on, which in our case is ``CREATED`` or ``FAILURE``.
               - attempt
           publish:
             - address
+            - password
           break:
             - CREATED
             - FAILURE
@@ -236,6 +238,7 @@ New Code - Complete
                   - attempt
               publish:
                 - address
+                - password
               break:
                 - CREATED
                 - FAILURE

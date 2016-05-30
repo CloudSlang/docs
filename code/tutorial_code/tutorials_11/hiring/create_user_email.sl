@@ -23,6 +23,7 @@ flow:
             - attempt
         publish:
           - address: ${email_address}
+          - password
         navigate:
           - SUCCESS: check_address
           - FAILURE: FAILURE
@@ -39,6 +40,7 @@ flow:
 
   outputs:
     - address
+    - password
     - availability
 
   results:

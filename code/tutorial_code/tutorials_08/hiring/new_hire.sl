@@ -35,6 +35,7 @@ flow:
             - address
         publish:
           - availability: ${available}
+          - password
         navigate:
           - UNAVAILABLE: print_fail
           - AVAILABLE: print_finish
