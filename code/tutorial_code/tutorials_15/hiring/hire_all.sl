@@ -20,10 +20,10 @@ flow:
               - last_name: ${name['last']}
           publish:
             - address
-            - total_cost
+            - final_cost
         aggregate:
           - email_list: ${filter(lambda x:x != '', map(lambda x:str(x['address']), branches_context))}
-          - cost: ${sum(map(lambda x:x['total_cost'], branches_context))}
+          - cost: ${sum(map(lambda x:x['final_cost'], branches_context))}
         navigate:
           - SUCCESS: print_success
           - FAILURE: print_failure
