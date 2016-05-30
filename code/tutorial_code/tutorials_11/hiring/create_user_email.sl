@@ -23,7 +23,6 @@ flow:
             - attempt
         publish:
           - address: ${email_address}
-          - password
         navigate:
           - SUCCESS: check_address
           - FAILURE: FAILURE
@@ -32,6 +31,7 @@ flow:
         do:
           hiring.check_availability:
             - address
+            - password
         publish:
           - availability: ${available}
         navigate:

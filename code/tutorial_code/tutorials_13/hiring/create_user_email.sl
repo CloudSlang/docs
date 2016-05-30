@@ -31,6 +31,7 @@ flow:
         do:
           hiring.check_availability:
             - address
+            - password
         publish:
           - availability: ${available}
         navigate:
@@ -39,6 +40,7 @@ flow:
 
   outputs:
     - address
+    - password
     - availability
 
   results:
