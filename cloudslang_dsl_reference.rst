@@ -545,7 +545,9 @@ example.
 Arguments are passed to a `step <#step>`__ using a list of argument names and
 optional mapped `expressions <#expressions>`__. The step must pass values for
 all `inputs <#inputs>`__ found in the called `operation <#operation>`__ or
-`subflow <#flow>`__ that are required and don't have a default value.
+`subflow <#flow>`__ that are required and don't have a default value. Argument
+names should be different than the `output <#outputs>`__ names found in the
+`operation <#operation>`__ or `subflow <#flow>`__ being called in the step.
 
 An argument name without an expression, or with a ``null`` value will take its
 value from a variable with the same name in the flow context.
