@@ -107,9 +107,10 @@ call the ``send_mail`` operation. Let's put it right after the
 ``print_finish`` operation. We need to pass a host, port, from, to,
 subject and body. You'll need to substitute the values in angle brackets
 (``<>``) to work for your email host. Notice that the body value is
-taken directly from the ``print_finish`` step with the slight change of
-turning the ``\n`` into a ``<br>`` since the ``html_email`` input
-defaults to true.
+taken directly from the ``print_finish`` step with two slight changes. First, we
+turned the ``\n`` into a ``<br>`` since the ``html_email`` input defaults to
+true. Second, we added the temporary password published by the
+``create_email_address`` step.
 
 .. code-block:: yaml
 
@@ -123,7 +124,8 @@ defaults to true.
             - subject: "${'New Hire: ' + first_name + ' ' + last_name}"
             - body: >
                 ${'Created address: ' + address + ' for: ' + first_name + ' ' + last_name + '<br>' +
-                'Missing items: ' + all_missing + ' Cost of ordered items: ' + str(total_cost)}
+                'Missing items: ' + all_missing + ' Cost of ordered items: ' + str(total_cost) + '<br>' +
+                'Temporary password: ' + password}
         navigate:
           - FAILURE: FAILURE
           - SUCCESS: SUCCESS
@@ -196,6 +198,7 @@ New Code - Complete
                   - attempt
               publish:
                 - address
+                - password
               break:
                 - CREATED
                 - FAILURE
@@ -237,7 +240,8 @@ New Code - Complete
                 - subject: "${'New Hire: ' + first_name + ' ' + last_name}"
                 - body: >
                     ${'Created address: ' + address + ' for: ' + first_name + ' ' + last_name + '<br>' +
-                    'Missing items: ' + all_missing + ' Cost of ordered items: ' + str(total_cost)}
+                    'Missing items: ' + all_missing + ' Cost of ordered items: ' + str(total_cost) + '<br>' +
+                    'Temporary password: ' + password}
             navigate:
               - FAILURE: FAILURE
               - SUCCESS: SUCCESS

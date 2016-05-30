@@ -230,6 +230,7 @@ New Code - Complete
                   - attempt
               publish:
                 - address
+                - password
               break:
                 - CREATED
                 - FAILURE
