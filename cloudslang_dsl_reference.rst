@@ -257,8 +257,7 @@ different variable contexts that are accessible. Which contexts are accessible
 depends on the current section of the flow or operation.
 
 The table below summarizes the accessible contexts at any given location in a
-flow or operation. At locations where more than one context is accessible, the
-context labeled as **P0** overrides the context labeled as **P1**.
+flow or operation.
 
 +------------------+--------------+-----------+-------------+-----------+-------------+-------------+--------------------+----------------+
 | | Contexts/      | | Context    | | Flow    | | Operation | | Action  | | Subflow/  | | Step      | | Branched         | | Already      |
@@ -276,19 +275,19 @@ context labeled as **P0** overrides the context labeled as **P1**.
 | | **inputs**     |              |           |             |           |             |             |                    |                |
 +------------------+--------------+-----------+-------------+-----------+-------------+-------------+--------------------+----------------+
 | | **operation**  |              |           | Yes         | Yes       |             |             |                    | Yes            |
-| | **outputs**    |              |           | (P1)        | (P0)      |             |             |                    |                |
+| | **outputs**    |              |           |             |           |             |             |                    |                |
 +------------------+--------------+-----------+-------------+-----------+-------------+-------------+--------------------+----------------+
 | | **operation**  |              |           | Yes         | Yes       |             |             |                    |                |
-| | **results**    |              |           | (P1)        | (P0)      |             |             |                    |                |
+| | **results**    |              |           |             |           |             |             |                    |                |
 +------------------+--------------+-----------+-------------+-----------+-------------+-------------+--------------------+----------------+
 | | **step**       |              | Yes       |             |           |             |             |                    | Yes            |
 | | **arguments**  |              |           |             |           |             |             |                    |                |
 +------------------+--------------+-----------+-------------+-----------+-------------+-------------+--------------------+----------------+
 | | **step**       |              |           |             |           | Yes         | Yes         |                    | Yes            |
-| | **publish**    |              |           |             |           | (P0)        | (P1)        |                    |                |
+| | **publish**    |              |           |             |           |             |             |                    |                |
 +------------------+--------------+-----------+-------------+-----------+-------------+-------------+--------------------+----------------+
 | | **step**       |              |           |             |           | Yes         | Yes         |                    |                |
-| | **navigation** |              |           |             |           | (P0)        | (P1)        |                    |                |
+| | **navigation** |              |           |             |           |             |             |                    |                |
 +------------------+--------------+-----------+-------------+-----------+-------------+-------------+--------------------+----------------+
 | | **step**       |              |           |             |           |             |             | | Yes* - using     |                |
 | | **aggregate**  |              |           |             |           |             |             | | branches_context |                |
@@ -546,7 +545,9 @@ example.
 Arguments are passed to a `step <#step>`__ using a list of argument names and
 optional mapped `expressions <#expressions>`__. The step must pass values for
 all `inputs <#inputs>`__ found in the called `operation <#operation>`__ or
-`subflow <#flow>`__ that are required and don't have a default value.
+`subflow <#flow>`__ that are required and don't have a default value. Argument
+names should be different than the `output <#outputs>`__ names found in the
+`operation <#operation>`__ or `subflow <#flow>`__ being called in the step.
 
 An argument name without an expression, or with a ``null`` value will take its
 value from a variable with the same name in the flow context.
@@ -853,7 +854,9 @@ input name may in turn be mapped to its properties or an input
 `expression <#expressions>`__.
 
 Inputs are used to pass parameters to `flows <#flow>`__ or
-`operations <#operation>`__.
+`operations <#operation>`__. Input names for a specific `flow <#flow>`__ or
+`operation <#operation>`__ must be different than the `output <#outputs>`__
+names of the same `flow <#flow>`__ or `operation <#operation>`__.
 
 For a list of which contexts are available in the ``inputs`` section of a
 `flow <#flow>`__ or `operation <#operation>`__, see `Contexts <#contexts>`__.
@@ -1107,7 +1110,7 @@ step's navigation will run.
 .. _method_name:
 
 method_name
-----------
+-----------
 
 The key ``method_name`` is a property of a `java_action <#java-action>`__. It is
 mapped to the name of the Java method where an annotated @Action resides.
@@ -1310,6 +1313,10 @@ Output `expressions <#expressions>`__ must evaluate to strings.
 Defines the parameters a `flow <#flow>`__ or `operation <#operation>`__
 exposes to possible `publication <#publish>`__ by a `step <#step>`__.
 The calling `step <#step>`__ refers to an output by its name.
+
+Output names for a specific `flow <#flow>`__ or `operation <#operation>`__ must
+be different than the `input <#inputs>`__ names of the same `flow <#flow>`__ or
+`operation <#operation>`__.
 
 For a list of which contexts are available in the ``outputs`` section of a
 `flow <#flow>`__ or `operation <#operation>`__, see `Contexts <#contexts>`__.

@@ -215,7 +215,7 @@ New Code - Complete
                   - cost: ${total_cost}
               publish:
                 - all_missing: ${missing + not_ordered}
-                - total_cost: ${cost + price}
+                - total_cost: ${cost + spent}
             navigate:
               - AVAILABLE: print_finish
               - UNAVAILABLE: print_finish
