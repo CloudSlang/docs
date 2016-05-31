@@ -31,9 +31,9 @@ flow:
         do:
           hiring.check_availability:
             - address
-            - password
         publish:
           - availability: ${available}
+          - password
         navigate:
           - UNAVAILABLE: UNAVAILABLE
           - AVAILABLE: CREATED
