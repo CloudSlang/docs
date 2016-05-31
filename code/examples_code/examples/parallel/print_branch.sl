@@ -1,4 +1,4 @@
-namespace: examples.async
+namespace: examples.parallel
 
 operation:
   name: print_branch

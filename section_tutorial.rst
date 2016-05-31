@@ -20,4 +20,4 @@ Contents:
    12: Existing Content <tutorial/12_lesson>
    13: System Properties <tutorial/13_lesson>
    14: 3rd Party Python Packages <tutorial/14_lesson>
-   15: Asynchronous Loop <tutorial/15_lesson>
+   15: Parallel Loop <tutorial/15_lesson>
