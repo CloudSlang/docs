@@ -70,7 +70,7 @@ The following snippets are provided:
 +-----------------------+-----------------------------------------------------+
 | for                   | template for an iterative step                      |
 +-----------------------+-----------------------------------------------------+
-| parallel_loop         | template for an parallel step                       |
+| parallel_loop         | template for a parallel step                        |
 +-----------------------+-----------------------------------------------------+
 | property              | template for a system property                      |
 +-----------------------+-----------------------------------------------------+

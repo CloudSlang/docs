@@ -282,8 +282,8 @@ flow or operation.
 | | **step**       |              | Yes       |             |           |             |             |                    | Yes            |
 | | **arguments**  |              |           |             |           |             |             |                    |                |
 +------------------+--------------+-----------+-------------+-----------+-------------+-------------+--------------------+----------------+
-| | **step**       |              |           |             |           | Yes         | Yes         |                    | Yes            |
-| | **publish**    |              |           |             |           |             |             |                    |                |
+| | **step**       |              |           |             |           | Yes         | Yes         | | Yes - using      | Yes            |
+| | **publish**    |              |           |             |           |             |             | | branches_context |                |
 +------------------+--------------+-----------+-------------+-----------+-------------+-------------+--------------------+----------------+
 | | **step**       |              |           |             |           | Yes         | Yes         |                    |                |
 | | **navigation** |              |           |             |           |             |             |                    |                |
@@ -304,12 +304,13 @@ May appear in the `publish <#publish>`__ section of a `parallel
 step <#parallel-step>`__.
 
 As branches of a `parallel_loop <#parallel-loop>`__ complete, values that have
-been output get placed as a dictionary into the
+been output and the branch's result get placed as a dictionary into the
 ``branches_context`` list. The list is therefore in the order the
 branches have completed.
 
 A specific value can be accessed using the index representing its
-branch's place in the finishing order and the name of the variable.
+branch's place in the finishing order and the name of the variable or the
+`branch_result <#branch-result>`__ key.
 
 **Example - retrieves the name variable from the first branch to finish**
 
@@ -1427,7 +1428,7 @@ Parallel publish
 ~~~~~~~~~~~~~~~~
 
 In a `parallel step <#parallel-step>`__ the publish mechanism defines the
-step's aggregation logic, generally making us of the
+step's aggregation logic, generally making use of the
 `branches_context <#branches-context>`__ construct.
 
 After all branches of a `parallel step <#parallel-step>`__ have
