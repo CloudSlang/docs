@@ -128,10 +128,12 @@ and concepts are explained in detail below.
 
    -  `python_action <#python-action>`__
 
+      -  `dependencies <#dependencies>`__
       -  `script <#script>`__
 
    -  `java_action <#java-action>`__
 
+      -  `gav <#gav>`__
       -  `class_name <#class-name>`__
       -  `method_name <#method-name>`__
 
@@ -792,6 +794,19 @@ list**
             print_branch:
               - ID: ${value}
 
+.. _gav:
+
+gav
+---
+
+The key ``gav`` is a property of a `java_action <#java-action>`__. It is
+mapped to the ``group:artifact:version`` of the Maven project in which an
+annotated Java @Action resides.
+
+Upon `operation <#operation>`__ execution, all required resources specified in
+the Maven project's ``dependencies`` will be resolved and downloaded
+(if necessary).
+
 .. _imports:
 
 imports
@@ -888,9 +903,18 @@ java_action
 -----------
 
 The key ``java_action`` is a property of an `operation <#operation>`__. It is
-mapped to the properties `class_name <#class-name>`__ and
-`method_name <#method-name>`__ that define the class and method where an
-annotated Java @Action resides.
+mapped to the properties that define where an annotated Java @Action resides.
+
++-----------------+----------+---------+-------------+------------------------+--------------------------------+
+| Property        | Required | Default | Value Type  | Description            | More info                      |
++=================+==========+=========+=============+========================+================================+
+| ``gav``         | no       | --      | string      | group:artifact:version | `gav <#gav>`__                 |
++-----------------+----------+---------+-------------+------------------------+--------------------------------+
+| ``class_name``  | yes      | --      | string      | | fully qualified      | `class_name <#class-name>`__   |
+|                 |          |         |             | | Java class name      |                                |
++-----------------+----------+---------+-------------+------------------------+--------------------------------+
+| ``method_name`` | no       | --      | string      | Java method name       | `method_name <#method-name>`__ |
++-----------------+----------+---------+-------------+------------------------+--------------------------------+
 
 **Example - CloudSlang call to a Java action**
 
@@ -910,6 +934,7 @@ annotated Java @Action resides.
         - body
 
       java_action:
+        gav: io.cloudslang.content:score-xml:0.0.2
         class_name: io.cloudslang.content.mail.actions.SendMailAction
         method_name: execute
 
@@ -1107,7 +1132,7 @@ step's navigation will run.
 .. _method_name:
 
 method_name
-----------
+-----------
 
 The key ``method_name`` is a property of a `java_action <#java-action>`__. It is
 mapped to the name of the Java method where an annotated @Action resides.
@@ -1475,6 +1500,17 @@ python_action
 
 The key ``python_action`` is a property of an `operation <#operation>`__. It is
 mapped to a `script <#script>`__ property that contains the actual Python script.
+
++------------------+----------+---------+-------------+---------------------------------+----------------------------------+
+| Property         | Required | Default | Value Type  | Description                     | More info                        |
++==================+==========+=========+=============+=================================+==================================+
+| ``dependencies`` | no       | --      | list        | | group:artifact:versions       | `dependencies <#dependencies>`__ |
+|                  |          |         |             | | of python script              |                                  |
+|                  |          |         |             | | dependencies                  |                                  |
++------------------+----------+---------+-------------+---------------------------------+----------------------------------+
+| ``script``       | yes      | --      | string      | python script                   | `script <#script>`__             |
++------------------+----------+---------+-------------+---------------------------------+----------------------------------+
+
 
 .. _results:
 
