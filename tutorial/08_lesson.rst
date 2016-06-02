@@ -268,7 +268,7 @@ outputs of the CLI and Build Tool.
 
 In the ``check_availability`` operation, let's create a temporary password if
 an email address is available. We'll just add a few lines to our script to
-randomly generate a short password it the address is available. In the
+randomly generate a short password if the address is available. In the
 ``outputs`` section, we'll mark that password as ``sensitive``. Notice,
 that when we add a ``sensitive`` property to an output we have to add a
 ``value`` property as well.
@@ -280,7 +280,7 @@ that when we add a ``sensitive`` property to an output we have to add a
         import random
         rand = random.randint(0, 2)
         vacant = rand != 0
-        #print vacant
+        # print vacant
         if vacant == True:
           password = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(6))
         else:
@@ -292,7 +292,7 @@ that when we add a ``sensitive`` property to an output we have to add a
           value: ${password}
           sensitive: true
 
-You can now run the ``check_availability`` operation as see how the ``password``
+You can now run the ``check_availability`` operation and see how the ``password``
 output is not printed to the screen.
 
 .. code-block:: bash
@@ -456,7 +456,7 @@ New Code - Complete
           import string
           rand = random.randint(0, 2)
           vacant = rand != 0
-          #print vacant
+          # print vacant
           if vacant == True:
             password = ''.join(random.choice(string.letters) for _ in range(6))
           else:

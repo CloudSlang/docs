@@ -12,7 +12,7 @@ operation:
       import string
       rand = random.randint(0, 2)
       vacant = rand != 0
-      print vacant
+      # print vacant
       if vacant == True:
         password = ''.join(random.choice(string.letters) for _ in range(6))
       else:
