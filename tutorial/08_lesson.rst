@@ -1,11 +1,11 @@
-Lesson 8 - Input Parameters
-===========================
+Lesson 8 - Input and Output Parameters
+======================================
 
 Goal
 ----
 
-In this lesson we'll learn how to change the way inputs behave using
-input properties.
+In this lesson we'll learn how to change the way inputs and outputs behave using
+input and output properties.
 
 Get Started
 -----------
@@ -161,8 +161,10 @@ Let's make the ``middle_name`` optional. We'll have to set its
         - domain
         - attempt
 
-**YAML Note:** Don't forget to add a colon (``:``) to the input name
-before adding its properties.
+.. note::
+
+    **YAML Note:** Don't forget to add a colon (``:``) to the input name
+    before adding its properties.
 
 For more information, see :ref:`required` in the DSL reference.
 
@@ -257,6 +259,64 @@ inputs and the ``generate_address`` step.
 
 For more information, see :ref:`private` in the DSL reference.
 
+Sensitive
+---------
+
+Finally, we can mark both inputs and outputs as ``sensitive``. When a variable
+is marked as sensitive, its value will not be printed in logs, events or in
+outputs of the CLI and Build Tool.
+
+In the ``check_availability`` operation, let's create a temporary password if
+an email address is available. We'll just add a few lines to our script to
+randomly generate a short password if the address is available. In the
+``outputs`` section, we'll mark that password as ``sensitive``. Notice,
+that when we add a ``sensitive`` property to an output we have to add a
+``value`` property as well.
+
+.. code-block:: yaml
+
+    python_action:
+      script: |
+        import random
+        rand = random.randint(0, 2)
+        vacant = rand != 0
+        # print vacant
+        if vacant == True:
+          password = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(6))
+        else:
+          password = ''
+
+    outputs:
+      - available: ${vacant}
+      - password:
+          value: ${password}
+          sensitive: true
+
+You can now run the ``check_availability`` operation and see how the ``password``
+output is not printed to the screen.
+
+.. code-block:: bash
+
+    run --f <folder path>/tutorials/hiring/check_availability.sl --i address=john.doe@somecompany.com
+
+In the ``new_hire`` flow we'll add ``password`` to the ``publish`` section of
+the ``check_address`` step to be used later on.
+
+.. code-block:: yaml
+
+    - check_address:
+        do:
+          check_availability:
+            - address
+        publish:
+          - availability: ${available}
+          - password
+        navigate:
+          - UNAVAILABLE: print_fail
+          - AVAILABLE: print_finish
+
+For more information, see :ref:`sensitive` in the DSL reference.
+
 Run It
 ------
 
@@ -322,6 +382,7 @@ New Code - Complete
                 - address
             publish:
               - availability: ${available}
+              - password
             navigate:
               - UNAVAILABLE: print_fail
               - AVAILABLE: print_finish
@@ -376,3 +437,36 @@ New Code - Complete
       results:
         - FAILURE: ${address == ''}
         - SUCCESS
+
+**check_availability.sl**
+
+.. code-block:: yaml
+
+    namespace: tutorials_08.hiring
+
+    operation:
+      name: check_availability
+
+      inputs:
+        - address
+
+      python_action:
+        script: |
+          import random
+          import string
+          rand = random.randint(0, 2)
+          vacant = rand != 0
+          # print vacant
+          if vacant == True:
+            password = ''.join(random.choice(string.letters) for _ in range(6))
+          else:
+            password = ''
+
+      outputs:
+        - available: ${vacant}
+        - password:
+            value: ${password}
+            sensitive: true
+      results:
+        - UNAVAILABLE: ${rand == 0}
+        - AVAILABLE

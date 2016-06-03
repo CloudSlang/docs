@@ -76,6 +76,7 @@ and concepts are explained in detail below.
       -  `required <#required>`__
       -  `default <#default>`__
       -  `private <#private>`__
+      -  `sensitive <#sensitive>`__
 
    -  `workflow <#workflow>`__
 
@@ -109,6 +110,10 @@ and concepts are explained in detail below.
       -  `on_failure <#on-failure>`__
 
    -  `outputs <#outputs>`__
+
+      -  `value <#value>`__
+      -  `sensitive <#sensitive>`__
+
    -  `results <#results>`__
 
 -  `extensions <#extensions>`__
@@ -124,6 +129,7 @@ and concepts are explained in detail below.
       -  `required <#required>`__
       -  `default <#default>`__
       -  `private <#private>`__
+      -  `sensitive <#sensitive>`__
 
    -  `python_action <#python-action>`__
 
@@ -135,6 +141,10 @@ and concepts are explained in detail below.
       -  `method_name <#method-name>`__
 
    -  `outputs <#outputs>`__
+
+      -  `value <#value>`__
+      -  `sensitive <#value>`__
+
    -  `results <#results>`__
 
 -  `extensions <#extensions>`__
@@ -427,7 +437,7 @@ The expression's value will be passed to the `flow <#flow>`__ or
       - from_system_property:
           default: $ { get_sp('system.property.key') }
 
-A default value can also be defined inline by entering it as the value
+A default value can also be defined inline by entering it as the value mapped
 to the `input <#inputs>`__ parameter's key.
 
 **Example - inline default values**
@@ -793,17 +803,24 @@ names of the same `flow <#flow>`__ or `operation <#operation>`__.
 For a list of which contexts are available in the ``inputs`` section of a
 `flow <#flow>`__ or `operation <#operation>`__, see `Contexts <#contexts>`__.
 
-+--------------+----------+---------+-------------+-----------------------------+--------------------------+
-| Property     | Required | Default | Value Type  | Description                 | More info                |
-+==============+==========+=========+=============+=============================+==========================+
-| ``required`` | no       | true    | boolean     | is the input required       | `required <#required>`__ |
-+--------------+----------+---------+-------------+-----------------------------+--------------------------+
-| ``default``  | no       | --      | expression  | default value of the input  | `default <#default>`__   |
-+--------------+----------+---------+-------------+-----------------------------+--------------------------+
-| ``private``  | no       | false   | boolean     | | if true, the default      | `private <#private>`__   |
-|              |          |         |             | | value always overrides    |                          |
-|              |          |         |             | | values passed in          |                          |
-+--------------+----------+---------+-------------+-----------------------------+--------------------------+
++---------------+----------+---------------+------------+--------------------+----------------------------+
+| Property      | Required | Default       | Value Type | Description        | More info                  |
++===============+==========+===============+============+====================+============================+
+| ``required``  | no       | true          | boolean    | | is the input     | `required <#required>`__   |
+|               |          |               |            | | required         |                            |
++---------------+----------+---------------+------------+--------------------+----------------------------+
+| ``default``   | no       | --            | expression | | default value    | `default <#default>`__     |
+|               |          |               |            | | of the input     |                            |
++---------------+----------+---------------+------------+--------------------+----------------------------+
+| ``private``   | no       | false         | boolean    | | if true, the     | `private <#private>`__     |
+|               |          |               |            | | default value    |                            |
+|               |          |               |            | | always overrides |                            |
+|               |          |               |            | | values passed in |                            |
++---------------+----------+---------------+------------+--------------------+----------------------------+
+| ``sensitive`` | no       | | transitive  | boolean    | | is the input     | `sensitive <#sensitive>`__ |
+|               |          | | sensitivity |            | | sensitive        |                            |
+|               |          | | or false    |            |                    |                            |
++---------------+----------+---------------+------------+--------------------+----------------------------+
 
 **Example - several inputs**
 
@@ -816,6 +833,8 @@ For a list of which contexts are available in the ``inputs`` section of a
       - input2
       - input3: "default value"
       - input4: ${'var1 is ' + var1}
+      - password:
+          sensitive: true
 
 .. _java_action:
 
@@ -1239,8 +1258,9 @@ outputs
 
 The key ``outputs`` is a property of a `flow <#flow>`__ or
 `operation <#operation>`__. It is mapped to a list of output variable
-names which may also contain `expression <#expressions>`__ values.
-Output `expressions <#expressions>`__ must evaluate to strings.
+names. Each output name may in turn be mapped to its properties or an output
+`expression <#expressions>`__. Output `expressions <#expressions>`__ must
+evaluate to strings.
 
 Defines the parameters a `flow <#flow>`__ or `operation <#operation>`__
 exposes to possible `publication <#publish>`__ by a `step <#step>`__.
@@ -1253,6 +1273,17 @@ be different than the `input <#inputs>`__ names of the same `flow <#flow>`__ or
 For a list of which contexts are available in the ``outputs`` section of a
 `flow <#flow>`__ or `operation <#operation>`__, see `Contexts <#contexts>`__.
 
++---------------+----------+---------------+------------+-----------------+----------------------------+
+| Property      | Required | Default       | Value Type | Description     | More info                  |
++===============+==========+===============+============+=================+============================+
+| ``value``     | no       | --            | expression | | value of      | `value <#value>`__         |
+|               |          |               |            | | the output    |                            |
++---------------+----------+---------------+------------+-----------------+----------------------------+
+| ``sensitive`` | no       | | transitive  | boolean    | | is the output | `sensitive <#sensitive>`__ |
+|               |          | | sensitivity |            | | sensitive     |                            |
+|               |          | | or false    |            |                 |                            |
++---------------+----------+---------------+------------+-----------------+----------------------------+
+
 **Example - various types of outputs**
 
 .. code-block:: yaml
@@ -1261,6 +1292,9 @@ For a list of which contexts are available in the ``outputs`` section of a
       - existing_variable
       - output2: ${some_variable}
       - output3: ${5 + 6}
+      - password:
+          value: ${password}
+          sensitive: true
 
 .. _parallel_loop_tag:
 
@@ -1747,6 +1781,43 @@ To import a Python script in a ``python_action``:
    If you have defined a ``JYTHONPATH`` environment variable, you
    will need to add the **python-lib** folder's path to its value.
 
+.. _sensitive:
+
+sensitive
+---------
+
+The key ``sensitive`` is a property of an `input <#inputs>`__  or
+`output <#outputs>`__ name. It is mapped to a boolean value.
+
+The values of variables marked as ``sensitive`` will not be printed in logs,
+events or in outputs of the :doc:`CLI <cloudslang_cli>` and
+:doc:`Build Tool <cloudslang_build_tool>`.
+
+The sensitivity of an `input <#inputs>`__  or `output <#outputs>`__ is
+transitive, and is therefore determined by its ``sensitive`` property and by the
+sensitivity of variables used in its related value expression.
+
+**Example - two sensitive inputs**
+
+.. code-block:: yaml
+
+    inputs:
+      - input1:
+          default: "default value"
+          sensitive: true
+      - input1plus:
+          default: ${ get("input1") + "something else" }
+
+**Example - two sensitive outputs**
+
+.. code-block:: yaml
+
+    outputs:
+      - output1:
+          value: ${output1}
+          sensitive: true
+      - output2: ${already_sensitive_value}
+
 .. _step:
 
 step
@@ -1892,6 +1963,29 @@ then navigates to a step named "another_step"**
         navigate:
             - SUCCESS: another_step
             - FAILURE: FAILURE
+
+.. _value:
+
+value
+-----
+
+The key ``value`` is a property of an `output <#outputs>`__ name. It is
+mapped to an `expression <#expressions>`__ value.
+
+The value key is most often used in conjunction with the `sensitive
+<#sensitive>`__ key. Otherwise, an `output's <#outputs>`__ value can be defined
+inline by mapping it to the `output <#outputs>`__ parameter's key.
+
+
+**Example - output values**
+
+.. code-block:: yaml
+
+    outputs:
+      - password:
+          value: ${password}
+          sensitive: true
+      - another_output: ${op_output}
 
 .. _workflow:
 

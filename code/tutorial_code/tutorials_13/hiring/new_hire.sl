@@ -38,6 +38,7 @@ flow:
               - attempt
           publish:
             - address
+            - password
           break:
             - CREATED
             - FAILURE
@@ -79,7 +80,8 @@ flow:
             - subject: "${'New Hire: ' + first_name + ' ' + last_name}"
             - body: >
                 ${'Created address: ' + address + ' for: ' + first_name + ' ' + last_name + '<br>' +
-                'Missing items: ' + all_missing + ' Cost of ordered items:' + str(total_cost)}
+                'Missing items: ' + all_missing + ' Cost of ordered items:' + str(total_cost) + '<br>' +
+                'Temporary password: ' + password}
         navigate:
           - FAILURE: FAILURE
           - SUCCESS: SUCCESS

@@ -28,6 +28,7 @@ flow:
             - attempt
         publish:
           - address
+          - password
         navigate:
           - CREATED: print_finish
           - UNAVAILABLE: print_fail

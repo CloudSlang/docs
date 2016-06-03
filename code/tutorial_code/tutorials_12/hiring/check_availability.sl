@@ -9,13 +9,19 @@ operation:
   python_action:
     script: |
       import random
+      import string
       rand = random.randint(0, 2)
       vacant = rand != 0
-      #print vacant
-
+      # print vacant
+      if vacant == True:
+        password = ''.join(random.choice(string.letters) for _ in range(6))
+      else:
+        password = ''
   outputs:
     - available: ${vacant}
-
+    - password:
+        value: ${password}
+        sensitive: true
   results:
     - UNAVAILABLE: ${rand == 0}
     - AVAILABLE

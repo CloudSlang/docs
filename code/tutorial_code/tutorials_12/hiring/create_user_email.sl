@@ -33,12 +33,14 @@ flow:
             - address
         publish:
           - availability: ${available}
+          - password
         navigate:
           - UNAVAILABLE: UNAVAILABLE
           - AVAILABLE: CREATED
 
   outputs:
     - address
+    - password
     - availability
 
   results:

@@ -16,7 +16,7 @@ flow itself and therefore it follows all the regular flow syntax.
 Move Code
 ---------
 
-Now we'll steal a bunch of the code that currently sits in
+The first thing we'll do is steal a bunch of the code that currently sits in
 **new_hire.sl**. Let's take everything up until the ``workflow`` key
 and copy it into the new flow and make a couple of changes. First, we
 won't need the imports, so we can just delete them. Next, we'll change
@@ -59,6 +59,7 @@ Next let's create a ``workflow`` section and copy the
               - address
           publish:
             - availability: ${available}
+            - password
           navigate:
             - UNAVAILABLE: print_fail
             - AVAILABLE: print_finish
@@ -119,6 +120,7 @@ flow.
             - address
         publish:
           - availability: ${available}
+          - password
         navigate:
           - UNAVAILABLE: UNAVAILABLE
           - AVAILABLE: CREATED
@@ -130,6 +132,7 @@ outputs.
 
     outputs:
       - address
+      - password
       - availability
 
 Test It
@@ -173,6 +176,7 @@ navigation.
             - attempt
         publish:
           - address
+          - password
         navigate:
           - CREATED: print_finish
           - UNAVAILABLE: print_fail
@@ -257,6 +261,7 @@ New Code - Complete
                 - attempt
             publish:
               - address
+              - password
             navigate:
               - CREATED: print_finish
               - UNAVAILABLE: print_fail
@@ -307,6 +312,7 @@ New Code - Complete
             do:
               check_availability:
                 - address
+                - password
             publish:
               - availability: ${available}
             navigate:
@@ -315,6 +321,7 @@ New Code - Complete
 
       outputs:
         - address
+        - password
         - availability
 
       results:
