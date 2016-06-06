@@ -1,22 +1,19 @@
-namespace: examples.async
+namespace: examples.parallel
 
 flow:
-  name: async_loop_aggregate
+  name: parallel_loop_aggregate
 
   inputs:
     - values: [1,2,3,4]
 
   workflow:
     - print_values:
-        async_loop:
+        parallel_loop:
           for: value in values
           do:
             print_branch:
               - ID: ${value}
-          publish:
-            - name
-            - num
-        aggregate:
+        publish:
             - name_list: ${map(lambda x:str(x['name']), branches_context)}
             - first_name: ${branches_context[0]['name']}
             - last_name: ${branches_context[-1]['name']}

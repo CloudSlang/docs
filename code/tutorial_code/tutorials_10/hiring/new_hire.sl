@@ -29,6 +29,7 @@ flow:
               - attempt
           publish:
             - address
+            - password
           break:
             - CREATED
             - FAILURE

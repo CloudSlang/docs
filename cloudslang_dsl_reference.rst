@@ -76,6 +76,7 @@ and concepts are explained in detail below.
       -  `required <#required>`__
       -  `default <#default>`__
       -  `private <#private>`__
+      -  `sensitive <#sensitive>`__
 
    -  `workflow <#workflow>`__
 
@@ -96,20 +97,23 @@ and concepts are explained in detail below.
 
          -  `navigate <#navigate>`__
 
-      -  `asynchronous step <#asynchronous-step>`__
+      -  `parallel step <#parallel-step>`__
 
-         -  `async_loop <#async-loop>`__
+         -  `parallel_loop <#parallel-loop>`__
 
             -  `for <#for>`__
             -  `do <#do>`__
-            -  `publish <#publish>`__
 
-         -  `aggregate <#aggregate>`__
+         -  `publish <#publish>`__
          -  `navigate <#navigate>`__
 
       -  `on_failure <#on-failure>`__
 
    -  `outputs <#outputs>`__
+
+      -  `value <#value>`__
+      -  `sensitive <#sensitive>`__
+
    -  `results <#results>`__
 
 -  `extensions <#extensions>`__
@@ -125,6 +129,7 @@ and concepts are explained in detail below.
       -  `required <#required>`__
       -  `default <#default>`__
       -  `private <#private>`__
+      -  `sensitive <#sensitive>`__
 
    -  `python_action <#python-action>`__
 
@@ -138,6 +143,10 @@ and concepts are explained in detail below.
       -  `method_name <#method-name>`__
 
    -  `outputs <#outputs>`__
+
+      -  `value <#value>`__
+      -  `sensitive <#value>`__
+
    -  `results <#results>`__
 
 -  `extensions <#extensions>`__
@@ -259,13 +268,12 @@ different variable contexts that are accessible. Which contexts are accessible
 depends on the current section of the flow or operation.
 
 The table below summarizes the accessible contexts at any given location in a
-flow or operation. At locations where more than one context is accessible, the
-context labeled as **P0** overrides the context labeled as **P1**.
+flow or operation.
 
 +------------------+--------------+-----------+-------------+-----------+-------------+-------------+--------------------+----------------+
 | | Contexts/      | | Context    | | Flow    | | Operation | | Action  | | Subflow/  | | Step      | | Branched         | | Already      |
 | | Location       | | Passed To  | | Context | | Context   | | Outputs | | Operation | | Arguments | | Step             | | Bound        |
-|                  | | Executable |           |             | | Context | | Outputs   |             | | Published        | | Values       |
+|                  | | Executable |           |             | | Context | | Outputs   |             | | Output           | | Values       |
 |                  |              |           |             |           | | Context   |             | | Values           |                |
 +==================+==============+===========+=============+===========+=============+=============+====================+================+
 | | **flow**       | Yes          |           |             |           |             |             |                    | Yes            |
@@ -278,22 +286,19 @@ context labeled as **P0** overrides the context labeled as **P1**.
 | | **inputs**     |              |           |             |           |             |             |                    |                |
 +------------------+--------------+-----------+-------------+-----------+-------------+-------------+--------------------+----------------+
 | | **operation**  |              |           | Yes         | Yes       |             |             |                    | Yes            |
-| | **outputs**    |              |           | (P1)        | (P0)      |             |             |                    |                |
+| | **outputs**    |              |           |             |           |             |             |                    |                |
 +------------------+--------------+-----------+-------------+-----------+-------------+-------------+--------------------+----------------+
 | | **operation**  |              |           | Yes         | Yes       |             |             |                    |                |
-| | **results**    |              |           | (P1)        | (P0)      |             |             |                    |                |
+| | **results**    |              |           |             |           |             |             |                    |                |
 +------------------+--------------+-----------+-------------+-----------+-------------+-------------+--------------------+----------------+
 | | **step**       |              | Yes       |             |           |             |             |                    | Yes            |
 | | **arguments**  |              |           |             |           |             |             |                    |                |
 +------------------+--------------+-----------+-------------+-----------+-------------+-------------+--------------------+----------------+
-| | **step**       |              |           |             |           | Yes         | Yes         |                    | Yes            |
-| | **publish**    |              |           |             |           | (P0)        | (P1)        |                    |                |
+| | **step**       |              |           |             |           | Yes         | Yes         | | Yes - using      | Yes            |
+| | **publish**    |              |           |             |           |             |             | | branches_context |                |
 +------------------+--------------+-----------+-------------+-----------+-------------+-------------+--------------------+----------------+
 | | **step**       |              |           |             |           | Yes         | Yes         |                    |                |
-| | **navigation** |              |           |             |           | (P0)        | (P1)        |                    |                |
-+------------------+--------------+-----------+-------------+-----------+-------------+-------------+--------------------+----------------+
-| | **step**       |              |           |             |           |             |             | | Yes* - using     |                |
-| | **aggregate**  |              |           |             |           |             |             | | branches_context |                |
+| | **navigation** |              |           |             |           |             |             |                    |                |
 +------------------+--------------+-----------+-------------+-----------+-------------+-------------+--------------------+----------------+
 | | **action**     |              |           | Yes         |           |             |             |                    |                |
 | | **inputs**     |              |           |             |           |             |             |                    |                |
@@ -302,121 +307,58 @@ context labeled as **P0** overrides the context labeled as **P1**.
 Keywords (A-Z)
 ==============
 
-.. _aggregate:
-
-aggregate
----------
-
-The key ``aggregate`` is a property of an `asynchronous
-step <#asynchronous-step>`__ name. It is mapped to key:value pairs where
-the key is the variable name to publish to the `flow's <#flow>`__ scope
-and the value is the aggregation `expression <#expressions>`__.
-
-Defines the aggregation logic for an `asynchronous
-step <#asynchronous-step>`__, generally making us of the
-`branches_context <#branches-context>`__ construct.
-
-After all branches of an `asynchronous step <#asynchronous-step>`__ have
-completed, execution of the flow continues with the ``aggregate`` section. The
-expression of each name:value pair is evaluated and published to the
-`flow's <#flow>`__ scope. The expression generally makes use of the
-`branches_context <#branches-context>`__ construct to access the values
-published by each of the `asynchronous loop's <#async_loop>`__ branches.
-
-For a list of which contexts are available in the ``aggregate`` section of a
-`step <#step>`__, see `Contexts <#contexts>`__.
-
-For more information, see the :ref:`Asynchronous Loop <example_asynchronous_loop>`
-example.
-
-**Example - aggregates all of the published names into name\_list**
-
-.. code-block:: yaml
-
-    aggregate:
-      - name_list: ${map(lambda x:str(x['name']), branches_context)}
-
-.. _async_loop:
-
-async_loop
------------
-
-The key ``asyc_loop`` is a property of an `asynchronous
-step's <#asynchronous-step>`__ name. It is mapped to the `asynchronous
-step's <#asynchronous-step>`__ properties.
-
-For each value in the loop's list a branch is created and the ``do``
-will run an `operation <#operation>`__ or `subflow <#flow>`__. When all
-the branches have finished, the `asynchronous
-step's <#asynchronous-step>`__ `aggregation <#aggregate>`__ and
-`navigation <#navigate>`__ will run.
-
-+-------------+----------+---------+-------------------+---------------------------------+------------------------------+
-| Property    | Required | Default | Value Type        | Description                     | More Info                    |
-+=============+==========+=========+===================+=================================+==============================+
-| ``for``     | yes      | --      | | variable ``in`` | loop values                     | `for <#for>`__               |
-|             |          |         | | list            |                                 |                              |
-+-------------+----------+---------+-------------------+---------------------------------+------------------------------+
-| ``do``      | yes      | --      | | operation or    | | operation or subflow          | | `do <#do>`__               |
-|             |          |         | | subflow call    | | this step will                | | `operation <#operation>`__ |
-|             |          |         |                   | | run in parallel               | | `flow <#flow>`__           |
-+-------------+----------+---------+-------------------+---------------------------------+------------------------------+
-| ``publish`` | no       | --      | | list of         | | operation or subflow          | | `publish <#publish>`__     |
-|             |          |         | | key:value       | | outputs to aggregate          | | `aggregate <#aggregate>`__ |
-|             |          |         | | pairs           | | and publish to the flow level | | `outputs <#outputs>`__     |
-+-------------+----------+---------+-------------------+---------------------------------+------------------------------+
-
-**Example: loop that breaks on a result of custom**
-
-.. code-block:: yaml
-
-     - print_values:
-         async_loop:
-           for: value in values
-           do:
-             print_branch:
-               - ID: ${value}
-           publish:
-             - name
-         aggregate:
-             - name_list: ${map(lambda x:str(x['name']), branches_context)}
-         navigate:
-             - SUCCESS: print_list
-             - FAILURE: FAILURE
-
 .. _branches_context:
 
 branches_context
------------------
+----------------
 
-May appear in the `aggregate <#aggregate>`__ section of an `asynchronous
-step <#asynchronous-step>`__.
+May appear in the `publish <#publish>`__ section of a `parallel
+step <#parallel-step>`__.
 
-As branches of an `async_loop <#async-loop>`__ complete, their
-published values get placed as a dictionary into the
+As branches of a `parallel_loop <#parallel-loop>`__ complete, values that have
+been output and the branch's result get placed as a dictionary into the
 ``branches_context`` list. The list is therefore in the order the
 branches have completed.
 
 A specific value can be accessed using the index representing its
-branch's place in the finishing order and the name of the variable.
+branch's place in the finishing order and the name of the variable or the
+`branch_result <#branch-result>`__ key.
 
-**Example - retrieves the published name variable from the first branch
-to finish**
+**Example - retrieves the name variable from the first branch to finish**
 
 .. code-block:: yaml
 
-    aggregate:
+    publish:
       - first_name: ${branches_context[0]['name']}
 
 More commonly, the ``branches_context`` is used to aggregate the values
 that have been published by all of the branches.
 
-**Example - aggregates all of the published name values into a list**
+**Example - aggregates name values into a list**
 
 .. code-block:: yaml
 
-    aggregate:
+    publish:
       - name_list: ${map(lambda x:str(x['name']), branches_context)}
+
+.. _branch_result:
+
+branch_result
+-------------
+
+May appear in the `publish <#publish>`__ section of a `parallel
+step <#parallel-step>`__.
+
+As branches of a `parallel_loop <#parallel-loop>`__ complete, branch results get
+placed into the `branches_context <#branches-context>`__ list under the
+``branch_result`` key.
+
+**Example - aggregates branch results**
+
+.. code-block:: yaml
+
+    publish:
+      - branch_results_list: ${map(lambda x:str(x['branch_result']), branches_context)}
 
 .. _break:
 
@@ -497,7 +439,7 @@ The expression's value will be passed to the `flow <#flow>`__ or
       - from_system_property:
           default: $ { get_sp('system.property.key') }
 
-A default value can also be defined inline by entering it as the value
+A default value can also be defined inline by entering it as the value mapped
 to the `input <#inputs>`__ parameter's key.
 
 **Example - inline default values**
@@ -516,7 +458,7 @@ do
 --
 
 The key ``do`` is a property of a `step <#step>`__ name, a
-`loop <#loop>`__, or an `async_loop <#async-loop>`__. It is mapped to a
+`loop <#loop>`__, or a `parallel_loop <#parallel-loop>`__. It is mapped to a
 property that references an `operation <#operation>`__ or
 `flow <#flow>`__.
 
@@ -548,7 +490,9 @@ example.
 Arguments are passed to a `step <#step>`__ using a list of argument names and
 optional mapped `expressions <#expressions>`__. The step must pass values for
 all `inputs <#inputs>`__ found in the called `operation <#operation>`__ or
-`subflow <#flow>`__ that are required and don't have a default value.
+`subflow <#flow>`__ that are required and don't have a default value. Argument
+names should be different than the `output <#outputs>`__ names found in the
+`operation <#operation>`__ or `subflow <#flow>`__ being called in the step.
 
 An argument name without an expression, or with a ``null`` value will take its
 value from a variable with the same name in the flow context.
@@ -600,7 +544,7 @@ For a list of which contexts are available in the arguments section of a
         script: |
           print text + punctuation
 
-.. _extensions:
+.. _extensions_tag:
 
 extensions
 ----------
@@ -698,7 +642,7 @@ for
 ---
 
 The key ``for`` is a property of a `loop <#loop>`__ or an
-`async_loop <#async-loop>`__.
+`parallel_loop <#parallel-loop>`__.
 
 loop: for
 ~~~~~~~~~
@@ -771,24 +715,23 @@ expression**
               - text1: ${k}
               - text2: ${v}
 
-async_loop: for
-~~~~~~~~~~~~~~~~
+parallel_loop: for
+~~~~~~~~~~~~~~~~~~
 
-An asynchronous for loops in parallel branches over the items in a list.
+A parallel for loop loops in parallel branches over the items in a list.
 
-The `asynchronous step <#asynchronous-step>`__ will run one branch for
+The `parallel step <#parallel-step>`__ will run one branch for
 each element in the list.
 
 The ``for`` key is mapped to an iteration variable followed by ``in``
 followed by a list or an expression that evaluates to a list.
 
-**Example - step that asynchronously loops through the values in a
-list**
+**Example - step that loops in parallel through the values in a list**
 
 .. code-block:: yaml
 
     - print_values:
-        async_loop:
+        parallel_loop:
           for: value in values_list
           do:
             print_branch:
@@ -868,22 +811,31 @@ input name may in turn be mapped to its properties or an input
 `expression <#expressions>`__.
 
 Inputs are used to pass parameters to `flows <#flow>`__ or
-`operations <#operation>`__.
+`operations <#operation>`__. Input names for a specific `flow <#flow>`__ or
+`operation <#operation>`__ must be different than the `output <#outputs>`__
+names of the same `flow <#flow>`__ or `operation <#operation>`__.
 
 For a list of which contexts are available in the ``inputs`` section of a
 `flow <#flow>`__ or `operation <#operation>`__, see `Contexts <#contexts>`__.
 
-+--------------+----------+---------+-------------+-----------------------------+--------------------------+
-| Property     | Required | Default | Value Type  | Description                 | More info                |
-+==============+==========+=========+=============+=============================+==========================+
-| ``required`` | no       | true    | boolean     | is the input required       | `required <#required>`__ |
-+--------------+----------+---------+-------------+-----------------------------+--------------------------+
-| ``default``  | no       | --      | expression  | default value of the input  | `default <#default>`__   |
-+--------------+----------+---------+-------------+-----------------------------+--------------------------+
-| ``private``  | no       | false   | boolean     | | if true, the default      | `private <#private>`__   |
-|              |          |         |             | | value always overrides    |                          |
-|              |          |         |             | | values passed in          |                          |
-+--------------+----------+---------+-------------+-----------------------------+--------------------------+
++---------------+----------+---------------+------------+--------------------+----------------------------+
+| Property      | Required | Default       | Value Type | Description        | More info                  |
++===============+==========+===============+============+====================+============================+
+| ``required``  | no       | true          | boolean    | | is the input     | `required <#required>`__   |
+|               |          |               |            | | required         |                            |
++---------------+----------+---------------+------------+--------------------+----------------------------+
+| ``default``   | no       | --            | expression | | default value    | `default <#default>`__     |
+|               |          |               |            | | of the input     |                            |
++---------------+----------+---------------+------------+--------------------+----------------------------+
+| ``private``   | no       | false         | boolean    | | if true, the     | `private <#private>`__     |
+|               |          |               |            | | default value    |                            |
+|               |          |               |            | | always overrides |                            |
+|               |          |               |            | | values passed in |                            |
++---------------+----------+---------------+------------+--------------------+----------------------------+
+| ``sensitive`` | no       | | transitive  | boolean    | | is the input     | `sensitive <#sensitive>`__ |
+|               |          | | sensitivity |            | | sensitive        |                            |
+|               |          | | or false    |            |                    |                            |
++---------------+----------+---------------+------------+--------------------+----------------------------+
 
 **Example - several inputs**
 
@@ -896,6 +848,8 @@ For a list of which contexts are available in the ``inputs`` section of a
       - input2
       - input3: "default value"
       - input4: ${'var1 is ' + var1}
+      - password:
+          sensitive: true
 
 .. _java_action:
 
@@ -1204,8 +1158,8 @@ mapped to a list of key:value pairs where the key is the received
 `flow <#flow>`__ `result <#results>`__ or ``on_failure``.
 
 Defines the navigation logic for a `standard step <#standard-step>`__,
-an `iterative step <#iterative-step>`__ or an `asynchronous
-step <#asynchronous-step>`__. The flow will continue with the
+an `iterative step <#iterative-step>`__ or a `parallel
+step <#parallel-step>`__. The flow will continue with the
 `step <#step>`__ or `flow <#flow>`__ `result <#results>`__ whose value
 is mapped to the `result <#results>`__ returned by the called
 `operation <#operation>`__ or `subflow <#flow>`__.
@@ -1227,7 +1181,7 @@ For an `iterative step <#iterative-step>`__ the navigation logic runs
 when the last iteration of the `step <#step>`__ is completed or after
 exiting the iteration due to a `break <#break>`__.
 
-For an `asynchronous step <#asynchronous-step>`__ the navigation logic
+For a `parallel step <#parallel-step>`__ the navigation logic
 runs after the last branch has completed. If any of the branches
 returned a `result <#results>`__ of ``FAILURE``, the `flow <#flow>`__
 will navigate to the `step <#step>`__ or `flow <#flow>`__
@@ -1235,7 +1189,7 @@ will navigate to the `step <#step>`__ or `flow <#flow>`__
 `flow <#flow>`__ will navigate to the `step <#step>`__ or
 `flow <#flow>`__ `result <#results>`__ mapped to ``SUCCESS``. Note that
 the only `results <#results>`__ of an `operation <#operation>`__ or
-`subflow <#flow>`__ called in an `async_loop <#async-loop>`__ that are
+`subflow <#flow>`__ called in a `parallel_loop <#parallel-loop>`__ that are
 evaluated are ``SUCCESS`` and ``FAILURE``. Any other results will be
 evaluated as ``SUCCESS``.
 
@@ -1329,15 +1283,31 @@ outputs
 
 The key ``outputs`` is a property of a `flow <#flow>`__ or
 `operation <#operation>`__. It is mapped to a list of output variable
-names which may also contain `expression <#expressions>`__ values.
-Output `expressions <#expressions>`__ must evaluate to strings.
+names. Each output name may in turn be mapped to its properties or an output
+`expression <#expressions>`__. Output `expressions <#expressions>`__ must
+evaluate to strings.
 
 Defines the parameters a `flow <#flow>`__ or `operation <#operation>`__
 exposes to possible `publication <#publish>`__ by a `step <#step>`__.
 The calling `step <#step>`__ refers to an output by its name.
 
+Output names for a specific `flow <#flow>`__ or `operation <#operation>`__ must
+be different than the `input <#inputs>`__ names of the same `flow <#flow>`__ or
+`operation <#operation>`__.
+
 For a list of which contexts are available in the ``outputs`` section of a
 `flow <#flow>`__ or `operation <#operation>`__, see `Contexts <#contexts>`__.
+
++---------------+----------+---------------+------------+-----------------+----------------------------+
+| Property      | Required | Default       | Value Type | Description     | More info                  |
++===============+==========+===============+============+=================+============================+
+| ``value``     | no       | --            | expression | | value of      | `value <#value>`__         |
+|               |          |               |            | | the output    |                            |
++---------------+----------+---------------+------------+-----------------+----------------------------+
+| ``sensitive`` | no       | | transitive  | boolean    | | is the output | `sensitive <#sensitive>`__ |
+|               |          | | sensitivity |            | | sensitive     |                            |
+|               |          | | or false    |            |                 |                            |
++---------------+----------+---------------+------------+-----------------+----------------------------+
 
 **Example - various types of outputs**
 
@@ -1347,6 +1317,51 @@ For a list of which contexts are available in the ``outputs`` section of a
       - existing_variable
       - output2: ${some_variable}
       - output3: ${5 + 6}
+      - password:
+          value: ${password}
+          sensitive: true
+
+.. _parallel_loop_tag:
+
+parallel_loop
+-------------
+
+The key ``parallel_loop`` is a property of a `parallel
+step's <#parallel-step>`__ name. It is mapped to the `parallel
+step's <#parallel-step>`__ properties.
+
+For each value in the loop's list a branch is created and the ``do``
+will run an `operation <#operation>`__ or `subflow <#flow>`__. When all
+the branches have finished, the `parallel
+step's <#parallel-step>`__ `publish <#publish>`__ and
+`navigation <#navigate>`__ will run.
+
++-------------+----------+---------+-------------------+---------------------------------+------------------------------+
+| Property    | Required | Default | Value Type        | Description                     | More Info                    |
++=============+==========+=========+===================+=================================+==============================+
+| ``for``     | yes      | --      | | variable ``in`` | loop values                     | `for <#for>`__               |
+|             |          |         | | list            |                                 |                              |
++-------------+----------+---------+-------------------+---------------------------------+------------------------------+
+| ``do``      | yes      | --      | | operation or    | | operation or subflow          | | `do <#do>`__               |
+|             |          |         | | subflow call    | | this step will                | | `operation <#operation>`__ |
+|             |          |         |                   | | run in parallel               | |                            |
++-------------+----------+---------+-------------------+---------------------------------+------------------------------+
+
+**Example: loop that breaks on a result of custom**
+
+.. code-block:: yaml
+
+     - print_values:
+         parallel_loop:
+           for: value in values
+           do:
+             print_branch:
+               - ID: ${value}
+         publish:
+             - name_list: ${map(lambda x:str(x['name']), branches_context)}
+         navigate:
+             - SUCCESS: print_list
+             - FAILURE: FAILURE
 
 .. _private:
 
@@ -1417,7 +1432,7 @@ publish
 -------
 
 The key ``publish`` is a property of a `step <#step>`__ name, a
-`loop <#loop>`__ or an `async_loop <#async-loop>`__. It is mapped to a
+`loop <#loop>`__ or a `parallel_loop <#parallel-loop>`__. It is mapped to a
 list of key:value pairs where the key is the published variable name and
 the value is an `expression <#expressions>`__, usually involving an `output <#outputs>`__ received
 from an `operation <#operation>`__ or `flow <#flow>`__.
@@ -1468,30 +1483,65 @@ during each iteration after the `operation <#operation>`__ or
           publish:
             - sum: ${sum + squared}
 
-Asynchronous publish
-~~~~~~~~~~~~~~~~~~~~
+Parallel publish
+~~~~~~~~~~~~~~~~
 
-In an `asynchronous step <#asynchronous-step>`__ the publish mechanism
-is run during each branch after the `operation <#operation>`__ or
-`subflow <#flow>`__ has completed. Published variables and their values
-are added as a dictionary to the
-`branches_context <#branches-context>`__ list in the order they are
-received from finished branches, allowing for aggregation.
+In a `parallel step <#parallel-step>`__ the publish mechanism defines the
+step's aggregation logic, generally making use of the
+`branches_context <#branches-context>`__ construct.
 
-**Example - publishing in an iterative step to aggregate output**
+After all branches of a `parallel step <#parallel-step>`__ have
+completed, execution of the flow continues with the ``publish`` section. The
+expression of each name:value pair is evaluated and published to the
+`flow's <#flow>`__ scope. The expression generally makes use of the
+`branches_context <#branches-context>`__ construct to access the values
+published by each of the `parallel loop's <#parallel_loop>`__ branches and their
+results using the `branch_result <#branch-result>`__ key.
+
+For a list of which contexts are available in the ``publish`` section of a
+`step <#step>`__, see `Contexts <#contexts>`__.
+
+For more information, see the :ref:`Parallel Loop <example_parallel_loop>`
+example.
+
+**Example - publishing in an parallel step to aggregate output**
 
 .. code-block:: yaml
 
     - print_values:
-        async_loop:
+        parallel_loop:
           for: value in values_list
           do:
             print_branch:
               - ID: ${value}
-          publish:
-            - name
-        aggregate:
+        publish:
             - name_list: ${map(lambda x:str(x['name']), branches_context)}
+
+**Example - extracting information from a specific branch**
+
+.. code-block:: yaml
+
+    - print_values:
+        parallel_loop:
+          for: value in values_list
+          do:
+            print_branch:
+              - ID: ${value}
+        publish:
+            - first_name: ${branches_context[0]['name']}
+
+**Example - create a list of branch results**
+
+.. code-block:: yaml
+
+    - print_values:
+        parallel_loop:
+          for: value in values
+          do:
+            print_branch:
+              - ID: ${ value }
+        publish:
+          - branch_results_list: ${map(lambda x:str(x['branch_result']), branches_context)}
 
 .. _python_action:
 
@@ -1527,7 +1577,7 @@ purposes.
 .. note::
 
    The only results of an `operation <#operation>`__ or
-   `subflow <#flow>`__ called in an `async_loop <#async-loop>`__ that are
+   `subflow <#flow>`__ called in a `parallel_loop <#parallel-loop>`__ that are
    evaluated are ``SUCCESS`` and ``FAILURE``. Any other results will be
    evaluated as ``SUCCESS``.
 
@@ -1767,6 +1817,43 @@ To import a Python script in a ``python_action``:
    If you have defined a ``JYTHONPATH`` environment variable, you
    will need to add the **python-lib** folder's path to its value.
 
+.. _sensitive:
+
+sensitive
+---------
+
+The key ``sensitive`` is a property of an `input <#inputs>`__  or
+`output <#outputs>`__ name. It is mapped to a boolean value.
+
+The values of variables marked as ``sensitive`` will not be printed in logs,
+events or in outputs of the :doc:`CLI <cloudslang_cli>` and
+:doc:`Build Tool <cloudslang_build_tool>`.
+
+The sensitivity of an `input <#inputs>`__  or `output <#outputs>`__ is
+transitive, and is therefore determined by its ``sensitive`` property and by the
+sensitivity of variables used in its related value expression.
+
+**Example - two sensitive inputs**
+
+.. code-block:: yaml
+
+    inputs:
+      - input1:
+          default: "default value"
+          sensitive: true
+      - input1plus:
+          default: ${ get("input1") + "something else" }
+
+**Example - two sensitive outputs**
+
+.. code-block:: yaml
+
+    outputs:
+      - output1:
+          value: ${output1}
+          sensitive: true
+      - output2: ${already_sensitive_value}
+
 .. _step:
 
 step
@@ -1782,7 +1869,7 @@ There are several types of steps:
 
 -  `standard <#standard-step>`__
 -  `iterative <#iterative-step>`__
--  `asynchronous <#asynchronous-step>`__
+-  `parallel <#parallel-step>`__
 
 **Example - step with two inputs, one of which contains a default value**
 
@@ -1870,50 +1957,71 @@ to a step named "another_step"**
           - SUCCESS: another_step
           - FAILURE: FAILURE
 
-Asynchronous Step
-~~~~~~~~~~~~~~~~~
+Parallel Step
+~~~~~~~~~~~~~
 
-An asynchronous step calls an `operation <#operation>`__ or
-`subflow <#flow>`__ asynchronously, in parallel branches, for each value
+A parallel step calls an `operation <#operation>`__ or
+`subflow <#flow>`__ in parallel branches, for each value
 in a list.
 
-The step name is mapped to the asynchronous step's properties.
+The step name is mapped to the parallel step's properties.
 
-+----------------+----------+---------------------------+--------------+-----------------------+----------------------------+
-| Property       | Required | Default                   | Value Type   | Description           | More Info                  |
-+================+==========+===========================+==============+=======================+============================+
-| ``async_loop`` | yes      | --                        | key          | | container for       | `async_loop <#async-loop>`_|
-|                |          |                           |              | | async loop          |                            |
-|                |          |                           |              | | properties          |                            |
-+----------------+----------+---------------------------+--------------+-----------------------+----------------------------+
-| ``aggregate``  | no       | --                        | | list of    | | values to           | `aggregate <#aggregate>`__ |
-|                |          |                           | | key:values | | aggregate from      |                            |
-|                |          |                           |              | | async branches      |                            |
-|                |          |                           |              | | loop properties     |                            |
-+----------------+----------+---------------------------+--------------+-----------------------+----------------------------+
-| ``navigate``   | no       | | ``FAILURE``: on_failure | | key:value  | navigation logic      | | `navigation <#navigate>`_|
-|                |          | | or flow finish          | | pairs      |                       | | `results <#results>`__   |
-|                |          | | ``SUCCESS``: next step  |              |                       |                            |
-+----------------+----------+---------------------------+--------------+-----------------------+----------------------------+
++-------------------+----------+---------------------------+--------------+-----------------------+----------------------------------+
+| Property          | Required | Default                   | Value Type   | Description           | More Info                        |
++===================+==========+===========================+==============+=======================+==================================+
+| ``parallel_loop`` | yes      | --                        | key          | | container for       | `parallel_loop <#parallel-loop>`_|
+|                   |          |                           |              | | parallel loop       |                                  |
+|                   |          |                           |              | | properties          |                                  |
++-------------------+----------+---------------------------+--------------+-----------------------+----------------------------------+
+| ``publish``       | no       | --                        | | list of    | | values to           | `publish <#publish>`__           |
+|                   |          |                           | | key:values | | aggregate from      |                                  |
+|                   |          |                           |              | | parallel branches   |                                  |
+|                   |          |                           |              | | loop properties     |                                  |
++-------------------+----------+---------------------------+--------------+-----------------------+----------------------------------+
+| ``navigate``      | no       | | ``FAILURE``: on_failure | | key:value  | navigation logic      | | `navigation <#navigate>`_      |
+|                   |          | | or flow finish          | | pairs      |                       | | `results <#results>`__         |
+|                   |          | | ``SUCCESS``: next step  |              |                       |                                  |
++-------------------+----------+---------------------------+--------------+-----------------------+----------------------------------+
 
-**Example - step prints all the values in value_list asynchronously and
+**Example - step prints all the values in value_list in parallel and
 then navigates to a step named "another_step"**
 
 .. code-block:: yaml
 
     - print_values:
-        async_loop:
+        parallel_loop:
           for: value in values_list
           do:
             print_branch:
               - ID: ${value}
-          publish:
-            - name
-        aggregate:
+        publish:
             - name_list: ${map(lambda x:str(x['name']), branches_context)}
         navigate:
             - SUCCESS: another_step
             - FAILURE: FAILURE
+
+.. _value:
+
+value
+-----
+
+The key ``value`` is a property of an `output <#outputs>`__ name. It is
+mapped to an `expression <#expressions>`__ value.
+
+The value key is most often used in conjunction with the `sensitive
+<#sensitive>`__ key. Otherwise, an `output's <#outputs>`__ value can be defined
+inline by mapping it to the `output <#outputs>`__ parameter's key.
+
+
+**Example - output values**
+
+.. code-block:: yaml
+
+    outputs:
+      - password:
+          value: ${password}
+          sensitive: true
+      - another_output: ${op_output}
 
 .. _workflow:
 

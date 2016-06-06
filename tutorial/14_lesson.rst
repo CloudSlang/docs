@@ -157,7 +157,8 @@ fancy text.
             - body: >
                 ${fancy_text + '<br>' +
                 'Created address: ' + address + ' for: ' + first_name + ' ' + last_name + '<br>' +
-                'Missing items: ' + all_missing + ' Cost of ordered items: ' + str(total_cost)}
+                'Missing items: ' + all_missing + ' Cost of ordered items: ' + str(total_cost) + '<br>' +
+                'Temporary password: ' + password}
         navigate:
           - FAILURE: FAILURE
           - SUCCESS: SUCCESS
@@ -180,7 +181,7 @@ Download the Code
 Up Next
 -------
 
-In the next lesson we'll see how to use an asynchronous loop.
+In the next lesson we'll see how to use a parallel loop.
 
 New Code - Complete
 -------------------
@@ -229,6 +230,7 @@ New Code - Complete
                   - attempt
               publish:
                 - address
+                - password
               break:
                 - CREATED
                 - FAILURE
@@ -248,7 +250,7 @@ New Code - Complete
                   - cost: ${total_cost}
               publish:
                 - all_missing: ${missing + not_ordered}
-                - total_cost: ${cost + price}
+                - total_cost: ${cost + spent}
             navigate:
               - AVAILABLE: print_finish
               - UNAVAILABLE: print_finish
@@ -278,7 +280,8 @@ New Code - Complete
                 - body: >
                     ${fancy_text + '<br>' +
                     'Created address: ' + address + ' for: ' + first_name + ' ' + last_name + '<br>' +
-                    'Missing items: ' + all_missing + ' Cost of ordered items:' + str(total_cost)}
+                    'Missing items: ' + all_missing + ' Cost of ordered items:' + str(total_cost) + '<br>' +
+                    'Temporary password: ' + password}
             navigate:
               - FAILURE: FAILURE
               - SUCCESS: SUCCESS
