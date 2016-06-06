@@ -153,6 +153,10 @@ and concepts are explained in detail below.
 
 -  `namespace <#namespace>`__
 -  `properties <#properties>`__
+
+   -  `value <#value>`__
+   -  `sensitive <#sensitive>`__
+
 -  `extensions <#extensions>`__
 
 .. _expressions:
@@ -1368,7 +1372,8 @@ properties
 ----------
 
 The key ``properties`` is mapped to a list of ``key:value`` pairs that define
-one or more system properties.
+one or more system properties. Each system property name may in turn be mapped
+to its properties or a value.
 
 System property names (keys) can contain alphanumeric characters (A-Za-z0-9),
 underscores (_) and hyphens (-).
@@ -1381,6 +1386,16 @@ System property values are retrieved using the `get_sp() <#get-sp>`__ function.
    etc.) are converted to string representations. A system property may have a
    value of ``null``.
 
++---------------+----------+---------------+------------+-------------------+----------------------------+
+| Property      | Required | Default       | Value Type | Description       | More info                  |
++===============+==========+===============+============+===================+============================+
+| ``value``     | no       | --            |            | | value of        | `value <#value>`__         |
+|               |          |               |            | | the property    |                            |
++---------------+----------+---------------+------------+-------------------+----------------------------+
+| ``sensitive`` | no       | false         | boolean    | | is the property | `sensitive <#sensitive>`__ |
+|               |          |               |            | | sensitive       |                            |
++---------------+----------+---------------+------------+-------------------+----------------------------+
+
 **Example - system properties file**
 
 .. code-block:: yaml
@@ -1390,6 +1405,9 @@ System property values are retrieved using the `get_sp() <#get-sp>`__ function.
     properties:
       - host: 'localhost'
       - port: 8080
+      - password:
+          value: 'pwd'
+          sensitive: true
 
 An empty system properties file can be defined using an empty list.
 
@@ -1786,16 +1804,16 @@ To import a Python script in a ``python_action``:
 sensitive
 ---------
 
-The key ``sensitive`` is a property of an `input <#inputs>`__  or
-`output <#outputs>`__ name. It is mapped to a boolean value.
+The key ``sensitive`` is a property of an `input <#inputs>`__,
+`output <#outputs>`__ or `system property <#properties>`__ name. It is mapped to
+a boolean value.
 
-The values of variables marked as ``sensitive`` will not be printed in logs,
-events or in outputs of the :doc:`CLI <cloudslang_cli>` and
-:doc:`Build Tool <cloudslang_build_tool>`.
-
-The sensitivity of an `input <#inputs>`__  or `output <#outputs>`__ is
+The sensitivity of an `input <#inputs>`__ or `output <#outputs>`__ is
 transitive, and is therefore determined by its ``sensitive`` property and by the
 sensitivity of variables used in its related value expression.
+
+Values that are ``sensitive`` will not be printed in logs, events or in outputs
+of the :doc:`CLI <cloudslang_cli>` and :doc:`Build Tool <cloudslang_build_tool>`.
 
 **Example - two sensitive inputs**
 
@@ -1817,6 +1835,15 @@ sensitivity of variables used in its related value expression.
           value: ${output1}
           sensitive: true
       - output2: ${already_sensitive_value}
+
+**Example - a sensitive system property**
+
+.. code-block:: yaml
+
+    properties:
+      - password:
+          value: 'pwd'
+          sensitive: true
 
 .. _step:
 
@@ -1969,12 +1996,16 @@ then navigates to a step named "another_step"**
 value
 -----
 
-The key ``value`` is a property of an `output <#outputs>`__ name. It is
-mapped to an `expression <#expressions>`__ value.
+The key ``value`` is a property of an `output <#outputs>`__ or
+`system property <#properties>`__ name. In an `output <#outputs>`__, the key is
+mapped to an `expression <#expressions>`__ value. In a
+`system property <#properties>`__, the key is mapped to a valid
+`system property <#properties>`__ value.
 
 The value key is most often used in conjunction with the `sensitive
-<#sensitive>`__ key. Otherwise, an `output's <#outputs>`__ value can be defined
-inline by mapping it to the `output <#outputs>`__ parameter's key.
+<#sensitive>`__ key. Otherwise, an `output <#outputs>`__ or
+`system property's <#properties>`__ value can be defined inline by mapping it to
+the `output <#outputs>`__ or `system property's <#properties>`__ name.
 
 
 **Example - output values**
@@ -1986,6 +2017,16 @@ inline by mapping it to the `output <#outputs>`__ parameter's key.
           value: ${password}
           sensitive: true
       - another_output: ${op_output}
+
+**Example - system property values**
+
+.. code-block:: yaml
+
+    properties:
+      - props.password:
+          value: 'pwd'
+          sensitive: true
+      - props.another_property: 'prop value'
 
 .. _workflow:
 
