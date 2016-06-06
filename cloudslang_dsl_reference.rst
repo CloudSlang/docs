@@ -133,7 +133,6 @@ and concepts are explained in detail below.
 
    -  `python_action <#python-action>`__
 
-      -  `dependencies <#dependencies>`__
       -  `script <#script>`__
 
    -  `java_action <#java-action>`__
@@ -1550,17 +1549,6 @@ python_action
 
 The key ``python_action`` is a property of an `operation <#operation>`__. It is
 mapped to a `script <#script>`__ property that contains the actual Python script.
-
-+------------------+----------+---------+-------------+---------------------------------+----------------------------------+
-| Property         | Required | Default | Value Type  | Description                     | More info                        |
-+==================+==========+=========+=============+=================================+==================================+
-| ``dependencies`` | no       | --      | list        | | group:artifact:versions       | `dependencies <#dependencies>`__ |
-|                  |          |         |             | | of python script              |                                  |
-|                  |          |         |             | | dependencies                  |                                  |
-+------------------+----------+---------+-------------+---------------------------------+----------------------------------+
-| ``script``       | yes      | --      | string      | python script                   | `script <#script>`__             |
-+------------------+----------+---------+-------------+---------------------------------+----------------------------------+
-
 
 .. _results:
 
