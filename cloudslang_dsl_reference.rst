@@ -745,9 +745,9 @@ The key ``gav`` is a property of a `java_action <#java-action>`__. It is
 mapped to the ``group:artifact:version`` of the Maven project in which an
 annotated Java @Action resides.
 
-Upon `operation <#operation>`__ execution, all required resources specified in
-the Maven project's ``dependencies`` will be resolved and downloaded
-(if necessary).
+Upon `operation <#operation>`__ execution, the Maven project and all its
+required resources specified in its pom's ``dependencies`` will be resolved and
+downloaded (if necessary).
 
 .. _imports:
 
