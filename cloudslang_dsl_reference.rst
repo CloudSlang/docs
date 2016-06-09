@@ -749,6 +749,15 @@ Upon `operation <#operation>`__ execution, the Maven project and all its
 required resources specified in its pom's ``dependencies`` will be resolved and
 downloaded (if necessary).
 
+**Example - referencing Maven artifact using gav**
+
+.. code-block:: yaml
+
+  java_action:
+    gav: io.cloudslang.content:score-xml:0.0.2
+    class_name: io.cloudslang.content.mail.actions.SendMailAction
+    method_name: execute
+
 .. _imports:
 
 imports
@@ -909,8 +918,8 @@ Adding a New Java Action
 To add a new Java action:
 
   - `Write an annotated Java method <#write-an-annotated-java-method>`__
-  - `Package the method in a Jar <#package-the-method-in-a-jar>`__
-  - `Add the Jar to the lib folder in the CLI <#add-the-jar-to-the-lib-folder-in-the-cli>`__
+  - `Release to remote Maven repository <#release-to-remote-maven-repository>`__
+  - `Reference your Maven artifact <#reference-your-maven artifact>`__
 
 Write an Annotated Java Method
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -985,11 +994,14 @@ that matches a CloudSlang output.
           }
     }
 
-Package the Method in a Jar
-^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Release to remote Maven repository
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Use Maven to package the class containing the Java action method. Below is an
-example **pom.xml** file that can be used for your Maven project.
+Use Maven to package the project containing the Java action method and release
+it to the remote repository defined in the :ref:`CLI's configuration file
+<configure_cli>`.
+
+Below is an example **pom.xml** file that can be used for your Maven project.
 
 **Example - sample pom.xml**
 
@@ -1024,12 +1036,15 @@ example **pom.xml** file that can be used for your Maven project.
         </build>
     </project>
 
-Add the Jar to the lib Folder in the CLI
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Reference your Maven artifact
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Place the Jar created by Maven in the **cslang/lib** folder and restart the CLI.
-You can now call the Java action from a CloudSlang operation as explained
-`above <#java-action>`__.
+Reference your Maven artifact using the `gav <#gav>`__ key in the
+`java_action <#java-action>`__ section of your `operation <#operation>`__.
+
+Upon the `operation's <#operation>`__ first execution, the Maven project and all
+its required resources specified in its pom's ``dependencies`` will be resolved
+and downloaded.
 
 .. _loop:
 
