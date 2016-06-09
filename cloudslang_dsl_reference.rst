@@ -745,7 +745,7 @@ The key ``gav`` is a property of a `java_action <#java-action>`__. It is
 mapped to the ``group:artifact:version`` of the Maven project in which an
 annotated Java @Action resides.
 
-Upon `operation <#operation>`__ execution, the Maven project and all its
+Upon `operation <#operation>`__ execution, the Maven project and all the
 required resources specified in its pom's ``dependencies`` will be resolved and
 downloaded (if necessary).
 
@@ -919,7 +919,7 @@ To add a new Java action:
 
   - `Write an annotated Java method <#write-an-annotated-java-method>`__
   - `Release to remote Maven repository <#release-to-remote-maven-repository>`__
-  - `Reference your Maven artifact <#reference-your-maven artifact>`__
+  - `Reference Maven artifact <#reference-maven artifact>`__
 
 Write an Annotated Java Method
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -1036,14 +1036,14 @@ Below is an example **pom.xml** file that can be used for your Maven project.
         </build>
     </project>
 
-Reference your Maven artifact
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Reference Maven artifact
+^^^^^^^^^^^^^^^^^^^^^^^^
 
 Reference your Maven artifact using the `gav <#gav>`__ key in the
 `java_action <#java-action>`__ section of your `operation <#operation>`__.
 
 Upon the `operation's <#operation>`__ first execution, the Maven project and all
-its required resources specified in its pom's ``dependencies`` will be resolved
+the required resources specified in its pom's ``dependencies`` will be resolved
 and downloaded.
 
 .. _loop:

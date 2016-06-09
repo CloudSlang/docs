@@ -151,11 +151,11 @@ Maven Configuration
 
 The CLI uses Maven to manage Java action dependencies. There are several
 Maven configuration properties found in the :ref:`CLI's
-configuration file <configure_cli>`. To configure Maven to use a remote 
+configuration file <configure_cli>`. To configure Maven to use a remote
 repository other than Maven Central, edit the values for
 ``cloudslang.maven.repo.remote.url`` and ``cloudslang.maven.plugins.remote.url``.
 Additionally, you can edit the proxy settings in the file found
-at ``maven.settings.xml.path ``.
+at ``maven.settings.xml.path``.
 
 .. _use_the_cli:
 
