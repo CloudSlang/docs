@@ -111,11 +111,14 @@ converted to ``PyObjectValue``. When the expression finishes, all the arguments
 are checked. If at least one sensitive argument was used the output will be
 sensitive as well.
 
-As opposed to expressions, the output types of Java and Python actions, are not
-propogated automatically. Doing so would cause all outputs of an action to be
-sensitive every time at least one input was sensitive. Instead, a content author
-explicitly marks outputs as sensitive when needed, allowing for full control
-over which action outputs are sensitive and which are not.
+As opposed to expressions, the output types of Java and Python operations, are
+not propogated automatically to the operation's outputs. Doing so would cause
+all outputs of an operation to be sensitive every time at least one input was
+sensitive. Instead, none of the operation's action's data appears in the logs
+and a content author explicitly marks an operation's outputs as sensitive when
+needed. This approach ensures that sensitive data is hidden at all times
+while still allowing for full control over which operation outputs are sensitive
+and which are not.
 
 Types of ExecutionSteps
 =======================
