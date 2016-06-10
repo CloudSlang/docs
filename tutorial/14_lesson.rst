@@ -24,7 +24,7 @@ resides in. If you downloaded a pre-built CLI the **requirements.txt** file is
 already there and we will be appending to its contents.
 
 The folder structure where the CLI executable is should look something
-like this:
+like this (other folders omitted for simplicity):
 
 -  cslang
 

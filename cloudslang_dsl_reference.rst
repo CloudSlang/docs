@@ -137,6 +137,7 @@ and concepts are explained in detail below.
 
    -  `java_action <#java-action>`__
 
+      -  `gav <#gav>`__
       -  `class_name <#class-name>`__
       -  `method_name <#method-name>`__
 
@@ -739,6 +740,28 @@ followed by a list or an expression that evaluates to a list.
             print_branch:
               - ID: ${value}
 
+.. _gav:
+
+gav
+---
+
+The key ``gav`` is a property of a `java_action <#java-action>`__. It is
+mapped to the ``group:artifact:version`` of the Maven project in which an
+annotated Java @Action resides.
+
+Upon `operation <#operation>`__ execution, the Maven project and all the
+required resources specified in its pom's ``dependencies`` will be resolved and
+downloaded (if necessary).
+
+**Example - referencing Maven artifact using gav**
+
+.. code-block:: yaml
+
+  java_action:
+    gav: io.cloudslang.content:score-xml:0.0.2
+    class_name: io.cloudslang.content.mail.actions.SendMailAction
+    method_name: execute
+
 .. _imports:
 
 imports
@@ -846,9 +869,18 @@ java_action
 -----------
 
 The key ``java_action`` is a property of an `operation <#operation>`__. It is
-mapped to the properties `class_name <#class-name>`__ and
-`method_name <#method-name>`__ that define the class and method where an
-annotated Java @Action resides.
+mapped to the properties that define where an annotated Java @Action resides.
+
++-----------------+----------+---------+-------------+------------------------+--------------------------------+
+| Property        | Required | Default | Value Type  | Description            | More info                      |
++=================+==========+=========+=============+========================+================================+
+| ``gav``         | no       | --      | string      | group:artifact:version | `gav <#gav>`__                 |
++-----------------+----------+---------+-------------+------------------------+--------------------------------+
+| ``class_name``  | yes      | --      | string      | | fully qualified      | `class_name <#class-name>`__   |
+|                 |          |         |             | | Java class name      |                                |
++-----------------+----------+---------+-------------+------------------------+--------------------------------+
+| ``method_name`` | no       | --      | string      | Java method name       | `method_name <#method-name>`__ |
++-----------------+----------+---------+-------------+------------------------+--------------------------------+
 
 **Example - CloudSlang call to a Java action**
 
@@ -868,6 +900,7 @@ annotated Java @Action resides.
         - body
 
       java_action:
+        gav: io.cloudslang.content:score-xml:0.0.2
         class_name: io.cloudslang.content.mail.actions.SendMailAction
         method_name: execute
 
@@ -889,8 +922,8 @@ Adding a New Java Action
 To add a new Java action:
 
   - `Write an annotated Java method <#write-an-annotated-java-method>`__
-  - `Package the method in a Jar <#package-the-method-in-a-jar>`__
-  - `Add the Jar to the lib folder in the CLI <#add-the-jar-to-the-lib-folder-in-the-cli>`__
+  - `Release to remote Maven repository <#release-to-remote-maven-repository>`__
+  - `Reference Maven artifact <#reference-maven artifact>`__
 
 Write an Annotated Java Method
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -965,11 +998,14 @@ that matches a CloudSlang output.
           }
     }
 
-Package the Method in a Jar
-^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Release to remote Maven repository
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Use Maven to package the class containing the Java action method. Below is an
-example **pom.xml** file that can be used for your Maven project.
+Use Maven to package the project containing the Java action method and release
+it to the remote repository defined in the :ref:`CLI's configuration file
+<configure_cli>`.
+
+Below is an example **pom.xml** file that can be used for your Maven project.
 
 **Example - sample pom.xml**
 
@@ -1004,12 +1040,15 @@ example **pom.xml** file that can be used for your Maven project.
         </build>
     </project>
 
-Add the Jar to the lib Folder in the CLI
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Reference Maven artifact
+^^^^^^^^^^^^^^^^^^^^^^^^
 
-Place the Jar created by Maven in the **cslang/lib** folder and restart the CLI.
-You can now call the Java action from a CloudSlang operation as explained
-`above <#java-action>`__.
+Reference your Maven artifact using the `gav <#gav>`__ key in the
+`java_action <#java-action>`__ section of your `operation <#operation>`__.
+
+Upon the `operation's <#operation>`__ first execution, the Maven project and all
+the required resources specified in its pom's ``dependencies`` will be resolved
+and downloaded.
 
 .. _loop:
 
