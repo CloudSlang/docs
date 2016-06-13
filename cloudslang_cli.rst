@@ -122,7 +122,7 @@ Some of the configuration items are listed in the table below:
 |                                     |                                                         | | for input values       |
 |                                     |                                                         | | and input files        |
 +-------------------------------------+---------------------------------------------------------+--------------------------+
-| maven.home                          | ${app.home}/maven/apache-maven-3.3.9                    | | Location of CloudSlang |
+| maven.home                          | ${app.home}/maven/apache-maven-x.y.z                    | | Location of CloudSlang |
 |                                     |                                                         | | Maven repository home  |
 |                                     |                                                         | | directory              |
 +-------------------------------------+---------------------------------------------------------+--------------------------+
