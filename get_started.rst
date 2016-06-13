@@ -7,9 +7,10 @@ CLI and ready-made content.
 Download, Unzip and Run
 =======================
 
--  `Download <http://cloudslang.io/download>`__ the CLI zip file.
+-  `Download <https://github.com/CloudSlang/cloud-slang/releases/latest>`__
+   the CLI with content zip file.
 -  Unzip the archive.
--  Run the CloudSlang executable.
+-  Run the CloudSlang executable in the ``cslang\bin\`` folder.
 -  At the prompt enter:
 
 .. code-block:: bash
