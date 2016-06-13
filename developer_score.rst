@@ -19,7 +19,7 @@ Embed Score in a Java Application
     <dependency>
       <groupId>io.cloudslang</groupId>
       <artifactId>score-all</artifactId>
-      <version>0.2</version>
+      <version>0.3.27</version>
     </dependency>
 
     <dependency>
@@ -393,15 +393,15 @@ corresponding to its type and a map containing the event data.
 
 Event Types:
 
--  SCORE\_FINISHED\_EVENT
--  SCORE\_FAILURE\_EVENT
+-  SCORE_FINISHED_EVENT
+-  SCORE_FAILURE_EVENT
 
 Event Data Keys:
 
--  IS\_BRANCH
+-  IS_BRANCH
 -  executionIdContext
 -  systemContext
--  EXECUTION\_CONTEXT
+-  EXECUTION_CONTEXT
 
 A language built upon Score can add events during runtime using the
 `ExecutionRuntimeServices <#executionruntimeservices>`__ API. An example
