@@ -1184,8 +1184,8 @@ is mapped to the `result <#results>`__ returned by the called
 
 By default, if no ``navigate`` section navigation is present, the flow continues
 with the next `step <#step>`__ or navigates to the ``SUCCESS`` result of the
-flow if the `step <#step>`__ is the final non-on_failure step. By default the
-`on_failure <#on-failure>`__ `step <#step>`__ navigates to the ``FAILURE``
+flow if the `step <#step>`__ is the final non-on_failure step. The
+`on_failure <#on-failure>`__ `step <#step>`__ always navigates to the ``FAILURE``
 result of the flow. For more information, see the
 :ref:`Default Navigation <example_default_navigation>` example.
 
@@ -1214,8 +1214,7 @@ evaluated as ``SUCCESS``.
 For a list of which contexts are available in the ``navigate`` section of a
 `step <#step>`__, see `Contexts <#contexts>`__.
 
-**Example - ILLEGAL result will navigate to flow's FAILURE result and
-SUCCESS result will navigate to step named *printer***
+**Example - ILLEGAL result will navigate to flow's FAILURE result and SUCCESS result will navigate to step named 'printer'**
 
 .. code-block:: yaml
 
@@ -1235,11 +1234,17 @@ is mapped to a `step <#step>`__.
 Defines the `step <#step>`__, which when using default
 `navigation <#navigate>`__, is the target of a ``FAILURE``
 `result <#results>`__ returned from an `operation <#operation>`__ or
-`flow <#flow>`__. The ``on_failure`` `step's <#step>`__
-`navigation <#navigate>`__ defaults to ``FAILURE``.
+`flow <#flow>`__. The ``on_failure`` `step <#step>`__ can also be reached by
+mapping one of a `step's <#step>`__ `navigation <#navigate>`__ keys to
+``on_failure``. If a `step's <#step>`__ `navigation <#navigate>`__ explicitly
+maps to ``on_failure``, but there is no ``on_failure`` `step <#step>`__ defined
+in the flow, the flow ends with a `result <#results>`__ of ``FAILURE``.
 
-**Example - failure step which call a print operation to print an error
-message**
+The ``on_failure`` `step <#step>`__ `navigation <#navigate>`__ cannot contain a
+`navigation <#navigate>`__ section. It always causes the flow to end with a
+`result <#results>`__ of ``FAILURE``.
+
+**Example - failure step which calls a print operation to print an error message**
 
 .. code-block:: yaml
 
@@ -1248,6 +1253,18 @@ message**
           do:
             print:
               - text: ${error_msg}
+
+**Example - explicitly navigating to the on_failure step**
+
+.. code-block:: yaml
+
+    - go_to_failure:
+        do:
+          some_operation:
+            - input1
+        navigate:
+          - SUCCESS: SUCCESS
+          - FAILURE: on_failure
 
 .. _operation:
 
