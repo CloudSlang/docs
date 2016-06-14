@@ -75,6 +75,51 @@ There are three types of scoped contexts:
 .. figure:: images/scoped_contexts.png
    :alt: Scoped Contexts
 
+Value Types
+===========
+
+Each ``Context`` stores its data in a ``Map<String, Value>`` named
+``variables``, where ``Value`` declares the ``isSensitive()`` method and is one
+of three value types:
+
+- ``SimpleValue``
+- ``SensitiveValue``
+- ``PyObjectValue``
+
+``SimpleValue`` is used for non-sensitive inputs, outputs and arguments.
+
+``SensitiveValue`` is used for sensitive inputs, outputs and arguments.
+Calling the ``toString()`` method on a ``SensitiveValue`` will return the
+``SENSITIVE_VALUE_MASK`` (``********``) instead of its content. During runtime,
+a ``SensitiveValue`` is decrypted upon usage and then encrypted again.
+
+``PyObjectValue`` is an interface which extends ``Value``, adding the
+``isAccessed()`` method. An object of this type is a (Javassist) proxy,
+which extends a given ``PyObject`` instance and implements the ``PyObjectValue``
+interface. ``Value`` method calls are delegated to an inner ``Value`` instance,
+which can be either a ``SimpleValue`` or ``SensitiveValue``. ``PyObject`` method
+calls are delegated to an inner ``PyObject``, the original one this object is
+extending. ``PyObject`` method calls also change an ``accessed`` flag to true.
+This flag indicates whether the value was used in a Python script.
+
+Value types, ``SimpleValue`` or ``SensitiveValue`` are propagated automatically
+from inputs to arguments and Python expression evaluation outputs. An argument
+or output is sensitive if at least one part of it is sensitive. For example, the
+result of ``a + b`` or ``some_func(a)`` will be sensitive if ``a`` is sensitive.
+Before running a Python expression all the arguments which are passed to it are
+converted to ``PyObjectValue``. When the expression finishes, all the arguments
+are checked. If at least one sensitive argument was used the output will be
+sensitive as well.
+
+As opposed to expressions, the output types of Java and Python operations, are
+not propogated automatically to the operation's outputs. Doing so would cause
+all outputs of an operation to be sensitive every time at least one input was
+sensitive. Instead, none of the operation's action's data appears in the logs
+and a content author explicitly marks an operation's outputs as sensitive when
+needed. This approach ensures that sensitive data is hidden at all times
+while still allowing for full control over which operation outputs are sensitive
+and which are not.
+
 Types of ExecutionSteps
 =======================
 
@@ -112,7 +157,7 @@ The ``RunEnvironment`` provides services to the
 running. The different `types of execution steps <#types-of-executionsteps>`__ read from, write
 to and update the environment.
 
-The ``RuntimeEnvironment`` contains:
+The ``RunEnvironment`` contains:
 
 -  **callArguments** - call arguments of the current step
 -  **returnValues** - return values for the current step

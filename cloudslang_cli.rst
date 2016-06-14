@@ -9,7 +9,8 @@ Download and Run Pre-built CLI
 **Prerequisites :** To run the CloudSlang CLI, Java JRE version 7 or
 higher is required.
 
-1. `Download <http://cloudslang.io/download>`__ the CLI zip file.
+1. `Download <https://github.com/CloudSlang/cloud-slang/releases/latest>`__
+   the CLI with content zip file.
 2. Locate the downloaded file and unzip the archive.
    The decompressed file contains:
 
@@ -110,16 +111,34 @@ Configure the CLI
 The CLI can be configured using the configuration file found at
 ``cslang/configuration/cslang.properties``.
 
-+---------------------+---------------------------------------------------------+-----------------------+
-| Configuration key   | Default value                                           | Description           |
-+=====================+=========================================================+=======================+
-| log4j.configuration | file:${app.home}/configuration/logging/log4j.properties | | Location of logging |
-|                     |                                                         | | configuration file  |
-+---------------------+---------------------------------------------------------+-----------------------+
-| cslang.encoding     | utf-8                                                   | | Character encoding  |
-|                     |                                                         | | for input values    |
-|                     |                                                         | | and input files     |
-+---------------------+---------------------------------------------------------+-----------------------+
+Some of the configuration items are listed in the table below:
+
++-------------------------------------+---------------------------------------------------------+--------------------------+
+| Configuration key                   | Default value                                           | Description              |
++=====================================+=========================================================+==========================+
+| log4j.configuration                 | file:${app.home}/configuration/logging/log4j.properties | | Location of logging    |
+|                                     |                                                         | | configuration file     |
++-------------------------------------+---------------------------------------------------------+--------------------------+
+| cslang.encoding                     | utf-8                                                   | | Character encoding     |
+|                                     |                                                         | | for input values       |
+|                                     |                                                         | | and input files        |
++-------------------------------------+---------------------------------------------------------+--------------------------+
+| maven.home                          | ${app.home}/maven/apache-maven-x.y.z                    | | Location of CloudSlang |
+|                                     |                                                         | | Maven repository home  |
+|                                     |                                                         | | directory              |
++-------------------------------------+---------------------------------------------------------+--------------------------+
+| maven.settings.xml.path             | ${app.home}/maven/conf/settings.xml                     | | Location of            |
+|                                     |                                                         | | Maven settings file    |
++-------------------------------------+---------------------------------------------------------+--------------------------+
+| cloudslang.maven.repo.local         | ${app.home}/maven/repo                                  | | Location of local      |
+|                                     |                                                         | | repository             |
++-------------------------------------+---------------------------------------------------------+--------------------------+
+| cloudslang.maven.repo.remote.url    | http://repo1.maven.org/maven2                           | | Location of remote     |
+|                                     |                                                         | | Maven repository       |
++-------------------------------------+---------------------------------------------------------+--------------------------+
+| cloudslang.maven.plugins.remote.url | http://repo1.maven.org/maven2                           | | Location of remote     |
+|                                     |                                                         | | Maven plugins          |
++-------------------------------------+---------------------------------------------------------+--------------------------+
 
 Logging Configuration
 ---------------------
@@ -127,6 +146,17 @@ Logging Configuration
 The CLI's logging can be configured using the logging configuration file. The
 location of the logging configuration file is defined in the :ref:`CLI's
 configuration file <configure_cli>`.
+
+Maven Configuration
+-------------------
+
+The CLI uses Maven to manage Java action dependencies. There are several
+Maven configuration properties found in the :ref:`CLI's
+configuration file <configure_cli>`. To configure Maven to use a remote
+repository other than Maven Central, edit the values for
+``cloudslang.maven.repo.remote.url`` and ``cloudslang.maven.plugins.remote.url``.
+Additionally, you can edit the proxy settings in the file found
+at ``maven.settings.xml.path``.
 
 .. _use_the_cli:
 

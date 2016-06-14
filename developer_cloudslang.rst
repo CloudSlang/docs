@@ -19,13 +19,13 @@ Embed CloudSlang in a Java Application
     <dependency>
       <groupId>io.cloudslang</groupId>
       <artifactId>score-all</artifactId>
-      <version>0.2</version>
+      <version>0.3.28</version>
     </dependency>
 
     <dependency>
       <groupId>io.cloudslang.lang</groupId>
       <artifactId>cloudslang-all</artifactId>
-      <version>0.8</version>
+      <version>0.9.60</version>
     </dependency>
 
     <dependency>
@@ -287,6 +287,9 @@ event type string and a map of event data that contains all the relevant
 event information mapped to keys defined in the
 ``org.openscore.lang.runtime.events.LanguageEventData`` class. All fired
 events are logged in the :ref:`execution log <execution_log>` file.
+
+Events that contain ``SensitiveValue`` s will have the sensitive data replaced
+by the ``********`` placeholder.
 
 Event types from CloudSlang are listed in the table below along with the
 event data each event contains.

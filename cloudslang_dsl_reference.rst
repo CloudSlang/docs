@@ -137,6 +137,7 @@ and concepts are explained in detail below.
 
    -  `java_action <#java-action>`__
 
+      -  `gav <#gav>`__
       -  `class_name <#class-name>`__
       -  `method_name <#method-name>`__
 
@@ -739,6 +740,28 @@ followed by a list or an expression that evaluates to a list.
             print_branch:
               - ID: ${value}
 
+.. _gav:
+
+gav
+---
+
+The key ``gav`` is a property of a `java_action <#java-action>`__. It is
+mapped to the ``group:artifact:version`` of the Maven project in which an
+annotated Java @Action resides.
+
+Upon `operation <#operation>`__ execution, the Maven project and all the
+required resources specified in its pom's ``dependencies`` will be resolved and
+downloaded (if necessary).
+
+**Example - referencing Maven artifact using gav**
+
+.. code-block:: yaml
+
+  java_action:
+    gav: io.cloudslang.content:score-xml:0.0.2
+    class_name: io.cloudslang.content.mail.actions.SendMailAction
+    method_name: execute
+
 .. _imports:
 
 imports
@@ -846,9 +869,18 @@ java_action
 -----------
 
 The key ``java_action`` is a property of an `operation <#operation>`__. It is
-mapped to the properties `class_name <#class-name>`__ and
-`method_name <#method-name>`__ that define the class and method where an
-annotated Java @Action resides.
+mapped to the properties that define where an annotated Java @Action resides.
+
++-----------------+----------+---------+-------------+------------------------+--------------------------------+
+| Property        | Required | Default | Value Type  | Description            | More info                      |
++=================+==========+=========+=============+========================+================================+
+| ``gav``         | no       | --      | string      | group:artifact:version | `gav <#gav>`__                 |
++-----------------+----------+---------+-------------+------------------------+--------------------------------+
+| ``class_name``  | yes      | --      | string      | | fully qualified      | `class_name <#class-name>`__   |
+|                 |          |         |             | | Java class name      |                                |
++-----------------+----------+---------+-------------+------------------------+--------------------------------+
+| ``method_name`` | no       | --      | string      | Java method name       | `method_name <#method-name>`__ |
++-----------------+----------+---------+-------------+------------------------+--------------------------------+
 
 **Example - CloudSlang call to a Java action**
 
@@ -868,6 +900,7 @@ annotated Java @Action resides.
         - body
 
       java_action:
+        gav: io.cloudslang.content:score-xml:0.0.2
         class_name: io.cloudslang.content.mail.actions.SendMailAction
         method_name: execute
 
@@ -889,8 +922,8 @@ Adding a New Java Action
 To add a new Java action:
 
   - `Write an annotated Java method <#write-an-annotated-java-method>`__
-  - `Package the method in a Jar <#package-the-method-in-a-jar>`__
-  - `Add the Jar to the lib folder in the CLI <#add-the-jar-to-the-lib-folder-in-the-cli>`__
+  - `Release to remote Maven repository <#release-to-remote-maven-repository>`__
+  - `Reference Maven artifact <#reference-maven artifact>`__
 
 Write an Annotated Java Method
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -965,11 +998,14 @@ that matches a CloudSlang output.
           }
     }
 
-Package the Method in a Jar
-^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Release to remote Maven repository
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Use Maven to package the class containing the Java action method. Below is an
-example **pom.xml** file that can be used for your Maven project.
+Use Maven to package the project containing the Java action method and release
+it to the remote repository defined in the :ref:`CLI's configuration file
+<configure_cli>`.
+
+Below is an example **pom.xml** file that can be used for your Maven project.
 
 **Example - sample pom.xml**
 
@@ -1004,12 +1040,15 @@ example **pom.xml** file that can be used for your Maven project.
         </build>
     </project>
 
-Add the Jar to the lib Folder in the CLI
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Reference Maven artifact
+^^^^^^^^^^^^^^^^^^^^^^^^
 
-Place the Jar created by Maven in the **cslang/lib** folder and restart the CLI.
-You can now call the Java action from a CloudSlang operation as explained
-`above <#java-action>`__.
+Reference your Maven artifact using the `gav <#gav>`__ key in the
+`java_action <#java-action>`__ section of your `operation <#operation>`__.
+
+Upon the `operation's <#operation>`__ first execution, the Maven project and all
+the required resources specified in its pom's ``dependencies`` will be resolved
+and downloaded.
 
 .. _loop:
 
@@ -1145,8 +1184,8 @@ is mapped to the `result <#results>`__ returned by the called
 
 By default, if no ``navigate`` section navigation is present, the flow continues
 with the next `step <#step>`__ or navigates to the ``SUCCESS`` result of the
-flow if the `step <#step>`__ is the final non-on_failure step. By default the
-`on_failure <#on-failure>`__ `step <#step>`__ navigates to the ``FAILURE``
+flow if the `step <#step>`__ is the final non-on_failure step. The
+`on_failure <#on-failure>`__ `step <#step>`__ always navigates to the ``FAILURE``
 result of the flow. For more information, see the
 :ref:`Default Navigation <example_default_navigation>` example.
 
@@ -1175,8 +1214,7 @@ evaluated as ``SUCCESS``.
 For a list of which contexts are available in the ``navigate`` section of a
 `step <#step>`__, see `Contexts <#contexts>`__.
 
-**Example - ILLEGAL result will navigate to flow's FAILURE result and
-SUCCESS result will navigate to step named *printer***
+**Example - ILLEGAL result will navigate to flow's FAILURE result and SUCCESS result will navigate to step named 'printer'**
 
 .. code-block:: yaml
 
@@ -1196,11 +1234,17 @@ is mapped to a `step <#step>`__.
 Defines the `step <#step>`__, which when using default
 `navigation <#navigate>`__, is the target of a ``FAILURE``
 `result <#results>`__ returned from an `operation <#operation>`__ or
-`flow <#flow>`__. The ``on_failure`` `step's <#step>`__
-`navigation <#navigate>`__ defaults to ``FAILURE``.
+`flow <#flow>`__. The ``on_failure`` `step <#step>`__ can also be reached by
+mapping one of a `step's <#step>`__ `navigation <#navigate>`__ keys to
+``on_failure``. If a `step's <#step>`__ `navigation <#navigate>`__ explicitly
+maps to ``on_failure``, but there is no ``on_failure`` `step <#step>`__ defined
+in the flow, the flow ends with a `result <#results>`__ of ``FAILURE``.
 
-**Example - failure step which call a print operation to print an error
-message**
+The ``on_failure`` `step <#step>`__ `navigation <#navigate>`__ cannot contain a
+`navigation <#navigate>`__ section. It always causes the flow to end with a
+`result <#results>`__ of ``FAILURE``.
+
+**Example - failure step which calls a print operation to print an error message**
 
 .. code-block:: yaml
 
@@ -1209,6 +1253,18 @@ message**
           do:
             print:
               - text: ${error_msg}
+
+**Example - explicitly navigating to the on_failure step**
+
+.. code-block:: yaml
+
+    - go_to_failure:
+        do:
+          some_operation:
+            - input1
+        navigate:
+          - SUCCESS: SUCCESS
+          - FAILURE: on_failure
 
 .. _operation:
 
