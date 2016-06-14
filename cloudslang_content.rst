@@ -16,7 +16,7 @@ The community is encouraged to assist in setting up testing environments for the
 beta content.
 
 For more information on the content contained in the repository, see the
-`docs <https://github.com/CloudSlang/cloud-slang-content/blob/master/DOCS.md>`__
+`docs <https://github.com/CloudSlang/cloud-slang-content/blob/cloud-slang-content-0.9.60/DOCS.md>`__
 page.
 
 Running CloudSlang Content
