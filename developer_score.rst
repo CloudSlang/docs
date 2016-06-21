@@ -19,7 +19,7 @@ Embed Score in a Java Application
     <dependency>
       <groupId>io.cloudslang</groupId>
       <artifactId>score-all</artifactId>
-      <version>0.3.27</version>
+      <version>0.3.28</version>
     </dependency>
 
     <dependency>
