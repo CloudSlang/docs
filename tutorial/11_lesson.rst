@@ -100,7 +100,7 @@ using the ``default`` property.
       - middle_name:
           required: false
       - last_name
-      - missing:
+      - all_missing:
           default: ""
           private: true
       - total_cost:
@@ -111,14 +111,14 @@ using the ``default`` property.
 
 Now we can perform the aggregation. In the ``get_equipment`` step's publish
 section, we'll add the values output from the ``order`` operation
-(``not_ordered`` and ``price``) to the step arguments we just created in
+(``not_ordered`` and ``spent``) to the step arguments we just created in
 the ``get_equipment`` step (``missing`` and ``cost``) and publish them back to
 the flow-level variables (``all_missing`` and ``total_cost``). This will run for
 each iteration after the operation has completed, aggregating all the
 data. For example, each time through the loop the ``cost`` is updated with the
-current ``total_cost``. Then the ``order`` operation runs and a ``price`` is
-output. That ``price`` is added to the step's ``cost`` variable and published
-back into the flow-level ``total_cost`` for each iteration of the
+current ``total_cost``. Then the ``order`` operation runs and a ``spent`` value
+is output. That ``spent`` value is added to the step's ``cost`` variable and
+published back into the flow-level ``total_cost`` for each iteration of the
 ``get_equipment`` step.
 
 .. code-block:: yaml
