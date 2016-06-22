@@ -169,8 +169,12 @@ CloudSlang extension. All of the files found are compiled by the CLI. If
 the ``--cp`` flag is used, all of the directories listed there will be
 scanned and compiled recursively as well.
 
-The usage of forward slashes (``/``) in all file paths is recommended
-even on Windows.
+.. note::
+
+  The usage of forward slashes (``/``) in all file paths is required
+  even on Windows, because backslashes can be interperted as special characters.
+
+
 
 Run a Flow or Operation
 -----------------------
