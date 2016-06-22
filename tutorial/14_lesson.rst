@@ -16,7 +16,7 @@ Python (version 2.7) from `here <https://www.python.org/>`__. Python 2.7.9 and
 later include pip by default. If you already have Python but don't have pip
 installed on your machine, see the pip
 `documentation <https://pip.pypa.io/en/latest/installing.html>`__ for
-installation instructions.
+installation instructions. After you have pip installed make sure to copy it to
 
 We'll also need to add a **requirements.txt** file to a **python-lib** folder
 which is at the same level as the **bin** folder that the CLI executable
@@ -44,6 +44,7 @@ like this (other folders omitted for simplicity):
    -  python-lib
 
       -  requirements.txt
+      -  pip.exe
 
 And finally, we'll need a new file, **fancy_text.sl** in the
 **tutorials/hiring** folder, to house a new operation.
