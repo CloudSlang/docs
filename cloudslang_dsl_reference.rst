@@ -60,6 +60,9 @@ file <configure_build_tool>` for input values respectively. If no encoding is
 found in the configuration file, the CLI or Build Tool will use the default
 charset of the Java virtual machine.
 
+When you structure CloudSlang files, indentation should be taken care of according
+to the rules specified `here <http://yaml.org/spec/current.html#id2519916>`__.
+
 The general structure of CloudSlang files is outlined here. Some of the
 properties that appear are optional. All CloudSlang keywords, properties
 and concepts are explained in detail below.
