@@ -3,7 +3,7 @@ FAQ
 
 | :ref:`What is CloudSlang? <what_is>`
 | :ref:`What are the use cases and focus for CloudSlang? <focus>`
-| :ref:`What is the difference between **orchestration** and **configuration management**? <orchestration_vs_configuaration>`
+| :ref:`What is the difference between orchestration and configuration management? <orchestration_vs_configuaration>`
 | :ref:`How is CloudSlang different than configuration management tools like Chef, Puppet, Salt and Ansible? Can I use it with these tools? <cs_vs_config_tools>`
 | :ref:`What is the quickest way to try out CloudSlang? <try_out>`
 | :ref:`Which languages are supported by CloudSlang? <languages>`
@@ -88,7 +88,7 @@ Python and Java operations are supported natively in CloudSlang.
 CloudSlang was built out of the box to work with your favorite technologies. For
 example, not only are OpenStack and Docker technologies are supported, but also
 configuration management tools like Chef. There's also support for bash (for
-*nix systems) and PowerShell (for Windows) and basic operations for REST or
+\*nix systems) and PowerShell (for Windows) and basic operations for REST or
 SOAP. To see a complete list of technologies that CloudSlang integrates with,
 see the ready-made content `repository <https://github.com/CloudSlang/cloud-slang-content/blob/master/DOCS.md>`_.
 

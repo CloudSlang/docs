@@ -89,11 +89,10 @@ Setup
 We'll write our first operation and flow in the next couple of lessons. But
 before we do that we'll setup our folder structure to get ready.
 
-Create a folder named **tutorials**. We'll store our flows and
-operations in this folder. Since we're going to have some general
-content as well as content that is specific to our use case, let's
-create two subfolders under **tutorials** called **base** and
-**hiring**.
+Create a folder named **tutorials**. We'll store our flows and operations in
+this folder. Since we're going to have some general content as well as content
+that is specific to our use case, let's create two subfolders under
+**tutorials** called **base** and **hiring**.
 
 We'll start off with just one flow and one operation. In the next two lessons
 we'll create a file named **new_hire.sl** in the **hiring** folder and in the

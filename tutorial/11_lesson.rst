@@ -153,7 +153,7 @@ Finish
 ------
 
 The last thing left to do is print out a finish message that also
-reflects the status the equipment order.
+reflects the status of the equipment order.
 
 .. code-block:: yaml
 

@@ -50,8 +50,9 @@ operation must be the same as the name of the file it is stored in.
    **YAML Note:** Indentation is **very** important in YAML. It is used to
    indicate scope. In the example above, you can see that
    ``name: print`` is indented under the ``operation`` key to denote
-   that it belongs to the operation. **Always** use spaces to indent.
-   **Never** use tabs.
+   that it belongs to the operation. **Always** use an identical number of
+   spaces to indent. **Never** use tabs. For more information, see the
+   :ref:`YAML Overview <indentation_scoping>`.
 
 For more information, see :ref:`operation` in the DSL reference.
 
