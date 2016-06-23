@@ -52,16 +52,27 @@ properties specific to `flow <#flow>`__, `operation <#operation>`__, or
 |                |          |         |                   | | ignored by the compiler |                            |
 +----------------+----------+---------+-------------------+---------------------------+----------------------------+
 
+.. _variable_names:
+
+Variable Names
+--------------
+
 Variable names in CloudSlang files cannot contain localized characters. In
 general, CloudSlang variable names must conform to both `Python's naming
 constraints <https://docs.python.org/2/reference/lexical_analysis.html>`__
 as well as `Java's naming constraints <https://docs.oracle.com/javase/tutorial/java/nutsandbolts/variables.html>`__.
+
+Encoding
+--------
 
 When using the CLI or Build Tool, CloudSlang will use the encoding found in the
 :ref:`CLI configuration file <configure_cli>` or :ref:`Build Tool configuration
 file <configure_build_tool>` for input values respectively. If no encoding is
 found in the configuration file, the CLI or Build Tool will use the default
 charset of the Java virtual machine.
+
+Structure
+---------
 
 The general structure of CloudSlang files is outlined here. Some of the
 properties that appear are optional. All CloudSlang keywords, properties
@@ -500,6 +511,9 @@ all `inputs <#inputs>`__ found in the called `operation <#operation>`__ or
 names should be different than the `output <#outputs>`__ names found in the
 `operation <#operation>`__ or `subflow <#flow>`__ being called in the step.
 
+Argument names must conform to the rules for valid
+:ref:`variable names <variable_names>`.
+
 An argument name without an expression, or with a ``null`` value will take its
 value from a variable with the same name in the flow context.
 `Expression <#expressions>`__ values will supersede values bound to flow
@@ -832,6 +846,9 @@ names of the same `flow <#flow>`__ or `operation <#operation>`__.
 
 For a list of which contexts are available in the ``inputs`` section of a
 `flow <#flow>`__ or `operation <#operation>`__, see `Contexts <#contexts>`__.
+
+Input names must conform to the rules for valid
+:ref:`variable names <variable_names>`.
 
 +---------------+----------+---------------+------------+--------------------+----------------------------+
 | Property      | Required | Default       | Value Type | Description        | More info                  |
@@ -1335,6 +1352,9 @@ be different than the `input <#inputs>`__ names of the same `flow <#flow>`__ or
 
 For a list of which contexts are available in the ``outputs`` section of a
 `flow <#flow>`__ or `operation <#operation>`__, see `Contexts <#contexts>`__.
+
+Output identifiers must conform to the rules for valid
+:ref:`variable names <variable_names>`.
 
 +---------------+----------+---------------+------------+-----------------+----------------------------+
 | Property      | Required | Default       | Value Type | Description     | More info                  |
@@ -1921,7 +1941,7 @@ There are several types of steps:
 -  `iterative <#iterative-step>`__
 -  `parallel <#parallel-step>`__
 
-**Example - step with two inputs, one of which contains a default value**
+**Example - step with two arguments, one of which contains a default value**
 
 .. code-block:: yaml
 
@@ -1955,8 +1975,7 @@ The step name is mapped to the step's properties.
 |              |          | | ``SUCCESS``: next step  | | pairs      | | flow results      |                                             |
 +--------------+----------+---------------------------+--------------+---------------------+---------------------------------------------+
 
-**Example - step that performs a division of two inputs, publishes the
-answer and navigates accordingly**
+**Example - step that performs a division of two inputs, publishes the answer and navigates accordingly**
 
 .. code-block:: yaml
 
