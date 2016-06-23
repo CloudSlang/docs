@@ -44,7 +44,6 @@ like this (other folders omitted for simplicity):
    -  python-lib
 
       -  requirements.txt
-      -  pip.exe
 
 And finally, we'll need a new file, **fancy_text.sl** in the
 **tutorials/hiring** folder, to house a new operation.
