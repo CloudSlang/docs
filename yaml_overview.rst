@@ -213,6 +213,13 @@ beginning of line.
     flow:       # Flow definition (trailing comment)
       name: hello_world # This flow is called 'hello_world'
 
+Validate Your YAML
+==================
+
+YAML has online validators that can be used, like:
+`YAML Lint <http://www.yamllint.com/>`__ or
+`Code Beautify <http://codebeautify.org/yaml-validator>`__.
+
 Conclusion
 ==========
 
