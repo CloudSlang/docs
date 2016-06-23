@@ -46,6 +46,8 @@ Here are some basic YAML facts and guidelines:
 - Strings values rarely need quotes
 - YAML has 5 string quoting styles
 
+.. _indentation_scoping:
+
 Indentation Scoping
 ===================
 
@@ -216,9 +218,10 @@ beginning of line.
 Validate Your YAML
 ==================
 
-YAML has online validators that can be used, like:
-`YAML Lint <http://www.yamllint.com/>`__ or
-`Code Beautify <http://codebeautify.org/yaml-validator>`__.
+You can use an online YAML validator, such as the ones found here:
+
+  - `YAML Lint <http://www.yamllint.com/>`__
+  - `Code Beautify <http://codebeautify.org/yaml-validator>`__
 
 Conclusion
 ==========
