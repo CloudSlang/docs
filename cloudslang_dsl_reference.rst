@@ -25,6 +25,9 @@ recommended extension for CloudSlang flow and operation file names is **.sl**,
 but **.sl.yaml** and **.sl.yml** will work as well. CloudSlang system properties
 file names end with the **.prop.sl** extension.
 
+Since CloudSlang is YAML-based, proper indentation is crucial. For more
+information, see the :ref:`YAML Overview <indentation_scoping>`.
+
 There are three types of CloudSlang files:
 
 -  flow - contains a list of steps and navigation logic that calls
@@ -59,9 +62,6 @@ When using the CLI or Build Tool, CloudSlang will use the encoding found in the
 file <configure_build_tool>` for input values respectively. If no encoding is
 found in the configuration file, the CLI or Build Tool will use the default
 charset of the Java virtual machine.
-
-When you structure CloudSlang files, indentation should be taken care of according
-to the rules specified `here <http://yaml.org/spec/current.html#id2519916>`__.
 
 The general structure of CloudSlang files is outlined here. Some of the
 properties that appear are optional. All CloudSlang keywords, properties

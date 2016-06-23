@@ -171,10 +171,8 @@ scanned and compiled recursively as well.
 
 .. note::
 
-  The usage of forward slashes (``/``) in all file paths is required
-  even on Windows, because backslashes can be interperted as special characters.
-
-
+  Use forward slashes (``/``) in all file paths, even on Windows, because
+  back slashes (``\``) can be interpreted as special characters.
 
 Run a Flow or Operation
 -----------------------

@@ -16,8 +16,7 @@ Python (version 2.7) from `here <https://www.python.org/>`__. Python 2.7.9 and
 later include pip by default. If you already have Python but don't have pip
 installed on your machine, see the pip
 `documentation <https://pip.pypa.io/en/latest/installing.html>`__ for
-installation instructions. After you have pip installed make sure to copy it to
-the python-lib folder from where python was installed.
+installation instructions.
 
 We'll also need to add a **requirements.txt** file to a **python-lib** folder
 which is at the same level as the **bin** folder that the CLI executable
