@@ -68,8 +68,7 @@ Encoding
 When using the CLI or Build Tool, CloudSlang will use the encoding found in the
 :ref:`CLI configuration file <configure_cli>` or :ref:`Build Tool configuration
 file <configure_build_tool>` for input values respectively. If no encoding is
-found in the configuration file, the CLI or Build Tool will use the default
-charset of the Java virtual machine.
+found in the configuration file, the CLI or Build Tool will use UTF-8.
 
 Structure
 ---------
