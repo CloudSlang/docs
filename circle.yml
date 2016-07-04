@@ -15,7 +15,7 @@ test:
   pre:
     - >
       wget https://github.com/CloudSlang/cloud-slang/releases/download/cloudslang-0.9.60.0/cslang-builder.zip
-      && unzip cslang-builder.zip -d cslang-builder
+      && unzip cslang-builder.zip
       && chmod +x cslang-builder/bin/cslang-builder
   override: # compile ./code directory
     - ./cslang-builder/bin/cslang-builder -cr ./code -ts !default -cov
