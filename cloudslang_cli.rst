@@ -6,10 +6,10 @@ There are several ways to get started with the CloudSlang CLI.
 Download and Run Pre-built CLI
 ==============================
 
-**Prerequisites :** To run the CloudSlang CLI, Java JRE version 7 or
+**Prerequisites:** To run the CloudSlang CLI, Java JRE version 7 or
 higher is required.
 
-1. `Download <https://github.com/CloudSlang/cloud-slang/releases/latest>`__
+1. `Download <https://github.com/CloudSlang/cloud-slang/releases/tag/cloudslang-0.9.60.0>`__
    the CLI with content zip file.
 2. Locate the downloaded file and unzip the archive.
    The decompressed file contains:
@@ -23,13 +23,13 @@ higher is required.
 3. Navigate to the folder ``cslang\bin\``.
 4. Run the executable:
 
-   -  For Windows : ``cslang.bat``.
-   -  For Linux : ``bash cslang``.
+   -  For Windows: ``cslang.bat``.
+   -  For Linux: ``bash cslang``.
 
 Download, Build and Run CLI
 ===========================
 
-**Prerequisites :** To build the CloudSlang CLI, Java JDK version 7 or
+**Prerequisites:** To build the CloudSlang CLI, Java JDK version 7 or
 higher and Maven version 3.0.3 or higher are required.
 
 1. Git clone (or GitHub fork and then clone) the `source
@@ -40,13 +40,13 @@ higher and Maven version 3.0.3 or higher are required.
    ``cloudslang-cli\target\cloudslang\bin`` folder.
 5. Run the executable:
 
-   -  For Windows : ``cslang.bat``.
-   -  For Linux : ``bash cslang``.
+   -  For Windows: ``cslang.bat``.
+   -  For Linux: ``bash cslang``.
 
 Download and Install npm Package
 ================================
 
-**Prerequisites :** To download the package, Node.js is required. To run
+**Prerequisites:** To download the package, Node.js is required. To run
 the CloudSlang CLI, Java JRE version 7 or higher is required.
 
 1. At a command prompt, enter ``npm install -g cloudslang-cli``.
