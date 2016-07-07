@@ -14,13 +14,13 @@ higher is required.
 2. Locate the downloaded file and unzip the archive.
    The decompressed file contains:
 
-   -  A folder named **cslang** with the CLI tool and its necessary
+   -  A folder named **cslang-cli** with the CLI tool and its necessary
       dependencies.
    -  A folder named **content** with ready-made CloudSlang flows and
       operations.
    -  A folder named **python-lib**.
 
-3. Navigate to the folder ``cslang\bin\``.
+3. Navigate to the folder ``cslang-cli\bin\``.
 4. Run the executable:
 
    -  For Windows : ``cslang.bat``.
@@ -109,7 +109,7 @@ Configure the CLI
 =================
 
 The CLI can be configured using the configuration file found at
-``cslang/configuration/cslang.properties``.
+``cslang-cli/configuration/cslang.properties``.
 
 Some of the configuration items are listed in the table below:
 
@@ -235,7 +235,7 @@ input with the same name, the input in the file that is loaded last will
 overwrite the others with the same name.
 
 Inputs files can be loaded automatically if placed in a folder located at
-``cslang/configuration/inputs``. If the flow requires an inputs file that is not
+``cslang-cli/configuration/inputs``. If the flow requires an inputs file that is not
 loaded automatically, use the ``--if`` flag and a comma-separated list of file
 paths. Inputs passed with the ``--i`` flag will override the inputs passed using
 a file.
@@ -283,8 +283,8 @@ Run with Dependencies
 
 If the flow requires dependencies they can be added to the classpath using the
 ``--cp`` flag with a comma-separated list of dependency paths. If no ``cp`` flag
-is present, the **cslang/content** folder is added to the classpath by default.
-If there is no ``--cp`` flag and no **cslang/content** folder, the running flow
+is present, the **cslang-cli/content** folder is added to the classpath by default.
+If there is no ``--cp`` flag and no **cslang-cli/content** folder, the running flow
 or operation's folder is added to the classpath by default.
 
 .. code-block:: bash
@@ -308,7 +308,7 @@ properties files see the :ref:`CloudSlang Files <cloudslang_files>` and
 :ref:`properties <properties>` sections of the DSL Reference.
 
 System property files can be loaded automatically if placed in a folder or
-subfolder within ``cslang/configuration/properties``. If the flow or operation
+subfolder within ``cslang-cli/configuration/properties``. If the flow or operation
 requires a system properties file that is not loaded automatically, use the
 ``--spf`` flag and a comma-separated list of file paths.
 
@@ -443,14 +443,22 @@ Some of the available commands are:
 Execution Log
 -------------
 
-The execution log is saved at ``cslang/logs/execution.log``. The log file stores
+The execution log is saved at ``cslang-cli/logs/execution.log``. The log file stores
 all the :ref:`events <slang_events>` that have been fired, and
 therefore allows for tracking a flow's execution.
+
+Maven Log
+---------
+
+Log files of Maven activity are saved at ``cslang-cli/logs/maven/``. Each artifact's
+activity is stored in a file named with the convention
+``<group>_<artifact>_<version>.log``.
+
 
 History
 -------------
 
-The CLI history is saved at ``cslang/cslang-cli.history``.
+The CLI history is saved at ``cslang-cli/cslang-cli.history``.
 
 Help
 ----
