@@ -21,3 +21,4 @@ Contents:
    13: System Properties <tutorial/13_lesson>
    14: 3rd Party Python Packages <tutorial/14_lesson>
    15: Parallel Loop <tutorial/15_lesson>
+   Advanced Authoring Tutorial <tutorial/advanced_authoring/section_advanced_tutorial>
