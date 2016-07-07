@@ -10,7 +10,7 @@ Download, Unzip and Run
 -  `Download <https://github.com/CloudSlang/cloud-slang/releases/latest>`__
    the CLI with content zip file.
 -  Unzip the archive.
--  Run the CloudSlang executable in the ``cslang\bin\`` folder.
+-  Run the CloudSlang executable in the ``cslang-cli/bin`` folder.
 -  At the prompt enter:
 
 .. code-block:: bash

@@ -26,7 +26,7 @@ already there and we will be appending to its contents.
 The folder structure where the CLI executable is should look something
 like this (other folders omitted for simplicity):
 
--  cslang
+-  cslang-cli
 
    -  bin
 
