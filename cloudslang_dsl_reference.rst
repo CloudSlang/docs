@@ -28,11 +28,12 @@ file names end with the **.prop.sl** extension.
 Since CloudSlang is YAML-based, proper indentation is crucial. For more
 information, see the :ref:`YAML Overview <indentation_scoping>`.
 
-There are three types of CloudSlang files:
+There are four types of CloudSlang files:
 
 -  flow - contains a list of steps and navigation logic that calls
    operations or subflows
 -  operation - contains an action that runs a script or method
+-  decision - contains decision logic without an action script
 -  system properties - contains a list of system property keys and values
 
 The following properties are for all types of CloudSlang files. For
@@ -163,6 +164,28 @@ and concepts are explained in detail below.
 
 -  `extensions <#extensions>`__
 
+**Decision file**
+
+-  `namespace <#namespace>`__
+-  `decision <#decision>`__
+
+   -  `name <#name>`__
+   -  `inputs <#inputs>`__
+
+      -  `required <#required>`__
+      -  `default <#default>`__
+      -  `private <#private>`__
+      -  `sensitive <#sensitive>`__
+
+   -  `outputs <#outputs>`__
+
+      -  `value <#value>`__
+      -  `sensitive <#value>`__
+
+   -  `results <#results>`__
+
+-  `extensions <#extensions>`__
+
 **System properties file**
 
 -  `namespace <#namespace>`__
@@ -279,46 +302,50 @@ approach detailed above is the recommended one.
 Contexts
 ========
 
-Throughout the execution of a flow, its steps, operations and subflows there are
-different variable contexts that are accessible. Which contexts are accessible
-depends on the current section of the flow or operation.
+Throughout the execution of a flow, its steps, operations, decisions and
+subflows there are different variable contexts that are accessible. Which
+contexts are accessible depends on the current section of the flow, operation or
+decision.
 
 The table below summarizes the accessible contexts at any given location in a
-flow or operation.
+flow, operation or decision.
 
-+------------------+--------------+-----------+-------------+-----------+-------------+-------------+--------------------+----------------+
-| | Contexts/      | | Context    | | Flow    | | Operation | | Action  | | Subflow/  | | Step      | | Branched         | | Already      |
-| | Location       | | Passed To  | | Context | | Context   | | Outputs | | Operation | | Arguments | | Step             | | Bound        |
-|                  | | Executable |           |             | | Context | | Outputs   |             | | Output           | | Values       |
-|                  |              |           |             |           | | Context   |             | | Values           |                |
-+==================+==============+===========+=============+===========+=============+=============+====================+================+
-| | **flow**       | Yes          |           |             |           |             |             |                    | Yes            |
-| | **inputs**     |              |           |             |           |             |             |                    |                |
-+------------------+--------------+-----------+-------------+-----------+-------------+-------------+--------------------+----------------+
-| | **flow**       |              | Yes       |             |           |             |             |                    | Yes            |
-| | **outputs**    |              |           |             |           |             |             |                    |                |
-+------------------+--------------+-----------+-------------+-----------+-------------+-------------+--------------------+----------------+
-| | **operation**  | Yes          |           |             |           |             |             |                    | Yes            |
-| | **inputs**     |              |           |             |           |             |             |                    |                |
-+------------------+--------------+-----------+-------------+-----------+-------------+-------------+--------------------+----------------+
-| | **operation**  |              |           | Yes         | Yes       |             |             |                    | Yes            |
-| | **outputs**    |              |           |             |           |             |             |                    |                |
-+------------------+--------------+-----------+-------------+-----------+-------------+-------------+--------------------+----------------+
-| | **operation**  |              |           | Yes         | Yes       |             |             |                    |                |
-| | **results**    |              |           |             |           |             |             |                    |                |
-+------------------+--------------+-----------+-------------+-----------+-------------+-------------+--------------------+----------------+
-| | **step**       |              | Yes       |             |           |             |             |                    | Yes            |
-| | **arguments**  |              |           |             |           |             |             |                    |                |
-+------------------+--------------+-----------+-------------+-----------+-------------+-------------+--------------------+----------------+
-| | **step**       |              |           |             |           | Yes         | Yes         | | Yes - using      | Yes            |
-| | **publish**    |              |           |             |           |             |             | | branches_context |                |
-+------------------+--------------+-----------+-------------+-----------+-------------+-------------+--------------------+----------------+
-| | **step**       |              |           |             |           | Yes         | Yes         |                    |                |
-| | **navigation** |              |           |             |           |             |             |                    |                |
-+------------------+--------------+-----------+-------------+-----------+-------------+-------------+--------------------+----------------+
-| | **action**     |              |           | Yes         |           |             |             |                    |                |
-| | **inputs**     |              |           |             |           |             |             |                    |                |
-+------------------+--------------+-----------+-------------+-----------+-------------+-------------+--------------------+----------------+
++------------------+--------------+-----------+--------------+-----------+--------------+-------------+--------------------+----------------+
+| | Contexts/      | | Context    | | Flow    | | Operation/ | | Action  | | Subflow/   | | Step      | | Branched         | | Already      |
+| | Location       | | Passed To  | | Context | | Decision   | | Outputs | | Operation/ | | Arguments | | Step             | | Bound        |
+|                  | | Executable |           | | Context    | | Context | | Outputs    |             | | Output           | | Values       |
+|                  |              |           |              |           | | Context    |             | | Values           |                |
++==================+==============+===========+==============+===========+==============+=============+====================+================+
+| | **flow**       | Yes          |           |              |           |              |             |                    | Yes            |
+| | **inputs**     |              |           |              |           |              |             |                    |                |
++------------------+--------------+-----------+--------------+-----------+--------------+-------------+--------------------+----------------+
+| | **flow**       |              | Yes       |              |           |              |             |                    | Yes            |
+| | **outputs**    |              |           |              |           |              |             |                    |                |
++------------------+--------------+-----------+--------------+-----------+--------------+-------------+--------------------+----------------+
+| | **operation/** | Yes          |           |              |           |              |             |                    | Yes            |
+| | **decision**   |              |           |              |           |              |             |                    |                |
+| | **inputs**     |              |           |              |           |              |             |                    |                |
++------------------+--------------+-----------+--------------+-----------+--------------+-------------+--------------------+----------------+
+| | **operation/** |              |           | Yes          | Yes       |              |             |                    | Yes            |
+| | **decision**   |              |           |              |           |              |             |                    |                |
+| | **outputs**    |              |           |              |           |              |             |                    |                |
++------------------+--------------+-----------+--------------+-----------+--------------+-------------+--------------------+----------------+
+| | **operation/** |              |           | Yes          | Yes       |              |             |                    |                |
+| | **decision**   |              |           |              |           |              |             |                    |                |
+| | **results**    |              |           |              |           |              |             |                    |                |
++------------------+--------------+-----------+--------------+-----------+--------------+-------------+--------------------+----------------+
+| | **step**       |              | Yes       |              |           |              |             |                    | Yes            |
+| | **arguments**  |              |           |              |           |              |             |                    |                |
++------------------+--------------+-----------+--------------+-----------+--------------+-------------+--------------------+----------------+
+| | **step**       |              |           |              |           | Yes          | Yes         | | Yes - using      | Yes            |
+| | **publish**    |              |           |              |           |              |             | | branches_context |                |
++------------------+--------------+-----------+--------------+-----------+--------------+-------------+--------------------+----------------+
+| | **step**       |              |           |              |           | Yes          | Yes         |                    |                |
+| | **navigation** |              |           |              |           |              |             |                    |                |
++------------------+--------------+-----------+--------------+-----------+--------------+-------------+--------------------+----------------+
+| | **action**     |              |           | Yes          |           |              |             |                    |                |
+| | **inputs**     |              |           |              |           |              |             |                    |                |
++------------------+--------------+-----------+--------------+-----------+--------------+-------------+--------------------+----------------+
 
 Keywords (A-Z)
 ==============
@@ -427,6 +454,47 @@ class_name
 
 The key ``class_name`` is a property of a `java_action <#java-action>`__. It is
 mapped to the name of the Java class where an annotated @Action resides.
+
+.. _decision:
+
+decision
+--------
+
+The key ``decision`` is mapped to the properties which make up the
+decision contents.
+
++-------------------+----------+-------------+----------------+----------------------+------------------------------------+
+| Property          | Required | Default     | Value Type     | Description          | More Info                          |
++===================+==========+=============+================+======================+====================================+
+| ``name``          | yes      | --          | string         | | name of the        | `name <#name>`__                   |
+|                   |          |             |                | | decision           |                                    |
++-------------------+----------+-------------+----------------+----------------------+------------------------------------+
+| ``inputs``        | no       | --          | list           | decision inputs      | `inputs <#inputs>`__               |
++-------------------+----------+-------------+----------------+----------------------+------------------------------------+
+| ``outputs``       | no       | --          | list           | decision outputs     | `outputs <#outputs>`__             |
++-------------------+----------+-------------+----------------+----------------------+------------------------------------+
+| ``results``       | no       | ``SUCCESS`` | list           | | possible decision  | `results <#results>`__             |
+|                   |          |             |                | | results            |                                    |
++-------------------+----------+-------------+----------------+----------------------+------------------------------------+
+
+**Example - decision that compares two values**
+
+.. code-block:: yaml
+
+    decision:
+      name: compare
+
+      inputs:
+        - x
+        - y
+
+      outputs:
+        - sum: ${x+y}
+
+      results:
+        - EQUAL: ${x == y}
+        - LESS_THAN: ${x < y}
+        - GREATER_THAN
 
 .. _default:
 
@@ -833,18 +901,21 @@ source file defines its namespace as ``examples.subflows``.
 inputs
 ------
 
-The key ``inputs`` is a property of a `flow <#flow>`__ or
-`operation <#operation>`__. It is mapped to a list of input names. Each
-input name may in turn be mapped to its properties or an input
-`expression <#expressions>`__.
+The key ``inputs`` is a property of a `flow <#flow>`__,
+`operation <#operation>`__ or `decision <#decision>`__. It is mapped to a list
+of input names. Each input name may in turn be mapped to its properties or an
+input `expression <#expressions>`__.
 
-Inputs are used to pass parameters to `flows <#flow>`__ or
-`operations <#operation>`__. Input names for a specific `flow <#flow>`__ or
-`operation <#operation>`__ must be different than the `output <#outputs>`__
-names of the same `flow <#flow>`__ or `operation <#operation>`__.
+Inputs are used to pass parameters to `flows <#flow>`__,
+`operations <#operation>`__ or `decisions <#decision>`__. Input names for a
+specific `flow <#flow>`__, `operation <#operation>`__ or
+`decision <#decision>`__ must be different than the `output <#outputs>`__
+names of the same `flow <#flow>`__, `operation <#operation>`__ or
+`decision <#decision>`__.
 
 For a list of which contexts are available in the ``inputs`` section of a
-`flow <#flow>`__ or `operation <#operation>`__, see `Contexts <#contexts>`__.
+`flow <#flow>`__, `operation <#operation>`__ or `decision <#decision>`__, see
+`Contexts <#contexts>`__.
 
 Input names must conform to the rules for valid
 :ref:`variable names <variable_names>`.
@@ -1133,17 +1204,19 @@ mapped to the name of the Java method where an annotated @Action resides.
 name
 ----
 
-The key ``name`` is a property of `flow <#flow>`__ and
-`operation <#operation>`__. It is mapped to a value that is used as the
-name of the `flow <#flow>`__ or `operation <#operation>`__.
+The key ``name`` is a property of `flow <#flow>`__,
+`operation <#operation>`__ or `decision <#decision>`__. It is mapped to a value
+that is used as the name of the `flow <#flow>`__ or `operation <#operation>`__.
 
-The name of a `flow <#flow>`__ or `operation <#operation>`__ may be used
-when called from a `flow <#flow>`__'s `step <#step>`__.
+The name of a `flow <#flow>`__, `operation <#operation>`__ or
+`decision <#decision>`__ may be used when called from a `flow <#flow>`__'s
+`step <#step>`__.
 
-The name of a `flow <#flow>`__ or `operation <#operation>`__ must match the name
+The name of a `flow <#flow>`__, `operation <#operation>`__ or
+`decision <#decision>`__ must match the name
 of the file in which it resides, excluding the extension.
 
-**Example - naming the flow found in the file** ``division_flow.sl``
+**Example - naming the flow found in the file division_flow.sl**
 
 .. code-block:: yaml
 
@@ -1315,42 +1388,45 @@ operation contents.
 
 .. code-block:: yaml
 
-    name: add
+    operation:
+      name: add
 
-    inputs:
-      - left
-      - right
+      inputs:
+        - left
+        - right
 
-    python_action:
-      script: ans = left + right
+      python_action:
+        script: ans = left + right
 
-    outputs:
-      - out: ${ans}
+      outputs:
+        - out: ${ans}
 
-    results:
-      - SUCCESS
+      results:
+        - SUCCESS
 
 .. _outputs:
 
 outputs
 -------
 
-The key ``outputs`` is a property of a `flow <#flow>`__ or
-`operation <#operation>`__. It is mapped to a list of output variable
-names. Each output name may in turn be mapped to its properties or an output
-`expression <#expressions>`__. Output `expressions <#expressions>`__ must
-evaluate to strings.
+The key ``outputs`` is a property of a `flow <#flow>`__,
+`operation <#operation>`__ or `decision <#decision>`__. It is mapped to a list
+of output variable names. Each output name may in turn be mapped to its
+properties or an output `expression <#expressions>`__. Output
+`expressions <#expressions>`__ must evaluate to strings.
 
-Defines the parameters a `flow <#flow>`__ or `operation <#operation>`__
-exposes to possible `publication <#publish>`__ by a `step <#step>`__.
-The calling `step <#step>`__ refers to an output by its name.
+Defines the parameters a `flow <#flow>`__, `operation <#operation>`__ or
+`decision <#decision>`__ exposes to possible `publication <#publish>`__ by a
+`step <#step>`__. The calling `step <#step>`__ refers to an output by its name.
 
-Output names for a specific `flow <#flow>`__ or `operation <#operation>`__ must
-be different than the `input <#inputs>`__ names of the same `flow <#flow>`__ or
-`operation <#operation>`__.
+Output names for a specific `flow <#flow>`__, `operation <#operation>`__ or
+`decision <#decision>`__ must be different than the `input <#inputs>`__ names of
+the same `flow <#flow>`__, `operation <#operation>`__ or
+`decision <#decision>`__.
 
 For a list of which contexts are available in the ``outputs`` section of a
-`flow <#flow>`__ or `operation <#operation>`__, see `Contexts <#contexts>`__.
+`flow <#flow>`__, `operation <#operation>`__ or `decision <#decision>`__,
+see `Contexts <#contexts>`__.
 
 Output identifiers must conform to the rules for valid
 :ref:`variable names <variable_names>`.
@@ -1627,21 +1703,21 @@ mapped to a `script <#script>`__ property that contains the actual Python script
 results
 -------
 
-The key ``results`` is a property of a `flow <#flow>`__ or
-`operation <#operation>`__.
+The key ``results`` is a property of a `flow <#flow>`__,
+`operation <#operation>`__ or `decision <#decision>`__.
 
-The results of a `flow <#flow>`__ or `operation <#operation>`__ can be
-used by the calling `step <#step>`__ for `navigation <#navigate>`__
-purposes.
+The results of a `flow <#flow>`__, `operation <#operation>`__ or
+`decision <#decision>`__ can be used by the calling `step <#step>`__ for
+`navigation <#navigate>`__ purposes.
 
 .. note::
 
-   The only results of an `operation <#operation>`__ or
-   `subflow <#flow>`__ called in a `parallel_loop <#parallel-loop>`__ that are
-   evaluated are ``SUCCESS`` and ``FAILURE``. Any other results will be
+   The only results of an `operation <#operation>`__, `decision <#decision>`__
+   or `subflow <#flow>`__ called in a `parallel_loop <#parallel-loop>`__ that
+   are evaluated are ``SUCCESS`` and ``FAILURE``. Any other results will be
    evaluated as ``SUCCESS``.
 
-Flow results
+Flow Results
 ~~~~~~~~~~~~
 
 In a `flow <#flow>`__, the key ``results`` is mapped to a list of result
@@ -1667,23 +1743,25 @@ all `flow <#flow>`__ results must be handled by the calling
       - ILLEGAL
       - FAILURE
 
-Operation results
-~~~~~~~~~~~~~~~~~
+Operation and Decision Results
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-In an `operation <#operation>`__ the key ``results`` is mapped to a list
-of key:value pairs of result names and boolean `expressions <#expressions>`__.
+In an `operation <#operation>`__ or `decision <#decision>`__ the key ``results``
+is mapped to a list of key:value pairs of result names and boolean
+`expressions <#expressions>`__.
 
-Defines the possible results of the `operation <#operation>`__. By
-default, if no results exist, the result is ``SUCCESS``. The first
-result in the list whose expression evaluates to true, or does not have
-an expression at all, will be passed back to the calling
+Defines the possible results of the `operation <#operation>`__ or
+`decision <#decision>`__. By default, if no results exist, the result is
+``SUCCESS``. The first result in the list whose expression evaluates to true, or
+does not have an expression at all, will be passed back to the calling
 `step <#step>`__ to be used for `navigation <#navigate>`__ purposes.
 
-All `operation <#operation>`__ results must be handled by the calling
-`step <#step>`__.
+All `operation <#operation>`__ or `decision <#decision>`__ results must be
+handled by the calling `step <#step>`__.
 
 For a list of which contexts are available in the ``results`` section of an
-`operation <#operation>`__, see `Contexts <#contexts>`__.
+`operation <#operation>`__ or `decision <#decision>`__, see
+`Contexts <#contexts>`__.
 
 **Example - three user-defined results**
 

@@ -1,5 +1,5 @@
 CloudSlang Documentation
-================================
+========================
 
 Contents:
 
