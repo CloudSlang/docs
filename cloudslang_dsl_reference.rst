@@ -33,7 +33,7 @@ There are four types of CloudSlang files:
 -  flow - contains a list of steps and navigation logic that calls
    operations or subflows
 -  operation - contains an action that runs a script or method
--  decision - contains decision logic without an action script
+-  decision - contains decision logic without an action
 -  system properties - contains a list of system property keys and values
 
 The following properties are for all types of CloudSlang files. For
