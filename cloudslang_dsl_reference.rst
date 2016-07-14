@@ -893,7 +893,7 @@ mapped to the properties that define where an annotated Java @Action resides.
 +-----------------+----------+---------+-------------+------------------------+--------------------------------+
 | Property        | Required | Default | Value Type  | Description            | More info                      |
 +=================+==========+=========+=============+========================+================================+
-| ``gav``         | no       | --      | string      | group:artifact:version | `gav <#gav>`__                 |
+| ``gav``         | yes      | --      | string      | group:artifact:version | `gav <#gav>`__                 |
 +-----------------+----------+---------+-------------+------------------------+--------------------------------+
 | ``class_name``  | yes      | --      | string      | | fully qualified      | `class_name <#class-name>`__   |
 |                 |          |         |             | | Java class name      |                                |
