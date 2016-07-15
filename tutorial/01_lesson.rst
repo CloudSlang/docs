@@ -63,7 +63,7 @@ the :doc:`CloudSlang documentation <../index>`.
 Flows and Operations
 --------------------
 
-Let's begin our study of the CloudSlang language by discussing the two types of
+Let's begin our study of the CloudSlang language by discussing two types of
 CloudSlang executable contructs, flows and operations.
 
 Generally, CloudSlang treats flows and operations similarly. Flows and
@@ -76,6 +76,10 @@ part of the workflow. A flow contains steps, which stitch together the actions
 performed by operations (or subflows), navigating and passing data from one
 to the other based on operation results and outputs. Flows perform the “flow”
 part of the workflow.
+
+There is a third type of executable construct, decision, which we will not use
+in this tutorial. A decision is very similar to an operation, but without an
+action.
 
 Here is a diagram of the flow and operation structure we will be building in
 this tutorial.
