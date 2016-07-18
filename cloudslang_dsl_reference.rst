@@ -1332,9 +1332,11 @@ mapping one of a `step's <#step>`__ `navigation <#navigate>`__ keys to
 maps to ``on_failure``, but there is no ``on_failure`` `step <#step>`__ defined
 in the flow, the flow ends with a `result <#results>`__ of ``FAILURE``.
 
-The ``on_failure`` `step <#step>`__ `navigation <#navigate>`__ cannot contain a
-`navigation <#navigate>`__ section. It always causes the flow to end with a
-`result <#results>`__ of ``FAILURE``.
+The ``on_failure`` `step <#step>`__ must be the last step in the flow.
+
+The ``on_failure`` `step <#step>`__ cannot contain a `navigation <#navigate>`__
+section. It always causes the flow to end with a `result <#results>`__ of
+``FAILURE``.
 
 **Example - failure step which calls a print operation to print an error message**
 
