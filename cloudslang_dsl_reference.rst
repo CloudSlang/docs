@@ -63,6 +63,16 @@ general, CloudSlang variable names must conform to both `Python's naming
 constraints <https://docs.python.org/2/reference/lexical_analysis.html>`__
 as well as `Java's naming constraints <https://docs.oracle.com/javase/tutorial/java/nutsandbolts/variables.html>`__.
 
+.. _uniqueness_and_case_sensitivity:
+
+Uniqueness and Case Sensitivity
+-------------------------------
+
+Inputs, outputs, results, publish values, fully qualified system properties and
+fully qualified executable names must be unique and are validated as case
+insensitive. When using any of the above, they must be referred to using the
+case in which they were declared.
+
 Encoding
 --------
 
@@ -918,7 +928,8 @@ For a list of which contexts are available in the ``inputs`` section of a
 `Contexts <#contexts>`__.
 
 Input names must conform to the rules for valid
-:ref:`variable names <variable_names>`.
+:ref:`variable names <variable_names>` and
+:ref:`uniqueness <uniqueness_and_case_sensitivity>`.
 
 +---------------+----------+---------------+------------+--------------------+----------------------------+
 | Property      | Required | Default       | Value Type | Description        | More info                  |
@@ -1216,6 +1227,10 @@ The name of a `flow <#flow>`__, `operation <#operation>`__ or
 `decision <#decision>`__ must match the name
 of the file in which it resides, excluding the extension.
 
+The name must conform to the rules for
+:ref:`uniqueness <uniqueness_and_case_sensitivity>`.
+
+
 **Example - naming the flow found in the file division_flow.sl**
 
 .. code-block:: yaml
@@ -1431,7 +1446,8 @@ For a list of which contexts are available in the ``outputs`` section of a
 see `Contexts <#contexts>`__.
 
 Output identifiers must conform to the rules for valid
-:ref:`variable names <variable_names>`.
+:ref:`variable names <variable_names>` and
+:ref:`uniqueness <uniqueness_and_case_sensitivity>`.
 
 +---------------+----------+---------------+------------+-----------------+----------------------------+
 | Property      | Required | Default       | Value Type | Description     | More info                  |
@@ -1532,7 +1548,9 @@ one or more system properties. Each system property name may in turn be mapped
 to its properties or a value.
 
 System property names (keys) can contain alphanumeric characters (A-Za-z0-9),
-underscores (_) and hyphens (-).
+underscores (_) and hyphens (-). The names must conform to the rules for
+:ref:`uniqueness <uniqueness_and_case_sensitivity>`.
+
 
 System property values are retrieved using the `get_sp() <#get-sp>`__ function.
 
@@ -1588,6 +1606,9 @@ from an `operation <#operation>`__ or `flow <#flow>`__.
 
 For a list of which contexts are available in the ``publish`` section of a
 `step <#step>`__, see `Contexts <#contexts>`__.
+
+Publish names must conform to the rules for
+:ref:`uniqueness <uniqueness_and_case_sensitivity>`.
 
 Standard publish
 ~~~~~~~~~~~~~~~~
@@ -1711,6 +1732,9 @@ The key ``results`` is a property of a `flow <#flow>`__,
 The results of a `flow <#flow>`__, `operation <#operation>`__ or
 `decision <#decision>`__ can be used by the calling `step <#step>`__ for
 `navigation <#navigate>`__ purposes.
+
+Result names must conform to the rules for
+:ref:`uniqueness <uniqueness_and_case_sensitivity>`.
 
 .. note::
 
