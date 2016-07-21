@@ -514,10 +514,12 @@ default
 The key ``default`` is a property of an `input <#inputs>`__ name. It is
 mapped to an `expression <#expressions>`__ value.
 
-The expression's value will be passed to the `flow <#flow>`__ or
-`operation <#operation>`__ if no other value for that
-`input <#inputs>`__ parameter is explicitly passed or if the input's
-`private <#private>`__ parameter is set to ``true``.
+The expression's value will be passed to the `flow <#flow>`__
+`operation <#operation>`__ or `decision <#decision>`__ if no other value for
+that `input <#inputs>`__ parameter is explicitly passed or if the input's
+`private <#private>`__ parameter is set to ``true``. Passing an empty string
+(``''``), ``null``, or an expression that evaluates to ``None`` is the same as
+not passing any value at all and will not override the default value.
 
 **Example - default values**
 
@@ -583,21 +585,25 @@ example.
 
 Arguments are passed to a `step <#step>`__ using a list of argument names and
 optional mapped `expressions <#expressions>`__. The step must pass values for
-all `inputs <#inputs>`__ found in the called `operation <#operation>`__ or
-`subflow <#flow>`__ that are required and don't have a default value. Argument
-names should be different than the `output <#outputs>`__ names found in the
-`operation <#operation>`__ or `subflow <#flow>`__ being called in the step.
+all `inputs <#inputs>`__ found in the called `operation <#operation>`__,
+`decision <#decision>`__ or `subflow <#flow>`__ that are required and don't have
+a default value. Passing an empty string  (``''``), ``null``, or an expression
+that evaluates to ``None`` is the same as not passing any value at all.
+
+Argument names should be different than the
+`output <#outputs>`__ names found in the `operation <#operation>`__,
+`decision <#decision>`__ or `subflow <#flow>`__ being called in the step.
 
 Argument names must conform to the rules for valid
 :ref:`variable names <variable_names>`.
 
-An argument name without an expression, or with a ``null`` value will take its
-value from a variable with the same name in the flow context.
-`Expression <#expressions>`__ values will supersede values bound to flow
-`inputs <#inputs>`__ with the same name. To force the `operation <#operation>`__
-or `subflow <#flow>`__ being called to use it's own default value, as opposed to
-a value passed in via expression or the flow context, omit the variable from the
-calling `step's <#step>`__ argument list.
+An argument name without an expression will take its value from a variable with
+the same name in the flow context. `Expression <#expressions>`__ values will
+supersede values bound to flow `inputs <#inputs>`__ with the same name. To force
+the `operation <#operation>`__, `decision <decision>`__ or `subflow <#flow>`__
+being called to use it's own default value, as opposed to a value passed in via
+expression or the flow context, omit the variable from the calling
+`step's <#step>`__ argument list.
 
 For a list of which contexts are available in the arguments section of a
 `step <#step>`__, see `Contexts <#contexts>`__.
@@ -768,8 +774,7 @@ evaluates to a list, or a comma delimited string.
             print:
               - text: ${value}
 
-**Example - loop that iterates through the values in a comma delimited
-string**
+**Example - loop that iterates through the values in a comma delimited string**
 
 .. code-block:: yaml
 
@@ -1524,10 +1529,10 @@ is mapped to a boolean value.
 
 A value of ``true`` will ensure that the `input <#inputs>`__
 parameter's `default <#default>`__ value will not be overridden by
-values passed into the `flow <#flow>`__ or `operation <#operation>`__. An
-`input <#inputs>`__ set as ``private: true`` must also declare a
-`default <#default>`__ value. If ``private`` is not defined, values passed
-in will override the `default <#default>`__ value.
+values passed into the `flow <#flow>`__, `operation <#operation>`__ or
+`decision <#decision>`__. An `input <#inputs>`__ set as ``private: true`` must
+also declare a `default <#default>`__ value. If ``private`` is not defined,
+values passed in will override the `default <#default>`__ value.
 
 **Example - default value of text input parameter will not be overridden by values passed in**
 
@@ -1809,8 +1814,11 @@ mapped to a boolean value.
 A value of ``false`` will allow the `flow <#flow>`__ or
 `operation <#operation>`__ to be called without passing the
 `input <#inputs>`__ parameter. If ``required`` is not defined, the
-`input <#inputs>`__ parameter defaults to being required. Required inputs must
-receive a value or declare a `default <#default>`__ value.
+`input <#inputs>`__ parameter defaults to being required.
+
+Required inputs must receive a value or declare a `default <#default>`__ value.
+Passing an empty string  (``''``), ``null``, or an expression that evaluates to
+``None`` to a required input is the same as not passing any value at all.
 
 **Example - input2 is optional**
 
