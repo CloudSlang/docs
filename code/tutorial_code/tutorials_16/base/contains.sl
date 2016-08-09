@@ -1,4 +1,4 @@
-namespace: tutorials_16.hiring
+namespace: tutorials_16.base
 
 decision:
   name: contains
