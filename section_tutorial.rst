@@ -17,7 +17,8 @@ Contents:
    9: Subflows <tutorial/09_lesson>
    10: For Loop <tutorial/10_lesson>
    11: Loop Aggregation <tutorial/11_lesson>
-   12: Existing Content <tutorial/12_lesson>
-   13: System Properties <tutorial/13_lesson>
-   14: 3rd Party Python Packages <tutorial/14_lesson>
-   15: Parallel Loop <tutorial/15_lesson>
+   12: Decisions <tutorial/12_lesson>
+   13: Existing Content <tutorial/13_lesson>
+   14: System Properties <tutorial/14_lesson>
+   15: 3rd Party Python Packages <tutorial/15_lesson>
+   16: Parallel Loop <tutorial/16_lesson>

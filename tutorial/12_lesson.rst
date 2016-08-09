@@ -1,144 +1,124 @@
-Lesson 12 - Existing Content
-============================
+Lesson 12 - Decisions
+======================
 
 Goal
 ----
 
-In this lesson we'll learn how to easily integrate ready-made content
-into our flow.
+In this lesson we'll write a decision. We'll learn the how to use a decision by
+creating one that will determine if a given requirement is met.
 
 Get Started
 -----------
 
-Instead of printing that our flow has completed, let's send an email to
-HR to let them know that the new hire's email address has been created
-and notify them as to the status of the new hire's equipment order. If
-you're using a pre-built CLI you'll have a folder named **content** that
-contains all of the ready-made content. If you've built the CLI from the
-source code, you'll have to get the content mentioned below from the
-GitHub `repository <https://github.com/cloudslang/cloud-slang-content>`__ and
-point to the right location when running the flow.
+First, we'll create a **contains.sl** file in the **base** folder. As we'll
+see, a decision is very similar to an operation. The only real difference is
+that it cannot contain an ``action``.
 
-Ready-Made Operation
---------------------
+The ``contains`` decision will determine if a given substring is contained
+within a given container string.
 
-We'll use the ``send_mail`` operation which is found in the
-**base/mail** folder. All ready-made content begins with a commented
-explanation of its purpose and its inputs, outputs and results.
+Decision
+--------
 
-Here's the documentation for the ``send_mail`` operation:
+From what we already know, a decision should be pretty self explanatory. So
+let's just dive in.
 
 .. code-block:: yaml
 
-    ####################################################
-    #!!
-    #! @description: Sends an email.
-    #!
-    #! @input hostname: email host
-    #! @input port: email port
-    #! @input from: email sender
-    #! @input to: email recipient
-    #! @input cc: cc recipient
-    #!            optional
-    #!            default: none
-    #! @input bcc: bcc recipient
-    #!             optional
-    #!             default: none
-    #! @input subject: email subject
-    #! @input body: email text
-    #! @input html_email: html formatted email
-    #!                    optional
-    #!                    default: true
-    #! @input read_receipt: request read receipt
-    #!                      optional
-    #!                      default: false
-    #! @input attachments: email attachments
-    #!                     optional
-    #!                     default: none
-    #! @input username: account username
-    #!                  optional
-    #!                  default: none
-    #! @input password: account password
-    #!                  optional
-    #!                  default: none
-    #! @input character_set: email character set
-    #!                       optional
-    #!                       default: UTF-8
-    #! @input content_transfer_encoding: email content transfer encoding
-    #!                                   optional
-    #!                                   default: base64
-    #! @input delimiter: delimiter to separate email recipients and attachments
-    #!                   optional
-    #!                   default: none
-    #! @result SUCCESS: mail was sent successfully (returnCode is equal to 0)
-    #! @result FAILURE: otherwise
-    #!!#
-    ####################################################
+    namespace: tutorials_12.hiring
 
-We could get this information by opening the operation from the ready-made
-content folder or by running ``inspect`` on the flow.
+    decision:
+      name: contains
 
-.. code-block:: bash
+      inputs:
+        - container:
+            default: ""
+            required: false
+        - sub
 
-    inspect <content folder path>/io/cloudslang/base/mail/send_mail.sl
+      results:
+        - DOES_NOT_CONTAIN: ${container.find(sub) == -1}
+        - CONTAINS
 
-When calling the operation, we'll need to pass values for all the
-arguments listed in the documentation that are not optional.
+Just about everything above should be familiar. The only new thing is the
+``decision`` keyword which replaces what would have been the ``operation``
+keyword in an operation. Other than that, the decision has a ``namespace``,
+``name``, ``inputs`` and ``results``. A decision can have ``outputs`` as well,
+but we don't use them here.
 
-Imports
--------
+In terms of function, the decision returns a result of ``DOES_NOT_CONTAIN`` when
+``sub`` is not found in ``container`` and a result of ``CONTAINS`` otherwise.
 
-First, we'll need to set up an import alias for the new operation since
-it doesn't reside where our other operations and subflows do.
+Call from Flow
+--------------
+
+Now let's call the decision from a flow. Unsurprisingly, a decision is called in
+the exact same way an operation or subflow would be called.
+
+In **new_hire.sl**  we'll add a step right after ``get_equipment`` and call it
+``check_min_reqs``. That step will call our decision and navigate accordingly.
 
 .. code-block:: yaml
 
-    imports:
-      base: tutorials.base
-      mail: io.cloudslang.base.mail
-
-For more information, see :ref:`imports` in the DSL reference.
-
-Step
-----
-
-Then, all we really need to do is create a step in our flow that will
-call the ``send_mail`` operation. Let's put it right after the
-``print_finish`` operation. We need to pass a host, port, from, to,
-subject and body. You'll need to substitute the values in angle brackets
-(``<>``) to work for your email host. Notice that the body value is
-taken directly from the ``print_finish`` step with two slight changes. First, we
-turned the ``\n`` into a ``<br>`` since the ``html_email`` input defaults to
-true. Second, we added the temporary password published by the
-``create_email_address`` step.
-
-.. code-block:: yaml
-
-    - send_mail:
+    - check_min_reqs:
         do:
-          mail.send_mail:
-            - hostname: "<host>"
-            - port: "<port>"
-            - from: "<from>"
-            - to: "<to>"
-            - subject: "${'New Hire: ' + first_name + ' ' + last_name}"
-            - body: >
-                ${'Created address: ' + address + ' for: ' + first_name + ' ' + last_name + '<br>' +
-                'Missing items: ' + all_missing + ' Cost of ordered items: ' + str(total_cost) + '<br>' +
-                'Temporary password: ' + password}
+          base.contains:
+            - container: ${all_missing}
+            - sub: 'laptop'
         navigate:
-          - FAILURE: FAILURE
-          - SUCCESS: SUCCESS
+          - DOES_NOT_CONTAIN: print_finish
+          - CONTAINS: print_warning
+
+We pass the ``all_missing`` string to the decision to check if it contains the
+word ``'laptop'``. We'll say the if the new hire didn't get a laptop we need to
+print a warning.
+
+Clean Up
+--------
+
+Finally, to get everything working properly we need to reroute the navigation of
+``get_equipment`` add a ``print_warning`` step.
+
+The ``get_equipment`` navigation should now always point to ``check_min_reqs``.
+
+.. code-block:: yaml
+
+    navigate:
+      - AVAILABLE: check_min_reqs
+      - UNAVAILABLE: check_min_reqs
+
+And we'll add a simple ``print_warning`` step.
+
+.. code-block:: yaml
+
+    - print_warning:
+        do:
+          base.print:
+            - text: >
+                ${first_name + ' ' + last_name +
+                ' did not receive all the required equipment'}
+
+Now let's review the possible scenarios.
+
+#. A laptop was ordered: ``get_equipment`` navigates to ``check_min_reqs``
+   which returns a result of ``DOES_NOT_CONTAIN``, therefore navigating to
+   ``print_finish`` and then ending the flow. The output is exactly as it was
+   before.
+#. A laptop was not ordered: ``get_equipment`` navigates to ``check_min_reqs``
+   which returns a result of ``CONTAINS``, therefore navigating to
+   ``print_warning`` and then ``print_finish`` by default navigation and finally
+   ending the flow. The output is as it was before, plus the warning is printed.
+
 
 Run It
 ------
 
-We can save the files, run the flow and check that an email was sent
-with the proper information.
+We can save the files and run the flow a few times to see that the warning is
+printed when appropriate and nothing is changed otherwise.
 
 .. code-block:: bash
 
-    run --f <folder path>/tutorials/hiring/new_hire.sl --cp <folder path>/tutorials/,<content folder path>/io/cloudslang/base --i first_name=john,last_name=doe
+    run --f <folder path>/tutorials/hiring/new_hire.sl --cp <folder path>/tutorials --i first_name=john,middle_name=e,last_name=doe
 
 Download the Code
 -----------------
@@ -148,8 +128,7 @@ Download the Code
 Up Next
 -------
 
-In the next lesson we'll see how to use system properties to send values
-to input variables.
+In the next lesson we'll see how to use existing content in your flows.
 
 New Code - Complete
 -------------------
@@ -162,7 +141,6 @@ New Code - Complete
 
     imports:
       base: tutorials.base
-      mail: io.cloudslang.base.mail
 
     flow:
       name: new_hire
@@ -174,12 +152,13 @@ New Code - Complete
         - last_name
         - all_missing:
             default: ""
+            required: false
             private: true
         - total_cost:
             default: 0
             private: true
-        - order_map: >
-            {'laptop': 1000, 'docking station':200, 'monitor': 500, 'phone': 100}
+        - order_map:
+            default: {'laptop': 1000, 'docking station': 200, 'monitor': 500, 'phone': 100}
 
       workflow:
         - print_start:
@@ -220,8 +199,24 @@ New Code - Complete
                 - all_missing: ${missing + not_ordered}
                 - total_cost: ${cost + spent}
             navigate:
-              - AVAILABLE: print_finish
-              - UNAVAILABLE: print_finish
+              - AVAILABLE: check_min_reqs
+              - UNAVAILABLE: check_min_reqs
+
+        - check_min_reqs:
+            do:
+              base.contains:
+                - container: ${all_missing}
+                - sub: 'laptop'
+            navigate:
+              - DOES_NOT_CONTAIN: print_finish
+              - CONTAINS: print_warning
+
+        - print_warning:
+            do:
+              base.print:
+                - text: >
+                    ${first_name + ' ' + last_name +
+                    ' did not receive all the required equipment'}
 
         - print_finish:
             do:
@@ -230,24 +225,27 @@ New Code - Complete
                     ${'Created address: ' + address + ' for: ' + first_name + ' ' + last_name + '\n' +
                     'Missing items: ' + all_missing + ' Cost of ordered items: ' + str(total_cost)}
 
-        - send_mail:
-            do:
-              mail.send_mail:
-                - hostname: "<host>"
-                - port: "<port>"
-                - from: "<from>"
-                - to: "<to>"
-                - subject: "${'New Hire: ' + first_name + ' ' + last_name}"
-                - body: >
-                    ${'Created address: ' + address + ' for: ' + first_name + ' ' + last_name + '<br>' +
-                    'Missing items: ' + all_missing + ' Cost of ordered items: ' + str(total_cost) + '<br>' +
-                    'Temporary password: ' + password}
-            navigate:
-              - FAILURE: FAILURE
-              - SUCCESS: SUCCESS
-
         - on_failure:
           - print_fail:
               do:
                 base.print:
                   - text: "${'Failed to create address for: ' + first_name + ' ' + last_name}"
+
+**contains.sl**
+
+.. code-block:: yaml
+
+    namespace: tutorials.hiring
+
+    decision:
+      name: contains
+
+      inputs:
+        - container:
+            default: ""
+            required: false
+        - sub
+
+      results:
+        - DOES_NOT_CONTAIN: ${container.find(sub) == -1}
+        - CONTAINS

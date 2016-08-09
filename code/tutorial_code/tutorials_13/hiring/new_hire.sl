@@ -2,6 +2,7 @@ namespace: tutorials_13.hiring
 
 imports:
   base: tutorials_13.base
+  hiring: tutorials_13.hiring
   mail: io.cloudslang.base.mail
 
 flow:
@@ -14,12 +15,13 @@ flow:
     - last_name
     - all_missing:
         default: ""
+        required: false
         private: true
     - total_cost:
         default: 0
         private: true
     - order_map:
-        default: {'laptop': 1000, 'docking station':200, 'monitor': 500, 'phone': 100}
+        default: {'laptop': 1000, 'docking station': 200, 'monitor': 500, 'phone': 100}
 
   workflow:
     - print_start:
@@ -31,7 +33,7 @@ flow:
         loop:
           for: attempt in range(1,5)
           do:
-            create_user_email:
+            hiring.create_user_email:
               - first_name
               - middle_name
               - last_name
@@ -60,8 +62,24 @@ flow:
             - all_missing: ${missing + not_ordered}
             - total_cost: ${cost + spent}
         navigate:
-          - AVAILABLE: print_finish
-          - UNAVAILABLE: print_finish
+          - AVAILABLE: check_min_reqs
+          - UNAVAILABLE: check_min_reqs
+
+    - check_min_reqs:
+        do:
+          base.contains:
+            - container: ${all_missing}
+            - sub: 'laptop'
+        navigate:
+          - DOES_NOT_CONTAIN: print_finish
+          - CONTAINS: print_warning
+
+    - print_warning:
+        do:
+          base.print:
+            - text: >
+                ${first_name + ' ' + last_name +
+                ' did not receive all the required equipment'}
 
     - print_finish:
         do:
@@ -71,20 +89,20 @@ flow:
                 'Missing items: ' + all_missing + ' Cost of ordered items: ' + str(total_cost)}
 
     - send_mail:
-        do:
-          mail.send_mail:
-            - hostname: ${get_sp('tutorials.properties.hostname')}
-            - port: ${get_sp('tutorials.properties.port')}
-            - from: ${get_sp('tutorials.properties.system_address')}
-            - to: ${get_sp('tutorials.properties.hr_address')}
-            - subject: "${'New Hire: ' + first_name + ' ' + last_name}"
-            - body: >
-                ${'Created address: ' + address + ' for: ' + first_name + ' ' + last_name + '<br>' +
-                'Missing items: ' + all_missing + ' Cost of ordered items:' + str(total_cost) + '<br>' +
-                'Temporary password: ' + password}
-        navigate:
-          - FAILURE: FAILURE
-          - SUCCESS: SUCCESS
+       do:
+         mail.send_mail:
+           - hostname: "<host>"
+           - port: "<port>"
+           - from: "<from>"
+           - to: "<to>"
+           - subject: "${'New Hire: ' + first_name + ' ' + last_name}"
+           - body: >
+               ${'Created address: ' + address + ' for: ' + first_name + ' ' + last_name + '<br>' +
+               'Missing items: ' + all_missing + ' Cost of ordered items: ' + str(total_cost) + '<br>' +
+               'Temporary password: ' + password}
+       navigate:
+         - FAILURE: FAILURE
+         - SUCCESS: SUCCESS
 
     - on_failure:
       - print_fail:

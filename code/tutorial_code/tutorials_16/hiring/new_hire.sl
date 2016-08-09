@@ -1,7 +1,7 @@
-namespace: tutorials_14.hiring
+namespace: tutorials_16.hiring
 
 imports:
-  base: tutorials_14.base
+  base: tutorials_16.base
   mail: io.cloudslang.base.mail
 
 flow:
@@ -61,8 +61,24 @@ flow:
             - all_missing: ${missing + not_ordered}
             - total_cost: ${cost + spent}
         navigate:
-          - AVAILABLE: print_finish
-          - UNAVAILABLE: print_finish
+          - AVAILABLE: check_min_reqs
+          - UNAVAILABLE: check_min_reqs
+
+    - check_min_reqs:
+        do:
+          base.contains:
+            - container: ${all_missing}
+            - sub: 'laptop'
+        navigate:
+          - DOES_NOT_CONTAIN: print_finish
+          - CONTAINS: print_warning
+
+    - print_warning:
+        do:
+          base.print:
+            - text: >
+                ${first_name + ' ' + last_name +
+                ' did not receive all the required equipment'}
 
     - print_finish:
         do:
@@ -70,6 +86,13 @@ flow:
             - text: >
                 ${'Created address: ' + address + ' for: ' + first_name + ' ' + last_name + '\n' +
                 'Missing items: ' + all_missing + ' Cost of ordered items: ' + str(total_cost)}
+
+    - fancy_name:
+        do:
+          fancy_text:
+            - text: ${first_name + ' ' + last_name}
+        publish:
+          - fancy_text: ${fancy}
 
     - send_mail:
         do:
@@ -80,8 +103,9 @@ flow:
             - to: ${get_sp('tutorials.properties.hr_address')}
             - subject: "${'New Hire: ' + first_name + ' ' + last_name}"
             - body: >
-                ${'Created address: ' + address + ' for: ' + first_name + ' ' + last_name + '<br>' +
-                'Missing items: ' + all_missing + ' Cost of ordered items:' + str(total_cost) + '<br>' +
+                ${fancy_text + '<br>' +
+                'Created address: ' + address + ' for: ' + first_name + ' ' + last_name + '<br>' +
+                'Missing items: ' + all_missing + ' Cost of ordered items: ' + str(total_cost) + '<br>' +
                 'Temporary password: ' + password}
         navigate:
           - FAILURE: FAILURE
@@ -92,3 +116,7 @@ flow:
           do:
             base.print:
               - text: "${'Failed to create address for: ' + first_name + ' ' + last_name}"
+
+  outputs:
+    - address
+    - final_cost: ${total_cost}
