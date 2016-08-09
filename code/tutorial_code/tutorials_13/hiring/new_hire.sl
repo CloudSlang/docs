@@ -2,7 +2,6 @@ namespace: tutorials_13.hiring
 
 imports:
   base: tutorials_13.base
-  hiring: tutorials_13.hiring
   mail: io.cloudslang.base.mail
 
 flow:
@@ -33,7 +32,7 @@ flow:
         loop:
           for: attempt in range(1,5)
           do:
-            hiring.create_user_email:
+            create_user_email:
               - first_name
               - middle_name
               - last_name

@@ -25,7 +25,7 @@ let's just dive in.
 
 .. code-block:: yaml
 
-    namespace: tutorials_12.hiring
+    namespace: tutorials.hiring
 
     decision:
       name: contains

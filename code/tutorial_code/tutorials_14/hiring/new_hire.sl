@@ -61,8 +61,24 @@ flow:
             - all_missing: ${missing + not_ordered}
             - total_cost: ${cost + spent}
         navigate:
-          - AVAILABLE: print_finish
-          - UNAVAILABLE: print_finish
+          - AVAILABLE: check_min_reqs
+          - UNAVAILABLE: check_min_reqs
+
+    - check_min_reqs:
+        do:
+          base.contains:
+            - container: ${all_missing}
+            - sub: 'laptop'
+        navigate:
+          - DOES_NOT_CONTAIN: print_finish
+          - CONTAINS: print_warning
+
+    - print_warning:
+        do:
+          base.print:
+            - text: >
+                ${first_name + ' ' + last_name +
+                ' did not receive all the required equipment'}
 
     - print_finish:
         do:
