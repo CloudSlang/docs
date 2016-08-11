@@ -10,5 +10,5 @@ decision:
     - sub
 
   results:
-    - DOES_NOT_CONTAIN: ${container.find(sub) == -1}
-    - CONTAINS
+    - CONTAINS: ${container.find(sub) >= 0}
+    - DOES_NOT_CONTAIN

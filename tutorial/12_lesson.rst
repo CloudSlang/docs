@@ -37,8 +37,8 @@ let's just dive in.
         - sub
 
       results:
-        - DOES_NOT_CONTAIN: ${container.find(sub) == -1}
-        - CONTAINS
+        - CONTAINS: ${container.find(sub) >= 0}
+        - DOES_NOT_CONTAIN
 
 Just about everything above should be familiar. The only new thing is the
 ``decision`` keyword which replaces what would have been the ``operation``
@@ -46,8 +46,8 @@ keyword in an operation. Other than that, the decision has a ``namespace``,
 ``name``, ``inputs`` and ``results``. A decision can have ``outputs`` as well,
 but we don't use them here.
 
-In terms of function, the decision returns a result of ``DOES_NOT_CONTAIN`` when
-``sub`` is not found in ``container`` and a result of ``CONTAINS`` otherwise.
+In terms of function, the decision returns a result of ``CONTAINS`` when ``sub``
+is found in ``container`` and a result of ``DOES_NOT_CONTAIN`` otherwise.
 
 Call from Flow
 --------------
