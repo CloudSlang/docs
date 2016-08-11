@@ -91,10 +91,12 @@ The last section of our operation defines the results we return to the
 calling flow. The results are used by the navigation of the calling
 flow. We'll start by using the default result values, ``SUCCESS`` and
 ``FAILURE``. If the email address was available, we'll return a result
-of ``SUCCESS``, otherwise we'll return a result of ``FAILURE``. When the
-operation is run, the first result whose expression is true or empty is
-returned. It is therefore important to take care in the ordering of the
-results.
+of ``SUCCESS``, otherwise we'll return a result of ``FAILURE``. There always
+must be a default ending result that does not have an expression or explicitly
+maps to the value ``true``. Here, we will use the ``SUCCESS`` result as our
+catchall. When the operation is run, the first result whose expression is true
+or empty is returned.  It is therefore important to take care in the ordering of
+the results.
 
 .. code-block:: yaml
 

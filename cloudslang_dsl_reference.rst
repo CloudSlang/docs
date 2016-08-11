@@ -1782,10 +1782,17 @@ is mapped to a list of key:value pairs of result names and boolean
 `expressions <#expressions>`__.
 
 Defines the possible results of the `operation <#operation>`__ or
-`decision <#decision>`__. By default, if no results exist, the result is
-``SUCCESS``. The first result in the list whose expression evaluates to true, or
-does not have an expression at all, will be passed back to the calling
-`step <#step>`__ to be used for `navigation <#navigate>`__ purposes.
+`decision <#decision>`__. By default, if no results exist, the result of an
+`operation <#operation>`__ is ``SUCCESS``. A `decision <#decision>`__ does not
+have any default results.
+
+The first result in the list whose expression evaluates to true, or does not
+have an expression at all, will be passed back to the calling `step <#step>`__
+to be used for `navigation <#navigate>`__ purposes.
+
+If results are present, the list must include exactly one default ending
+result which is not mapped to anything (``- result``) or is mapped to the
+value ``true`` (``- result: true``).
 
 All `operation <#operation>`__ or `decision <#decision>`__ results must be
 handled by the calling `step <#step>`__.
