@@ -102,6 +102,7 @@ using the ``default`` property.
       - last_name
       - all_missing:
           default: ""
+          required: false
           private: true
       - total_cost:
           default: 0
@@ -182,7 +183,7 @@ Download the Code
 Up Next
 -------
 
-In the next lesson we'll see how to use existing content in your flows.
+In the next lesson we'll see how to write a decision.
 
 New Code - Complete
 -------------------
@@ -206,6 +207,7 @@ New Code - Complete
         - last_name
         - all_missing:
             default: ""
+            required: false
             private: true
         - total_cost:
             default: 0
