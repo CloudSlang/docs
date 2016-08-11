@@ -1,4 +1,4 @@
-namespace: tutorials_14.hiring
+namespace: tutorials_16.hiring
 
 operation:
   name: fancy_text

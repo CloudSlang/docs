@@ -15,7 +15,7 @@ Let's create a new file in the **tutorials/hiring** folder named
 whether a given email address is available.
 
 We'll also start off our new operation in much the same way we did with
-the print operation. We'll put in a ``namespace``, the ``operation``
+the ``print`` operation. We'll put in a ``namespace``, the ``operation``
 key, the name of the operation and an input.
 
 .. code-block:: yaml

@@ -13,6 +13,7 @@ flow:
     - last_name
     - all_missing:
         default: ""
+        required: false
         private: true
     - total_cost:
         default: 0

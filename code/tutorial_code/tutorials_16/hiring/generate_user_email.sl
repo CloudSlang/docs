@@ -1,4 +1,4 @@
-namespace: tutorials_13.hiring
+namespace: tutorials_16.hiring
 
 operation:
   name: generate_user_email
@@ -9,7 +9,7 @@ operation:
         default: ""
     - last_name
     - domain:
-        default: "acompany.com"
+        default: ${get_sp('tutorials.properties.domain', 'acompany.com')}
         private: true
     - attempt
 
