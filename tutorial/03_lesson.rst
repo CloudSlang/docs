@@ -10,7 +10,7 @@ operation. We'll learn about the main components that make up a flow.
 Get Started
 -----------
 
-First, we need to create the **new_hire.sl** file in the **hiring** folder so we
+First, we need to create a **new_hire.sl** file in the **hiring** folder so we
 can start writing the new hire flow. We'll build it one step at a time. So for
 now, all it will do is call the print operation we wrote in the previous lesson.
 
@@ -119,7 +119,6 @@ following at the prompt.
    dependencies are found to the classpath. For more information, see
    :ref:`Run with Dependencies <run_with_dependencies>` in the DSL reference.
 
-
 You should see the name of the step and the string sent to the print
 operation printed to the screen.
 
@@ -131,8 +130,8 @@ Download the Code
 Up Next
 -------
 
-In the next lesson we'll write a more complex operation that also
-returns outputs and results.
+In the next lesson we'll write a more complex operation that also returns
+outputs and results.
 
 New Code - Complete
 -------------------

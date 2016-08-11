@@ -1,7 +1,7 @@
-namespace: tutorials_15.hiring
+namespace: tutorials_16.hiring
 
 imports:
-  base: tutorials_15.base
+  base: tutorials_16.base
 
 flow:
   name: hire_all

@@ -43,6 +43,15 @@ flow and the operation are in the same folder, the ``do`` section does
 not need to use an alias or path to reference the operation like we
 needed with the ``print`` operation in the ``print_start`` step.
 
+.. note::
+
+    The :doc:`best practice <../cloudslang_best_practice>` is to use an alias or
+    fully qualified name when calling an operation (the same applies for
+    subflows and decisions) even when it resides in the same folder as the
+    calling flow. For simplicity, we will not follow this practice in this
+    tutorial. 
+
+
 .. code-block:: yaml
 
     - check_address:

@@ -16,8 +16,8 @@ piece at a time with the goal of highlighting the features of
 CloudSlang. We recommend you follow along with the process, writing the
 flows and operations we will build on your own machine and running them
 using the :doc:`CloudSlang CLI <../cloudslang_cli>`. To do so, you'll
-need a text editor to create the CloudSlang files and the CloudSlang CLI
-to run them.
+need a :doc:`text editor <../cloudslang_editors>` to create the CloudSlang files
+and the CloudSlang CLI to run them.
 
 YAML
 ----
@@ -33,13 +33,14 @@ Copy/Pasting Code
 -----------------
 
 Because proper indentation is so important in YAML, take care to indent pasted
-code examples to their **proper indentation levels**. The general rules of
+code examples to their **proper indentation levels**. The general rules for
 indentation can be found in the structured outlines of CloudSlang files found in
 the :ref:`CloudSlang Files <cloudslang_files>` section of the DSL Reference.
 
 If you are unsure what the indentation level is for a particular code snippet,
 you can take a look at where it fits into the rest of the code in the
-**New Code - Complete** section at the bottom of each lesson.
+**New Code - Complete** section at the bottom of each lesson or by dowloading
+the lesson's code.
 
 Prerequisites
 -------------
@@ -60,26 +61,26 @@ More Information
 For more information on any of the topics covered in this tutorial, see
 the :doc:`CloudSlang documentation <../index>`.
 
-Flows and Operations
---------------------
+Flows, Operations and Decisions
+-------------------------------
 
-Let's begin our study of the CloudSlang language by discussing two types of
-CloudSlang executable contructs, flows and operations.
+Let's begin our study of the CloudSlang language by discussing the three types
+of CloudSlang executable contructs: flows, operations and decisions.
 
-Generally, CloudSlang treats flows and operations similarly. Flows and
-operations can both receive inputs, produce outputs, return results and can be
-called by a flow’s step.
+Generally, CloudSlang treats flows, operations and decisions similarly. Flows,
+operations and decisions can all receive inputs, produce outputs, return results
+and can be called by a flow’s step.
 
-But flows and operations serve different purposes. An operation contains an
-action, which can be written in Python or Java. Operations perform the “work”
-part of the workflow. A flow contains steps, which stitch together the actions
-performed by operations (or subflows), navigating and passing data from one
-to the other based on operation results and outputs. Flows perform the “flow”
-part of the workflow.
+But flows, operations and decisions serve different purposes.
 
-There is a third type of executable construct, decision, which we will not use
-in this tutorial. A decision is very similar to an operation, but without an
-action.
+An operation contains an action, which can be written in Python or Java.
+Operations perform the “work” part of the workflow.
+
+A flow contains steps, which stitch together the actions performed by operations
+(or subflows), navigating and passing data from one to the other based on
+operation results and outputs. Flows perform the “flow” part of the workflow.
+
+A decision is very similar to an operation, but without an action.
 
 Here is a diagram of the flow and operation structure we will be building in
 this tutorial.
@@ -90,8 +91,8 @@ this tutorial.
 Setup
 -----
 
-We'll write our first operation and flow in the next couple of lessons. But
-before we do that we'll setup our folder structure to get ready.
+We'll start writing CloudSlang code in the next lesson. But before we do that
+we'll setup our folder structure to get ready.
 
 Create a folder named **tutorials**. We'll store our flows and operations in
 this folder. Since we're going to have some general content as well as content

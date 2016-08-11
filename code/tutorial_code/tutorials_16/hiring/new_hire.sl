@@ -1,7 +1,7 @@
-namespace: tutorials_15.hiring
+namespace: tutorials_16.hiring
 
 imports:
-  base: tutorials_15.base
+  base: tutorials_16.base
   mail: io.cloudslang.base.mail
 
 flow:
@@ -116,3 +116,7 @@ flow:
           do:
             base.print:
               - text: "${'Failed to create address for: ' + first_name + ' ' + last_name}"
+
+  outputs:
+    - address
+    - final_cost: ${total_cost}
