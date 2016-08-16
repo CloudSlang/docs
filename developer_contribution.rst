@@ -15,8 +15,10 @@ dependencies depicted in the diagram below.
 
 -  **score** - CloudSlang Orchestration Engine (Score)
 
+   -  dependency-management
    -  engine
    -  package
+   -  runtime-management
    -  score-api
    -  score-samples
    -  score-tests
@@ -24,70 +26,92 @@ dependencies depicted in the diagram below.
 
 -  **cloud-slang** - CloudSlang and the CLI
 
-   -  score-lang-api
-   -  score-lang-cli
-   -  score-lang-compiler
-   -  score-lang-entities
-   -  score-lang-runtime
-   -  score-language-tests
+   -  build
+   -  cloudslang-all
+   -  cloudslang-cli
+   -  cloudslang-compiler
+   -  cloudslang-content-maven-compiler
+   -  cloudslang-content-verifier
+   -  cloudslang-entities
+   -  cloudslang-runtime
+   -  cloudslang-spi
+   -  cloudslang-tests
 
 -  **cloud-slang-content** - CloudSlang flows and operations
 
-   -  io/cloudslang
+   -  ci-env
+   -  configuration/properties/io/cloudslang
+   -  content/io/cloudslang
 
       -  base
 
          -  cmd
          -  comparisons
+         -  datetime
+         -  examples
          -  files
+         -  http
          -  json
          -  lists
          -  mail
+         -  maps
          -  math
          -  network
          -  os
-
-            -  linux
-
          -  print
-         -  remote\_command\_execution
-
-            -  remote\_file\_transfer
-            -  ssh
-
+         -  remote_file_transfer
+         -  scripts
+         -  ssh
          -  strings
          -  utils
+         -  xml
 
       -  chef
-      -  cloud\_provider
+      -  ci
+      -  cloud
 
-         -  amazon\_aws
-         -  digital\_ocean
-         -  hp\_cloud
+         -  amazon_aws
+         -  digital_ocean
+         -  google
+         -  heroku
+         -  hp_cloud
+         -  openshift
+         -  openstack
+         -  stackato
 
       -  consul
       -  coreos
       -  docker
       -  git
+      -  haven_on_demand
+      -  itsm
+
+         -  service_now
+
       -  jenkins
       -  marathon
-      -  openstack
-      -  paas
+      -  new_relic
+      -  operations_orchestration
+      -  virtualization
 
-         -  openstack
-         -  stackato
+         -  vmware
 
       -  (other integrations to be added as new folders)
 
--  **score-actions** - Java @Action classes used by CloudSlang
+-  **cs-actions** - Java @Action classes used by CloudSlang
 
-   -  score-data-format
-   -  score-http-client
-   -  score-jClouds
-   -  score-mail
-   -  score-rft
-   -  score-ssh
-   -  score-utilities
+   -  cs-date-time
+   -  cs-http-client
+   -  cs-jClouds
+   -  cs-json
+   -  cs-lists
+   -  cs-mail
+   -  cs-powershell
+   -  cs-rft
+   -  cs-ssh
+   -  cs-utilities
+   -  cs-vmware
+   -  cs-xml
 
 -  **score-content-sdk** - SDK for developing Java @Actions
 
@@ -103,6 +127,7 @@ dependencies depicted in the diagram below.
 -  **CloudSlang.github.io** - CloudSlang website
 -  **docs** - CloudSlang documentation
 -  **atom-cloudslang-package** - Atom package for CloudSlang support
+-  **cloudslang-cli** - npm cloudslang-cli
 
 Contribution Guide
 ==================

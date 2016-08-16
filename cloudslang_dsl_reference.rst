@@ -857,7 +857,7 @@ downloaded (if necessary).
 .. code-block:: yaml
 
   java_action:
-    gav: io.cloudslang.content:score-xml:0.0.2
+    gav: io.cloudslang.content:cs-xml:0.0.2
     class_name: io.cloudslang.content.mail.actions.SendMailAction
     method_name: execute
 
@@ -1006,7 +1006,7 @@ mapped to the properties that define where an annotated Java @Action resides.
         - body
 
       java_action:
-        gav: io.cloudslang.content:score-xml:0.0.2
+        gav: io.cloudslang.content:cs-xml:0.0.2
         class_name: io.cloudslang.content.mail.actions.SendMailAction
         method_name: execute
 
@@ -1020,7 +1020,7 @@ Existing Java Actions
 There are many existing Java actions which are bundled with the
 :doc:`CloudSlang CLI <cloudslang_cli>`. The source code for these Java actions
 can be found in the
-`score-actions <https://github.com/CloudSlang/score-actions>`__ repository.
+`cs-actions <https://github.com/CloudSlang/cs-actions>`__ repository.
 
 Adding a New Java Action
 ~~~~~~~~~~~~~~~~~~~~~~~~
