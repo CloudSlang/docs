@@ -82,8 +82,8 @@ operation results and outputs. Flows perform the “flow” part of the workflow
 
 A decision is very similar to an operation, but without an action.
 
-Here is a diagram of the flow and operation structure we will be building in
-this tutorial.
+Here is a diagram of the flow, operation and decision structure we will be
+building in this tutorial.
 
 .. figure:: ../images/flow_diagram.png
    :alt: Flow Diagram
