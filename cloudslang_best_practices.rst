@@ -11,7 +11,7 @@ CloudSlang Content Best Practices
 =================================
 
 -  The namespace for a file matches the suffix of the file path in which
-   the file resides, for example, the send\_mail operation is found in the
+   the file resides, for example, the send_mail operation is found in the
    **cloudslang-content/io/cloudslang/base** folder, so it uses the
    namespace ``io.cloudslang.base.mail``.
 -  Namespaces should be comprised of only lowercase alphanumeric
@@ -22,6 +22,9 @@ CloudSlang Content Best Practices
 -  Flows and operations reside together in the same folders.
 -  System properties files do not reside in the same folder together with flows
    and operations.
+-  Steps call subflows or operations using their fully qualified name or an alias
+   created in the ``imports`` section, even when the subflow or operation resides
+   in the same folder as the calling flow.
 -  Identifiers (flow names, operation names, input names, etc.) are
    written:
 
@@ -37,7 +40,7 @@ CloudSlang Content Best Practices
    name.
 -  String values are written in one of the YAML quoted styles (``'`` or ``"``)
    or block styles (``|`` or ``>``). For more information, see
-   `YAML Overview - Scalars <#scalars>`__. 
+   `YAML Overview - Scalars <#scalars>`__.
 -  Flow and operation files begin with a commented description and list
    of annotated inputs, outputs and results (see `CloudSlang Comments
    Style Guide <#cloudslang-comments-style-guide>`__).
