@@ -16,7 +16,7 @@ operation:
         quotient = float(dividend) / float(divisor)
 
   outputs:
-    - quotient
+    - quotient: ${str(quotient)}
 
   results:
     - ILLEGAL: ${quotient == 'division by zero error'}

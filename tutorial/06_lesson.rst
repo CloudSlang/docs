@@ -99,7 +99,7 @@ New Code - Complete
         - print_finish:
             do:
               base.print:
-                - text: "${'Availability for address ' + address + ' is: ' + str(availability)}"
+                - text: "${'Availability for address ' + address + ' is: ' + availability}"
 
         - on_failure:
           - print_fail:

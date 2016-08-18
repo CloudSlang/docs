@@ -287,7 +287,7 @@ that when we add a ``sensitive`` property to an output we have to add a
           password = ''
 
     outputs:
-      - available: ${vacant}
+      - available: ${str(vacant)}
       - password:
           value: ${password}
           sensitive: true
@@ -390,7 +390,7 @@ New Code - Complete
         - print_finish:
             do:
               base.print:
-                - text: "${'Availability for address ' + address + ' is: ' + str(availability)}"
+                - text: "${'Availability for address ' + address + ' is: ' + availability}"
 
         - on_failure:
           - print_fail:
@@ -463,7 +463,7 @@ New Code - Complete
             password = ''
 
       outputs:
-        - available: ${vacant}
+        - available: ${str(vacant)}
         - password:
             value: ${password}
             sensitive: true

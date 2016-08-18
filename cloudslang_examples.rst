@@ -295,7 +295,7 @@ looped on and various methods for handling loop breaks.
 
       inputs:
         - sum:
-            default: 0
+            default: '0'
             private: true
 
       workflow:
@@ -304,7 +304,7 @@ looped on and various methods for handling loop breaks.
               for: value in [1,2,3,4,5]
               do:
                 fail3:
-                  - text: ${value}
+                  - text: ${str(value)}
             navigate:
               - SUCCESS: fail3b
               - FAILURE: fail3b
@@ -313,7 +313,7 @@ looped on and various methods for handling loop breaks.
               for: value in [1,2,3,4,5]
               do:
                 fail3:
-                  - text: ${value}
+                  - text: ${str(value)}
               break: []
         - custom3:
             loop:
@@ -335,10 +335,11 @@ looped on and various methods for handling loop breaks.
               for: value in range(1,6)
               do:
                 print:
-                  - text: ${value}
+                  - text: ${str(value)}
                   - sum
               publish:
-                - sum: ${sum + out}
+                - sum: ${str(int(sum) + int(out))}
+              break: []
         - print:
             do:
               print:
@@ -404,20 +405,20 @@ aggregation.
       name: parallel_loop_aggregate
 
       inputs:
-      - values: [1,2,3,4]
+      - values: "1 2 3 4"
 
       workflow:
         - print_values:
             parallel_loop:
-              for: value in values
+              for: value in values.split()
               do:
                 print_branch:
-                  - ID: ${value}
+                  - ID: ${str(value)}
             publish:
-                - name_list: ${map(lambda x:str(x['name']), branches_context)}
-                - first_name: ${branches_context[0]['name']}
-                - last_name: ${branches_context[-1]['name']}
-                - total: ${sum(map(lambda x:x['num'], branches_context))}
+              - name_list: "${', '.join(map(lambda x : str(x['name']), branches_context))}"
+              - first_name: ${branches_context[0]['name']}
+              - last_name: ${branches_context[-1]['name']}
+              - total: "${str(sum(map(lambda x : int(x['num']), branches_context)))}"
 
       outputs:
         - name_list

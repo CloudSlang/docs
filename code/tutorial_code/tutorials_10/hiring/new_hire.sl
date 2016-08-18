@@ -26,7 +26,7 @@ flow:
               - first_name
               - middle_name
               - last_name
-              - attempt
+              - attempt: ${str(attempt)}
           publish:
             - address
             - password

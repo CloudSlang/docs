@@ -113,7 +113,7 @@ New Code - Complete
         - print_finish:
             do:
               base.print:
-                - text: "${'Availability for address ' + address + ' is: ' + str(availability)}"
+                - text: "${'Availability for address ' + address + ' is: ' + availability}"
 
         - on_failure:
           - print_fail:
@@ -141,7 +141,7 @@ New Code - Complete
           #print vacant
 
       outputs:
-        - available: ${vacant}
+        - available: ${str(vacant)}
 
       results:
         - UNAVAILABLE: ${rand == 0}

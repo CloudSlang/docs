@@ -34,7 +34,7 @@ numbers.
               - first_name
               - middle_name
               - last_name
-              - attempt
+              - attempt: ${str(attempt)}
           publish:
             - address
             - password
@@ -49,7 +49,9 @@ numbers.
    instead of using indentation and hyphens (``-``).
 
 For each item in our list the ``attempt`` loop variable is assigned the
-value and then passed to an iteration of the subflow call.
+value and then passed to an iteration of the subflow call. All inputs must be
+strings. Therefore we convert the ``attempt`` value to a string using the Python
+``str()`` function. 
 
 Since we're assigning a value to ``attempt`` in the loop and not using
 it as flow input we can delete it from the flow's input list.
@@ -235,7 +237,7 @@ New Code - Complete
                   - first_name
                   - middle_name
                   - last_name
-                  - attempt
+                  - attempt: ${str(attempt)}
               publish:
                 - address
                 - password

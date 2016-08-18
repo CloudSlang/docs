@@ -4,20 +4,20 @@ flow:
   name: parallel_loop_aggregate
 
   inputs:
-    - values: [1,2,3,4]
+    - values: "1 2 3 4"
 
   workflow:
     - print_values:
         parallel_loop:
-          for: value in values
+          for: value in values.split()
           do:
             print_branch:
-              - ID: ${value}
+              - ID: ${str(value)}
         publish:
-            - name_list: ${map(lambda x:str(x['name']), branches_context)}
+            - name_list: "${', '.join(map(lambda x : str(x['name']), branches_context))}"
             - first_name: ${branches_context[0]['name']}
             - last_name: ${branches_context[-1]['name']}
-            - total: ${sum(map(lambda x:x['num'], branches_context))}
+            - total: "${str(sum(map(lambda x : int(x['num']), branches_context)))}"
 
   outputs:
     - name_list

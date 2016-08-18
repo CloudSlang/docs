@@ -262,20 +262,6 @@ a file.
     input2: comma, text
     input3: '"quoted text"'
 
-**Example - complex inputs file**
-
-.. code-block:: yaml
-
-    input: hello
-    input_list:
-      - one
-      - two
-      - three
-    input_map:
-      one: a
-      two: b
-      three: c
-
 .. _run_with_dependencies:
 
 Run with Dependencies

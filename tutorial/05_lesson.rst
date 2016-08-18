@@ -49,7 +49,7 @@ needed with the ``print`` operation in the ``print_start`` step.
     fully qualified name when calling an operation (the same applies for
     subflows and decisions) even when it resides in the same folder as the
     calling flow. For simplicity, we will not follow this practice in this
-    tutorial. 
+    tutorial.
 
 
 .. code-block:: yaml
@@ -96,7 +96,7 @@ step along with some of the flow input variables in the expression.
     - print_finish:
         do:
           base.print:
-            - text: "${'Availability for address ' + address + ' is: ' + str(availability)}"
+            - text: "${'Availability for address ' + address + ' is: ' + availability}"
 
 Notice the extra set of quotes (``""``) around the expression. They are
 neccessary to escape the colon (``:``) which has special meaning in YAML.
@@ -167,4 +167,4 @@ New Code - Complete
         - print_finish:
             do:
               base.print:
-                - text: "${'Availability for address ' + address + ' is: ' + str(availability)}"
+                - text: "${'Availability for address ' + address + ' is: ' + availability}"

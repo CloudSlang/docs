@@ -59,22 +59,22 @@ during testing to see that our operation is working as expected.
 Outputs
 -------
 
-In the outputs section we put any information we want to send back to
-the calling flow. In our case, we want to return whether the requested
-address was already taken. The outputs are a list of key:value pairs
-where the key is the name of the output and the value is the expression
-to be returned. In our case, we'll just return the value in the
-``vacant`` variable.
+In the outputs section we put any information we want to send back to the
+calling flow. In our case, we want to return whether the requested address was
+already taken. The outputs are a list of key:value pairs where the key is the
+name of the output and the value is the expression to be returned. In our case,
+we'll just return the value in the ``vacant`` variable. Outputs must be strings
+so we'll use the Python ``str()`` function to convert the value.
 
 .. code-block:: yaml
 
     outputs:
-      - available: ${vacant}
+      - available: ${str(vacant)}
 
 Notice the special ``${}`` syntax. This indicates that what is inside the braces
-is a CloudSlang expression. If we would have just written ``vacant``, it would
-be understood as a string literal. We'll see this syntax in action again in a
-few moments.
+is a CloudSlang expression. If we would have just written ``str(vacant)``, it
+would be understood as a string literal. We'll see this syntax in action again
+in a few moments.
 
 For more information, see :ref:`expressions` in the DSL reference.
 
@@ -161,7 +161,7 @@ New Code - Complete
           #print rand
 
       outputs:
-        - available: ${vacant}
+        - available: ${str(vacant)}
 
       results:
         - FAILURE: ${rand == 0}

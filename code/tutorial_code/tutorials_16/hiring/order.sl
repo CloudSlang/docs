@@ -9,7 +9,7 @@ operation:
 
   python_action:
     script: |
-      print 'Ordering: ' + item
+      print 'Ordering: ' + item + '\n'
       import random
       rand = random.randint(0, 2)
       available = rand != 0
@@ -19,7 +19,7 @@ operation:
 
   outputs:
     - not_ordered
-    - spent
+    - spent: ${str(spent)}
 
   results:
     - UNAVAILABLE: ${rand == 0}
