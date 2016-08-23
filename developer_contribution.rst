@@ -13,6 +13,8 @@ dependencies depicted in the diagram below.
 .. figure:: images/repo_dependencies.png
    :alt: Repository Dependencies
 
+----
+
 -  **score** - CloudSlang Orchestration Engine (Score)
 
    -  dependency-management
@@ -29,6 +31,7 @@ dependencies depicted in the diagram below.
    -  build
    -  cloudslang-all
    -  cloudslang-cli
+   -  cloudslang-commons
    -  cloudslang-compiler
    -  cloudslang-content-maven-compiler
    -  cloudslang-content-verifier
@@ -36,6 +39,9 @@ dependencies depicted in the diagram below.
    -  cloudslang-runtime
    -  cloudslang-spi
    -  cloudslang-tests
+
+ .. figure:: images/cloud-slang_repo.png
+    :alt: cloud-slang Repository Structure
 
 -  **cloud-slang-content** - CloudSlang flows and operations
 
