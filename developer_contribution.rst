@@ -108,7 +108,7 @@ dependencies depicted in the diagram below.
 
    -  cs-date-time
    -  cs-http-client
-   -  cs-jClouds
+   -  cs-jclouds
    -  cs-json
    -  cs-lists
    -  cs-mail
