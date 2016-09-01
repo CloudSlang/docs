@@ -856,7 +856,7 @@ downloaded (if necessary).
 .. code-block:: yaml
 
   java_action:
-    gav: io.cloudslang.content:score-xml:0.0.2
+    gav: io.cloudslang.content:cs-xml:0.0.2
     class_name: io.cloudslang.content.mail.actions.SendMailAction
     method_name: execute
 
@@ -1007,7 +1007,7 @@ mapped to the properties that define where an annotated Java @Action resides.
         - body
 
       java_action:
-        gav: io.cloudslang.content:score-xml:0.0.2
+        gav: io.cloudslang.content:cs-xml:0.0.2
         class_name: io.cloudslang.content.mail.actions.SendMailAction
         method_name: execute
 
@@ -1021,7 +1021,7 @@ Existing Java Actions
 There are many existing Java actions which are bundled with the
 :doc:`CloudSlang CLI <cloudslang_cli>`. The source code for these Java actions
 can be found in the
-`score-actions <https://github.com/CloudSlang/score-actions>`__ repository.
+`cs-actions <https://github.com/CloudSlang/cs-actions>`__ repository.
 
 Adding a New Java Action
 ~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1759,8 +1759,8 @@ The results of a `flow <#flow>`__, `operation <#operation>`__ or
 `decision <#decision>`__ can be used by the calling `step <#step>`__ for
 `navigation <#navigate>`__ purposes.
 
-Result names must conform to the rules for
-:ref:`uniqueness <uniqueness_and_case_sensitivity>`.
+A result cannot be named ``on_failure``. Result names must conform to the rules
+for :ref:`uniqueness <uniqueness_and_case_sensitivity>`.
 
 .. note::
 
@@ -2068,11 +2068,12 @@ of the :doc:`CLI <cloudslang_cli>` and :doc:`Build Tool <cloudslang_build_tool>`
 step
 ----
 
-A name of a step which is a property of `workflow <#workflow>`__ or
-`on_failure <#on-failure>`__.
+A name of a step which is a property of `workflow <#workflow>`__.
 
-Every step which is not an `on_failure <#on-failure>`__ step must be reachable
-from another step.
+A step cannot be named ``on_failure``.
+
+Every step which is not declared with the `on_failure <#on-failure>`__ keyword
+must be reachable from another step.
 
 There are several types of steps:
 

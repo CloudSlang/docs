@@ -71,7 +71,7 @@ to print. We'll name our input ``text``.
 .. note::
 
    **YAML Note:** The ``inputs`` key maps to a list of inputs. In YAML, a
-   list is signified by prepending a hypen and a space (``- ``) to each
+   list is signified by prepending a hypen (``-``) and a space to each
    item.
 
 The values for the inputs are either passed via the :doc:`CloudSlang
