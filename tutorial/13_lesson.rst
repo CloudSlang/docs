@@ -187,6 +187,8 @@ New Code - Complete
             do:
               base.print:
                 - text: "Starting new hire process"
+            navigate:
+              - SUCCESS: create_email_address
 
         - create_email_address:
             loop:
@@ -240,6 +242,8 @@ New Code - Complete
                 - text: >
                     ${first_name + ' ' + last_name +
                     ' did not receive all the required equipment'}
+            navigate:
+              - SUCCESS: print_finish
 
         - print_finish:
             do:
@@ -247,22 +251,24 @@ New Code - Complete
                 - text: >
                     ${'Created address: ' + address + ' for: ' + first_name + ' ' + last_name + '\n' +
                     'Missing items: ' + all_missing + ' Cost of ordered items: ' + total_cost}
+            navigate:
+              - SUCCESS: send_mail
 
         - send_mail:
-            do:
-              mail.send_mail:
-                - hostname: "<host>"
-                - port: "<port>"
-                - from: "<from>"
-                - to: "<to>"
-                - subject: "${'New Hire: ' + first_name + ' ' + last_name}"
-                - body: >
-                    ${'Created address: ' + address + ' for: ' + first_name + ' ' + last_name + '<br>' +
-                    'Missing items: ' + all_missing + ' Cost of ordered items: ' + total_cost + '<br>' +
-                    'Temporary password: ' + password}
-            navigate:
-              - FAILURE: FAILURE
-              - SUCCESS: SUCCESS
+           do:
+             mail.send_mail:
+               - hostname: "<host>"
+               - port: "<port>"
+               - from: "<from>"
+               - to: "<to>"
+               - subject: "${'New Hire: ' + first_name + ' ' + last_name}"
+               - body: >
+                   ${'Created address: ' + address + ' for: ' + first_name + ' ' + last_name + '<br>' +
+                   'Missing items: ' + all_missing + ' Cost of ordered items: ' + total_cost + '<br>' +
+                   'Temporary password: ' + password}
+           navigate:
+             - FAILURE: FAILURE
+             - SUCCESS: SUCCESS
 
         - on_failure:
           - print_fail:

@@ -94,11 +94,14 @@ which we'll add to a list under the operation call and pass it a value.
     do:
       base.print:
         - text: "Starting new hire process"
+    navigate:
+      - SUCCESS: SUCCESS
 
 In addition to the required ``do``, a step can also contain the optional
-``publish`` and ``navigate`` keys. We begin to use their functionality
-in lessons :doc:`5 - Default Navigation <05_lesson>` and :doc:`7 - Custom
-Navigation <07_lesson>` respectively.
+``publish`` and ``navigate`` keys. Here we added a ``navigate`` section.
+We'll explain more about ``publish`` and ``navigate`` a little later in lessons
+:doc:`5 - Default Navigation <05_lesson>` and :doc:`7 - Custom Navigation
+<07_lesson>` respectively.
 
 For more information, see :ref:`do`, :ref:`publish` and :ref:`navigate` in the
 DSL reference.
@@ -153,3 +156,8 @@ New Code - Complete
             do:
               base.print:
                 - text: "Starting new hire process"
+            navigate:
+              - SUCCESS: SUCCESS
+
+      results:
+        - SUCCESS

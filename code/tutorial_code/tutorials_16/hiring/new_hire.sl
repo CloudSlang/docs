@@ -27,7 +27,8 @@ flow:
         do:
           base.print:
             - text: "Starting new hire process"
-
+        navigate:
+          - SUCCESS: create_email_address
     - create_email_address:
         loop:
           for: attempt in range(1,5)
@@ -47,7 +48,6 @@ flow:
           - CREATED: get_equipment
           - UNAVAILABLE: print_fail
           - FAILURE: print_fail
-
     - get_equipment:
         loop:
           for: item, price in eval(order_map)
@@ -64,7 +64,6 @@ flow:
         navigate:
           - AVAILABLE: check_min_reqs
           - UNAVAILABLE: check_min_reqs
-
     - check_min_reqs:
         do:
           base.contains:
@@ -73,28 +72,30 @@ flow:
         navigate:
           - DOES_NOT_CONTAIN: print_finish
           - CONTAINS: print_warning
-
     - print_warning:
         do:
           base.print:
             - text: >
                 ${first_name + ' ' + last_name +
                 ' did not receive all the required equipment\n'}
-
+        navigate:
+          - SUCCESS: print_finish
     - print_finish:
         do:
           base.print:
             - text: >
                 ${'Created address: ' + address + ' for: ' + first_name + ' ' + last_name + '\n' +
                 'Missing items: ' + all_missing + ' Cost of ordered items: ' + total_cost}
-
+        navigate:
+          - SUCCESS: fancy_name
     - fancy_name:
         do:
           fancy_text:
             - text: ${first_name + ' ' + last_name}
         publish:
           - fancy_text: ${fancy}
-
+        navigate:
+          - SUCCESS: send_mail
     - send_mail:
         do:
           mail.send_mail:
@@ -111,7 +112,6 @@ flow:
         navigate:
           - FAILURE: FAILURE
           - SUCCESS: SUCCESS
-
     - on_failure:
       - print_fail:
           do:

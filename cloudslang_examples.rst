@@ -197,7 +197,12 @@ the success of its first step.
 
       python_action:
           script: |
-            print 'Doing something important'
+            x = 'Doing something important'
+            print x
+
+      results:
+        - FAILURE: ${x = 'important thing not done'}
+        - SUCCESS
 
 **Operation - send_email_mock.sl**
 
@@ -330,6 +335,8 @@ looped on and various methods for handling loop breaks.
             do:
               print:
                 - text: "This will not run."
+            navigate:
+              - SUCCESS: aggregate
         - aggregate:
             loop:
               for: value in range(1,6)
@@ -340,10 +347,14 @@ looped on and various methods for handling loop breaks.
               publish:
                 - sum: ${str(int(sum) + int(out))}
               break: []
+            navigate:
+              - SUCCESS: print
         - print:
             do:
               print:
                 - text: ${sum}
+            navigate:
+              - SUCCESS: SUCCESS
 
 **Operation - custom3.sl**
 
@@ -493,18 +504,29 @@ This example uses the following folder structure:
             do:
               op1:
                 - text: "default path"
+            navigate:
+              - SUCCESS: fully_qualified_path
         - fully_qualified_path:
             do:
               examples.paths.folder_a.op2:
                 - text: "fully qualified path"
+            navigate:
+              - SUCCESS: using_alias
         - using_alias:
             do:
               alias.op3:
                 - text: "using alias"
+            navigate:
+              - SUCCESS: alias_continuation
         - alias_continuation:
             do:
               alias.folder_c.op4:
                 - text: "alias continuation"
+            navigate:
+              - SUCCESS: SUCCESS
+
+      results:
+        - SUCCESS
 
 **Operation - op1.sl**
 

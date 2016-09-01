@@ -1295,12 +1295,30 @@ step <#parallel-step>`__. The flow will continue with the
 is mapped to the `result <#results>`__ returned by the called
 `operation <#operation>`__ or `subflow <#flow>`__.
 
-By default, if no ``navigate`` section navigation is present, the flow continues
-with the next `step <#step>`__ or navigates to the ``SUCCESS`` result of the
-flow if the `step <#step>`__ is the final non-on_failure step. The
-`on_failure <#on-failure>`__ `step <#step>`__ always navigates to the ``FAILURE``
-result of the flow. For more information, see the
-:ref:`Default Navigation <example_default_navigation>` example.
+The default navigation rules, when no explicit ``navigate`` section is declared,
+are as follows:
+
++-------------+------------------------------------------------+--------------------------------------+-----------------------------------+
+| Result      | Step location                                  | `on_failure <#on-failure>`__ present | Navigation                        |
++=============+================================================+======================================+===================================+
+| ``SUCCESS`` | Not last non-`on_failure <#on-failure>`__ step | --                                   | Next step                         |
++-------------+------------------------------------------------+--------------------------------------+-----------------------------------+
+| ``SUCCESS`` | Last non-`on_failure <#on-failure>`__ step     | --                                   | ``SUCCESS`` result of the flow    |
++-------------+------------------------------------------------+--------------------------------------+-----------------------------------+
+| ``FAILURE`` | --                                             | Yes                                  | `on_failure <#on-failure>`__ step |
++-------------+------------------------------------------------+--------------------------------------+-----------------------------------+
+| ``FAILURE`` | --                                             | No                                   | ``FAILURE`` result of the flow    |
++-------------+------------------------------------------------+--------------------------------------+-----------------------------------+
+
+The default navigation only applies when a step calls an operation or subflow
+that returns a result of either ``SUCCESS`` or ``FAILURE``. If the operation or
+subflow can return a custom result or always returns only ``SUCCESS`` or only
+``FAILURE`` then default navigation will not apply.
+
+.. note::
+
+  Operations which don't explicitly return any results always return the result
+  ``SUCCESS``.
 
 All possible `results <#results>`__ returned by the
 called `operation <#operation>`__ or `subflow <#flow>`__ must be handled.

@@ -26,6 +26,8 @@ flow:
         do:
           base.print:
             - text: "Starting new hire process"
+        navigate:
+          - SUCCESS: create_email_address
 
     - create_email_address:
         loop:
@@ -79,6 +81,8 @@ flow:
             - text: >
                 ${first_name + ' ' + last_name +
                 ' did not receive all the required equipment'}
+        navigate:
+          - SUCCESS: print_finish
 
     - print_finish:
         do:
@@ -86,7 +90,9 @@ flow:
             - text: >
                 ${'Created address: ' + address + ' for: ' + first_name + ' ' + last_name + '\n' +
                 'Missing items: ' + all_missing + ' Cost of ordered items: ' + total_cost}
-
+        navigate:
+          - SUCCESS: SUCCESS
+          
     - on_failure:
       - print_fail:
           do:

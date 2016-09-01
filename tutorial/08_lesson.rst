@@ -108,6 +108,17 @@ the flow's inputs section.
       - domain
       - attempt
 
+We also have to fix the navigation of the ``print_start`` step.
+
+.. code-block:: yaml
+
+    - print_start:
+        do:
+          base.print:
+            - text: "Starting new hire process"
+        navigate:
+          - SUCCESS: generate_address
+
 One last thing to tidy up is the failure message, which no longer receives an
 address that was not created.
 
@@ -365,6 +376,8 @@ New Code - Complete
             do:
               base.print:
                 - text: "Starting new hire process"
+            navigate:
+              - SUCCESS: generate_address
 
         - generate_address:
             do:
@@ -391,6 +404,8 @@ New Code - Complete
             do:
               base.print:
                 - text: "${'Availability for address ' + address + ' is: ' + availability}"
+            navigate:
+              - SUCCESS: SUCCESS
 
         - on_failure:
           - print_fail:

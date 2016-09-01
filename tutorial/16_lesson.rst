@@ -221,6 +221,8 @@ section. We can put them right after the ``process_all`` step.
             - text: >
                 ${"All addresses were created successfully.\nEmail addresses created: "
                 + email_list + "\nTotal cost: " + cost}
+        navigate:
+          - SUCCESS: SUCCESS
 
     - on_failure:
         - print_failure:
@@ -285,7 +287,8 @@ New Code - Complete
             do:
               base.print:
                 - text: "Starting new hire process"
-
+            navigate:
+              - SUCCESS: create_email_address
         - create_email_address:
             loop:
               for: attempt in range(1,5)
@@ -305,7 +308,6 @@ New Code - Complete
               - CREATED: get_equipment
               - UNAVAILABLE: print_fail
               - FAILURE: print_fail
-
         - get_equipment:
             loop:
               for: item, price in eval(order_map)
@@ -322,7 +324,6 @@ New Code - Complete
             navigate:
               - AVAILABLE: check_min_reqs
               - UNAVAILABLE: check_min_reqs
-
         - check_min_reqs:
             do:
               base.contains:
@@ -331,28 +332,30 @@ New Code - Complete
             navigate:
               - DOES_NOT_CONTAIN: print_finish
               - CONTAINS: print_warning
-
         - print_warning:
             do:
               base.print:
                 - text: >
                     ${first_name + ' ' + last_name +
-                    ' did not receive all the required equipment'}
-
+                    ' did not receive all the required equipment\n'}
+            navigate:
+              - SUCCESS: print_finish
         - print_finish:
             do:
               base.print:
                 - text: >
                     ${'Created address: ' + address + ' for: ' + first_name + ' ' + last_name + '\n' +
                     'Missing items: ' + all_missing + ' Cost of ordered items: ' + total_cost}
-
+            navigate:
+              - SUCCESS: fancy_name
         - fancy_name:
             do:
               fancy_text:
                 - text: ${first_name + ' ' + last_name}
             publish:
               - fancy_text: ${fancy}
-
+            navigate:
+              - SUCCESS: send_mail
         - send_mail:
             do:
               mail.send_mail:
@@ -369,7 +372,6 @@ New Code - Complete
             navigate:
               - FAILURE: FAILURE
               - SUCCESS: SUCCESS
-
         - on_failure:
           - print_fail:
               do:
@@ -406,7 +408,7 @@ New Code - Complete
                   - last_name: ${name["last"]}
             publish:
               - email_list: "${', '.join(filter(lambda x : x != '', map(lambda x : str(x['address']), branches_context)))}"
-              - cost: "${str(sum(map(lambda x : x['final_cost'], branches_context)))}"
+              - cost: "${str(sum(map(lambda x : int(x['final_cost']), branches_context)))}"
             navigate:
               - SUCCESS: print_success
               - FAILURE: print_failure
@@ -417,6 +419,8 @@ New Code - Complete
                 - text: >
                     ${"All addresses were created successfully.\nEmail addresses created: "
                     + email_list + "\nTotal cost: " + cost}
+            navigate:
+              - SUCCESS: SUCCESS
 
         - on_failure:
             - print_failure:

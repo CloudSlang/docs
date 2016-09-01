@@ -65,7 +65,7 @@ Now let's go back to our flow and create a step, between
 a loop. This time we'll loop through a map of items and their prices, named,
 ``order_map`` that we'll define at the flow level in a few moments. We use the
 Python ``eval()`` function to turn a string into a Python dictionary that we can
- loop over.
+loop over.
 
 .. code-block:: yaml
 
@@ -169,6 +169,8 @@ reflects the status of the equipment order.
             - text: >
                 ${'Created address: ' + address + ' for: ' + first_name + ' ' + last_name + '\n' +
                 'Missing items: ' + all_missing + ' Cost of ordered items: ' + total_cost}
+        navigate:
+          - SUCCESS: SUCCESS
 
 Run It
 ------
@@ -225,6 +227,8 @@ New Code - Complete
             do:
               base.print:
                 - text: "Starting new hire process"
+            navigate:
+              - SUCCESS: create_email_address
 
         - create_email_address:
             loop:
@@ -260,8 +264,26 @@ New Code - Complete
                 - total_cost: ${str(int(cost) + int(spent))}
               break: []
             navigate:
-              - AVAILABLE: print_finish
-              - UNAVAILABLE: print_finish
+              - AVAILABLE: check_min_reqs
+              - UNAVAILABLE: check_min_reqs
+
+        - check_min_reqs:
+            do:
+              base.contains:
+                - container: ${all_missing}
+                - sub: 'laptop'
+            navigate:
+              - DOES_NOT_CONTAIN: print_finish
+              - CONTAINS: print_warning
+
+        - print_warning:
+            do:
+              base.print:
+                - text: >
+                    ${first_name + ' ' + last_name +
+                    ' did not receive all the required equipment'}
+            navigate:
+              - SUCCESS: print_finish
 
         - print_finish:
             do:
@@ -269,6 +291,8 @@ New Code - Complete
                 - text: >
                     ${'Created address: ' + address + ' for: ' + first_name + ' ' + last_name + '\n' +
                     'Missing items: ' + all_missing + ' Cost of ordered items: ' + total_cost}
+            navigate:
+              - SUCCESS: SUCCESS
 
         - on_failure:
           - print_fail:

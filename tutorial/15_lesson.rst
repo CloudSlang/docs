@@ -137,6 +137,8 @@ our email. We'll put the new step between ``print_finish`` and
             - text: ${first_name + ' ' + last_name}
         publish:
           - fancy_text: ${fancy}
+        navigate:
+          - SUCCESS: send_mail
 
 Use It
 ------
@@ -219,6 +221,8 @@ New Code - Complete
             do:
               base.print:
                 - text: "Starting new hire process"
+            navigate:
+              - SUCCESS: create_email_address
 
         - create_email_address:
             loop:
@@ -272,6 +276,8 @@ New Code - Complete
                 - text: >
                     ${first_name + ' ' + last_name +
                     ' did not receive all the required equipment'}
+            navigate:
+              - SUCCESS: print_finish
 
         - print_finish:
             do:
@@ -279,6 +285,8 @@ New Code - Complete
                 - text: >
                     ${'Created address: ' + address + ' for: ' + first_name + ' ' + last_name + '\n' +
                     'Missing items: ' + all_missing + ' Cost of ordered items: ' + total_cost}
+            navigate:
+              - SUCCESS: fancy_name
 
         - fancy_name:
             do:
@@ -286,6 +294,8 @@ New Code - Complete
                 - text: ${first_name + ' ' + last_name}
             publish:
               - fancy_text: ${fancy}
+            navigate:
+              - SUCCESS: send_mail
 
         - send_mail:
             do:
@@ -298,7 +308,7 @@ New Code - Complete
                 - body: >
                     ${fancy_text + '<br>' +
                     'Created address: ' + address + ' for: ' + first_name + ' ' + last_name + '<br>' +
-                    'Missing items: ' + all_missing + ' Cost of ordered items:' + total_cost + '<br>' +
+                    'Missing items: ' + all_missing + ' Cost of ordered items: ' + total_cost + '<br>' +
                     'Temporary password: ' + password}
             navigate:
               - FAILURE: FAILURE

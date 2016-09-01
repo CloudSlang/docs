@@ -51,7 +51,7 @@ numbers.
 For each item in our list the ``attempt`` loop variable is assigned the
 value and then passed to an iteration of the subflow call. All inputs must be
 strings. Therefore we convert the ``attempt`` value to a string using the Python
-``str()`` function. 
+``str()`` function.
 
 Since we're assigning a value to ``attempt`` in the loop and not using
 it as flow input we can delete it from the flow's input list.
@@ -228,6 +228,8 @@ New Code - Complete
             do:
               base.print:
                 - text: "Starting new hire process"
+            navigate:
+              - SUCCESS: create_email_address
 
         - create_email_address:
             loop:
@@ -253,6 +255,8 @@ New Code - Complete
             do:
               base.print:
                 - text: "${'Created address: ' + address + ' for: ' + first_name + ' ' + last_name}"
+            navigate:
+              - SUCCESS: SUCCESS
 
         - on_failure:
           - print_fail:

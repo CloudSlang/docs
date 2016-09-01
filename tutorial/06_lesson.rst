@@ -88,10 +88,12 @@ New Code - Complete
             do:
               base.print:
                 - text: "Starting new hire process"
-
+            navigate:
+              - SUCCESS: check_address
+    
         - check_address:
             do:
-              check_availability:
+              hiring.check_availability:
                 - address
             publish:
               - availability: ${available}
@@ -100,6 +102,8 @@ New Code - Complete
             do:
               base.print:
                 - text: "${'Availability for address ' + address + ' is: ' + availability}"
+            navigate:
+              - SUCCESS: SUCCESS
 
         - on_failure:
           - print_fail:

@@ -31,7 +31,9 @@ flow:
             - text: >
                 ${"All addresses were created successfully.\nEmail addresses created: "
                 + email_list + "\nTotal cost: " + cost}
-
+        navigate:
+          - SUCCESS: SUCCESS
+          
     - on_failure:
         - print_failure:
             do:

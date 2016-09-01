@@ -40,6 +40,8 @@ flow:
         do:
           print:
             - text: "This will not run."
+        navigate:
+          - SUCCESS: aggregate
     - aggregate:
         loop:
           for: value in range(1,6)
@@ -50,7 +52,11 @@ flow:
           publish:
             - sum: ${str(int(sum) + int(out))}
           break: []
+        navigate:
+          - SUCCESS: print
     - print:
         do:
           print:
             - text: ${sum}
+        navigate:
+          - SUCCESS: SUCCESS
