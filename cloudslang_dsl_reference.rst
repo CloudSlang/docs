@@ -1294,7 +1294,7 @@ step <#parallel-step>`__. The flow will continue with the
 is mapped to the `result <#results>`__ returned by the called
 `operation <#operation>`__ or `subflow <#flow>`__.
 
-By default, if no ``navigate`` section navigation is present, the flow continues
+By default, if no ``navigate`` section is present, the flow continues
 with the next `step <#step>`__ or navigates to the ``SUCCESS`` result of the
 flow if the `step <#step>`__ is the final non-on_failure step. The
 `on_failure <#on-failure>`__ `step <#step>`__ always navigates to the ``FAILURE``
@@ -1738,8 +1738,8 @@ The results of a `flow <#flow>`__, `operation <#operation>`__ or
 `decision <#decision>`__ can be used by the calling `step <#step>`__ for
 `navigation <#navigate>`__ purposes.
 
-Result names must conform to the rules for
-:ref:`uniqueness <uniqueness_and_case_sensitivity>`.
+A result cannot be named ``on_failure``. Result names must conform to the rules
+for :ref:`uniqueness <uniqueness_and_case_sensitivity>`.
 
 .. note::
 
@@ -2047,11 +2047,12 @@ of the :doc:`CLI <cloudslang_cli>` and :doc:`Build Tool <cloudslang_build_tool>`
 step
 ----
 
-A name of a step which is a property of `workflow <#workflow>`__ or
-`on_failure <#on-failure>`__.
+A name of a step which is a property of `workflow <#workflow>`__.
 
-Every step which is not an `on_failure <#on-failure>`__ step must be reachable
-from another step.
+A step cannot be named ``on_failure``.
+
+Every step which is not declared with the `on_failure <#on-failure>`__ keyword
+must be reachable from another step.
 
 There are several types of steps:
 
