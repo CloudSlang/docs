@@ -33,7 +33,7 @@ Here's what the contents of our system properties file looks like:
     properties:
       - domain: bcompany.com
       - hostname: <host>
-      - port: 25
+      - port: '25'
       - system_address: <test@test.com>
       - hr_address: <test@test.com>
 
@@ -76,6 +76,7 @@ argument.
     inputs:
       - first_name
       - middle_name:
+          required: false
           default: ""
       - last_name
       - domain:
@@ -101,7 +102,7 @@ values from the system properties file.
             - subject: "${'New Hire: ' + first_name + ' ' + last_name}"
             - body: >
                 ${'Created address: ' + address + ' for: ' + first_name + ' ' + last_name + '<br>' +
-                'Missing items: ' + missing + ' Cost of ordered items: ' + str(total_cost) + '<br>' +
+                'Missing items: ' + missing + ' Cost of ordered items: ' + total_cost + '<br>' +
                 'Temporary password: ' + password}
         navigate:
           - FAILURE: FAILURE
@@ -162,16 +163,18 @@ New Code - Complete
             required: false
             private: true
         - total_cost:
-            default: 0
+            default: '0'
             private: true
         - order_map:
-            default: {'laptop': 1000, 'docking station':200, 'monitor': 500, 'phone': 100}
+            default: '{"laptop": 1000, "docking station": 200, "monitor": 500, "phone": 100}'
 
       workflow:
         - print_start:
             do:
               base.print:
                 - text: "Starting new hire process"
+            navigate:
+              - SUCCESS: create_email_address
 
         - create_email_address:
             loop:
@@ -179,10 +182,9 @@ New Code - Complete
               do:
                 create_user_email:
                   - first_name
-                  - middle_name:
-                      required: false
+                  - middle_name
                   - last_name
-                  - attempt
+                  - attempt: ${str(attempt)}
               publish:
                 - address
                 - password
@@ -196,16 +198,17 @@ New Code - Complete
 
         - get_equipment:
             loop:
-              for: item, price in order_map
+              for: item, price in eval(order_map)
               do:
                 order:
                   - item
-                  - price
+                  - price: ${str(price)}
                   - missing: ${all_missing}
                   - cost: ${total_cost}
               publish:
                 - all_missing: ${missing + not_ordered}
-                - total_cost: ${cost + spent}
+                - total_cost: ${str(int(cost) + int(spent))}
+              break: []
             navigate:
               - AVAILABLE: check_min_reqs
               - UNAVAILABLE: check_min_reqs
@@ -225,13 +228,17 @@ New Code - Complete
                 - text: >
                     ${first_name + ' ' + last_name +
                     ' did not receive all the required equipment'}
+            navigate:
+              - SUCCESS: print_finish
 
         - print_finish:
             do:
               base.print:
                 - text: >
                     ${'Created address: ' + address + ' for: ' + first_name + ' ' + last_name + '\n' +
-                    'Missing items: ' + all_missing + ' Cost of ordered items: ' + str(total_cost)}
+                    'Missing items: ' + all_missing + ' Cost of ordered items: ' + total_cost}
+            navigate:
+              - SUCCESS: send_mail
 
         - send_mail:
             do:
@@ -243,7 +250,7 @@ New Code - Complete
                 - subject: "${'New Hire: ' + first_name + ' ' + last_name}"
                 - body: >
                     ${'Created address: ' + address + ' for: ' + first_name + ' ' + last_name + '<br>' +
-                    'Missing items: ' + all_missing + ' Cost of ordered items:' + str(total_cost) + '<br>' +
+                    'Missing items: ' + all_missing + ' Cost of ordered items:' + total_cost + '<br>' +
                     'Temporary password: ' + password}
             navigate:
               - FAILURE: FAILURE
@@ -267,6 +274,7 @@ New Code - Complete
       inputs:
         - first_name
         - middle_name:
+            required: false
             default: ""
         - last_name
         - domain:
@@ -304,7 +312,7 @@ New Code - Complete
     properties:
       - domain: bcompany.com
       - hostname: <host>
-      - port: 25
+      - port: '25'
       - system_address: <test@test.com>
       - hr_address: <test@test.com>
 

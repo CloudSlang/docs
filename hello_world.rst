@@ -52,7 +52,12 @@ Copy the code below into the corresponding files.
         - sayHi:
             do:
               print:
-                - text: "Hello, World"
+                - text: "'Hello, World'"
+            navigate:
+              - SUCCESS: SUCCESS
+
+      results:
+        - SUCCESS
 
 **print.sl**
 

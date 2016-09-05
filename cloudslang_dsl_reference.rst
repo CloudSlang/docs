@@ -284,7 +284,7 @@ double quotes (``"``).
 Maps
 ----
 
-To pass a map where an expression is allowed use the `default <#default>`__
+To use a map where an expression is allowed use the `default <#default>`__
 property.
 
 **Example: passing a map using the default property**
@@ -440,7 +440,7 @@ empty list (``[]``).
       for: value in range(1,7)
       do:
         custom_op:
-          - text: ${value}
+          - text: ${str(value)}
       break:
         - CUSTOM
     navigate:
@@ -454,7 +454,7 @@ empty list (``[]``).
       for: value in range(1,7)
       do:
         custom_op:
-          - text: ${value}
+          - text: ${str(value)}
       break: []
 
 .. _class_name:
@@ -499,11 +499,11 @@ decision contents.
         - y
 
       outputs:
-        - sum: ${x+y}
+        - sum: ${str(int(x) + int(y))}
 
       results:
         - EQUAL: ${x == y}
-        - LESS_THAN: ${x < y}
+        - LESS_THAN: ${int(x) < int(y)}
         - GREATER_THAN
 
 .. _default:
@@ -529,7 +529,7 @@ not passing any value at all and will not override the default value.
       - str_literal:
           default: "default value"
       - int_exp:
-          default: ${5 + 6}
+          default: ${str(5 + 6)}
       - from_variable:
           default: ${variable_name}
       - from_system_property:
@@ -544,7 +544,7 @@ to the `input <#inputs>`__ parameter's key.
 
     inputs:
       - str_literal: "default value"
-      - int_exp: ${5 + 6}
+      - int_exp: ${str(5 + 6)}
       - from_variable: ${variable_name}
       - from_system_property: $ { get_sp('system.property.key') }
 
@@ -772,7 +772,7 @@ evaluates to a list, or a comma delimited string.
           for: value in [1,2,3]
           do:
             print:
-              - text: ${value}
+              - text: ${str(value)}
 
 **Example - loop that iterates through the values in a comma delimited string**
 
@@ -785,8 +785,7 @@ evaluates to a list, or a comma delimited string.
             print:
               - text: ${value}
 
-**Example - loop that iterates through the values returned from an
-expression**
+**Example - loop that iterates through the values returned from an expression**
 
 .. code-block:: yaml
 
@@ -795,7 +794,7 @@ expression**
           for: value in range(1,4)
           do:
             print:
-              - text: ${value}
+              - text: ${str(value)}
 
 Iterating through a map
 ^^^^^^^^^^^^^^^^^^^^^^^
@@ -928,6 +927,8 @@ specific `flow <#flow>`__, `operation <#operation>`__ or
 names of the same `flow <#flow>`__, `operation <#operation>`__ or
 `decision <#decision>`__.
 
+Input values must evaluate to type string.
+
 For a list of which contexts are available in the ``inputs`` section of a
 `flow <#flow>`__, `operation <#operation>`__ or `decision <#decision>`__, see
 `Contexts <#contexts>`__.
@@ -965,7 +966,7 @@ Input names must conform to the rules for valid
           private: true
       - input2
       - input3: "default value"
-      - input4: ${'var1 is ' + var1}
+      - input4: ${'input1 is ' + input1}
       - password:
           sensitive: true
 
@@ -1294,12 +1295,30 @@ step <#parallel-step>`__. The flow will continue with the
 is mapped to the `result <#results>`__ returned by the called
 `operation <#operation>`__ or `subflow <#flow>`__.
 
-By default, if no ``navigate`` section is present, the flow continues
-with the next `step <#step>`__ or navigates to the ``SUCCESS`` result of the
-flow if the `step <#step>`__ is the final non-on_failure step. The
-`on_failure <#on-failure>`__ `step <#step>`__ always navigates to the ``FAILURE``
-result of the flow. For more information, see the
-:ref:`Default Navigation <example_default_navigation>` example.
+The default navigation rules, when no explicit ``navigate`` section is declared,
+are as follows:
+
++-------------+------------------------------------------------+--------------------------------------+-----------------------------------+
+| Result      | Step location                                  | `on_failure <#on-failure>`__ present | Navigation                        |
++=============+================================================+======================================+===================================+
+| ``SUCCESS`` | Not last non-`on_failure <#on-failure>`__ step | --                                   | Next step                         |
++-------------+------------------------------------------------+--------------------------------------+-----------------------------------+
+| ``SUCCESS`` | Last non-`on_failure <#on-failure>`__ step     | --                                   | ``SUCCESS`` result of the flow    |
++-------------+------------------------------------------------+--------------------------------------+-----------------------------------+
+| ``FAILURE`` | --                                             | Yes                                  | `on_failure <#on-failure>`__ step |
++-------------+------------------------------------------------+--------------------------------------+-----------------------------------+
+| ``FAILURE`` | --                                             | No                                   | ``FAILURE`` result of the flow    |
++-------------+------------------------------------------------+--------------------------------------+-----------------------------------+
+
+The default navigation only applies when a step calls an operation or subflow
+that returns a result of either ``SUCCESS`` or ``FAILURE``. If the operation or
+subflow can return a custom result or always returns only ``SUCCESS`` or only
+``FAILURE`` then default navigation will not apply.
+
+.. note::
+
+  Operations which don't explicitly return any results always return the result
+  ``SUCCESS``.
 
 All possible `results <#results>`__ returned by the
 called `operation <#operation>`__ or `subflow <#flow>`__ must be handled.
@@ -1418,10 +1437,10 @@ operation contents.
         - right
 
       python_action:
-        script: ans = left + right
+        script: ans = int(left) + int(right)
 
       outputs:
-        - out: ${ans}
+        - out: ${str(ans)}
 
       results:
         - SUCCESS
@@ -1445,6 +1464,8 @@ Output names for a specific `flow <#flow>`__, `operation <#operation>`__ or
 `decision <#decision>`__ must be different than the `input <#inputs>`__ names of
 the same `flow <#flow>`__, `operation <#operation>`__ or
 `decision <#decision>`__.
+
+Output values must evaluate to type string.
 
 For a list of which contexts are available in the ``outputs`` section of a
 `flow <#flow>`__, `operation <#operation>`__ or `decision <#decision>`__,
@@ -1472,7 +1493,7 @@ Output identifiers must conform to the rules for valid
     outputs:
       - existing_variable
       - output2: ${some_variable}
-      - output3: ${5 + 6}
+      - output3: ${str(5 + 6)}
       - password:
           value: ${password}
           sensitive: true
@@ -1653,10 +1674,10 @@ during each iteration after the `operation <#operation>`__ or
           for: value in range(1,6)
           do:
             square:
-              - to_square: ${value}
+              - to_square: ${str(value)}
               - sum
           publish:
-            - sum: ${sum + squared}
+            - sum: ${str(int(sum) + int(squared))}
 
 Parallel publish
 ~~~~~~~~~~~~~~~~
@@ -1872,7 +1893,7 @@ scope by using the ``del`` keyword before the script exits.
           quotient = float(dividend) / float(divisor)
 
     outputs:
-      - quotient
+      - quotient: ${str(quotient)}
 
     results:
       - ILLEGAL: ${quotient == 'division by zero error'}
@@ -2068,7 +2089,7 @@ There are several types of steps:
         do:
           some_op:
             - host
-            - port: 25
+            - port: '25'
 
 Standard Step
 ~~~~~~~~~~~~~

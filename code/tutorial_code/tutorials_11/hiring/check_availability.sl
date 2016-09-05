@@ -18,7 +18,7 @@ operation:
       else:
         password = ''
   outputs:
-    - available: ${vacant}
+    - available: ${str(vacant)}
     - password:
         value: ${password}
         sensitive: true

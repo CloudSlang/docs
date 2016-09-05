@@ -19,7 +19,7 @@ operation:
 
   outputs:
     - not_ordered
-    - spent
+    - spent: ${str(spent)}
 
   results:
     - UNAVAILABLE: ${rand == 0}

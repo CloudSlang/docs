@@ -11,3 +11,8 @@ flow:
         do:
           base.print:
             - text: "Starting new hire process"
+        navigate:
+          - SUCCESS: SUCCESS
+
+  results:
+    - SUCCESS

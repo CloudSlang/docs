@@ -6,6 +6,7 @@ operation:
   inputs:
     - first_name
     - middle_name:
+        required: false
         default: ""
     - last_name
     - domain:

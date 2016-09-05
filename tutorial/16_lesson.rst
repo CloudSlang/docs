@@ -75,12 +75,12 @@ looping. Each branch of the loop will call the ``new_hire`` flow.
 
     - process_all:
         parallel_loop:
-          for: name in names_list
+          for: name in eval(names_list)
           do:
             new_hire:
-              - first_name: ${name['first']}
-              - middle_name: ${name.get('middle','')}
-              - last_name: ${name['last']}
+              - first_name: ${name["first"]}
+              - middle_name: ${name.get("middle","")}
+              - last_name: ${name["last"]}
 
 As you can see, so far it is almost identical to a regular for loop,
 except the ``loop`` key has been replaced by ``parallel_loop``.
@@ -119,15 +119,15 @@ Python expressions are used to extract the desired aggregations.
 
     - process_all:
         parallel_loop:
-          for: name in names_list
+          for: name in eval(names_list)
           do:
             new_hire:
-              - first_name: ${name['first']}
-              - middle_name: ${name.get('middle','')}
-              - last_name: ${name['last']}
+              - first_name: ${name["first"]}
+              - middle_name: ${name.get("middle","")}
+              - last_name: ${name["last"]}
         publish:
-          - email_list: ${filter(lambda x:x != '', map(lambda x:str(x['address']), branches_context))}
-          - cost: ${sum(map(lambda x:x['final_cost'], branches_context))}
+          - email_list: "${', '.join(filter(lambda x : x != '', map(lambda x : str(x['address']), branches_context)))}"
+          - cost: "${str(sum(map(lambda x : x['final_cost'], branches_context)))}"
 
 In our case we use the ``map()``, ``filter()`` and ``sum()`` Python
 functions to create a list of all the email addresses that were created
@@ -174,15 +174,15 @@ navigate to the ``print_success`` step.
 
     - process_all:
         parallel_loop:
-          for: name in names_list
+          for: name in eval(names_list)
           do:
             new_hire:
-              - first_name: ${name['first']}
-              - middle_name: ${name.get('middle','')}
-              - last_name: ${name['last']}
+              - first_name: ${name["first"]}
+              - middle_name: ${name.get("middle","")}
+              - last_name: ${name["last"]}
         publish:
-          - email_list: ${filter(lambda x:x != '', map(lambda x:str(x['address']), branches_context))}
-          - cost: ${sum(map(lambda x:x['final_cost'], branches_context))}
+          - email_list: "${', '.join(filter(lambda x : x != '', map(lambda x : str(x['address']), branches_context)))}"
+          - cost: "${str(sum(map(lambda x : x['final_cost'], branches_context)))}"
         navigate:
           - SUCCESS: print_success
           - FAILURE: print_failure
@@ -192,22 +192,18 @@ Input File
 
 We'll use an input file to send the flow our list of names. An input
 file is very similar to a system properties file. It is written in plain
-YAML which will make it easy for us to format and it will also be more
-readable than if we had taken a different approach.
+YAML and therefore ends with the **.yaml** extension.
 
 Here is the contents of our **hires.yaml** input file that we created in the
 **tutorials/inputs** folder.
 
 .. code-block:: yaml
 
-    names_list:
-      - first: joe
-        middle: p
-        last: bloggs
-      - first: jane
-        last: doe
-      - first: juan
-        last: perez
+    names_list: '[{"first": "joe", "middle": "p", "last": "bloggs"}, {"first": "jane", "last": "doe"}, {"first": "juan", "last": "perez"}]'
+
+The file contains a ``names_list`` key that maps to a stringified version of a
+list of name information. Remember, all inputs must be strings, so here we must
+use a string as well.
 
 For more information, see :ref:`Using an Inputs File <using_an_inputs_file>` in the CLI documentation.
 
@@ -224,7 +220,9 @@ section. We can put them right after the ``process_all`` step.
           base.print:
             - text: >
                 ${"All addresses were created successfully.\nEmail addresses created: "
-                + str(email_list) + "\nTotal cost: " + str(cost)}
+                + email_list + "\nTotal cost: " + cost}
+        navigate:
+          - SUCCESS: SUCCESS
 
     - on_failure:
         - print_failure:
@@ -232,7 +230,7 @@ section. We can put them right after the ``process_all`` step.
               base.print:
                 - text: >
                     ${"Some addresses were not created or there is an email issue.\nEmail addresses created: "
-                    + str(email_list) + "\nTotal cost: " + str(cost)}
+                    + email_list + "\nTotal cost: " + cost}
 
 Run It
 ------
@@ -279,17 +277,18 @@ New Code - Complete
             required: false
             private: true
         - total_cost:
-            default: 0
+            default: '0'
             private: true
         - order_map:
-            default: {'laptop': 1000, 'docking station':200, 'monitor': 500, 'phone': 100}
+            default: '{"laptop": 1000, "docking station": 200, "monitor": 500, "phone": 100}'
 
       workflow:
         - print_start:
             do:
               base.print:
                 - text: "Starting new hire process"
-
+            navigate:
+              - SUCCESS: create_email_address
         - create_email_address:
             loop:
               for: attempt in range(1,5)
@@ -298,7 +297,7 @@ New Code - Complete
                   - first_name
                   - middle_name
                   - last_name
-                  - attempt
+                  - attempt: ${str(attempt)}
               publish:
                 - address
                 - password
@@ -309,23 +308,22 @@ New Code - Complete
               - CREATED: get_equipment
               - UNAVAILABLE: print_fail
               - FAILURE: print_fail
-
         - get_equipment:
             loop:
-              for: item, price in order_map
+              for: item, price in eval(order_map)
               do:
                 order:
                   - item
-                  - price
+                  - price: ${str(price)}
                   - missing: ${all_missing}
                   - cost: ${total_cost}
               publish:
                 - all_missing: ${missing + not_ordered}
-                - total_cost: ${cost + spent}
+                - total_cost: ${str(int(cost) + int(spent))}
+              break: []
             navigate:
               - AVAILABLE: check_min_reqs
               - UNAVAILABLE: check_min_reqs
-
         - check_min_reqs:
             do:
               base.contains:
@@ -334,28 +332,30 @@ New Code - Complete
             navigate:
               - DOES_NOT_CONTAIN: print_finish
               - CONTAINS: print_warning
-
         - print_warning:
             do:
               base.print:
                 - text: >
                     ${first_name + ' ' + last_name +
-                    ' did not receive all the required equipment'}
-
+                    ' did not receive all the required equipment\n'}
+            navigate:
+              - SUCCESS: print_finish
         - print_finish:
             do:
               base.print:
                 - text: >
                     ${'Created address: ' + address + ' for: ' + first_name + ' ' + last_name + '\n' +
-                    'Missing items: ' + all_missing + ' Cost of ordered items: ' + str(total_cost)}
-
+                    'Missing items: ' + all_missing + ' Cost of ordered items: ' + total_cost}
+            navigate:
+              - SUCCESS: fancy_name
         - fancy_name:
             do:
               fancy_text:
                 - text: ${first_name + ' ' + last_name}
             publish:
               - fancy_text: ${fancy}
-
+            navigate:
+              - SUCCESS: send_mail
         - send_mail:
             do:
               mail.send_mail:
@@ -367,12 +367,11 @@ New Code - Complete
                 - body: >
                     ${fancy_text + '<br>' +
                     'Created address: ' + address + ' for: ' + first_name + ' ' + last_name + '<br>' +
-                    'Missing items: ' + all_missing + ' Cost of ordered items: ' + str(total_cost) + '<br>' +
+                    'Missing items: ' + all_missing + ' Cost of ordered items: ' + total_cost + '<br>' +
                     'Temporary password: ' + password}
             navigate:
               - FAILURE: FAILURE
               - SUCCESS: SUCCESS
-
         - on_failure:
           - print_fail:
               do:
@@ -401,15 +400,15 @@ New Code - Complete
       workflow:
         - process_all:
             parallel_loop:
-              for: name in names_list
+              for: name in eval(names_list)
               do:
                 new_hire:
-                  - first_name: ${name['first']}
-                  - middle_name: ${name.get('middle','')}
-                  - last_name: ${name['last']}
+                  - first_name: ${name["first"]}
+                  - middle_name: ${name.get("middle","")}
+                  - last_name: ${name["last"]}
             publish:
-              - email_list: ${filter(lambda x:x != '', map(lambda x:str(x['address']), branches_context))}
-              - cost: ${sum(map(lambda x:x['final_cost'], branches_context))}
+              - email_list: "${', '.join(filter(lambda x : x != '', map(lambda x : str(x['address']), branches_context)))}"
+              - cost: "${str(sum(map(lambda x : int(x['final_cost']), branches_context)))}"
             navigate:
               - SUCCESS: print_success
               - FAILURE: print_failure
@@ -419,7 +418,9 @@ New Code - Complete
               base.print:
                 - text: >
                     ${"All addresses were created successfully.\nEmail addresses created: "
-                    + str(email_list) + "\nTotal cost: " + str(cost)}
+                    + email_list + "\nTotal cost: " + cost}
+            navigate:
+              - SUCCESS: SUCCESS
 
         - on_failure:
             - print_failure:
@@ -427,17 +428,10 @@ New Code - Complete
                   base.print:
                     - text: >
                         ${"Some addresses were not created or there is an email issue.\nEmail addresses created: "
-                        + str(email_list) + "\nTotal cost: " + str(cost)}
+                        + email_list + "\nTotal cost: " + cost}
 
 **hires.yaml**
 
 .. code-block:: yaml
 
-    names_list:
-      - first: joe
-        middle: p
-        last: bloggs
-      - first: jane
-        last: doe
-      - first: juan
-        last: perez
+    names_list: '[{"first": "joe", "middle": "p", "last": "bloggs"}, {"first": "jane", "last": "doe"}, {"first": "juan", "last": "perez"}]'

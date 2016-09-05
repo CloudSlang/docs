@@ -197,7 +197,12 @@ the success of its first step.
 
       python_action:
           script: |
-            print 'Doing something important'
+            x = 'Doing something important'
+            print x
+
+      results:
+        - FAILURE: ${x = 'important thing not done'}
+        - SUCCESS
 
 **Operation - send_email_mock.sl**
 
@@ -295,7 +300,7 @@ looped on and various methods for handling loop breaks.
 
       inputs:
         - sum:
-            default: 0
+            default: '0'
             private: true
 
       workflow:
@@ -304,7 +309,7 @@ looped on and various methods for handling loop breaks.
               for: value in [1,2,3,4,5]
               do:
                 fail3:
-                  - text: ${value}
+                  - text: ${str(value)}
             navigate:
               - SUCCESS: fail3b
               - FAILURE: fail3b
@@ -313,7 +318,7 @@ looped on and various methods for handling loop breaks.
               for: value in [1,2,3,4,5]
               do:
                 fail3:
-                  - text: ${value}
+                  - text: ${str(value)}
               break: []
         - custom3:
             loop:
@@ -330,19 +335,26 @@ looped on and various methods for handling loop breaks.
             do:
               print:
                 - text: "This will not run."
+            navigate:
+              - SUCCESS: aggregate
         - aggregate:
             loop:
               for: value in range(1,6)
               do:
                 print:
-                  - text: ${value}
+                  - text: ${str(value)}
                   - sum
               publish:
-                - sum: ${sum + out}
+                - sum: ${str(int(sum) + int(out))}
+              break: []
+            navigate:
+              - SUCCESS: print
         - print:
             do:
               print:
                 - text: ${sum}
+            navigate:
+              - SUCCESS: SUCCESS
 
 **Operation - custom3.sl**
 
@@ -404,20 +416,20 @@ aggregation.
       name: parallel_loop_aggregate
 
       inputs:
-      - values: [1,2,3,4]
+      - values: "1 2 3 4"
 
       workflow:
         - print_values:
             parallel_loop:
-              for: value in values
+              for: value in values.split()
               do:
                 print_branch:
-                  - ID: ${value}
+                  - ID: ${str(value)}
             publish:
-                - name_list: ${map(lambda x:str(x['name']), branches_context)}
-                - first_name: ${branches_context[0]['name']}
-                - last_name: ${branches_context[-1]['name']}
-                - total: ${sum(map(lambda x:x['num'], branches_context))}
+              - name_list: "${', '.join(map(lambda x : str(x['name']), branches_context))}"
+              - first_name: ${branches_context[0]['name']}
+              - last_name: ${branches_context[-1]['name']}
+              - total: "${str(sum(map(lambda x : int(x['num']), branches_context)))}"
 
       outputs:
         - name_list
@@ -492,18 +504,29 @@ This example uses the following folder structure:
             do:
               op1:
                 - text: "default path"
+            navigate:
+              - SUCCESS: fully_qualified_path
         - fully_qualified_path:
             do:
               examples.paths.folder_a.op2:
                 - text: "fully qualified path"
+            navigate:
+              - SUCCESS: using_alias
         - using_alias:
             do:
               alias.op3:
                 - text: "using alias"
+            navigate:
+              - SUCCESS: alias_continuation
         - alias_continuation:
             do:
               alias.folder_c.op4:
                 - text: "alias continuation"
+            navigate:
+              - SUCCESS: SUCCESS
+
+      results:
+        - SUCCESS
 
 **Operation - op1.sl**
 

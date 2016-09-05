@@ -5,4 +5,9 @@ operation:
 
   python_action:
       script: |
-        print 'Doing something important'
+        x = 'Doing something important'
+        print x
+
+  results:
+    - FAILURE: ${x = 'important thing not done'}
+    - SUCCESS

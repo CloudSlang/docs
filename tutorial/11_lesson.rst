@@ -51,7 +51,7 @@ output.
 
       outputs:
         - not_ordered
-        - spent
+        - spent: ${spent}
 
       results:
         - UNAVAILABLE: ${rand == 0}
@@ -63,24 +63,31 @@ Step
 Now let's go back to our flow and create a step, between
 ``create_email_address`` and ``print_finish``, to call our operation in
 a loop. This time we'll loop through a map of items and their prices, named,
-``order_map`` that we'll define at the flow level in a few moments.
+``order_map`` that we'll define at the flow level in a few moments. We use the
+Python ``eval()`` function to turn a string into a Python dictionary that we can
+loop over.
 
 .. code-block:: yaml
 
     - get_equipment:
         loop:
-          for: item, price in order_map
+          for: item, price in eval(order_map)
           do:
             order:
               - item
-              - price
+              - price: ${str(price)}
               - missing: ${all_missing}
               - cost: ${total_cost}
+          break: []
 
 Notice the ``missing`` and ``cost`` variables. These are not for inputs in the
 ``order`` operation. That operation only takes the ``item`` and ``price``
 inputs. We will be using ``missing`` and ``cost`` together with some flow-level
 variables to perform the loop aggregation.
+
+Also notice how we've added a ``break`` which maps to an empty list of break
+results. This is necessary because the ``order`` operation does not contain a
+result of ``FAILURE`` which is the default for breaking out of a loop.
 
 Now let's create those flow-level variables in the flow's ``inputs`` section.
 Each time through the loop we want to aggregate the data that the ``order``
@@ -89,9 +96,7 @@ operation outputs. We'll create two variables, ``all_missing`` and
 them default values to start with.
 
 Also, we'll declare another variable called ``order_map`` that will contain the
-map we're looping on. Notice how a map is most easily passed as an input value
-using the ``default`` property.
-
+map we're looping on.
 
 .. code-block:: yaml
 
@@ -108,7 +113,7 @@ using the ``default`` property.
           default: 0
           private: true
       - order_map:
-          default: {'laptop': 1000, 'docking station':200, 'monitor': 500, 'phone': 100}
+          default: '{"laptop": 1000, "docking station": 200, "monitor": 500, "phone": 100}'
 
 Now we can perform the aggregation. In the ``get_equipment`` step's publish
 section, we'll add the values output from the ``order`` operation
@@ -126,7 +131,7 @@ published back into the flow-level ``total_cost`` for each iteration of the
 
     publish:
       - all_missing: ${missing + not_ordered}
-      - total_cost: ${cost + spent}
+      - total_cost: ${str(int(cost) + int(spent))}
 
 Finally we have to rewire all the navigation logic to take into account
 our new step.
@@ -163,7 +168,9 @@ reflects the status of the equipment order.
           base.print:
             - text: >
                 ${'Created address: ' + address + ' for: ' + first_name + ' ' + last_name + '\n' +
-                'Missing items: ' + all_missing + ' Cost of ordered items: ' + str(total_cost)}
+                'Missing items: ' + all_missing + ' Cost of ordered items: ' + total_cost}
+        navigate:
+          - SUCCESS: SUCCESS
 
 Run It
 ------
@@ -213,13 +220,15 @@ New Code - Complete
             default: 0
             private: true
         - order_map:
-            default: {'laptop': 1000, 'docking station':200, 'monitor': 500, 'phone': 100}
+            default: '{"laptop": 1000, "docking station":200, "monitor": 500, "phone": 100}'
 
       workflow:
         - print_start:
             do:
               base.print:
                 - text: "Starting new hire process"
+            navigate:
+              - SUCCESS: create_email_address
 
         - create_email_address:
             loop:
@@ -229,7 +238,7 @@ New Code - Complete
                   - first_name
                   - middle_name
                   - last_name
-                  - attempt
+                  - attempt: ${str(attempt)}
               publish:
                 - address
                 - password
@@ -243,26 +252,47 @@ New Code - Complete
 
         - get_equipment:
             loop:
-              for: item, price in order_map
+              for: item, price in eval(order_map)
               do:
                 order:
                   - item
-                  - price
+                  - price: ${str(price)}
                   - missing: ${all_missing}
                   - cost: ${total_cost}
               publish:
                 - all_missing: ${missing + not_ordered}
-                - total_cost: ${cost + spent}
+                - total_cost: ${str(int(cost) + int(spent))}
+              break: []
             navigate:
-              - AVAILABLE: print_finish
-              - UNAVAILABLE: print_finish
+              - AVAILABLE: check_min_reqs
+              - UNAVAILABLE: check_min_reqs
+
+        - check_min_reqs:
+            do:
+              base.contains:
+                - container: ${all_missing}
+                - sub: 'laptop'
+            navigate:
+              - DOES_NOT_CONTAIN: print_finish
+              - CONTAINS: print_warning
+
+        - print_warning:
+            do:
+              base.print:
+                - text: >
+                    ${first_name + ' ' + last_name +
+                    ' did not receive all the required equipment'}
+            navigate:
+              - SUCCESS: print_finish
 
         - print_finish:
             do:
               base.print:
                 - text: >
                     ${'Created address: ' + address + ' for: ' + first_name + ' ' + last_name + '\n' +
-                    'Missing items: ' + all_missing + ' Cost of ordered items: ' + str(total_cost)}
+                    'Missing items: ' + all_missing + ' Cost of ordered items: ' + total_cost}
+            navigate:
+              - SUCCESS: SUCCESS
 
         - on_failure:
           - print_fail:
@@ -295,7 +325,7 @@ New Code - Complete
 
       outputs:
         - not_ordered
-        - price
+        - spent: ${str(spent)}
 
       results:
         - UNAVAILABLE: ${rand == 0}
