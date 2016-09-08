@@ -53,15 +53,58 @@ properties specific to `flow <#flow>`__, `operation <#operation>`__, or
 |                |          |         |                   | | ignored by the compiler |                            |
 +----------------+----------+---------+-------------------+---------------------------+----------------------------+
 
+Naming
+------
+
+.. _namespace_names:
+
+Namespace Names
+~~~~~~~~~~~~~~~
+
+Namespaces can be named using alphanumeric characters (``a``-``z``, ``A``-``Z``
+and ``0``-``9``) and using a period (``.``) as a delimiter.
+
+Namespaces are found in:
+
+  - system property fully qualified names
+  - flow, operation, decision and system properties namespaces
+  - import values
+  - step references
+
 .. _variable_names:
 
 Variable Names
---------------
+~~~~~~~~~~~~~~
 
-Variable names in CloudSlang files cannot contain localized characters. In
+Variable names in CloudSlang files cannot contain localized characters. They
+can be named using alphanumeric characters (``a``-``z``, ``A``-``Z`` and
+``0``-``9``) and an underscore (``_``), but may not begin with a number.
 general, CloudSlang variable names must conform to both `Python's naming
 constraints <https://docs.python.org/2/reference/lexical_analysis.html>`__
 as well as `Java's naming constraints <https://docs.oracle.com/javase/tutorial/java/nutsandbolts/variables.html>`__.
+
+Variable name rules apply to:
+
+  - inputs
+  - outputs
+  - published variables
+  - loop variables
+
+.. _other_names:
+
+Other Names
+~~~~~~~~~~~
+All other names can be named using alphanumeric characters (``a``-``z``,
+``A``-``Z`` and ``0``-``9``).
+
+These rules apply to:
+
+  - import section aliases
+  - flow, operation and decision names
+  - step names
+  -	result names
+  - navigation keys
+  - break keys
 
 .. _uniqueness_and_case_sensitivity:
 
@@ -756,6 +799,10 @@ A for loop iterates through a `list <#iterating-through-a-list>`__ or a
 The `iterative step <#iterative-step>`__ will run once for each element
 in the list or key in the map.
 
+Loop variables must conform to the rules for valid
+:ref:`variable names <variable_names>`.
+
+
 Iterating through a list
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -880,6 +927,9 @@ Using an alias is one way to reference the
 `operations <#operation>`__ and `subflows <#flow>`__ used in a
 `flow's <#flow>`__ `steps <#step>`__, see the `do <#do>`__ keyword and the
 :ref:`Operation Paths example <example_operation_paths>`.
+
+Import aliases must conform to the rules for valid
+:ref:`names <other_names>`.
 
 **Example - import operations and sublflow into flow**
 
@@ -1233,7 +1283,7 @@ The name of a `flow <#flow>`__, `operation <#operation>`__ or
 `decision <#decision>`__ must match the name
 of the file in which it resides, excluding the extension.
 
-The name must conform to the rules for
+The name must conform to the rules for :ref:`names <other_names>` and
 :ref:`uniqueness <uniqueness_and_case_sensitivity>`.
 
 
@@ -1267,8 +1317,9 @@ dependencies.
     imports:
       ops: examples.hello_world
 
-For more information about choosing a file's namespace, see the
-:ref:`CloudSlang Content Best Practices <cloudslang_content_best_practices>`
+Namespace values must conform to the rules described in `Namespace Names
+<namespace_names>`__. For more information about choosing a file's namespace,
+see the :ref:`CloudSlang Content Best Practices <cloudslang_content_best_practices>`
 section.
 
 .. note::
@@ -1344,6 +1395,10 @@ evaluated as ``SUCCESS``.
 
 For a list of which contexts are available in the ``navigate`` section of a
 `step <#step>`__, see `Contexts <#contexts>`__.
+
+A navigation key's name must conform to the rules for :ref:`names <other_names>`
+and :ref:`uniqueness <uniqueness_and_case_sensitivity>`.
+
 
 **Example - ILLEGAL result will navigate to flow's FAILURE result and SUCCESS result will navigate to step named 'printer'**
 
@@ -1633,7 +1688,8 @@ from an `operation <#operation>`__ or `flow <#flow>`__.
 For a list of which contexts are available in the ``publish`` section of a
 `step <#step>`__, see `Contexts <#contexts>`__.
 
-Publish names must conform to the rules for
+Publish names  must conform to the rules for valid
+:ref:`variable names <variable_names>` and
 :ref:`uniqueness <uniqueness_and_case_sensitivity>`.
 
 Standard publish
@@ -1759,8 +1815,9 @@ The results of a `flow <#flow>`__, `operation <#operation>`__ or
 `decision <#decision>`__ can be used by the calling `step <#step>`__ for
 `navigation <#navigate>`__ purposes.
 
-A result cannot be named ``on_failure``. Result names must conform to the rules
-for :ref:`uniqueness <uniqueness_and_case_sensitivity>`.
+A result name must conform to the rules for :ref:`names <other_names>` and
+:ref:`uniqueness <uniqueness_and_case_sensitivity>`. Additionally, a result
+cannot be named ``on_failure``.
 
 .. note::
 
@@ -2070,7 +2127,9 @@ step
 
 A name of a step which is a property of `workflow <#workflow>`__.
 
-A step cannot be named ``on_failure``.
+A step name must conform to the rules for :ref:`names <other_names>` and
+:ref:`uniqueness <uniqueness_and_case_sensitivity>`. Additionally, a step cannot
+be named ``on_failure``.
 
 Every step which is not declared with the `on_failure <#on-failure>`__ keyword
 must be reachable from another step.
