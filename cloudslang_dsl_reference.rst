@@ -79,7 +79,7 @@ Variable Names
 Variable names in CloudSlang files cannot contain localized characters. They
 can be named using alphanumeric characters (``a``-``z``, ``A``-``Z`` and
 ``0``-``9``) and an underscore (``_``), but may not begin with a number.
-general, CloudSlang variable names must conform to both `Python's naming
+CloudSlang variable names must also conform to both `Python's naming
 constraints <https://docs.python.org/2/reference/lexical_analysis.html>`__
 as well as `Java's naming constraints <https://docs.oracle.com/javase/tutorial/java/nutsandbolts/variables.html>`__.
 
