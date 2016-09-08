@@ -102,7 +102,7 @@ These rules apply to:
   - import section aliases
   - flow, operation and decision names
   - step names
-  -	result names
+  - result names
   - navigation keys
   - break keys
 
