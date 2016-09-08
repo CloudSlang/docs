@@ -34,9 +34,9 @@ written to the console:
 
     11:08:12 [INFO]
     11:08:12 [INFO] ------------------------------------------------------------
-    11:08:12 [INFO] Building project: C:\Users\markowis\CloudSlang\test_code\build_tool
-    11:08:12 [INFO] Content root is at: C:\Users\markowis\CloudSlang\test_code\build_tool\content
-    11:08:12 [INFO] Test root is at: C:\Users\markowis\CloudSlang\test_code\build_tool\test
+    11:08:12 [INFO] Building project: C:\CloudSlang\test_code\build_tool
+    11:08:12 [INFO] Content root is at: C:\CloudSlang\test_code\build_tool\content
+    11:08:12 [INFO] Test root is at: C:\CloudSlang\test_code\build_tool\test
     11:08:12 [INFO] Active test suites are: [default]
     11:08:12 [INFO]
     11:08:12 [INFO] Loading...
@@ -46,20 +46,20 @@ written to the console:
     11:08:17 [INFO] ------------------------------------------------------------
     11:08:17 [INFO]
     11:08:17 [INFO] --- compiling sources ---
-    11:08:17 [INFO] Start compiling all slang files under: C:\Users\markowis\CloudSlang\test_code\build_tool\content
+    11:08:17 [INFO] Start compiling all slang files under: C:\CloudSlang\test_code\build_tool\content
     11:08:17 [INFO] 1 .sl files were found
     11:08:17 [INFO]
     11:08:17 [INFO] Compiled: 'build_tool.content.operation' successfully
     11:08:17 [INFO] Successfully finished Compilation of: 1 Slang files
     11:08:17 [INFO]
     11:08:17 [INFO] --- compiling tests sources ---
-    11:08:17 [INFO] Start compiling all slang files under: C:\Users\markowis\CloudSlang\test_code\build_tool\test
+    11:08:17 [INFO] Start compiling all slang files under: C:\CloudSlang\test_code\build_tool\test
     11:08:17 [INFO] 0 .sl files were found
     11:08:17 [INFO]
     11:08:17 [INFO] Compiled: 'build_tool.content.operation' successfully
     11:08:17 [INFO]
     11:08:17 [INFO] --- parsing test cases ---
-    11:08:17 [INFO] Start parsing all test cases files under: C:\Users\markowis\CloudSlang\test_code\build_tool\test
+    11:08:17 [INFO] Start parsing all test cases files under: C:\CloudSlang\test_code\build_tool\test
     11:08:17 [INFO] 1 test cases files were found
     11:08:17 [INFO]
     11:08:17 [INFO] --- running tests ---
@@ -89,7 +89,7 @@ written to the console:
     11:08:23 [ERROR] ------------------------------------------------------------
     11:08:23 [ERROR] BUILD FAILURE
     11:08:23 [ERROR] ------------------------------------------------------------
-    11:08:23 [ERROR] CloudSlang build for repository: "C:\Users\markowis\CloudSlang\test_code\build_tool" failed due to failed tests.
+    11:08:23 [ERROR] CloudSlang build for repository: "C:\CloudSlang\test_code\build_tool" failed due to failed tests.
     11:08:23 [ERROR] Following 1 tests failed:
     11:08:23 [ERROR] - Test case failed: testOperationFailure - Tests that operation.sl finishes with FAILURE
 
