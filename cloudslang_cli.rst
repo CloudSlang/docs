@@ -158,6 +158,14 @@ repository other than Maven Central, edit the values for
 Additionally, you can edit the proxy settings in the file found
 at ``maven.settings.xml.path``.
 
+Maven Troubleshooting
+---------------------
+
+It is possible that the CLI's Maven repository can become corrupted. In such a
+case, delete the entire **repo** folder found at the location indicated by the
+``cloudslang.maven.repo.local`` key in the :ref:`CLI's configuration file
+<configure_cli>` and rerun the flow. 
+
 .. _use_the_cli:
 
 Use the CLI
