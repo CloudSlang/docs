@@ -62,7 +62,8 @@ Namespace Names
 ~~~~~~~~~~~~~~~
 
 Namespaces can be named using alphanumeric characters (``a``-``z``, ``A``-``Z``
-and ``0``-``9``) and using a period (``.``) as a delimiter.
+and ``0``-``9``), underscores (``_``) and dashes (``-``) while using a period
+(``.``) as a delimiter.
 
 Namespaces are found in:
 
