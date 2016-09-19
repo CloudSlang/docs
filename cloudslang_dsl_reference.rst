@@ -56,6 +56,10 @@ properties specific to `flow <#flow>`__, `operation <#operation>`__, or
 Naming
 ------
 
+Names that are interpreted by YAML as non-string types (e.g. booleans, numbers)
+cannot be used without enclosing them in quotes (``'``) to force YAML to
+recognize them as strings.
+
 .. _namespace_names:
 
 Namespace Names
@@ -64,6 +68,10 @@ Namespace Names
 Namespaces can be named using alphanumeric characters (``a``-``z``, ``A``-``Z``
 and ``0``-``9``), underscores (``_``) and dashes (``-``) while using a period
 (``.``) as a delimiter.
+
+Since namespaces reflect the folder structure where their respective files
+are found, they cannot be named using names that are invalid as Windows or
+Linux folder names.
 
 Namespaces are found in:
 
@@ -80,8 +88,8 @@ Variable Names
 Variable names in CloudSlang files cannot contain localized characters. They
 can be named using alphanumeric characters (``a``-``z``, ``A``-``Z`` and
 ``0``-``9``) and an underscore (``_``), but may not begin with a number.
-CloudSlang variable names must also conform to both `Python's naming
-constraints <https://docs.python.org/2/reference/lexical_analysis.html>`__
+
+CloudSlang variable names must conform to both `Python's naming constraints <https://docs.python.org/2/reference/lexical_analysis.html>`__
 as well as `Java's naming constraints <https://docs.oracle.com/javase/tutorial/java/nutsandbolts/variables.html>`__.
 
 Variable name rules apply to:
@@ -97,6 +105,10 @@ Other Names
 ~~~~~~~~~~~
 All other names can be named using alphanumeric characters (``a``-``z``,
 ``A``-``Z`` and ``0``-``9``).
+
+Since flow, operation and decision names must match the names of their
+respective files, they cannot be named using names that are invalid as
+Windows or Linux file names.
 
 These rules apply to:
 
