@@ -65,7 +65,7 @@ operation:
     - delimiter:
         required: false
   java_action:
-    gav: io.cloudslang.content:score-xml:0.0.2
+    gav: io.cloudslang.content:cs-mail:0.0.2
     class_name: io.cloudslang.content.mail.actions.SendMailAction
     method_name: execute
   results:

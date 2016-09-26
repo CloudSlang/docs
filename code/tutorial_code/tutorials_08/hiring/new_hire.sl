@@ -18,6 +18,8 @@ flow:
         do:
           base.print:
             - text: "Starting new hire process"
+        navigate:
+          - SUCCESS: generate_address
 
     - generate_address:
         do:
@@ -43,8 +45,10 @@ flow:
     - print_finish:
         do:
           base.print:
-            - text: "${'Availability for address ' + address + ' is: ' + str(availability)}"
-
+            - text: "${'Availability for address ' + address + ' is: ' + availability}"
+        navigate:
+          - SUCCESS: SUCCESS
+          
     - on_failure:
       - print_fail:
           do:

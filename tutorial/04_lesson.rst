@@ -15,7 +15,7 @@ Let's create a new file in the **tutorials/hiring** folder named
 whether a given email address is available.
 
 We'll also start off our new operation in much the same way we did with
-the print operation. We'll put in a ``namespace``, the ``operation``
+the ``print`` operation. We'll put in a ``namespace``, the ``operation``
 key, the name of the operation and an input.
 
 .. code-block:: yaml
@@ -59,22 +59,22 @@ during testing to see that our operation is working as expected.
 Outputs
 -------
 
-In the outputs section we put any information we want to send back to
-the calling flow. In our case, we want to return whether the requested
-address was already taken. The outputs are a list of key:value pairs
-where the key is the name of the output and the value is the expression
-to be returned. In our case, we'll just return the value in the
-``vacant`` variable.
+In the outputs section we put any information we want to send back to the
+calling flow. In our case, we want to return whether the requested address was
+already taken. The outputs are a list of key:value pairs where the key is the
+name of the output and the value is the expression to be returned. In our case,
+we'll just return the value in the ``vacant`` variable. Outputs must be strings
+so we'll use the Python ``str()`` function to convert the value.
 
 .. code-block:: yaml
 
     outputs:
-      - available: ${vacant}
+      - available: ${str(vacant)}
 
 Notice the special ``${}`` syntax. This indicates that what is inside the braces
-is a CloudSlang expression. If we would have just written ``vacant``, it would
-be understood as a string literal. We'll see this syntax in action again in a
-few moments.
+is a CloudSlang expression. If we would have just written ``str(vacant)``, it
+would be understood as a string literal. We'll see this syntax in action again
+in a few moments.
 
 For more information, see :ref:`expressions` in the DSL reference.
 
@@ -91,10 +91,12 @@ The last section of our operation defines the results we return to the
 calling flow. The results are used by the navigation of the calling
 flow. We'll start by using the default result values, ``SUCCESS`` and
 ``FAILURE``. If the email address was available, we'll return a result
-of ``SUCCESS``, otherwise we'll return a result of ``FAILURE``. When the
-operation is run, the first result whose expression is true or empty is
-returned. It is therefore important to take care in the ordering of the
-results.
+of ``SUCCESS``, otherwise we'll return a result of ``FAILURE``. There always
+must be a default ending result that does not have an expression or explicitly
+maps to the value ``true``. Here, we will use the ``SUCCESS`` result as our
+catchall. When the operation is run, the first result whose expression is true
+or empty is returned.  It is therefore important to take care in the ordering of
+the results.
 
 .. code-block:: yaml
 
@@ -159,7 +161,7 @@ New Code - Complete
           #print rand
 
       outputs:
-        - available: ${vacant}
+        - available: ${str(vacant)}
 
       results:
         - FAILURE: ${rand == 0}

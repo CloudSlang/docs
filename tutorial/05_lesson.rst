@@ -43,6 +43,15 @@ flow and the operation are in the same folder, the ``do`` section does
 not need to use an alias or path to reference the operation like we
 needed with the ``print`` operation in the ``print_start`` step.
 
+.. note::
+
+    The :doc:`best practice <../cloudslang_best_practices>` is to use an alias or
+    fully qualified name when calling an operation (the same applies for
+    subflows and decisions) even when it resides in the same folder as the
+    calling flow. For simplicity, we will not follow this practice in this
+    tutorial.
+
+
 .. code-block:: yaml
 
     - check_address:
@@ -87,10 +96,70 @@ step along with some of the flow input variables in the expression.
     - print_finish:
         do:
           base.print:
-            - text: "${'Availability for address ' + address + ' is: ' + str(availability)}"
+            - text: "${'Availability for address ' + address + ' is: ' + availability}"
 
 Notice the extra set of quotes (``""``) around the expression. They are
 neccessary to escape the colon (``:``) which has special meaning in YAML.
+
+Wire Navigation
+---------------
+
+Each step can declare navigation to explicitly say which step should be the next
+one to be run in the flow.
+
+The default navigation rules, when no explicit ``navigate`` section is declared,
+are as follows:
+
++-------------+----------------------------------+------------------------+--------------------------------+
+| Result      | Step location                    | ``on_failure`` present | Navigation                     |
++=============+==================================+========================+================================+
+| ``SUCCESS`` | Not last non-``on_failure`` step | --                     | Next step                      |
++-------------+----------------------------------+------------------------+--------------------------------+
+| ``SUCCESS`` | Last non-``on_failure`` step     | --                     | ``SUCCESS`` result of the flow |
++-------------+----------------------------------+------------------------+--------------------------------+
+| ``FAILURE`` | --                               | Yes                    | ``on_failure`` step            |
++-------------+----------------------------------+------------------------+--------------------------------+
+| ``FAILURE`` | --                               | No                     | ``FAILURE`` result of the flow |
++-------------+----------------------------------+------------------------+--------------------------------+
+
+The default navigation only applies when a step calls an operation or subflow
+that returns a result of either ``SUCCESS`` or ``FAILURE``. If the operation or
+subflow can return a custom result or always returns only ``SUCCESS`` or only
+``FAILURE`` then default navigation will not apply.
+
+.. note::
+
+  Operations which don't explicitly return any results always return the result
+  ``SUCCESS``.
+
+
+So what does that mean for us? We can use the default navigation for the
+``check_address`` step. However, since the ``print`` operation will always
+return a ``SUCCESS`` result, we need to add some navigation for the
+``print_start`` and ``print_finish`` steps. The ``navigate`` section takes a
+list of recieved results and maps them to step names or flow results. In
+``print_start`` we'll map the ``SUCCESS`` result to the next step. And in
+``print_finish`` we'll map the ``SUCCESS`` result to the ``SUCCESS`` result of
+the flow.
+
+.. code-block:: yaml
+
+    - print_start:
+        do:
+          base.print:
+            - text: "Starting new hire process"
+        navigate:
+          - SUCCESS: check_address
+
+    ...
+
+    - print_finish:
+        do:
+          base.print:
+            - text: "${'Availability for address ' + address + ' is: ' + availability}"
+        navigate:
+          - SUCCESS: SUCCESS
+
 
 Run It
 ------
@@ -110,9 +179,6 @@ the flow continues with the next step and prints out the availability
 message. However, when the check_availability operation returns a
 result of ``FAILURE`` the flow ends immediately with a result of
 ``FAILURE``. This is the default navigation behavior.
-
-Note that operations which don't explicitly return any results always
-return the result ``SUCCESS``.
 
 Download the Code
 -----------------
@@ -147,6 +213,8 @@ New Code - Complete
             do:
               base.print:
                 - text: "Starting new hire process"
+            navigate:
+              - SUCCESS: check_address
 
         - check_address:
             do:
@@ -158,4 +226,6 @@ New Code - Complete
         - print_finish:
             do:
               base.print:
-                - text: "${'Availability for address ' + address + ' is: ' + str(availability)}"
+                - text: "${'Availability for address ' + address + ' is: ' + availability}"
+            navigate:
+              - SUCCESS: SUCCESS

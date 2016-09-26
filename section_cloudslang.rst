@@ -15,4 +15,5 @@ Contents:
    Best Practices <cloudslang_best_practices>
    CLI <cloudslang_cli>
    Build Tool <cloudslang_build_tool>
+   Maven Content Compiler <cloudslang_maven_compiler>
    Editors <cloudslang_editors>

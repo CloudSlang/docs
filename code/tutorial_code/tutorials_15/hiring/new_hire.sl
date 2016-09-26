@@ -14,18 +14,21 @@ flow:
     - last_name
     - all_missing:
         default: ""
+        required: false
         private: true
     - total_cost:
-        default: 0
+        default: '0'
         private: true
     - order_map:
-        default: {'laptop': 1000, 'docking station':200, 'monitor': 500, 'phone': 100}
+        default: '{"laptop": 1000, "docking station": 200, "monitor": 500, "phone": 100}'
 
   workflow:
     - print_start:
         do:
           base.print:
             - text: "Starting new hire process"
+        navigate:
+          - SUCCESS: create_email_address
 
     - create_email_address:
         loop:
@@ -35,7 +38,7 @@ flow:
               - first_name
               - middle_name
               - last_name
-              - attempt
+              - attempt: ${str(attempt)}
           publish:
             - address
             - password
@@ -49,26 +52,47 @@ flow:
 
     - get_equipment:
         loop:
-          for: item, price in order_map
+          for: item, price in eval(order_map)
           do:
             order:
               - item
-              - price
+              - price: ${str(price)}
               - missing: ${all_missing}
               - cost: ${total_cost}
           publish:
             - all_missing: ${missing + not_ordered}
-            - total_cost: ${cost + spent}
+            - total_cost: ${str(int(cost) + int(spent))}
+          break: []
         navigate:
-          - AVAILABLE: print_finish
-          - UNAVAILABLE: print_finish
+          - AVAILABLE: check_min_reqs
+          - UNAVAILABLE: check_min_reqs
+
+    - check_min_reqs:
+        do:
+          base.contains:
+            - container: ${all_missing}
+            - sub: 'laptop'
+        navigate:
+          - DOES_NOT_CONTAIN: print_finish
+          - CONTAINS: print_warning
+
+    - print_warning:
+        do:
+          base.print:
+            - text: >
+                ${first_name + ' ' + last_name +
+                ' did not receive all the required equipment'}
+        navigate:
+          - SUCCESS: print_finish
 
     - print_finish:
         do:
           base.print:
             - text: >
                 ${'Created address: ' + address + ' for: ' + first_name + ' ' + last_name + '\n' +
-                'Missing items: ' + all_missing + ' Cost of ordered items: ' + str(total_cost)}
+                'Missing items: ' + all_missing + ' Cost of ordered items: ' + total_cost}
+        navigate:
+          - SUCCESS: fancy_name
 
     - fancy_name:
         do:
@@ -76,6 +100,8 @@ flow:
             - text: ${first_name + ' ' + last_name}
         publish:
           - fancy_text: ${fancy}
+        navigate:
+          - SUCCESS: send_mail
 
     - send_mail:
         do:
@@ -88,18 +114,14 @@ flow:
             - body: >
                 ${fancy_text + '<br>' +
                 'Created address: ' + address + ' for: ' + first_name + ' ' + last_name + '<br>' +
-                'Missing items: ' + all_missing + ' Cost of ordered items: ' + str(total_cost) + '<br>' +
+                'Missing items: ' + all_missing + ' Cost of ordered items: ' + total_cost + '<br>' +
                 'Temporary password: ' + password}
         navigate:
           - FAILURE: FAILURE
           - SUCCESS: SUCCESS
-
+          
     - on_failure:
       - print_fail:
           do:
             base.print:
               - text: "${'Failed to create address for: ' + first_name + ' ' + last_name}"
-
-  outputs:
-    - address
-    - final_cost: ${total_cost}

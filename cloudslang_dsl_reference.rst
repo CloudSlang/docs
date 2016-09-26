@@ -28,11 +28,12 @@ file names end with the **.prop.sl** extension.
 Since CloudSlang is YAML-based, proper indentation is crucial. For more
 information, see the :ref:`YAML Overview <indentation_scoping>`.
 
-There are three types of CloudSlang files:
+There are four types of CloudSlang files:
 
 -  flow - contains a list of steps and navigation logic that calls
    operations or subflows
 -  operation - contains an action that runs a script or method
+-  decision - contains decision logic without an action
 -  system properties - contains a list of system property keys and values
 
 The following properties are for all types of CloudSlang files. For
@@ -52,15 +53,81 @@ properties specific to `flow <#flow>`__, `operation <#operation>`__, or
 |                |          |         |                   | | ignored by the compiler |                            |
 +----------------+----------+---------+-------------------+---------------------------+----------------------------+
 
+Naming
+------
+
+Names that are interpreted by YAML as non-string types (e.g. booleans, numbers)
+cannot be used without enclosing them in quotes (``'``) to force YAML to
+recognize them as strings.
+
+.. _namespace_names:
+
+Namespace Names
+~~~~~~~~~~~~~~~
+
+Namespaces can be named using alphanumeric characters (``a``-``z``, ``A``-``Z``
+and ``0``-``9``), underscores (``_``) and dashes (``-``) while using a period
+(``.``) as a delimiter.
+
+Since namespaces reflect the folder structure where their respective files
+are found, they cannot be named using names that are invalid as Windows or
+Linux folder names.
+
+Namespaces are found in:
+
+  - system property fully qualified names
+  - flow, operation, decision and system properties namespaces
+  - import values
+  - step references
+
 .. _variable_names:
 
 Variable Names
---------------
+~~~~~~~~~~~~~~
 
-Variable names in CloudSlang files cannot contain localized characters. In
-general, CloudSlang variable names must conform to both `Python's naming
-constraints <https://docs.python.org/2/reference/lexical_analysis.html>`__
+Variable names in CloudSlang files cannot contain localized characters. They
+can be named using alphanumeric characters (``a``-``z``, ``A``-``Z`` and
+``0``-``9``) and an underscore (``_``), but may not begin with a number.
+
+CloudSlang variable names must conform to both `Python's naming constraints <https://docs.python.org/2/reference/lexical_analysis.html>`__
 as well as `Java's naming constraints <https://docs.oracle.com/javase/tutorial/java/nutsandbolts/variables.html>`__.
+
+Variable name rules apply to:
+
+  - inputs
+  - outputs
+  - published variables
+  - loop variables
+
+.. _other_names:
+
+Other Names
+~~~~~~~~~~~
+All other names can be named using alphanumeric characters (``a``-``z``,
+``A``-``Z`` and ``0``-``9``).
+
+Since flow, operation and decision names must match the names of their
+respective files, they cannot be named using names that are invalid as
+Windows or Linux file names.
+
+These rules apply to:
+
+  - import section aliases
+  - flow, operation and decision names
+  - step names
+  - result names
+  - navigation keys
+  - break keys
+
+.. _uniqueness_and_case_sensitivity:
+
+Uniqueness and Case Sensitivity
+-------------------------------
+
+Inputs, outputs, results, publish values, fully qualified system properties and
+fully qualified executable names must be unique and are validated as case
+insensitive. When using any of the above, they must be referred to using the
+case in which they were declared.
 
 Encoding
 --------
@@ -163,6 +230,28 @@ and concepts are explained in detail below.
 
 -  `extensions <#extensions>`__
 
+**Decision file**
+
+-  `namespace <#namespace>`__
+-  `decision <#decision>`__
+
+   -  `name <#name>`__
+   -  `inputs <#inputs>`__
+
+      -  `required <#required>`__
+      -  `default <#default>`__
+      -  `private <#private>`__
+      -  `sensitive <#sensitive>`__
+
+   -  `outputs <#outputs>`__
+
+      -  `value <#value>`__
+      -  `sensitive <#value>`__
+
+   -  `results <#results>`__
+
+-  `extensions <#extensions>`__
+
 **System properties file**
 
 -  `namespace <#namespace>`__
@@ -251,7 +340,7 @@ double quotes (``"``).
 Maps
 ----
 
-To pass a map where an expression is allowed use the `default <#default>`__
+To use a map where an expression is allowed use the `default <#default>`__
 property.
 
 **Example: passing a map using the default property**
@@ -279,46 +368,50 @@ approach detailed above is the recommended one.
 Contexts
 ========
 
-Throughout the execution of a flow, its steps, operations and subflows there are
-different variable contexts that are accessible. Which contexts are accessible
-depends on the current section of the flow or operation.
+Throughout the execution of a flow, its steps, operations, decisions and
+subflows there are different variable contexts that are accessible. Which
+contexts are accessible depends on the current section of the flow, operation or
+decision.
 
 The table below summarizes the accessible contexts at any given location in a
-flow or operation.
+flow, operation or decision.
 
-+------------------+--------------+-----------+-------------+-----------+-------------+-------------+--------------------+----------------+
-| | Contexts/      | | Context    | | Flow    | | Operation | | Action  | | Subflow/  | | Step      | | Branched         | | Already      |
-| | Location       | | Passed To  | | Context | | Context   | | Outputs | | Operation | | Arguments | | Step             | | Bound        |
-|                  | | Executable |           |             | | Context | | Outputs   |             | | Output           | | Values       |
-|                  |              |           |             |           | | Context   |             | | Values           |                |
-+==================+==============+===========+=============+===========+=============+=============+====================+================+
-| | **flow**       | Yes          |           |             |           |             |             |                    | Yes            |
-| | **inputs**     |              |           |             |           |             |             |                    |                |
-+------------------+--------------+-----------+-------------+-----------+-------------+-------------+--------------------+----------------+
-| | **flow**       |              | Yes       |             |           |             |             |                    | Yes            |
-| | **outputs**    |              |           |             |           |             |             |                    |                |
-+------------------+--------------+-----------+-------------+-----------+-------------+-------------+--------------------+----------------+
-| | **operation**  | Yes          |           |             |           |             |             |                    | Yes            |
-| | **inputs**     |              |           |             |           |             |             |                    |                |
-+------------------+--------------+-----------+-------------+-----------+-------------+-------------+--------------------+----------------+
-| | **operation**  |              |           | Yes         | Yes       |             |             |                    | Yes            |
-| | **outputs**    |              |           |             |           |             |             |                    |                |
-+------------------+--------------+-----------+-------------+-----------+-------------+-------------+--------------------+----------------+
-| | **operation**  |              |           | Yes         | Yes       |             |             |                    |                |
-| | **results**    |              |           |             |           |             |             |                    |                |
-+------------------+--------------+-----------+-------------+-----------+-------------+-------------+--------------------+----------------+
-| | **step**       |              | Yes       |             |           |             |             |                    | Yes            |
-| | **arguments**  |              |           |             |           |             |             |                    |                |
-+------------------+--------------+-----------+-------------+-----------+-------------+-------------+--------------------+----------------+
-| | **step**       |              |           |             |           | Yes         | Yes         | | Yes - using      | Yes            |
-| | **publish**    |              |           |             |           |             |             | | branches_context |                |
-+------------------+--------------+-----------+-------------+-----------+-------------+-------------+--------------------+----------------+
-| | **step**       |              |           |             |           | Yes         | Yes         |                    |                |
-| | **navigation** |              |           |             |           |             |             |                    |                |
-+------------------+--------------+-----------+-------------+-----------+-------------+-------------+--------------------+----------------+
-| | **action**     |              |           | Yes         |           |             |             |                    |                |
-| | **inputs**     |              |           |             |           |             |             |                    |                |
-+------------------+--------------+-----------+-------------+-----------+-------------+-------------+--------------------+----------------+
++------------------+--------------+-----------+--------------+-----------+--------------+-------------+--------------------+----------------+
+| | Contexts/      | | Context    | | Flow    | | Operation/ | | Action  | | Subflow/   | | Step      | | Branched         | | Already      |
+| | Location       | | Passed To  | | Context | | Decision   | | Outputs | | Operation/ | | Arguments | | Step             | | Bound        |
+|                  | | Executable |           | | Context    | | Context | | Outputs    |             | | Output           | | Values       |
+|                  |              |           |              |           | | Context    |             | | Values           |                |
++==================+==============+===========+==============+===========+==============+=============+====================+================+
+| | **flow**       | Yes          |           |              |           |              |             |                    | Yes            |
+| | **inputs**     |              |           |              |           |              |             |                    |                |
++------------------+--------------+-----------+--------------+-----------+--------------+-------------+--------------------+----------------+
+| | **flow**       |              | Yes       |              |           |              |             |                    | Yes            |
+| | **outputs**    |              |           |              |           |              |             |                    |                |
++------------------+--------------+-----------+--------------+-----------+--------------+-------------+--------------------+----------------+
+| | **operation/** | Yes          |           |              |           |              |             |                    | Yes            |
+| | **decision**   |              |           |              |           |              |             |                    |                |
+| | **inputs**     |              |           |              |           |              |             |                    |                |
++------------------+--------------+-----------+--------------+-----------+--------------+-------------+--------------------+----------------+
+| | **operation/** |              |           | Yes          | Yes       |              |             |                    | Yes            |
+| | **decision**   |              |           |              |           |              |             |                    |                |
+| | **outputs**    |              |           |              |           |              |             |                    |                |
++------------------+--------------+-----------+--------------+-----------+--------------+-------------+--------------------+----------------+
+| | **operation/** |              |           | Yes          | Yes       |              |             |                    |                |
+| | **decision**   |              |           |              |           |              |             |                    |                |
+| | **results**    |              |           |              |           |              |             |                    |                |
++------------------+--------------+-----------+--------------+-----------+--------------+-------------+--------------------+----------------+
+| | **step**       |              | Yes       |              |           |              |             |                    | Yes            |
+| | **arguments**  |              |           |              |           |              |             |                    |                |
++------------------+--------------+-----------+--------------+-----------+--------------+-------------+--------------------+----------------+
+| | **step**       |              |           |              |           | Yes          | Yes         | | Yes - using      | Yes            |
+| | **publish**    |              |           |              |           |              |             | | branches_context |                |
++------------------+--------------+-----------+--------------+-----------+--------------+-------------+--------------------+----------------+
+| | **step**       |              |           |              |           | Yes          | Yes         |                    |                |
+| | **navigation** |              |           |              |           |              |             |                    |                |
++------------------+--------------+-----------+--------------+-----------+--------------+-------------+--------------------+----------------+
+| | **action**     |              |           | Yes          |           |              |             |                    |                |
+| | **inputs**     |              |           |              |           |              |             |                    |                |
++------------------+--------------+-----------+--------------+-----------+--------------+-------------+--------------------+----------------+
 
 Keywords (A-Z)
 ==============
@@ -403,7 +496,7 @@ empty list (``[]``).
       for: value in range(1,7)
       do:
         custom_op:
-          - text: ${value}
+          - text: ${str(value)}
       break:
         - CUSTOM
     navigate:
@@ -417,7 +510,7 @@ empty list (``[]``).
       for: value in range(1,7)
       do:
         custom_op:
-          - text: ${value}
+          - text: ${str(value)}
       break: []
 
 .. _class_name:
@@ -428,6 +521,47 @@ class_name
 The key ``class_name`` is a property of a `java_action <#java-action>`__. It is
 mapped to the name of the Java class where an annotated @Action resides.
 
+.. _decision:
+
+decision
+--------
+
+The key ``decision`` is mapped to the properties which make up the
+decision contents.
+
++-------------------+----------+-------------+----------------+----------------------+------------------------------------+
+| Property          | Required | Default     | Value Type     | Description          | More Info                          |
++===================+==========+=============+================+======================+====================================+
+| ``name``          | yes      | --          | string         | | name of the        | `name <#name>`__                   |
+|                   |          |             |                | | decision           |                                    |
++-------------------+----------+-------------+----------------+----------------------+------------------------------------+
+| ``inputs``        | no       | --          | list           | decision inputs      | `inputs <#inputs>`__               |
++-------------------+----------+-------------+----------------+----------------------+------------------------------------+
+| ``outputs``       | no       | --          | list           | decision outputs     | `outputs <#outputs>`__             |
++-------------------+----------+-------------+----------------+----------------------+------------------------------------+
+| ``results``       | yes      | --          | list           | | possible decision  | `results <#results>`__             |
+|                   |          |             |                | | results            |                                    |
++-------------------+----------+-------------+----------------+----------------------+------------------------------------+
+
+**Example - decision that compares two values**
+
+.. code-block:: yaml
+
+    decision:
+      name: compare
+
+      inputs:
+        - x
+        - y
+
+      outputs:
+        - sum: ${str(int(x) + int(y))}
+
+      results:
+        - EQUAL: ${x == y}
+        - LESS_THAN: ${int(x) < int(y)}
+        - GREATER_THAN
+
 .. _default:
 
 default
@@ -436,10 +570,12 @@ default
 The key ``default`` is a property of an `input <#inputs>`__ name. It is
 mapped to an `expression <#expressions>`__ value.
 
-The expression's value will be passed to the `flow <#flow>`__ or
-`operation <#operation>`__ if no other value for that
-`input <#inputs>`__ parameter is explicitly passed or if the input's
-`private <#private>`__ parameter is set to ``true``.
+The expression's value will be passed to the `flow <#flow>`__
+`operation <#operation>`__ or `decision <#decision>`__ if no other value for
+that `input <#inputs>`__ parameter is explicitly passed or if the input's
+`private <#private>`__ parameter is set to ``true``. Passing an empty string
+(``''``), ``null``, or an expression that evaluates to ``None`` is the same as
+not passing any value at all and will not override the default value.
 
 **Example - default values**
 
@@ -449,7 +585,7 @@ The expression's value will be passed to the `flow <#flow>`__ or
       - str_literal:
           default: "default value"
       - int_exp:
-          default: ${5 + 6}
+          default: ${str(5 + 6)}
       - from_variable:
           default: ${variable_name}
       - from_system_property:
@@ -464,7 +600,7 @@ to the `input <#inputs>`__ parameter's key.
 
     inputs:
       - str_literal: "default value"
-      - int_exp: ${5 + 6}
+      - int_exp: ${str(5 + 6)}
       - from_variable: ${variable_name}
       - from_system_property: $ { get_sp('system.property.key') }
 
@@ -505,21 +641,25 @@ example.
 
 Arguments are passed to a `step <#step>`__ using a list of argument names and
 optional mapped `expressions <#expressions>`__. The step must pass values for
-all `inputs <#inputs>`__ found in the called `operation <#operation>`__ or
-`subflow <#flow>`__ that are required and don't have a default value. Argument
-names should be different than the `output <#outputs>`__ names found in the
-`operation <#operation>`__ or `subflow <#flow>`__ being called in the step.
+all `inputs <#inputs>`__ found in the called `operation <#operation>`__,
+`decision <#decision>`__ or `subflow <#flow>`__ that are required and don't have
+a default value. Passing an empty string  (``''``), ``null``, or an expression
+that evaluates to ``None`` is the same as not passing any value at all.
+
+Argument names should be different than the
+`output <#outputs>`__ names found in the `operation <#operation>`__,
+`decision <#decision>`__ or `subflow <#flow>`__ being called in the step.
 
 Argument names must conform to the rules for valid
 :ref:`variable names <variable_names>`.
 
-An argument name without an expression, or with a ``null`` value will take its
-value from a variable with the same name in the flow context.
-`Expression <#expressions>`__ values will supersede values bound to flow
-`inputs <#inputs>`__ with the same name. To force the `operation <#operation>`__
-or `subflow <#flow>`__ being called to use it's own default value, as opposed to
-a value passed in via expression or the flow context, omit the variable from the
-calling `step's <#step>`__ argument list.
+An argument name without an expression will take its value from a variable with
+the same name in the flow context. `Expression <#expressions>`__ values will
+supersede values bound to flow `inputs <#inputs>`__ with the same name. To force
+the `operation <#operation>`__, `decision <decision>`__ or `subflow <#flow>`__
+being called to use it's own default value, as opposed to a value passed in via
+expression or the flow context, omit the variable from the calling
+`step's <#step>`__ argument list.
 
 For a list of which contexts are available in the arguments section of a
 `step <#step>`__, see `Contexts <#contexts>`__.
@@ -672,6 +812,10 @@ A for loop iterates through a `list <#iterating-through-a-list>`__ or a
 The `iterative step <#iterative-step>`__ will run once for each element
 in the list or key in the map.
 
+Loop variables must conform to the rules for valid
+:ref:`variable names <variable_names>`.
+
+
 Iterating through a list
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -688,10 +832,9 @@ evaluates to a list, or a comma delimited string.
           for: value in [1,2,3]
           do:
             print:
-              - text: ${value}
+              - text: ${str(value)}
 
-**Example - loop that iterates through the values in a comma delimited
-string**
+**Example - loop that iterates through the values in a comma delimited string**
 
 .. code-block:: yaml
 
@@ -702,8 +845,7 @@ string**
             print:
               - text: ${value}
 
-**Example - loop that iterates through the values returned from an
-expression**
+**Example - loop that iterates through the values returned from an expression**
 
 .. code-block:: yaml
 
@@ -712,7 +854,7 @@ expression**
           for: value in range(1,4)
           do:
             print:
-              - text: ${value}
+              - text: ${str(value)}
 
 Iterating through a map
 ^^^^^^^^^^^^^^^^^^^^^^^
@@ -774,7 +916,7 @@ downloaded (if necessary).
 .. code-block:: yaml
 
   java_action:
-    gav: io.cloudslang.content:score-xml:0.0.2
+    gav: io.cloudslang.content:cs-xml:0.0.2
     class_name: io.cloudslang.content.mail.actions.SendMailAction
     method_name: execute
 
@@ -798,6 +940,9 @@ Using an alias is one way to reference the
 `operations <#operation>`__ and `subflows <#flow>`__ used in a
 `flow's <#flow>`__ `steps <#step>`__, see the `do <#do>`__ keyword and the
 :ref:`Operation Paths example <example_operation_paths>`.
+
+Import aliases must conform to the rules for valid
+:ref:`names <other_names>`.
 
 **Example - import operations and sublflow into flow**
 
@@ -833,21 +978,27 @@ source file defines its namespace as ``examples.subflows``.
 inputs
 ------
 
-The key ``inputs`` is a property of a `flow <#flow>`__ or
-`operation <#operation>`__. It is mapped to a list of input names. Each
-input name may in turn be mapped to its properties or an input
-`expression <#expressions>`__.
+The key ``inputs`` is a property of a `flow <#flow>`__,
+`operation <#operation>`__ or `decision <#decision>`__. It is mapped to a list
+of input names. Each input name may in turn be mapped to its properties or an
+input `expression <#expressions>`__.
 
-Inputs are used to pass parameters to `flows <#flow>`__ or
-`operations <#operation>`__. Input names for a specific `flow <#flow>`__ or
-`operation <#operation>`__ must be different than the `output <#outputs>`__
-names of the same `flow <#flow>`__ or `operation <#operation>`__.
+Inputs are used to pass parameters to `flows <#flow>`__,
+`operations <#operation>`__ or `decisions <#decision>`__. Input names for a
+specific `flow <#flow>`__, `operation <#operation>`__ or
+`decision <#decision>`__ must be different than the `output <#outputs>`__
+names of the same `flow <#flow>`__, `operation <#operation>`__ or
+`decision <#decision>`__.
+
+Input values must evaluate to type string.
 
 For a list of which contexts are available in the ``inputs`` section of a
-`flow <#flow>`__ or `operation <#operation>`__, see `Contexts <#contexts>`__.
+`flow <#flow>`__, `operation <#operation>`__ or `decision <#decision>`__, see
+`Contexts <#contexts>`__.
 
 Input names must conform to the rules for valid
-:ref:`variable names <variable_names>`.
+:ref:`variable names <variable_names>` and
+:ref:`uniqueness <uniqueness_and_case_sensitivity>`.
 
 +---------------+----------+---------------+------------+--------------------+----------------------------+
 | Property      | Required | Default       | Value Type | Description        | More info                  |
@@ -878,7 +1029,7 @@ Input names must conform to the rules for valid
           private: true
       - input2
       - input3: "default value"
-      - input4: ${'var1 is ' + var1}
+      - input4: ${'input1 is ' + input1}
       - password:
           sensitive: true
 
@@ -893,7 +1044,7 @@ mapped to the properties that define where an annotated Java @Action resides.
 +-----------------+----------+---------+-------------+------------------------+--------------------------------+
 | Property        | Required | Default | Value Type  | Description            | More info                      |
 +=================+==========+=========+=============+========================+================================+
-| ``gav``         | no       | --      | string      | group:artifact:version | `gav <#gav>`__                 |
+| ``gav``         | yes      | --      | string      | group:artifact:version | `gav <#gav>`__                 |
 +-----------------+----------+---------+-------------+------------------------+--------------------------------+
 | ``class_name``  | yes      | --      | string      | | fully qualified      | `class_name <#class-name>`__   |
 |                 |          |         |             | | Java class name      |                                |
@@ -919,7 +1070,7 @@ mapped to the properties that define where an annotated Java @Action resides.
         - body
 
       java_action:
-        gav: io.cloudslang.content:score-xml:0.0.2
+        gav: io.cloudslang.content:cs-xml:0.0.2
         class_name: io.cloudslang.content.mail.actions.SendMailAction
         method_name: execute
 
@@ -933,7 +1084,7 @@ Existing Java Actions
 There are many existing Java actions which are bundled with the
 :doc:`CloudSlang CLI <cloudslang_cli>`. The source code for these Java actions
 can be found in the
-`score-actions <https://github.com/CloudSlang/score-actions>`__ repository.
+`cs-actions <https://github.com/CloudSlang/cs-actions>`__ repository.
 
 Adding a New Java Action
 ~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1133,17 +1284,23 @@ mapped to the name of the Java method where an annotated @Action resides.
 name
 ----
 
-The key ``name`` is a property of `flow <#flow>`__ and
-`operation <#operation>`__. It is mapped to a value that is used as the
-name of the `flow <#flow>`__ or `operation <#operation>`__.
+The key ``name`` is a property of `flow <#flow>`__,
+`operation <#operation>`__ or `decision <#decision>`__. It is mapped to a value
+that is used as the name of the `flow <#flow>`__ or `operation <#operation>`__.
 
-The name of a `flow <#flow>`__ or `operation <#operation>`__ may be used
-when called from a `flow <#flow>`__'s `step <#step>`__.
+The name of a `flow <#flow>`__, `operation <#operation>`__ or
+`decision <#decision>`__ may be used when called from a `flow <#flow>`__'s
+`step <#step>`__.
 
-The name of a `flow <#flow>`__ or `operation <#operation>`__ must match the name
+The name of a `flow <#flow>`__, `operation <#operation>`__ or
+`decision <#decision>`__ must match the name
 of the file in which it resides, excluding the extension.
 
-**Example - naming the flow found in the file** ``division_flow.sl``
+The name must conform to the rules for :ref:`names <other_names>` and
+:ref:`uniqueness <uniqueness_and_case_sensitivity>`.
+
+
+**Example - naming the flow found in the file division_flow.sl**
 
 .. code-block:: yaml
 
@@ -1173,8 +1330,9 @@ dependencies.
     imports:
       ops: examples.hello_world
 
-For more information about choosing a file's namespace, see the
-:ref:`CloudSlang Content Best Practices <cloudslang_content_best_practices>`
+Namespace values must conform to the rules described in `Namespace Names
+<namespace_names>`__. For more information about choosing a file's namespace,
+see the :ref:`CloudSlang Content Best Practices <cloudslang_content_best_practices>`
 section.
 
 .. note::
@@ -1201,12 +1359,30 @@ step <#parallel-step>`__. The flow will continue with the
 is mapped to the `result <#results>`__ returned by the called
 `operation <#operation>`__ or `subflow <#flow>`__.
 
-By default, if no ``navigate`` section navigation is present, the flow continues
-with the next `step <#step>`__ or navigates to the ``SUCCESS`` result of the
-flow if the `step <#step>`__ is the final non-on_failure step. The
-`on_failure <#on-failure>`__ `step <#step>`__ always navigates to the ``FAILURE``
-result of the flow. For more information, see the
-:ref:`Default Navigation <example_default_navigation>` example.
+The default navigation rules, when no explicit ``navigate`` section is declared,
+are as follows:
+
++-------------+------------------------------------------------+--------------------------------------+-----------------------------------+
+| Result      | Step location                                  | `on_failure <#on-failure>`__ present | Navigation                        |
++=============+================================================+======================================+===================================+
+| ``SUCCESS`` | Not last non-`on_failure <#on-failure>`__ step | --                                   | Next step                         |
++-------------+------------------------------------------------+--------------------------------------+-----------------------------------+
+| ``SUCCESS`` | Last non-`on_failure <#on-failure>`__ step     | --                                   | ``SUCCESS`` result of the flow    |
++-------------+------------------------------------------------+--------------------------------------+-----------------------------------+
+| ``FAILURE`` | --                                             | Yes                                  | `on_failure <#on-failure>`__ step |
++-------------+------------------------------------------------+--------------------------------------+-----------------------------------+
+| ``FAILURE`` | --                                             | No                                   | ``FAILURE`` result of the flow    |
++-------------+------------------------------------------------+--------------------------------------+-----------------------------------+
+
+The default navigation only applies when a step calls an operation or subflow
+that returns a result of either ``SUCCESS`` or ``FAILURE``. If the operation or
+subflow can return a custom result or always returns only ``SUCCESS`` or only
+``FAILURE`` then default navigation will not apply.
+
+.. note::
+
+  Operations which don't explicitly return any results always return the result
+  ``SUCCESS``.
 
 All possible `results <#results>`__ returned by the
 called `operation <#operation>`__ or `subflow <#flow>`__ must be handled.
@@ -1232,6 +1408,10 @@ evaluated as ``SUCCESS``.
 
 For a list of which contexts are available in the ``navigate`` section of a
 `step <#step>`__, see `Contexts <#contexts>`__.
+
+A navigation key's name must conform to the rules for :ref:`names <other_names>`
+and :ref:`uniqueness <uniqueness_and_case_sensitivity>`.
+
 
 **Example - ILLEGAL result will navigate to flow's FAILURE result and SUCCESS result will navigate to step named 'printer'**
 
@@ -1259,9 +1439,11 @@ mapping one of a `step's <#step>`__ `navigation <#navigate>`__ keys to
 maps to ``on_failure``, but there is no ``on_failure`` `step <#step>`__ defined
 in the flow, the flow ends with a `result <#results>`__ of ``FAILURE``.
 
-The ``on_failure`` `step <#step>`__ `navigation <#navigate>`__ cannot contain a
-`navigation <#navigate>`__ section. It always causes the flow to end with a
-`result <#results>`__ of ``FAILURE``.
+The ``on_failure`` `step <#step>`__ must be the last step in the flow.
+
+The ``on_failure`` `step <#step>`__ cannot contain a `navigation <#navigate>`__
+section. It always causes the flow to end with a `result <#results>`__ of
+``FAILURE``.
 
 **Example - failure step which calls a print operation to print an error message**
 
@@ -1315,45 +1497,51 @@ operation contents.
 
 .. code-block:: yaml
 
-    name: add
+    operation:
+      name: add
 
-    inputs:
-      - left
-      - right
+      inputs:
+        - left
+        - right
 
-    python_action:
-      script: ans = left + right
+      python_action:
+        script: ans = int(left) + int(right)
 
-    outputs:
-      - out: ${ans}
+      outputs:
+        - out: ${str(ans)}
 
-    results:
-      - SUCCESS
+      results:
+        - SUCCESS
 
 .. _outputs:
 
 outputs
 -------
 
-The key ``outputs`` is a property of a `flow <#flow>`__ or
-`operation <#operation>`__. It is mapped to a list of output variable
-names. Each output name may in turn be mapped to its properties or an output
-`expression <#expressions>`__. Output `expressions <#expressions>`__ must
-evaluate to strings.
+The key ``outputs`` is a property of a `flow <#flow>`__,
+`operation <#operation>`__ or `decision <#decision>`__. It is mapped to a list
+of output variable names. Each output name may in turn be mapped to its
+properties or an output `expression <#expressions>`__. Output
+`expressions <#expressions>`__ must evaluate to strings.
 
-Defines the parameters a `flow <#flow>`__ or `operation <#operation>`__
-exposes to possible `publication <#publish>`__ by a `step <#step>`__.
-The calling `step <#step>`__ refers to an output by its name.
+Defines the parameters a `flow <#flow>`__, `operation <#operation>`__ or
+`decision <#decision>`__ exposes to possible `publication <#publish>`__ by a
+`step <#step>`__. The calling `step <#step>`__ refers to an output by its name.
 
-Output names for a specific `flow <#flow>`__ or `operation <#operation>`__ must
-be different than the `input <#inputs>`__ names of the same `flow <#flow>`__ or
-`operation <#operation>`__.
+Output names for a specific `flow <#flow>`__, `operation <#operation>`__ or
+`decision <#decision>`__ must be different than the `input <#inputs>`__ names of
+the same `flow <#flow>`__, `operation <#operation>`__ or
+`decision <#decision>`__.
+
+Output values must evaluate to type string.
 
 For a list of which contexts are available in the ``outputs`` section of a
-`flow <#flow>`__ or `operation <#operation>`__, see `Contexts <#contexts>`__.
+`flow <#flow>`__, `operation <#operation>`__ or `decision <#decision>`__,
+see `Contexts <#contexts>`__.
 
 Output identifiers must conform to the rules for valid
-:ref:`variable names <variable_names>`.
+:ref:`variable names <variable_names>` and
+:ref:`uniqueness <uniqueness_and_case_sensitivity>`.
 
 +---------------+----------+---------------+------------+-----------------+----------------------------+
 | Property      | Required | Default       | Value Type | Description     | More info                  |
@@ -1373,7 +1561,7 @@ Output identifiers must conform to the rules for valid
     outputs:
       - existing_variable
       - output2: ${some_variable}
-      - output3: ${5 + 6}
+      - output3: ${str(5 + 6)}
       - password:
           value: ${password}
           sensitive: true
@@ -1430,10 +1618,10 @@ is mapped to a boolean value.
 
 A value of ``true`` will ensure that the `input <#inputs>`__
 parameter's `default <#default>`__ value will not be overridden by
-values passed into the `flow <#flow>`__ or `operation <#operation>`__. An
-`input <#inputs>`__ set as ``private: true`` must also declare a
-`default <#default>`__ value. If ``private`` is not defined, values passed
-in will override the `default <#default>`__ value.
+values passed into the `flow <#flow>`__, `operation <#operation>`__ or
+`decision <#decision>`__. An `input <#inputs>`__ set as ``private: true`` must
+also declare a `default <#default>`__ value. If ``private`` is not defined,
+values passed in will override the `default <#default>`__ value.
 
 **Example - default value of text input parameter will not be overridden by values passed in**
 
@@ -1454,7 +1642,9 @@ one or more system properties. Each system property name may in turn be mapped
 to its properties or a value.
 
 System property names (keys) can contain alphanumeric characters (A-Za-z0-9),
-underscores (_) and hyphens (-).
+underscores (_) and hyphens (-). The names must conform to the rules for
+:ref:`uniqueness <uniqueness_and_case_sensitivity>`.
+
 
 System property values are retrieved using the `get_sp() <#get-sp>`__ function.
 
@@ -1511,6 +1701,10 @@ from an `operation <#operation>`__ or `flow <#flow>`__.
 For a list of which contexts are available in the ``publish`` section of a
 `step <#step>`__, see `Contexts <#contexts>`__.
 
+Publish names  must conform to the rules for valid
+:ref:`variable names <variable_names>` and
+:ref:`uniqueness <uniqueness_and_case_sensitivity>`.
+
 Standard publish
 ~~~~~~~~~~~~~~~~
 
@@ -1549,10 +1743,10 @@ during each iteration after the `operation <#operation>`__ or
           for: value in range(1,6)
           do:
             square:
-              - to_square: ${value}
+              - to_square: ${str(value)}
               - sum
           publish:
-            - sum: ${sum + squared}
+            - sum: ${str(int(sum) + int(squared))}
 
 Parallel publish
 ~~~~~~~~~~~~~~~~
@@ -1627,21 +1821,25 @@ mapped to a `script <#script>`__ property that contains the actual Python script
 results
 -------
 
-The key ``results`` is a property of a `flow <#flow>`__ or
-`operation <#operation>`__.
+The key ``results`` is a property of a `flow <#flow>`__,
+`operation <#operation>`__ or `decision <#decision>`__.
 
-The results of a `flow <#flow>`__ or `operation <#operation>`__ can be
-used by the calling `step <#step>`__ for `navigation <#navigate>`__
-purposes.
+The results of a `flow <#flow>`__, `operation <#operation>`__ or
+`decision <#decision>`__ can be used by the calling `step <#step>`__ for
+`navigation <#navigate>`__ purposes.
+
+A result name must conform to the rules for :ref:`names <other_names>` and
+:ref:`uniqueness <uniqueness_and_case_sensitivity>`. Additionally, a result
+cannot be named ``on_failure``.
 
 .. note::
 
-   The only results of an `operation <#operation>`__ or
-   `subflow <#flow>`__ called in a `parallel_loop <#parallel-loop>`__ that are
-   evaluated are ``SUCCESS`` and ``FAILURE``. Any other results will be
+   The only results of an `operation <#operation>`__, `decision <#decision>`__
+   or `subflow <#flow>`__ called in a `parallel_loop <#parallel-loop>`__ that
+   are evaluated are ``SUCCESS`` and ``FAILURE``. Any other results will be
    evaluated as ``SUCCESS``.
 
-Flow results
+Flow Results
 ~~~~~~~~~~~~
 
 In a `flow <#flow>`__, the key ``results`` is mapped to a list of result
@@ -1667,23 +1865,32 @@ all `flow <#flow>`__ results must be handled by the calling
       - ILLEGAL
       - FAILURE
 
-Operation results
-~~~~~~~~~~~~~~~~~
+Operation and Decision Results
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-In an `operation <#operation>`__ the key ``results`` is mapped to a list
-of key:value pairs of result names and boolean `expressions <#expressions>`__.
+In an `operation <#operation>`__ or `decision <#decision>`__ the key ``results``
+is mapped to a list of key:value pairs of result names and boolean
+`expressions <#expressions>`__.
 
-Defines the possible results of the `operation <#operation>`__. By
-default, if no results exist, the result is ``SUCCESS``. The first
-result in the list whose expression evaluates to true, or does not have
-an expression at all, will be passed back to the calling
-`step <#step>`__ to be used for `navigation <#navigate>`__ purposes.
+Defines the possible results of the `operation <#operation>`__ or
+`decision <#decision>`__. By default, if no results exist, the result of an
+`operation <#operation>`__ is ``SUCCESS``. A `decision <#decision>`__ does not
+have any default results.
 
-All `operation <#operation>`__ results must be handled by the calling
-`step <#step>`__.
+The first result in the list whose expression evaluates to true, or does not
+have an expression at all, will be passed back to the calling `step <#step>`__
+to be used for `navigation <#navigate>`__ purposes.
+
+If results are present, the list must include exactly one default ending
+result which is not mapped to anything (``- result``) or is mapped to the
+value ``true`` (``- result: true``).
+
+All `operation <#operation>`__ or `decision <#decision>`__ results must be
+handled by the calling `step <#step>`__.
 
 For a list of which contexts are available in the ``results`` section of an
-`operation <#operation>`__, see `Contexts <#contexts>`__.
+`operation <#operation>`__ or `decision <#decision>`__, see
+`Contexts <#contexts>`__.
 
 **Example - three user-defined results**
 
@@ -1705,8 +1912,11 @@ mapped to a boolean value.
 A value of ``false`` will allow the `flow <#flow>`__ or
 `operation <#operation>`__ to be called without passing the
 `input <#inputs>`__ parameter. If ``required`` is not defined, the
-`input <#inputs>`__ parameter defaults to being required. Required inputs must
-receive a value or declare a `default <#default>`__ value.
+`input <#inputs>`__ parameter defaults to being required.
+
+Required inputs must receive a value or declare a `default <#default>`__ value.
+Passing an empty string  (``''``), ``null``, or an expression that evaluates to
+``None`` to a required input is the same as not passing any value at all.
 
 **Example - input2 is optional**
 
@@ -1753,7 +1963,7 @@ scope by using the ``del`` keyword before the script exits.
           quotient = float(dividend) / float(divisor)
 
     outputs:
-      - quotient
+      - quotient: ${str(quotient)}
 
     results:
       - ILLEGAL: ${quotient == 'division by zero error'}
@@ -1928,11 +2138,14 @@ of the :doc:`CLI <cloudslang_cli>` and :doc:`Build Tool <cloudslang_build_tool>`
 step
 ----
 
-A name of a step which is a property of `workflow <#workflow>`__ or
-`on_failure <#on-failure>`__.
+A name of a step which is a property of `workflow <#workflow>`__.
 
-Every step which is not an `on_failure <#on-failure>`__ step must be reachable
-from another step.
+A step name must conform to the rules for :ref:`names <other_names>` and
+:ref:`uniqueness <uniqueness_and_case_sensitivity>`. Additionally, a step cannot
+be named ``on_failure``.
+
+Every step which is not declared with the `on_failure <#on-failure>`__ keyword
+must be reachable from another step.
 
 There are several types of steps:
 
@@ -1948,7 +2161,7 @@ There are several types of steps:
         do:
           some_op:
             - host
-            - port: 25
+            - port: '25'
 
 Standard Step
 ~~~~~~~~~~~~~

@@ -13,7 +13,7 @@ Get Started
 
 First, we need to create the **print.sl** file in the **base** folder so we can
 start writing the print operation.
-The print operation is as simple as they get. It just takes in a input
+The ``print`` operation is as simple as they get. It just takes in a input
 and prints it out using Python.
 
 Namespace
@@ -71,19 +71,19 @@ to print. We'll name our input ``text``.
 .. note::
 
    **YAML Note:** The ``inputs`` key maps to a list of inputs. In YAML, a
-   list is signified by prepending a hypen and a space (- ) to each
+   list is signified by prepending a hypen (``-``) and a space to each
    item.
 
 The values for the inputs are either passed via the :doc:`CloudSlang
 CLI <../cloudslang_cli>`, as we do below in this lesson, or from a
 step in a flow, as we will do in the next lesson.
 
-Inputs can also have related parameters, such as ``required``,
-``default`` and ``private``. We will discuss these parameters in lessons
+Inputs can also have related parameters, such as ``required``, ``default``,
+``private`` and ``sensitive``. We will discuss these parameters in lessons
 :doc:`8 - Input Parameters <08_lesson>`.
 
-For more information, see :ref:`inputs`, :ref:`required`, :ref:`default` and
-:ref:`private` in the DSL reference.
+For more information, see :ref:`inputs`, :ref:`required`, :ref:`default`,
+:ref:`private` and :ref:`sensitive` in the DSL reference.
 
 Action
 ------

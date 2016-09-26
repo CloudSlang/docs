@@ -6,10 +6,11 @@ operation:
   inputs:
     - first_name
     - middle_name:
+        required: false
         default: ""
     - last_name
     - domain:
-        default: ${get_sp('tutorials.properties.domain', 'acompany.com')}
+        default: "acompany.com"
         private: true
     - attempt
 

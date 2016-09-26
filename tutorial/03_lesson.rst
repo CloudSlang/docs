@@ -10,7 +10,7 @@ operation. We'll learn about the main components that make up a flow.
 Get Started
 -----------
 
-First, we need to create the **new_hire.sl** file in the **hiring** folder so we
+First, we need to create a **new_hire.sl** file in the **hiring** folder so we
 can start writing the new hire flow. We'll build it one step at a time. So for
 now, all it will do is call the print operation we wrote in the previous lesson.
 
@@ -94,11 +94,14 @@ which we'll add to a list under the operation call and pass it a value.
     do:
       base.print:
         - text: "Starting new hire process"
+    navigate:
+      - SUCCESS: SUCCESS
 
 In addition to the required ``do``, a step can also contain the optional
-``publish`` and ``navigate`` keys. We begin to use their functionality
-in lessons :doc:`5 - Default Navigation <05_lesson>` and :doc:`7 - Custom
-Navigation <07_lesson>` respectively.
+``publish`` and ``navigate`` keys. Here we added a ``navigate`` section.
+We'll explain more about ``publish`` and ``navigate`` a little later in lessons
+:doc:`5 - Default Navigation <05_lesson>` and :doc:`7 - Custom Navigation
+<07_lesson>` respectively.
 
 For more information, see :ref:`do`, :ref:`publish` and :ref:`navigate` in the
 DSL reference.
@@ -119,7 +122,6 @@ following at the prompt.
    dependencies are found to the classpath. For more information, see
    :ref:`Run with Dependencies <run_with_dependencies>` in the DSL reference.
 
-
 You should see the name of the step and the string sent to the print
 operation printed to the screen.
 
@@ -131,8 +133,8 @@ Download the Code
 Up Next
 -------
 
-In the next lesson we'll write a more complex operation that also
-returns outputs and results.
+In the next lesson we'll write a more complex operation that also returns
+outputs and results.
 
 New Code - Complete
 -------------------
@@ -154,3 +156,8 @@ New Code - Complete
             do:
               base.print:
                 - text: "Starting new hire process"
+            navigate:
+              - SUCCESS: SUCCESS
+
+      results:
+        - SUCCESS

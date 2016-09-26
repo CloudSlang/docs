@@ -17,6 +17,8 @@ flow:
         do:
           base.print:
             - text: "Starting new hire process"
+        navigate:
+          - SUCCESS: create_email_address
 
     - create_email_address:
         loop:
@@ -26,7 +28,7 @@ flow:
               - first_name
               - middle_name
               - last_name
-              - attempt
+              - attempt: ${str(attempt)}
           publish:
             - address
             - password
@@ -42,7 +44,9 @@ flow:
         do:
           base.print:
             - text: "${'Created address: ' + address + ' for: ' + first_name + ' ' + last_name}"
-
+        navigate:
+          - SUCCESS: SUCCESS
+          
     - on_failure:
       - print_fail:
           do:

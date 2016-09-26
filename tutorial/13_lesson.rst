@@ -1,129 +1,144 @@
-Lesson 13 - System Properties
-=============================
+Lesson 13 - Existing Content
+============================
 
 Goal
 ----
 
-In this lesson we'll learn how to use system properties to set the
-values of inputs.
+In this lesson we'll learn how to easily integrate ready-made content
+into our flow.
 
 Get Started
 -----------
 
-We'll need to create a system properties file that contains the values we
-want to use for the inputs. Let's create a **properties** folder under
-**tutorials** and in there create a file named **bcompany.prop.sl**. We'll
-also need to use the system properties somewhere. We'll use them in the
-**new_hire.sl** and **generate_user_email.sl** files.
+Instead of printing that our flow has completed, let's send an email to
+HR to let them know that the new hire's email address has been created
+and notify them as to the status of the new hire's equipment order. If
+you're using a pre-built CLI you'll have a folder named **content** that
+contains all of the ready-made content. If you've built the CLI from the
+source code, you'll have to get the content mentioned below from the
+GitHub `repository <https://github.com/cloudslang/cloud-slang-content>`__ and
+point to the right location when running the flow.
 
-System Properties File
-----------------------
+Ready-Made Operation
+--------------------
 
-A system properties file ends with the **.prop.sl** extension and can include a
-namespace. A system properties file also contains the ``properties`` keyword
-which is mapped to a list of ``key:value`` pairs that define system property
-names and values.
+We'll use the ``send_mail`` operation which is found in the
+**base/mail** folder. All ready-made content begins with a commented
+explanation of its purpose and its inputs, outputs and results.
 
-Here's what the contents of our system properties file looks like:
-
-.. code-block:: yaml
-
-    namespace: tutorials.properties
-
-    properties:
-      - domain: bcompany.com
-      - hostname: <host>
-      - port: 25
-      - system_address: <test@test.com>
-      - hr_address: <test@test.com>
-
-
-You'll need to substitute the values in angle brackets (``<>``) to work
-for your email host.
-
-.. note::
-
-   All system property values are interpreted as strings. So in our case,
-   even if the port is a numeric value, it's value when used as a system
-   property will be a string representation. For example, entering a value of
-   ``25`` will create a system property whose value is ``'25'``.
-
-For more information, see :ref:`properties <properties>` in the DSL Reference
-and :ref:`Run with System Properties <run_with_system_properties>` in the CLI
-documentation.
-
-Retrieve Values
----------------
-
-Now we'll use the system properties to place values in our inputs and step
-arguments. We retrieve system property values using the ``get_sp()`` function.
-We'll do this in two places.
-
-.. note::
-
-   The ``get_sp()`` function can also be used to retrieve system property
-   values in publish, output and result expressions.
-
-First, we'll use a system property in the inputs of ``generate_user_email``
-by calling the ``get_sp()`` function in the ``default`` property of the
-the ``domain`` input. The ``get_sp()`` function will retrieve the value
-associated with the property defined by the fully qualified name in its first
-argument. If no such property is found, the function will return the second
-argument.
+Here's the documentation for the ``send_mail`` operation:
 
 .. code-block:: yaml
 
-    inputs:
-      - first_name
-      - middle_name:
-          default: ""
-      - last_name
-      - domain:
-          default: ${get_sp('tutorials.properties.domain', 'acompany.com')}
-          private: true
-      - attempt
+    ####################################################
+    #!!
+    #! @description: Sends an email.
+    #!
+    #! @input hostname: email host
+    #! @input port: email port
+    #! @input from: email sender
+    #! @input to: email recipient
+    #! @input cc: cc recipient
+    #!            optional
+    #!            default: none
+    #! @input bcc: bcc recipient
+    #!             optional
+    #!             default: none
+    #! @input subject: email subject
+    #! @input body: email text
+    #! @input html_email: html formatted email
+    #!                    optional
+    #!                    default: true
+    #! @input read_receipt: request read receipt
+    #!                      optional
+    #!                      default: false
+    #! @input attachments: email attachments
+    #!                     optional
+    #!                     default: none
+    #! @input username: account username
+    #!                  optional
+    #!                  default: none
+    #! @input password: account password
+    #!                  optional
+    #!                  default: none
+    #! @input character_set: email character set
+    #!                       optional
+    #!                       default: UTF-8
+    #! @input content_transfer_encoding: email content transfer encoding
+    #!                                   optional
+    #!                                   default: base64
+    #! @input delimiter: delimiter to separate email recipients and attachments
+    #!                   optional
+    #!                   default: none
+    #! @result SUCCESS: mail was sent successfully (returnCode is equal to 0)
+    #! @result FAILURE: otherwise
+    #!!#
+    ####################################################
 
-The second place we'll use system properties is in the ``new_hire``
-flow. Here we'll retrieve the system properties in the arguments of
-the ``send_mail`` step we created last lesson. We'll use the ``get_sp()``
-function to get the ``hostname``, ``port``, ``from`` and ``to`` default
-values from the system properties file.
+We could get this information by opening the operation from the ready-made
+content folder or by running ``inspect`` on the flow.
+
+.. code-block:: bash
+
+    inspect <content folder path>/io/cloudslang/base/mail/send_mail.sl
+
+When calling the operation, we'll need to pass values for all the
+arguments listed in the documentation that are not optional.
+
+Imports
+-------
+
+First, we'll need to set up an import alias for the new operation since
+it doesn't reside where our other operations and subflows do.
+
+.. code-block:: yaml
+
+    imports:
+      base: tutorials.base
+      mail: io.cloudslang.base.mail
+
+For more information, see :ref:`imports` in the DSL reference.
+
+Step
+----
+
+Then, all we really need to do is create a step in our flow that will
+call the ``send_mail`` operation. Let's put it right after the
+``print_finish`` operation. We need to pass a host, port, from, to,
+subject and body. You'll need to substitute the values in angle brackets
+(``<>``) to work for your email host. Notice that the body value is
+taken directly from the ``print_finish`` step with two slight changes. First, we
+turned the ``\n`` into a ``<br>`` since the ``html_email`` input defaults to
+true. Second, we added the temporary password published by the
+``create_email_address`` step.
 
 .. code-block:: yaml
 
     - send_mail:
         do:
           mail.send_mail:
-            - hostname: ${get_sp('tutorials.properties.hostname')}
-            - port: ${get_sp('tutorials.properties.port')}
-            - from: ${get_sp('tutorials.properties.system_address')}
-            - to: ${get_sp('tutorials.properties.hr_address')}
+            - hostname: "<host>"
+            - port: "<port>"
+            - from: "<from>"
+            - to: "<to>"
             - subject: "${'New Hire: ' + first_name + ' ' + last_name}"
             - body: >
                 ${'Created address: ' + address + ' for: ' + first_name + ' ' + last_name + '<br>' +
-                'Missing items: ' + missing + ' Cost of ordered items: ' + str(total_cost) + '<br>' +
+                'Missing items: ' + all_missing + ' Cost of ordered items: ' + str(total_cost) + '<br>' +
                 'Temporary password: ' + password}
         navigate:
           - FAILURE: FAILURE
           - SUCCESS: SUCCESS
 
-For more information, see :ref:`get_sp() <get_sp>` in the DSL Reference.
-
 Run It
 ------
 
-We can save the files and run the flow to see that the values are being
-taken from the system properties file we specify. If we want to swap out
-the values with another set, all we have to do is point to a different
-system properties file.
+We can save the files, run the flow and check that an email was sent
+with the proper information.
 
 .. code-block:: bash
 
-    run --f <folder path>/tutorials/hiring/new_hire.sl --cp <folder path>/tutorials,<content folder path>/base --i first_name=john,last_name=doe --spf <folder path>/tutorials/properties/bcompany.prop.sl
-
-For more information on running with a system properties file, see
-:ref:`Run with System Properties <run_with_system_properties>` in the CLI
-documentation.
+    run --f <folder path>/tutorials/hiring/new_hire.sl --cp <folder path>/tutorials,<content folder path>/io/cloudslang/base --i first_name=john,last_name=doe
 
 Download the Code
 -----------------
@@ -133,8 +148,8 @@ Download the Code
 Up Next
 -------
 
-In the next lesson we'll see how to use 3rd Python packages in your
-operation's actions.
+In the next lesson we'll see how to use system properties to send values
+to input variables.
 
 New Code - Complete
 -------------------
@@ -159,18 +174,21 @@ New Code - Complete
         - last_name
         - all_missing:
             default: ""
+            required: false
             private: true
         - total_cost:
-            default: 0
+            default: '0'
             private: true
         - order_map:
-            default: {'laptop': 1000, 'docking station':200, 'monitor': 500, 'phone': 100}
+            default: '{"laptop": 1000, "docking station": 200, "monitor": 500, "phone": 100}'
 
       workflow:
         - print_start:
             do:
               base.print:
                 - text: "Starting new hire process"
+            navigate:
+              - SUCCESS: create_email_address
 
         - create_email_address:
             loop:
@@ -178,10 +196,9 @@ New Code - Complete
               do:
                 create_user_email:
                   - first_name
-                  - middle_name:
-                      required: false
+                  - middle_name
                   - last_name
-                  - attempt
+                  - attempt: ${str(attempt)}
               publish:
                 - address
                 - password
@@ -195,103 +212,66 @@ New Code - Complete
 
         - get_equipment:
             loop:
-              for: item, price in order_map
+              for: item, price in eval(order_map)
               do:
                 order:
                   - item
-                  - price
+                  - price: ${str(price)}
                   - missing: ${all_missing}
                   - cost: ${total_cost}
               publish:
                 - all_missing: ${missing + not_ordered}
-                - total_cost: ${cost + spent}
+                - total_cost: ${str(int(cost) + int(spent))}
+              break: []
             navigate:
-              - AVAILABLE: print_finish
-              - UNAVAILABLE: print_finish
+              - AVAILABLE: check_min_reqs
+              - UNAVAILABLE: check_min_reqs
+
+        - check_min_reqs:
+            do:
+              base.contains:
+                - container: ${all_missing}
+                - sub: 'laptop'
+            navigate:
+              - DOES_NOT_CONTAIN: print_finish
+              - CONTAINS: print_warning
+
+        - print_warning:
+            do:
+              base.print:
+                - text: >
+                    ${first_name + ' ' + last_name +
+                    ' did not receive all the required equipment'}
+            navigate:
+              - SUCCESS: print_finish
 
         - print_finish:
             do:
               base.print:
                 - text: >
                     ${'Created address: ' + address + ' for: ' + first_name + ' ' + last_name + '\n' +
-                    'Missing items: ' + all_missing + ' Cost of ordered items: ' + str(total_cost)}
+                    'Missing items: ' + all_missing + ' Cost of ordered items: ' + total_cost}
+            navigate:
+              - SUCCESS: send_mail
 
         - send_mail:
-            do:
-              mail.send_mail:
-                - hostname: ${get_sp('tutorials.properties.hostname')}
-                - port: ${get_sp('tutorials.properties.port')}
-                - from: ${get_sp('tutorials.properties.system_address')}
-                - to: ${get_sp('tutorials.properties.hr_address')}
-                - subject: "${'New Hire: ' + first_name + ' ' + last_name}"
-                - body: >
-                    ${'Created address: ' + address + ' for: ' + first_name + ' ' + last_name + '<br>' +
-                    'Missing items: ' + all_missing + ' Cost of ordered items:' + str(total_cost) + '<br>' +
-                    'Temporary password: ' + password}
-            navigate:
-              - FAILURE: FAILURE
-              - SUCCESS: SUCCESS
+           do:
+             mail.send_mail:
+               - hostname: "<host>"
+               - port: "<port>"
+               - from: "<from>"
+               - to: "<to>"
+               - subject: "${'New Hire: ' + first_name + ' ' + last_name}"
+               - body: >
+                   ${'Created address: ' + address + ' for: ' + first_name + ' ' + last_name + '<br>' +
+                   'Missing items: ' + all_missing + ' Cost of ordered items: ' + total_cost + '<br>' +
+                   'Temporary password: ' + password}
+           navigate:
+             - FAILURE: FAILURE
+             - SUCCESS: SUCCESS
 
         - on_failure:
           - print_fail:
               do:
                 base.print:
-              - text: "${'Failed to create address for: ' + first_name + ' ' + last_name}"
-
-**generate_user_email.sl**
-
-.. code-block:: yaml
-
-    namespace: tutorials.hiring
-
-    operation:
-      name: generate_user_email
-
-      inputs:
-        - first_name
-        - middle_name:
-            default: ""
-        - last_name
-        - domain:
-            default: ${get_sp('tutorials.properties.domain', 'acompany.com')}
-            private: true
-        - attempt
-
-      python_action:
-        script: |
-          attempt = int(attempt)
-          if attempt == 1:
-            address = first_name[0:1] + '.' + last_name + '@' + domain
-          elif attempt == 2:
-            address = first_name + '.' + first_name[0:1] + '@' + domain
-          elif attempt == 3 and middle_name != '':
-            address = first_name + '.' + middle_name[0:1] + '.' + last_name + '@' + domain
-          else:
-            address = ''
-          #print address
-
-      outputs:
-        - email_address: ${address}
-
-      results:
-        - FAILURE: ${address == ''}
-        - SUCCESS
-
-
-**bcompany.prop.sl**
-
-.. code-block:: yaml
-
-    namespace: tutorials.properties
-
-    properties:
-      - domain: bcompany.com
-      - hostname: <host>
-      - port: 25
-      - system_address: <test@test.com>
-      - hr_address: <test@test.com>
-
-.. note::
-
-   You need to substitute the values in angle brackets (<>) to
-   work for your email host.
+                  - text: "${'Failed to create address for: ' + first_name + ' ' + last_name}"

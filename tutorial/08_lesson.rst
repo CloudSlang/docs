@@ -108,6 +108,17 @@ the flow's inputs section.
       - domain
       - attempt
 
+We also have to fix the navigation of the ``print_start`` step.
+
+.. code-block:: yaml
+
+    - print_start:
+        do:
+          base.print:
+            - text: "Starting new hire process"
+        navigate:
+          - SUCCESS: generate_address
+
 One last thing to tidy up is the failure message, which no longer receives an
 address that was not created.
 
@@ -287,7 +298,7 @@ that when we add a ``sensitive`` property to an output we have to add a
           password = ''
 
     outputs:
-      - available: ${vacant}
+      - available: ${str(vacant)}
       - password:
           value: ${password}
           sensitive: true
@@ -365,6 +376,8 @@ New Code - Complete
             do:
               base.print:
                 - text: "Starting new hire process"
+            navigate:
+              - SUCCESS: generate_address
 
         - generate_address:
             do:
@@ -390,7 +403,9 @@ New Code - Complete
         - print_finish:
             do:
               base.print:
-                - text: "${'Availability for address ' + address + ' is: ' + str(availability)}"
+                - text: "${'Availability for address ' + address + ' is: ' + availability}"
+            navigate:
+              - SUCCESS: SUCCESS
 
         - on_failure:
           - print_fail:
@@ -463,7 +478,7 @@ New Code - Complete
             password = ''
 
       outputs:
-        - available: ${vacant}
+        - available: ${str(vacant)}
         - password:
             value: ${password}
             sensitive: true

@@ -14,7 +14,7 @@ operation:
       #print vacant
 
   outputs:
-    - available: ${vacant}
+    - available: ${str(vacant)}
 
   results:
     - UNAVAILABLE: ${rand == 0}

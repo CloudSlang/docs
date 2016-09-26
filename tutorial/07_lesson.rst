@@ -99,10 +99,12 @@ New Code - Complete
             do:
               base.print:
                 - text: "Starting new hire process"
+            navigate:
+              - SUCCESS: check_address
 
         - check_address:
             do:
-              check_availability:
+              hiring.check_availability:
                 - address
             publish:
               - availability: ${available}
@@ -113,7 +115,9 @@ New Code - Complete
         - print_finish:
             do:
               base.print:
-                - text: "${'Availability for address ' + address + ' is: ' + str(availability)}"
+                - text: "${'Availability for address ' + address + ' is: ' + availability}"
+            navigate:
+              - SUCCESS: SUCCESS
 
         - on_failure:
           - print_fail:
@@ -141,7 +145,7 @@ New Code - Complete
           #print vacant
 
       outputs:
-        - available: ${vacant}
+        - available: ${str(vacant)}
 
       results:
         - UNAVAILABLE: ${rand == 0}
