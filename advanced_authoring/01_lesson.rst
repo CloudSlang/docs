@@ -1,5 +1,5 @@
-Lesson 1 - Introduction and Setup
-=================================
+Lesson 1 - Introduction
+=======================
 
 Goal
 ----
