@@ -56,6 +56,14 @@ the **cs-actions** repository. You can, of course, create your @Actions as
 additional actions in the **cs-actions** repository and contribute them to the
 community.
 
+Conventions
+-----------
+
+There are many ways to write @Actions for CloudSlang. In this tutorial we will
+not attempt to cover all possible options. Instead we will focus on the best
+practices and conventions adopted in many of the actions found in the
+`cs-actions repository <https://github.com/CloudSlang/cs-actions>`__.
+
 Up Next
 -------
 
