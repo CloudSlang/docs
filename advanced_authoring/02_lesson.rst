@@ -62,7 +62,7 @@ Class File
 ----------
 
 Now that we have our project set up, let's start by create the class that will
-house the method called from CloudSlang. In the **src\main\java** folder let's
+house the method called from CloudSlang. In the **src\\main\\java** folder let's
 create a new package named ``io.cloudslang.tutorial.httpclient.actions``. And
 within that package, create a new class named ``HttpClientAction``.
 
@@ -119,15 +119,15 @@ action can return. (These are not actually used by CloudSlang operations.)
 
 Each @Response is made of several parts:
 
-  - text: name of the response
-  - field: output to be checked
-  - value: value to check against
-  - matchType: type of check
+  - ``text``: name of the response
+  - ``field``: output to be checked
+  - ``value``: value to check against
+  - ``matchType``: type of check
     (from com.hp.oo.sdk.content.plugin.ActionMetadata.MatchType)
-  - responseType: type of response
+  - ``responseType``: type of response
     (from com.hp.oo.sdk.content.plugin.ActionMetadata.ResponseType)
-  - isDefault: whether or not response is the default response
-  - isOnFail: whether or not response is the failure response
+  - ``isDefault``: whether or not response is the default response
+  - ``isOnFail``: whether or not response is the failure response
 
 @Action Method
 --------------
@@ -178,7 +178,7 @@ the two outputs and return the map.
 Tests
 -----
 
-Next, let's set up some tests. In the **src\test\java** folder let's create a new
+Next, let's set up some tests. In the **src\\test\\java** folder let's create a new
 package named ``io.cloudslang.tutorial.httpclient.actions``. And within that
 package, create a new class named ``HttpClientActionTest``.
 
@@ -228,7 +228,7 @@ Install Jar in CloudSlang Maven Repo
 
 We'll now use Maven to install the jar file into the local CloudSlang Maven
 repo. (Alternatively, you can upload the jar to a remote Maven repository and
-:ref:`configure <maven_configuration:>` the CloudSlang CLI to automatically
+:ref:`configure <maven_configuration>` the CloudSlang CLI to automatically
 retrieve it from there).
 
 At a command prompt enter the following, replacing the partial paths in angle

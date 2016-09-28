@@ -64,7 +64,9 @@ Next we'll add the code to call the Java action:
 
 We refer to the Java action using three pieces of information.
 
-  #.  ``gav`` - the Maven group ID, artifact ID and version
+  #.  ``gav`` - the Maven group ID, artifact ID and version (note: the use of
+      quotes (``''``) is necessary in YAML due to the colons (``:``) in the
+      ``gav`` value)
   #.  ``class_name`` - the fully qualified name of the class where the method we
       want to call resides
   #.  ``method_name`` - the name of the method we want to call
@@ -96,12 +98,12 @@ properly.
 Fire up the CLI and enter the following command, replacing the partial path in
 angle brackets (``<>``) with your proper path:
 
-.. code-block::
+.. code-block:: bash
 
   run --f <path to folder>/tutorials/advanced/java_op.sl
 
 Also try running the operation with inputs to change the result.
 
-.. code-block::
+.. code-block:: bash
 
   run --f <path to folder>/tutorials/advanced/java_op.sl --i force_fail=true
