@@ -195,6 +195,7 @@ following arguments:
 | -des       | off                      | | whether or not to validate description data against |
 |            |                          | | actual inputs, outputs and results                  |
 +------------+--------------------------+-------------------------------------------------------+
+
 .. note::
 
    To skip tests not included in a test suite when using Linux,

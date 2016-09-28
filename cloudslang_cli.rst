@@ -147,6 +147,8 @@ The CLI's logging can be configured using the logging configuration file. The
 location of the logging configuration file is defined in the :ref:`CLI's
 configuration file <configure_cli>`.
 
+.. _maven_configuration:
+
 Maven Configuration
 -------------------
 
@@ -164,7 +166,7 @@ Maven Troubleshooting
 It is possible that the CLI's Maven repository can become corrupted. In such a
 case, delete the entire **repo** folder found at the location indicated by the
 ``cloudslang.maven.repo.local`` key in the :ref:`CLI's configuration file
-<configure_cli>` and rerun the flow. 
+<configure_cli>` and rerun the flow.
 
 .. _use_the_cli:
 

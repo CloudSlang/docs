@@ -4,6 +4,8 @@ CloudSlang Editors
 Although CloudSlang files can be composed in any text editor, using a
 modern code editor with support for syntax highlighting is recommended.
 
+.. _atom:
+
 Atom
 ====
 
