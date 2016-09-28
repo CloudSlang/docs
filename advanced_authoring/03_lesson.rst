@@ -1,102 +1,107 @@
-Lesson 3 - Action File
-======================
+Lesson 3 - Operation
+====================
 
 Goal
 ----
 
-In this lesson we'll start writing the code that gets called from the CloudSlang
-operation.
+In this lesson we'll start writing a CloudSlang operation to test the action
+method stub we made in the previous lesson. We want to make sure the action
+method is called, the inputs are passed and the outputs are received.
 
-Get Started
------------
+File Setup
+----------
 
-Let's start by creating a new file. In the **src\main\java** folder let's create
-a new package named ``io.cloudslang.tutorial.httpclient.actions``. And within
-that package, create a new class named ``HttpClientAction``.
+First let's create some folders and files so we have the following structure:
 
-Imports
--------
+- tutorials
 
-Next, we'll add some imports. We need to import the action annotations and a
-couple of other things the annotations will use.
+  - advanced
 
-.. code-block:: java
+    - java_op.sl
 
-  import com.hp.oo.sdk.content.annotations.Action;
-  import com.hp.oo.sdk.content.annotations.Output;
-  import com.hp.oo.sdk.content.annotations.Param;
-  import com.hp.oo.sdk.content.annotations.Response;
-  import com.hp.oo.sdk.content.plugin.ActionMetadata.MatchType;
-  import com.hp.oo.sdk.content.plugin.ActionMetadata.ResponseType;
-
-@Action Annotation
-------------------
-
-Then we can add the ``@Action`` annotation to the class. It is made up of three
-parts. First, we provide a name for the action. Second, we declare an array of
-outputs for the action using the ``@Output`` annotation. Third, we decalre an
-array of responses for the action using the ``@Response`` annotation.
-
-.. code-block:: java
-
-  @Action(name = "Simple HTTP Client",
-          outputs = {
-                  @Output("statusCode"),
-                  @Output("responseHeaders"),
-                  @Output("returnCode"),
-                  @Output("returnResult")
-          },
-          responses = {
-                  @Response(text = "success", field = "returnCode", value = "0", matchType = MatchType.COMPARE_EQUAL, responseType = ResponseType.RESOLVED),
-                  @Response(text = "failure", field = "returnCode", value = "-1", matchType = MatchType.COMPARE_EQUAL, responseType = ResponseType.ERROR, isOnFail = true)
-          }
-    )
-
-Here we name the @Action **Simple HTTP Client**. After that we declare some
-outputs in an array using the ``@Output`` annotation and we provide a string for
-each output's name. This name will be used in the CloudSlang operation to
-retrieve the output's value. Finally, in another array we declare the responses
-that our action can return. These will be used as the results of the CloudSlang
-operation. Each @Response is made of several parts:
-
-  - text: name of the response
-  - field: output to be checked
-  - value: value to check against
-  - matchType: type of check
-    (from com.hp.oo.sdk.content.plugin.ActionMetadata.MatchType)
-  - responseType: type of response
-    (from com.hp.oo.sdk.content.plugin.ActionMetadata.ResponseType)
-  - isDefault: whether or not response is the default response
-  - isOnFail: whether or not response is the failure response
-
-@Action Method
+Operation Code
 --------------
 
-Now we'll write the method that will be called by the CloudSlang operation. The
-method must conform to the following signature:
+In the **java_op.sl** file let's enter the following code:
 
-.. code-block:: java
+.. code-block:: yaml
 
-  public Map<String, String> methodName(@Param(name) Type param, ...)
+    namespace: tutorials.advanced
 
-The map that is returned contains the names and values of the outputs of the
-action. The names are the same ones that were declared using ``@Output`` in the
-``@Action`` annotation. The parameters that are declared with the ``@Param``
-annotation are the inputs that the method will receive from the CloudSlang
-operation. Each @Param will contain at least value for its name. It may also
-contain a ``required`` boolean to override the default of ``false``.
+    operation:
+      name: java_op
 
-Let's create our method and add some parameters:
+      inputs:
+        - text: "I came, I ran, I'm back."
+        - force_fail:
+            default: "true"
+            required: false
+        - forceFail:
+            default: ${get("force_fail", "")}
+            required: false
+            private: true
 
-.. code-block:: java
+This is pretty standard CloudSlang code. You can see that we've declared a
+namespaces that matches our folder structure, a name that matches the file name
+and a few inputs.
 
-  public Map<String, String> execute(@Param(value = "url", required = true) String url,
-                                     @Param("proxyHost") String proxyHost,
-                                     @Param("proxyPort") String proxyPort,
-                                     @Param("headers") String headers,
-                                     @Param("queryParams") String queryParams,
-                                     @Param("formParams") String formParams,
-                                     @Param("body") String body,
-                                     @Param("contentType") String contentType,
-                                     @Param(value = "method", required = true) String method){
-  }
+One thing to take note of is the two versions of the input to force a failure.
+In the Java code we wrote we followed Java conventions and named our variable
+using camelCase (``forceFail``). The CloudSlang convention however, is to use
+snake_case (``force_fail``). So we create a ``force_fail`` input to be used to
+pass a value to the CloudSlang operation and we use the ``get()`` function to
+put that value into the ``private`` variable ``forceFail`` which will be used by
+the Java method.
+
+Next we'll add the code to call the Java action:
+
+.. code-block:: yaml
+
+    java_action:
+        gav: 'io.cloudslang.tutorial:java-action:1.0-SNAPSHOT'
+        class_name: io.cloudslang.tutorial.actions.SaySomething
+        method_name: execute
+
+We refer to the Java action using three pieces of information.
+
+  #.  ``gav`` - the Maven group ID, artifact ID and version
+  #.  ``class_name`` - the fully qualified name of the class where the method we
+      want to call resides
+  #.  ``method_name`` - the name of the method we want to call
+
+Finally, we'll add some code to deal with the outputs and to return a meaningful
+result.
+
+.. code-block:: yaml
+
+  outputs:
+    - message
+    - return_code: ${returnCode}
+
+  results:
+    - SUCCESS: ${returnCode == '0'}
+    - FAILURE
+
+Once again this is fairly standard CloudSlang code. And again you'll notice how
+we take the ``returnCode`` output that we receive from the Java funtion and
+rename it to ``return_code`` as per the CloudSlang convention.
+
+Run It
+------
+
+Now we can run the CloudSlang operation using the CLI and see if the action
+method is called, the inputs are passed properly and the outputs are received
+properly.
+
+Fire up the CLI and enter the following command, replacing the partial path in
+angle brackets (``<>``) with your proper path:
+
+.. code-block::
+
+  run --f <path to folder>/tutorials/advanced/java_op.sl
+
+Also try running the operation with inputs to change the result.
+
+.. code-block::
+
+  run --f <path to folder>/tutorials/advanced/java_op.sl --i force_fail=true
