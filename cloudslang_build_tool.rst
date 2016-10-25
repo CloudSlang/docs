@@ -219,6 +219,7 @@ following arguments:
 
 Run Configuration Properties
 ----------------------------
+
 The builder can refer to a run configuration properties file with the following
 key=value pairs. The values in the configuration file override values passed
 using command line arguments.
