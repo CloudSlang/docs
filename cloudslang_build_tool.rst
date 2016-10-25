@@ -38,6 +38,7 @@ written to the console:
     11:08:12 [INFO] Content root is at: C:\CloudSlang\test_code\build_tool\content
     11:08:12 [INFO] Test root is at: C:\CloudSlang\test_code\build_tool\test
     11:08:12 [INFO] Active test suites are: [default]
+    11:08:12 [INFO] Validate description: true
     11:08:12 [INFO]
     11:08:12 [INFO] Loading...
     11:08:17 [INFO]
@@ -192,9 +193,15 @@ following arguments:
 +------------+--------------------------+-------------------------------------------------------+
 | -cov       | off                      | whether or not test coverage data should be output    |
 +------------+--------------------------+-------------------------------------------------------+
-| -des       | off                      | | whether or not to validate description data against |
-|            |                          | | actual inputs, outputs and results                  |
+| -des       | off                      | | whether or not to validate that all inputs, outputs |
+|            |                          | | and results have descriptions                       |
 +------------+--------------------------+-------------------------------------------------------+
+| -par       | false                    | whether or not parallel test execution should be used |
++------------+--------------------------+-------------------------------------------------------+
+| -rcf       | --                       | | absolute path for the run configuration properties  |
+|            |                          | | file                                                |
++------------+--------------------------+-------------------------------------------------------+
+
 .. note::
 
    To skip tests not included in a test suite when using Linux,
@@ -209,6 +216,34 @@ following arguments:
    be considered covered even if its test's suite did not run during the
    current build. The mere existence of a test for a flow or operation is
    enough to consider it as covered.
+
+Run Configuration Properties
+----------------------------
+The builder can refer to a run configuration properties file with the following
+key=value pairs. The values in the configuration file override values passed
+using command line arguments.
+
++----------------------------------+--------------------------------+--------------------------------------------+
+| key                              | value type                     | description                                |
++==================================+================================+============================================+
+| test.coverage                    | boolean                        | | whether or not test coverage data        |
+|                                  |                                | | should be output                         |
++----------------------------------+--------------------------------+--------------------------------------------+
+| test.suites.run.mode.unspecified | ``parallel`` \| ``sequential`` | | mode to run tests not specified by       |
+|                                  |                                | | values below                             |
++----------------------------------+--------------------------------+--------------------------------------------+
+| test.suites.active               | comma delimited list           | | list of test suites to run - use         |
+|                                  |                                | | ``!default`` to skip tests that are not  |
+|                                  |                                | | included in a test suite                 |
++----------------------------------+--------------------------------+--------------------------------------------+
+| test.suites.sequential           | comma delimited list           | test suites to run sequentially            |
++----------------------------------+--------------------------------+--------------------------------------------+
+| test.suites.parallel             | comma delimited list           | test suites to run in parallel             |
++----------------------------------+--------------------------------+--------------------------------------------+
+| test.parallel.thread.count       | integer                        | | number of threads for parallel runs      |
+|                                  |                                | | default: number of available             |
+|                                  |                                | | processors for the machine               |
++----------------------------------+--------------------------------+--------------------------------------------+
 
 Build Tool Log
 --------------
