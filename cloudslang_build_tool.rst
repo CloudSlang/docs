@@ -205,9 +205,6 @@ following arguments:
 |            | | processors for         |                                                       |
 |            | | the machine            |                                                       |
 +------------+--------------------------+-------------------------------------------------------+
-| -rcf       | --                       | | absolute path for the run configuration properties  |
-|            |                          | | file                                                |
-+------------+--------------------------+-------------------------------------------------------+
 
 **Dynamic Parameters**
 
@@ -231,35 +228,6 @@ following arguments:
    be considered covered even if its test's suite did not run during the
    current build. The mere existence of a test for a flow or operation is
    enough to consider it as covered.
-
-Run Configuration Properties
-----------------------------
-
-The builder can refer to a run configuration properties file with the following
-key=value pairs. The values in the configuration file override values passed
-using command line arguments.
-
-+----------------------------------+--------------------------------+--------------------------------------------+
-| key                              | value type                     | description                                |
-+==================================+================================+============================================+
-| test.coverage                    | boolean                        | | whether or not test coverage data        |
-|                                  |                                | | should be output                         |
-+----------------------------------+--------------------------------+--------------------------------------------+
-| test.suites.run.mode.unspecified | ``parallel`` \| ``sequential`` | | mode to run tests not specified by       |
-|                                  |                                | | values below                             |
-+----------------------------------+--------------------------------+--------------------------------------------+
-| test.suites.active               | comma delimited list           | | list of test suites to run - use         |
-|                                  |                                | | ``!default`` to skip tests that are not  |
-|                                  |                                | | included in a test suite                 |
-+----------------------------------+--------------------------------+--------------------------------------------+
-| test.suites.sequential           | comma delimited list           | test suites to run sequentially            |
-+----------------------------------+--------------------------------+--------------------------------------------+
-| test.suites.parallel             | comma delimited list           | test suites to run in parallel             |
-+----------------------------------+--------------------------------+--------------------------------------------+
-| test.parallel.thread.count       | integer                        | | number of threads for parallel runs      |
-|                                  |                                | | default: number of available             |
-|                                  |                                | | processors for the machine               |
-+----------------------------------+--------------------------------+--------------------------------------------+
 
 Build Tool Log
 --------------
