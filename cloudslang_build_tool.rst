@@ -112,29 +112,32 @@ Configure the Build Tool
 The Build Tool can be configured using the configuration file found at
 ``cslang-builder/configuration/cslang.properties``.
 
-+-------------------------------------+---------------------------------------------------------+--------------------------+
-| Configuration key                   | Default value                                           | Description              |
-+=====================================+=========================================================+==========================+
-| cslang.encoding                     | utf-8                                                   | | Character encoding     |
-|                                     |                                                         | | for input values       |
-|                                     |                                                         | | and input files        |
-+-------------------------------------+---------------------------------------------------------+--------------------------+
-| maven.home                          | ${app.home}/maven/apache-maven-x.y.z                    | | Location of CloudSlang |
-|                                     |                                                         | | Maven repository home  |
-|                                     |                                                         | | directory              |
-+-------------------------------------+---------------------------------------------------------+--------------------------+
-| maven.settings.xml.path             | ${app.home}/maven/conf/settings.xml                     | | Location of            |
-|                                     |                                                         | | Maven settings file    |
-+-------------------------------------+---------------------------------------------------------+--------------------------+
-| cloudslang.maven.repo.local         | ${app.home}/maven/repo                                  | | Location of local      |
-|                                     |                                                         | | repository             |
-+-------------------------------------+---------------------------------------------------------+--------------------------+
-| cloudslang.maven.repo.remote.url    | http://repo1.maven.org/maven2                           | | Location of remote     |
-|                                     |                                                         | | Maven repository       |
-+-------------------------------------+---------------------------------------------------------+--------------------------+
-| cloudslang.maven.plugins.remote.url | http://repo1.maven.org/maven2                           | | Location of remote     |
-|                                     |                                                         | | Maven plugins          |
-+-------------------------------------+---------------------------------------------------------+--------------------------+
++--------------------------------------+--------------------------------------+--------------------------+
+| Configuration key                    | Default value                        | Description              |
++======================================+======================================+==========================+
+| cslang.encoding                      | utf-8                                | | Character encoding     |
+|                                      |                                      | | for input values       |
+|                                      |                                      | | and input files        |
++--------------------------------------+--------------------------------------+--------------------------+
+| maven.home                           | ${app.home}/maven/apache-maven-x.y.z | | Location of CloudSlang |
+|                                      |                                      | | Maven repository home  |
+|                                      |                                      | | directory              |
++--------------------------------------+--------------------------------------+--------------------------+
+| maven.settings.xml.path              | ${app.home}/maven/conf/settings.xml  | | Location of            |
+|                                      |                                      | | Maven settings file    |
++--------------------------------------+--------------------------------------+--------------------------+
+| cloudslang.maven.repo.local          | ${app.home}/maven/repo               | | Location of local      |
+|                                      |                                      | | repository             |
++--------------------------------------+--------------------------------------+--------------------------+
+| cloudslang.maven.repo.remote.url     | http://repo1.maven.org/maven2        | | Location of remote     |
+|                                      |                                      | | Maven repository       |
++--------------------------------------+--------------------------------------+--------------------------+
+| cloudslang.maven.plugins.remote.url  | http://repo1.maven.org/maven2        | | Location of remote     |
+|                                      |                                      | | Maven plugins          |
++--------------------------------------+--------------------------------------+--------------------------+
+| cloudslang.test.case.report.location | ${app.home}/report                   | | Location of test       |
+|                                      |                                      | | case report            |
++--------------------------------------+--------------------------------------+--------------------------+
 
 Maven Configuration
 -------------------
@@ -198,9 +201,21 @@ following arguments:
 +------------+--------------------------+-------------------------------------------------------+
 | -par       | false                    | whether or not parallel test execution should be used |
 +------------+--------------------------+-------------------------------------------------------+
+| -th        | | number of available    | number of threads for parallel runs                   |
+|            | | processors for         |                                                       |
+|            | | the machine            |                                                       |
++------------+--------------------------+-------------------------------------------------------+
 | -rcf       | --                       | | absolute path for the run configuration properties  |
 |            |                          | | file                                                |
 +------------+--------------------------+-------------------------------------------------------+
+
+**Dynamic Parameters**
+
++--------------------------------+----------------------------------------------------+
+| Parameter                      | Description                                        |
++================================+====================================================+
+| -Dtest.case.timeout.in.minutes | number of minutes to wait before test case timeout |
++--------------------------------+----------------------------------------------------+
 
 .. note::
 
