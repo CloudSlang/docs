@@ -38,6 +38,7 @@ written to the console:
     11:08:12 [INFO] Content root is at: C:\CloudSlang\test_code\build_tool\content
     11:08:12 [INFO] Test root is at: C:\CloudSlang\test_code\build_tool\test
     11:08:12 [INFO] Active test suites are: [default]
+    11:08:12 [INFO] Validate description: true
     11:08:12 [INFO]
     11:08:12 [INFO] Loading...
     11:08:17 [INFO]
@@ -111,29 +112,32 @@ Configure the Build Tool
 The Build Tool can be configured using the configuration file found at
 ``cslang-builder/configuration/cslang.properties``.
 
-+-------------------------------------+---------------------------------------------------------+--------------------------+
-| Configuration key                   | Default value                                           | Description              |
-+=====================================+=========================================================+==========================+
-| cslang.encoding                     | utf-8                                                   | | Character encoding     |
-|                                     |                                                         | | for input values       |
-|                                     |                                                         | | and input files        |
-+-------------------------------------+---------------------------------------------------------+--------------------------+
-| maven.home                          | ${app.home}/maven/apache-maven-x.y.z                    | | Location of CloudSlang |
-|                                     |                                                         | | Maven repository home  |
-|                                     |                                                         | | directory              |
-+-------------------------------------+---------------------------------------------------------+--------------------------+
-| maven.settings.xml.path             | ${app.home}/maven/conf/settings.xml                     | | Location of            |
-|                                     |                                                         | | Maven settings file    |
-+-------------------------------------+---------------------------------------------------------+--------------------------+
-| cloudslang.maven.repo.local         | ${app.home}/maven/repo                                  | | Location of local      |
-|                                     |                                                         | | repository             |
-+-------------------------------------+---------------------------------------------------------+--------------------------+
-| cloudslang.maven.repo.remote.url    | http://repo1.maven.org/maven2                           | | Location of remote     |
-|                                     |                                                         | | Maven repository       |
-+-------------------------------------+---------------------------------------------------------+--------------------------+
-| cloudslang.maven.plugins.remote.url | http://repo1.maven.org/maven2                           | | Location of remote     |
-|                                     |                                                         | | Maven plugins          |
-+-------------------------------------+---------------------------------------------------------+--------------------------+
++--------------------------------------+--------------------------------------+--------------------------+
+| Configuration key                    | Default value                        | Description              |
++======================================+======================================+==========================+
+| cslang.encoding                      | utf-8                                | | Character encoding     |
+|                                      |                                      | | for input values       |
+|                                      |                                      | | and input files        |
++--------------------------------------+--------------------------------------+--------------------------+
+| maven.home                           | ${app.home}/maven/apache-maven-x.y.z | | Location of CloudSlang |
+|                                      |                                      | | Maven repository home  |
+|                                      |                                      | | directory              |
++--------------------------------------+--------------------------------------+--------------------------+
+| maven.settings.xml.path              | ${app.home}/maven/conf/settings.xml  | | Location of            |
+|                                      |                                      | | Maven settings file    |
++--------------------------------------+--------------------------------------+--------------------------+
+| cloudslang.maven.repo.local          | ${app.home}/maven/repo               | | Location of local      |
+|                                      |                                      | | repository             |
++--------------------------------------+--------------------------------------+--------------------------+
+| cloudslang.maven.repo.remote.url     | http://repo1.maven.org/maven2        | | Location of remote     |
+|                                      |                                      | | Maven repository       |
++--------------------------------------+--------------------------------------+--------------------------+
+| cloudslang.maven.plugins.remote.url  | http://repo1.maven.org/maven2        | | Location of remote     |
+|                                      |                                      | | Maven plugins          |
++--------------------------------------+--------------------------------------+--------------------------+
+| cloudslang.test.case.report.location | ${app.home}/report                   | | Location of test       |
+|                                      |                                      | | case report            |
++--------------------------------------+--------------------------------------+--------------------------+
 
 Maven Configuration
 -------------------
@@ -192,9 +196,27 @@ following arguments:
 +------------+--------------------------+-------------------------------------------------------+
 | -cov       | off                      | whether or not test coverage data should be output    |
 +------------+--------------------------+-------------------------------------------------------+
-| -des       | off                      | | whether or not to validate description data against |
-|            |                          | | actual inputs, outputs and results                  |
+| -des       | off                      | | whether or not to validate that all inputs, outputs |
+|            |                          | | and results have descriptions                       |
 +------------+--------------------------+-------------------------------------------------------+
+| -par       | false                    | whether or not parallel test execution should be used |
++------------+--------------------------+-------------------------------------------------------+
+| -th        | | number of available    | number of threads for parallel runs                   |
+|            | | processors for         |                                                       |
+|            | | the machine            |                                                       |
++------------+--------------------------+-------------------------------------------------------+
+| -rcf       | --                       | | absolute path for the run configuration properties  |
+|            |                          | | file                                                |
++------------+--------------------------+-------------------------------------------------------+
+
+**Dynamic Parameters**
+
++--------------------------------+----------------------------------------------------+
+| Parameter                      | Description                                        |
++================================+====================================================+
+| -Dtest.case.timeout.in.minutes | number of minutes to wait before test case timeout |
++--------------------------------+----------------------------------------------------+
+
 .. note::
 
    To skip tests not included in a test suite when using Linux,
@@ -209,6 +231,35 @@ following arguments:
    be considered covered even if its test's suite did not run during the
    current build. The mere existence of a test for a flow or operation is
    enough to consider it as covered.
+
+Run Configuration Properties
+----------------------------
+
+The builder can refer to a run configuration properties file with the following
+key=value pairs. The values in the configuration file override values passed
+using command line arguments.
+
++----------------------------------+--------------------------------+--------------------------------------------+
+| key                              | value type                     | description                                |
++==================================+================================+============================================+
+| test.coverage                    | boolean                        | | whether or not test coverage data        |
+|                                  |                                | | should be output                         |
++----------------------------------+--------------------------------+--------------------------------------------+
+| test.suites.run.mode.unspecified | ``parallel`` \| ``sequential`` | | mode to run tests not specified by       |
+|                                  |                                | | values below                             |
++----------------------------------+--------------------------------+--------------------------------------------+
+| test.suites.active               | comma delimited list           | | list of test suites to run - use         |
+|                                  |                                | | ``!default`` to skip tests that are not  |
+|                                  |                                | | included in a test suite                 |
++----------------------------------+--------------------------------+--------------------------------------------+
+| test.suites.sequential           | comma delimited list           | test suites to run sequentially            |
++----------------------------------+--------------------------------+--------------------------------------------+
+| test.suites.parallel             | comma delimited list           | test suites to run in parallel             |
++----------------------------------+--------------------------------+--------------------------------------------+
+| test.parallel.thread.count       | integer                        | | number of threads for parallel runs      |
+|                                  |                                | | default: number of available             |
+|                                  |                                | | processors for the machine               |
++----------------------------------+--------------------------------+--------------------------------------------+
 
 Build Tool Log
 --------------
