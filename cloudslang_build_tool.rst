@@ -199,6 +199,10 @@ following arguments:
 | -des       | off                      | | whether or not to validate that all inputs, outputs |
 |            |                          | | and results have descriptions                       |
 +------------+--------------------------+-------------------------------------------------------+
+| -co        | --                       | | only run tests from active suites that are          |
+|            |                          | | affected by the items found in the given            |
+|            |                          | | :ref:`change list <change_list>`                    |
++------------+--------------------------+-------------------------------------------------------+
 | -par       | false                    | whether or not parallel test execution should be used |
 +------------+--------------------------+-------------------------------------------------------+
 | -th        | | number of available    | number of threads for parallel runs                   |
@@ -231,6 +235,30 @@ following arguments:
    be considered covered even if its test's suite did not run during the
    current build. The mere existence of a test for a flow or operation is
    enough to consider it as covered.
+
+.. _change_list:
+
+Change List
+-----------
+
+The change list is used in conjunction with the ``-co`` flag to run only the
+tests from active suites that are affected by the items in the list.
+
+The list is a file in which each line contains an excecutable's fully qualified
+name.
+
+**Example change list file**
+
+.. code-block:: bash
+
+  io.cloudslang.amazon.aws.ec2.images.add_launch_permissions_to_image_in_region
+  io.cloudslang.amazon.aws.ec2.images.create_image_in_region
+  io.cloudslang.amazon.aws.ec2.images.deregister_image_in_region
+  io.cloudslang.amazon.aws.ec2.images.describe_images_in_region
+  io.cloudslang.amazon.aws.ec2.images.get_launch_permission_for_image_in_region
+  io.cloudslang.amazon.aws.ec2.images.remove_launch_permissions_from_image_in_region
+  io.cloudslang.amazon.aws.ec2.images.reset_launch_permissions_on_image_in_region
+
 
 Run Configuration Properties
 ----------------------------
