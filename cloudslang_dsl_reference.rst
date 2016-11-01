@@ -984,8 +984,8 @@ of input names. Each input name may in turn be mapped to its properties or an
 input `expression <#expressions>`__.
 
 Inputs are used to pass parameters to `flows <#flow>`__,
-`operations <#operation>`__ or `decisions <#decision>`__. Input names for a
-specific `flow <#flow>`__, `operation <#operation>`__ or
+`operations <#operation>`__ or `decisions <#decision>`__. Non-private input
+names for a specific `flow <#flow>`__, `operation <#operation>`__ or
 `decision <#decision>`__ must be different than the `output <#outputs>`__
 names of the same `flow <#flow>`__, `operation <#operation>`__ or
 `decision <#decision>`__.
@@ -1529,9 +1529,9 @@ Defines the parameters a `flow <#flow>`__, `operation <#operation>`__ or
 `step <#step>`__. The calling `step <#step>`__ refers to an output by its name.
 
 Output names for a specific `flow <#flow>`__, `operation <#operation>`__ or
-`decision <#decision>`__ must be different than the `input <#inputs>`__ names of
-the same `flow <#flow>`__, `operation <#operation>`__ or
-`decision <#decision>`__.
+`decision <#decision>`__ must be different than the non-private
+`input <#inputs>`__ names of the same `flow <#flow>`__,
+`operation <#operation>`__ or `decision <#decision>`__.
 
 Output values must evaluate to type string.
 
