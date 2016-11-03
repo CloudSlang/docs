@@ -26,3 +26,6 @@ flow:
     - first_name
     - last_name
     - total
+
+  results:
+    - SUCCESS
