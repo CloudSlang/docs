@@ -102,7 +102,7 @@ Download the Build Tool
 =======================
 
 The CloudSlang Build Tool can be downloaded from
-`here <https://github.com/CloudSlang/cloud-slang/releases/latest>`__.
+`here <https://github.com/CloudSlang/cloud-slang/releases/download/cloudslang-1.0.0/cslang-builder.zip>`__.
 
 .. _configure_build_tool:
 

@@ -9,7 +9,7 @@ Download and Run Pre-built CLI
 **Prerequisites :** To run the CloudSlang CLI, Java JRE version 7 or
 higher is required.
 
-1. `Download <https://github.com/CloudSlang/cloud-slang/releases/latest>`__
+1. `Download <https://github.com/CloudSlang/cloud-slang/releases/tag/cloudslang-1.0.0>`__
    the CLI with content zip file.
 2. Locate the downloaded file and unzip the archive.
    The decompressed file contains:
@@ -164,7 +164,7 @@ Maven Troubleshooting
 It is possible that the CLI's Maven repository can become corrupted. In such a
 case, delete the entire **repo** folder found at the location indicated by the
 ``cloudslang.maven.repo.local`` key in the :ref:`CLI's configuration file
-<configure_cli>` and rerun the flow. 
+<configure_cli>` and rerun the flow.
 
 .. _use_the_cli:
 
