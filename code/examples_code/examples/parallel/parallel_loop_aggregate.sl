@@ -18,6 +18,8 @@ flow:
             - first_name: ${branches_context[0]['name']}
             - last_name: ${branches_context[-1]['name']}
             - total: "${str(sum(map(lambda x : int(x['num']), branches_context)))}"
+        navigate:
+          - SUCCESS: SUCCESS
 
   outputs:
     - name_list
