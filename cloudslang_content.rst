@@ -16,7 +16,7 @@ The community is encouraged to assist in setting up testing environments for the
 beta content.
 
 For more information on the content contained in the repository, see the
-`docs <https://github.com/CloudSlang/cloud-slang-content/blob/master/DOCS.md>`__
+`docs <https://github.com/CloudSlang/cloud-slang-content/blob/cloud-slang-content-1.0/DOCS.md>`__
 page.
 
 Running CloudSlang Content
@@ -41,7 +41,7 @@ Running Content Dependent on Java Actions
 
 Some of the content is dependent on Java actions from the cs-actions repository.
 CloudSlang uses Maven to manage these dependencies. When executing an operation
-that declares a dependency, the required Maven project and all the resources 
+that declares a dependency, the required Maven project and all the resources
 specified in its pom's ``dependencies`` will be resolved and downloaded (if
 necessary).
 
