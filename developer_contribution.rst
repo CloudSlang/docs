@@ -49,13 +49,17 @@ dependencies depicted in the diagram below.
    -  configuration/properties/io/cloudslang
    -  content/io/cloudslang
 
+      -  amazon
+
+         -  aws
+
       -  base
 
          -  cmd
          -  comparisons
          -  datetime
          -  examples
-         -  files
+         -  filesystem
          -  http
          -  json
          -  lists
@@ -74,41 +78,45 @@ dependencies depicted in the diagram below.
 
       -  chef
       -  ci
-      -  cloud
 
-         -  amazon_aws
-         -  digital_ocean
-         -  google
-         -  heroku
-         -  hp_cloud
-         -  openshift
-         -  openstack
-         -  stackato
+         -  circleci
 
       -  consul
       -  coreos
+      -  digital_ocean
       -  docker
       -  git
+      -  google
       -  haven_on_demand
+      -  heroku
+      -  hp_cloud
       -  itsm
 
          -  service_now
 
       -  jenkins
       -  marathon
-      -  new_relic
-      -  operations_orchestration
-      -  virtualization
+      -  microsoft
 
-         -  vmware
+         - azure
+
+      -  new_relic
+      -  openshift
+      -  openstack
+      -  operations_orchestration
+      -  stackato
+      -  vmware
+
+         -  vcenter
 
       -  (other integrations to be added as new folders)
 
 -  **cs-actions** - Java @Action classes used by CloudSlang
 
+   -  cs-amazon
+   -  cs-azure
    -  cs-date-time
    -  cs-http-client
-   -  cs-jclouds
    -  cs-json
    -  cs-lists
    -  cs-mail
