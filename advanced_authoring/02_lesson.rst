@@ -61,7 +61,7 @@ we need them.
 Class File
 ----------
 
-Now that we have our project set up, let's start by create the class that will
+Now that we have our project set up, let's start by creating the class that will
 house the method called from CloudSlang. In the **src\\main\\java** folder let's
 create a new package named ``io.cloudslang.tutorial.httpclient.actions``. And
 within that package, create a new class named ``HttpClientAction``.
@@ -95,7 +95,7 @@ action method and what information it will receive from the action method.
 
 An @Action is made up of three parts. First, we provide a name for the action.
 Second, we declare an array of outputs for the action using the ``@Output``
-annotation. Third, we decalre an array of responses for the action using the
+annotation. Third, we declare an array of responses for the action using the
 ``@Response`` annotation.
 
 .. code-block:: java

@@ -59,7 +59,7 @@ Next we'll add the code to call the Java action:
 
     java_action:
         gav: 'io.cloudslang.tutorial:java-action:1.0-SNAPSHOT'
-        class_name: io.cloudslang.tutorial.actions.SaySomething
+        class_name: io.cloudslang.tutorial.actions.HttpClientAction
         method_name: execute
 
 We refer to the Java action using three pieces of information.
