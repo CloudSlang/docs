@@ -25,7 +25,7 @@ let's just dive in.
 
 .. code-block:: yaml
 
-    namespace: tutorials.hiring
+    namespace: tutorials.base
 
     decision:
       name: contains
@@ -244,7 +244,7 @@ New Code - Complete
 
 .. code-block:: yaml
 
-    namespace: tutorials.hiring
+    namespace: tutorials.base
 
     decision:
       name: contains
