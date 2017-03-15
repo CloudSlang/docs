@@ -217,7 +217,7 @@ New Code - Complete
             required: false
             private: true
         - total_cost:
-            default: 0
+            default: "0"
             private: true
         - order_map:
             default: '{"laptop": 1000, "docking station":200, "monitor": 500, "phone": 100}'
