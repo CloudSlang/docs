@@ -289,6 +289,7 @@ that when we add a ``sensitive`` property to an output we have to add a
     python_action:
       script: |
         import random
+        import string
         rand = random.randint(0, 2)
         vacant = rand != 0
         # print vacant
