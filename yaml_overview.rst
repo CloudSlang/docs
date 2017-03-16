@@ -97,7 +97,7 @@ style for small structures on a single line.
             - divisor: ${input2}
         publish:
           - answer: ${quotient}
-        navigate: [{ILLEGAL: FAILURE, SUCCESS: printer}]
+        navigate: [{ILLEGAL: FAILURE}, {SUCCESS: printer}]
 
 Mappings (Hashes, Objects, Dictionaries)
 ========================================
