@@ -73,49 +73,9 @@ CloudSlang Inputs Files Best Practices
 CloudSlang Comments Style Guide
 ===============================
 
-Step
-----
-All CloudSlang step description is optional, however it can be considered for better understanding of a step.
-
--  Documentation blocks begin with a line containing ``#!!`` and nothing else.
--  Documentation blocks end with a line containing ``#!!#`` and nothing else.
--  Each line of the documentation begins with ``#!``.
--  Lines in the documentation block that do not begin with ``#!`` will not be
-   considered as part of the documentation and will not display when the file is
-   inspected.
--  A new line between input and output sections as a best practice.
--  The other possible tags are:
-
-     - ``@input <input_name>``
-     - ``@output <output_name>``
-
-::
-
-  workflow:
-    ##########################################################################################
-    #!!
-    #! @input url: Hostname or IP address.
-    #! @input auth_type: auth_type or IP address.
-    #! @input username: username or IP address.
-    #!
-    #! @output return_result: STDOUT of the remote machine in case of success or the cause in
-    #!                        in case of success or the cause of the error in case
-    #! @output error_message: STDOUT of the machine in case of successful request
-    #!!#
-    ##########################################################################################
-    - http_client_action_get:
-        do:
-          http.http_client_action:
-            - url
-            - auth_type: ${ get_sp(retrieve_my_awesome_sp(a, 1224332423), 'default_value') }
-            - username
-        publish:
-          - return_result
-          - error_message
-
 Flows and Operations
 --------------------
-All CloundSlang flows and operations should begin with a documentation
+All CloudSlang flows and operations should begin with a documentation
 block that describes the flow or operation, and lists the inputs,
 outputs and results.
 
@@ -210,3 +170,43 @@ Recurring Fields
      -  FAILURE - otherwise
      -  error_message - error message if error occurred
      -  command - command to execute
+
+Step
+----
+All CloudSlang steps description are optional, however it can be considered for better understanding of a step.
+
+-  Documentation blocks begin with a line containing ``#!!`` and nothing else.
+-  Documentation blocks end with a line containing ``#!!#`` and nothing else.
+-  Each line of the documentation begins with ``#!``.
+-  Lines in the documentation block that do not begin with ``#!`` will not be
+   considered as part of the documentation and will not display when the file is
+   inspected.
+-  A new line between input and output sections as a best practice.
+-  The other possible tags are:
+
+     - ``@input <input_name>``
+     - ``@output <output_name>``
+
+::
+
+  workflow:
+    ##########################################################################################
+    #!!
+    #! @input url: Hostname or IP address.
+    #! @input auth_type: auth_type or IP address.
+    #! @input username: username or IP address.
+    #!
+    #! @output return_result: STDOUT of the remote machine in case of success or the cause in
+    #!                        in case of success or the cause of the error in case
+    #! @output error_message: STDOUT of the machine in case of successful request
+    #!!#
+    ##########################################################################################
+    - http_client_action_get:
+        do:
+          http.http_client_action:
+            - url
+            - auth_type: ${ get_sp('io.cloudslang.auth_type', 'default_value') }
+            - username
+        publish:
+          - return_result
+          - error_message

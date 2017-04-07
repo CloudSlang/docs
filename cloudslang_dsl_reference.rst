@@ -2100,7 +2100,7 @@ The sensitivity of an `input <#inputs>`__ or `output <#outputs>`__ is
 transitive, and is therefore determined by its ``sensitive`` property and by the
 sensitivity of variables used in its related value expression.
 
-The "sensitive" property works for both <#flow>__ and <#step>__ `inputs <#inputs>`__.
+The "sensitive" property works for both `flow input <#inputs>`__ and `step input <#step-input>`__.
 
 Values that are ``sensitive`` will not be printed in logs, events or in outputs
 of the :doc:`CLI <cloudslang_cli>` and :doc:`Build Tool <cloudslang_build_tool>`.
@@ -2301,7 +2301,7 @@ then navigates to a step named "another_step"**
 value
 -----
 
-The key ``value`` is a property of an `step input <#step input>`__, `output <#outputs>`__ or
+The key ``value`` is a property of an `step input <#step-input>`__, `output <#outputs>`__ or
 `system property <#properties>`__ name. In an `output <#outputs>`__, the key is
 mapped to an `expression <#expressions>`__ value. In a
 `system property <#properties>`__, the key is mapped to a valid
