@@ -34,8 +34,8 @@ There are four types of CloudSlang files:
    operations or subflows
 -  operation - contains an action that runs a script or method
 -  decision - contains decision logic without an action
--  system properties - contains a list of system property keys and values
-
+-  system properties - contains a list of system property keys and values-
+-
 The following properties are for all types of CloudSlang files. For
 properties specific to `flow <#flow>`__, `operation <#operation>`__, or
 `system properties <#properties>`__ files, see their respective sections below.
