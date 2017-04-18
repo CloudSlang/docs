@@ -30,7 +30,7 @@ Download, Build and Run CLI
 ===========================
 
 **Prerequisites :** To build the CloudSlang CLI, Java JDK version 7 or
-higher and Maven version 3.0.3 or higher are required.
+higher and Maven version 3.0.3 or higher are required.hgjhgjhgjghjgjjgh
 
 1. Git clone (or GitHub fork and then clone) the `source
    code <https://github.com/cloudslang/cloud-slang>`__.
