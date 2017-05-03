@@ -97,6 +97,9 @@ New Code - Complete
                 - address
             publish:
               - availability: ${available}
+            navigate:
+              - UNAVAILABLE: print_fail
+              - AVAILABLE: SUCCESS
 
         - print_finish:
             do:
