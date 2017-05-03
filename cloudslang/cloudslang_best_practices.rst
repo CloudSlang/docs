@@ -111,7 +111,9 @@ A flow or operation's documentation may be viewed from the CLI using the
     #!                 example: 'someone@mailprovider.com'
     #! @input input_4: fourth input
     #!                 format: space delimited list of strings
+    #!
     #! @output output_1: first output
+    #!
     #! @result SUCCESS: good
     #! @result FAILURE: bad
     #!!#

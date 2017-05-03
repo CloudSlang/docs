@@ -3,7 +3,7 @@ FAQ
 
 | :ref:`What is CloudSlang? <what_is>`
 | :ref:`What are the use cases and focus for CloudSlang? <focus>`
-| :ref:`What is the difference between orchestration and configuration management? <orchestration_vs_configuaration>`
+| :ref:`What is the difference between orchestration and configuration management? <orchestration_vs_configuration>`
 | :ref:`How is CloudSlang different than configuration management tools like Chef, Puppet, Salt and Ansible? Can I use it with these tools? <cs_vs_config_tools>`
 | :ref:`What is the quickest way to try out CloudSlang? <try_out>`
 | :ref:`Which languages are supported by CloudSlang? <languages>`
@@ -29,7 +29,7 @@ CloudSlang can orchestrate a wide variety of technologies. Currently, our
 ready-made content focuses on popular DevOps technologies, such as Docker and
 CoreOS.
 
-.. _orchestration_vs_configuaration:
+.. _orchestration_vs_configuration:
 
 **What is the difference between orchestration and configuration management?**
 
@@ -77,7 +77,7 @@ and run your first CloudSlang content.
 
 .. _languages:
 
-**Which langages are supported by CloudSlang?**
+**Which languages are supported by CloudSlang?**
 
 Python and Java operations are supported natively in CloudSlang.
 

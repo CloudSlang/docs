@@ -4,9 +4,8 @@ CloudSlang Documentation
 Contents:
 
 .. toctree::
-   :maxdepth: 2
 
-	Overview <section_overview>
-  CloudSlang <section_cloudslang>
-  Developer <section_developer>
-	Tutorial <section_tutorial>
+	Overview </overview/section_overview>
+  CloudSlang </overview/section_cloudslang>
+  Developer </overview/section_developer>
+	Tutorial </overview/section_tutorial>

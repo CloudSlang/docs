@@ -31,7 +31,7 @@ characters in YAML are:
   You should be aware that YAML also supports very complex data, and has
   some special characters that you need to be aware of. Even if you
   never need to use those features, YAML will fail to parse if you
-  accidently use a special character incorrectly. This is pretty easily
+  accidentally use a special character incorrectly. This is pretty easily
   avoided and covered more below.
 
 If you are familiar with the popular data language, JSON, then YAML
@@ -119,7 +119,7 @@ results and their targets**
 Sequences (Lists, Arrays)
 =========================
 
-Sequences (seqs) are denoted with a hypen and a space (``-``) preceding
+Sequences (seqs) are denoted with a hyphen and a space (``-``) preceding
 each entry.
 
 **Example: a CloudSlang flow's possible results are defined using a list
