@@ -15,8 +15,8 @@ hire must go through to get set up to work. We will build the flow one
 piece at a time with the goal of highlighting the features of
 CloudSlang. We recommend you follow along with the process, writing the
 flows and operations we will build on your own machine and running them
-using the :doc:`CloudSlang CLI <../cloudslang_cli>`. To do so, you'll
-need a :doc:`text editor <../cloudslang_editors>` to create the CloudSlang files
+using the :doc:`CloudSlang CLI <../cloudslang/cloudslang_cli>`. To do so, you'll
+need a :doc:`text editor <../cloudslang/cloudslang_editors>` to create the CloudSlang files
 and the CloudSlang CLI to run them.
 
 YAML
@@ -24,7 +24,7 @@ YAML
 
 CloudSlang is a YAML-based language so it's important to know a bit
 about YAML before getting started. If you're new to YAML, you can take a
-look at the :doc:`YAML Overview <../yaml_overview>` section of the
+look at the :doc:`YAML Overview <../overview/yaml_overview>` section of the
 CloudSlang documentation to familiarize yourself with its main
 structure. This tutorial will also include **YAML Notes** to guide you
 through potential trouble areas.
@@ -39,19 +39,19 @@ the :ref:`CloudSlang Files <cloudslang_files>` section of the DSL Reference.
 
 If you are unsure what the indentation level is for a particular code snippet,
 you can take a look at where it fits into the rest of the code in the
-**New Code - Complete** section at the bottom of each lesson or by dowloading
+**New Code - Complete** section at the bottom of each lesson or by downloading
 the lesson's code.
 
 Prerequisites
 -------------
 
 This tutorial uses the CloudSlang CLI to run flows. See the :doc:`CloudSlang
-CLI <../cloudslang_cli>` section of the documentation for
+CLI <../cloudslang/cloudslang_cli>` section of the documentation for
 instructions on how to download and run the CLI.
 
 Although CloudSlang files can be composed in any text editor, using a
 modern code editor with support for syntax highlighting is
-recommended. See :doc:`CloudSlang Editors <../cloudslang_editors>` for
+recommended. See :doc:`CloudSlang Editors <../cloudslang/cloudslang_editors>` for
 instructions on how to download, install and use the CloudSlang language
 package for Atom.
 
@@ -65,7 +65,7 @@ Flows, Operations and Decisions
 -------------------------------
 
 Let's begin our study of the CloudSlang language by discussing the three types
-of CloudSlang executable contructs: flows, operations and decisions.
+of CloudSlang executable constructs: flows, operations and decisions.
 
 Generally, CloudSlang treats flows, operations and decisions similarly. Flows,
 operations and decisions can all receive inputs, produce outputs, return results
@@ -85,7 +85,7 @@ A decision is very similar to an operation, but without an action.
 Here is a diagram of the flow, operation and decision structure we will be
 building in this tutorial.
 
-.. figure:: ../images/flow_diagram.png
+.. figure:: images/flow_diagram.png
    :alt: Flow Diagram
 
 Setup

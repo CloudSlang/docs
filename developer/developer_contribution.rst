@@ -89,7 +89,6 @@ dependencies depicted in the diagram below.
       -  google
       -  haven_on_demand
       -  heroku
-      -  hp_cloud
       -  itsm
 
          -  service_now
@@ -115,7 +114,10 @@ dependencies depicted in the diagram below.
 
    -  cs-amazon
    -  cs-azure
+   -  cs-commons
+   -  cs-database
    -  cs-date-time
+   -  cs-google
    -  cs-http-client
    -  cs-json
    -  cs-lists
@@ -123,7 +125,6 @@ dependencies depicted in the diagram below.
    -  cs-powershell
    -  cs-rft
    -  cs-ssh
-   -  cs-utilities
    -  cs-vmware
    -  cs-xml
 
@@ -142,6 +143,7 @@ dependencies depicted in the diagram below.
 -  **docs** - CloudSlang documentation
 -  **atom-cloudslang-package** - Atom package for CloudSlang support
 -  **cloudslang-cli** - npm cloudslang-cli
+-  **cs-intellij-plugin** - CloudSlang Intellij Plugin
 
 Contribution Guide
 ==================

@@ -51,7 +51,7 @@ the CloudSlang CLI, Java JRE version 7 or higher is required.
 
 1. At a command prompt, enter ``npm install -g cloudslang-cli``.
 
-   -  If using Linux, the sudo command might be neccessary:
+   -  If using Linux, the sudo command might be necessary:
       ``sudo npm install -g cloudslang-cli``.
 
 2. Enter the ``cslang`` command at any command prompt.
@@ -398,7 +398,7 @@ To view a flow or operation's description, inputs, outputs and results use the
     cslang>inspect c:/.../your_flow.sl
 
 List System Properties
----------------------------
+----------------------
 
 To list the properties contained in a system properties file use the ``list``
 command.
@@ -450,7 +450,7 @@ activity is stored in a file named with the convention
 
 
 History
--------------
+-------
 
 The CLI history is saved at ``cslang-cli/cslang-cli.history``.
 

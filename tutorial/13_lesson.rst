@@ -30,50 +30,47 @@ Here's the documentation for the ``send_mail`` operation:
 
 .. code-block:: yaml
 
-    ####################################################
+    ########################################################################################################################
     #!!
     #! @description: Sends an email.
     #!
-    #! @input hostname: email host
-    #! @input port: email port
-    #! @input from: email sender
-    #! @input to: email recipient
-    #! @input cc: cc recipient
-    #!            optional
-    #!            default: none
-    #! @input bcc: bcc recipient
-    #!             optional
-    #!             default: none
-    #! @input subject: email subject
-    #! @input body: email text
-    #! @input html_email: html formatted email
-    #!                    optional
-    #!                    default: true
-    #! @input read_receipt: request read receipt
-    #!                      optional
-    #!                      default: false
-    #! @input attachments: email attachments
-    #!                     optional
-    #!                     default: none
-    #! @input username: account username
-    #!                  optional
-    #!                  default: none
-    #! @input password: account password
-    #!                  optional
-    #!                  default: none
-    #! @input character_set: email character set
-    #!                       optional
-    #!                       default: UTF-8
-    #! @input content_transfer_encoding: email content transfer encoding
-    #!                                   optional
-    #!                                   default: base64
-    #! @input delimiter: delimiter to separate email recipients and attachments
-    #!                   optional
-    #!                   default: none
-    #! @result SUCCESS: mail was sent successfully (returnCode is equal to 0)
-    #! @result FAILURE: otherwise
+    #! @input hostname: Email host.
+    #! @input port: Email port.
+    #! @input from: Email sender.
+    #! @input to: Email recipient.
+    #! @input cc: Optional - Comma-delimited list of cc recipients.
+    #!            Default: ''
+    #! @input bcc: Optional - Comma-delimited list of bcc recipients.
+    #!             Default: ''
+    #! @input subject: Email subject.
+    #! @input body: Email text.
+    #! @input html_email: Optional
+    #!                    Default: 'true'
+    #! @input read_receipt: Optional
+    #!                      Default: 'false'
+    #! @input attachments: Optional
+    #!                     Default: ''
+    #! @input username: Optional
+    #!                  Default: ''
+    #! @input password: Optional
+    #!                  Default: ''
+    #! @input character_set: Optional
+    #!                       Default: 'UTF-8'
+    #! @input content_transfer_encoding: Optional
+    #!                                   Default: 'base64'
+    #! @input delimiter: Optional
+    #!                   Default: ''
+    #! @input enable_TLS: Optional - Enable startTLS
+    #!                    Default: 'false'
+    #!
+    #! @output return_code: '0' if success, '-1' otherwise.
+    #! @output return_result: Success or exception message.
+    #! @output exception: Possible exception details.
+    #!
+    #! @result SUCCESS: Succeeds if mail was sent successfully (returnCode is equal to 0).
+    #! @result FAILURE: Otherwise.
     #!!#
-    ####################################################
+    ########################################################################################################################
 
 We could get this information by opening the operation from the ready-made
 content folder or by running ``inspect`` on the flow.

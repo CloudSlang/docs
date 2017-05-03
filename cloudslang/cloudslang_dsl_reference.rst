@@ -1425,7 +1425,7 @@ and :ref:`uniqueness <uniqueness_and_case_sensitivity>`.
 .. _on_failure:
 
 on_failure
------------
+----------
 
 The key ``on_failure`` is a property of a `workflow <#workflow>`__. It
 is mapped to a `step <#step>`__.
