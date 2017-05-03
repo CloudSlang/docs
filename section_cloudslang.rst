@@ -17,3 +17,4 @@ Contents:
    Build Tool <cloudslang_build_tool>
    Maven Content Compiler <cloudslang_maven_compiler>
    Editors <cloudslang_editors>
+   Integrations <cloudslang_integrations>
