@@ -25,7 +25,7 @@ workflow. It works the same way as inputs to an operation.
       - address
 
 Just as with an operation, values for the inputs of a flow are either
-passed via the :doc:`CloudSlang CLI <../cloudslang_cli>`, as we do below
+passed via the :doc:`CloudSlang CLI </cloudslang/cloudslang_cli>`, as we do below
 in this lesson, or from a step in a calling flow, as in lesson :doc:`9 -
 Subflows <09_lesson>`.
 
@@ -45,7 +45,7 @@ needed with the ``print`` operation in the ``print_start`` step.
 
 .. note::
 
-    The :doc:`best practice <../cloudslang_best_practices>` is to use an alias or
+    The :doc:`best practice </cloudslang/cloudslang_best_practices>` is to use an alias or
     fully qualified name when calling an operation (the same applies for
     subflows and decisions) even when it resides in the same folder as the
     calling flow. For simplicity, we will not follow this practice in this
@@ -99,7 +99,7 @@ step along with some of the flow input variables in the expression.
             - text: "${'Availability for address ' + address + ' is: ' + availability}"
 
 Notice the extra set of quotes (``""``) around the expression. They are
-neccessary to escape the colon (``:``) which has special meaning in YAML.
+necessary to escape the colon (``:``) which has special meaning in YAML.
 
 Wire Navigation
 ---------------
@@ -137,7 +137,7 @@ So what does that mean for us? We can use the default navigation for the
 ``check_address`` step. However, since the ``print`` operation will always
 return a ``SUCCESS`` result, we need to add some navigation for the
 ``print_start`` and ``print_finish`` steps. The ``navigate`` section takes a
-list of recieved results and maps them to step names or flow results. In
+list of received results and maps them to step names or flow results. In
 ``print_start`` we'll map the ``SUCCESS`` result to the next step. And in
 ``print_finish`` we'll map the ``SUCCESS`` result to the ``SUCCESS`` result of
 the flow.

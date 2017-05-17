@@ -96,3 +96,23 @@ Atom Troubleshooting
 For troubleshooting Atom issues, see the Atom
 `documentation <https://atom.io/docs>`__ and
 `discussion board <https://discuss.atom.io/>`__.
+
+IntelliJ
+========
+
+The CloudSlang Plugin for IntelliJ package includes:
+
+* CloudSlang file type support (.sl, .sl.yaml, .sl.yml, .prop.sl)
+* Live templates (e.g: flow, operation, input, output, step, for, java_action etc.)
+* Completion support for CloudSlang keywords
+* Syntax highlighting
+* CloudSlang file validation and error highlighting
+
+Installation
+------------
+
+1. Install the CloudSlang IntelliJ Plugin in IntelliJ using the **Plugin Installation Wizard** from **File** > **Settings** > **Plugins** > **Browse repositories...** and search for: **CloudSlang plugin.**
+2. Click **Apply** button of the **Settings** dialog.
+
+  .. note::
+     Following the system prompt that appears, restart IntelliJ IDEA to activate the installed plugin, or postpone it, at your choice.

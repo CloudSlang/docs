@@ -1,11 +1,11 @@
-#   (c) Copyright 2015 Hewlett Packard Enterprise
+#   (c) Copyright 2015-2017 Hewlett-Packard Enterprise Development Company, L.P.
 #   All rights reserved. This program and the accompanying materials
 #   are made available under the terms of the Apache License v2.0 which accompany this distribution.
 #
 #   The Apache License is available at
 #   http://www.apache.org/licenses/LICENSE-2.0
 #
-####################################################
+########################################################################################################################
 
 general:
   artifacts:
@@ -14,7 +14,7 @@ general:
 test:
   pre:
     - >
-      wget https://github.com/CloudSlang/cloud-slang/releases/download/cloudslang-1.0.5/cslang-builder.zip
+      wget https://github.com/CloudSlang/cloud-slang/releases/download/cloudslang-1.0.6/cslang-builder.zip
       && unzip cslang-builder.zip
       && chmod +x cslang-builder/bin/cslang-builder
   override: # compile ./code directory

@@ -79,7 +79,7 @@ list is, different things will happen. This is due to the default
 behavior of loops and our ``create_user_email`` subflow.
 
 By default a loop exits when either the list it is looping on has been
-exhausted or the operation or sublfow called returns a result of
+exhausted or the operation or subflow called returns a result of
 ``FAILURE``. This will explain the following cases:
 
 +--------+-------------------+-------------+--------------+------------------------------+

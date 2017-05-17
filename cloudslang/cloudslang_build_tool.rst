@@ -199,6 +199,9 @@ following arguments:
 | -des       | off                      | | whether or not to validate that all inputs, outputs |
 |            |                          | | and results have descriptions                       |
 +------------+--------------------------+-------------------------------------------------------+
+| -cs        | off                      | | whether or not to validate that all inputs, outputs |
+|            |                          | | and results follow the checkstyle rules             |
++------------+--------------------------+-------------------------------------------------------+
 | -co        | --                       | | only run tests from active suites that are          |
 |            |                          | | affected by the items found in the given            |
 |            |                          | | :ref:`change list <change_list>`                    |
@@ -244,7 +247,7 @@ Change List
 The change list is used in conjunction with the ``-co`` flag to run only the
 tests from active suites that are affected by the items in the list.
 
-The list is a file in which each line contains an excecutable's fully qualified
+The list is a file in which each line contains an executable's fully qualified
 name.
 
 **Example change list file**

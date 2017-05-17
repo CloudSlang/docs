@@ -112,7 +112,7 @@ are checked. If at least one sensitive argument was used the output will be
 sensitive as well.
 
 As opposed to expressions, the output types of Java and Python operations, are
-not propogated automatically to the operation's outputs. Doing so would cause
+not propagated automatically to the operation's outputs. Doing so would cause
 all outputs of an operation to be sensitive every time at least one input was
 sensitive. Instead, none of the operation's action's data appears in the logs
 and a content author explicitly marks an operation's outputs as sensitive when

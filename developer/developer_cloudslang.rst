@@ -266,7 +266,7 @@ An operation can be compiled and run in the same way.
 Although we compile and run here in one step, the process can be broken
 up into its component parts. The ``Slang`` interface exposes a method to
 compile a flow or operation without running it. That method returns a
-``CompliationArtifact`` which can then be run with a call to the ``run``
+``CompilationArtifact`` which can then be run with a call to the ``run``
 method.
 
 A ``CompilationArtifact`` is composed of a Score ``ExecutionPlan``, a
@@ -282,7 +282,7 @@ Slang Events
 ============
 
 CloudSlang uses :ref:`Score <score_events>` and
-its own extended set of Slang events. Slang events are comprised of an
+it's own extended set of Slang events. Slang events are comprised of an
 event type string and a map of event data that contains all the relevant
 event information mapped to keys defined in the
 ``org.openscore.lang.runtime.events.LanguageEventData`` class. All fired

@@ -53,6 +53,8 @@ dependencies depicted in the diagram below.
 
          -  aws
 
+            - ec2
+
       -  base
 
          -  cmd
@@ -84,9 +86,15 @@ dependencies depicted in the diagram below.
       -  consul
       -  coreos
       -  digital_ocean
+
+         - v2
+
       -  docker
       -  git
-      -  google
+      -  hashicorp
+
+         - vault
+
       -  haven_on_demand
       -  heroku
       -  itsm
@@ -95,15 +103,22 @@ dependencies depicted in the diagram below.
 
       -  jenkins
       -  marathon
+      -  maven
       -  microsoft
 
          - azure
 
       -  new_relic
+
+         - servers
+
       -  openshift
       -  openstack
-      -  operations_orchestration
       -  stackato
+      -  twilio
+
+         - sms
+
       -  vmware
 
          -  vcenter
@@ -115,6 +130,7 @@ dependencies depicted in the diagram below.
    -  cs-amazon
    -  cs-azure
    -  cs-commons
+   -  cs-couchbase
    -  cs-database
    -  cs-date-time
    -  cs-google
@@ -144,6 +160,7 @@ dependencies depicted in the diagram below.
 -  **atom-cloudslang-package** - Atom package for CloudSlang support
 -  **cloudslang-cli** - npm cloudslang-cli
 -  **cs-intellij-plugin** - CloudSlang Intellij Plugin
+-  **cs-content-generator** - Tool to convert Java Actions to .sl files
 
 Contribution Guide
 ==================

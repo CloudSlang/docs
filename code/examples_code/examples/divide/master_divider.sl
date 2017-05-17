@@ -20,6 +20,7 @@ flow:
         navigate:
           - SUCCESS: division2
           - ILLEGAL: failure_step
+
     - division2:
         do:
           division:
@@ -30,6 +31,7 @@ flow:
         navigate:
           - SUCCESS: SUCCESS
           - ILLEGAL: failure_step
+
     - on_failure:
       - failure_step:
           do:
