@@ -2358,7 +2358,7 @@ flow finish or to `on_failure <#on-failure>`__ upon a
 `navigation <#navigate>`__ logic that is present.
 
 +----------------+----------+---------+------------+--------------------------+--------------------------------+
-| Property        | Required | Default | Value Type | Description              | More Info                      |
+| Property        | Required | Default | Value Type | Description              | More Info                     |
 +================+==========+=========+============+==========================+================================+
 | ``on_failure`` | no       | --      | step       | | default navigation     | | `on_failure <#on-failure>`__ |
 |                |          |         |            | | target for ``FAILURE`` | | `step <#step>`__             |
