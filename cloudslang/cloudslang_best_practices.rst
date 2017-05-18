@@ -98,7 +98,7 @@ A flow or operation's documentation may be viewed from the CLI using the
 
     ####################################################################################################################
     #!!
-    #! @description: Does something fantastic.
+    #! @description: This operation does something fantastic.
     #!
     #! @prerequisites: Some Python module.
     #!
@@ -107,15 +107,15 @@ A flow or operation's documentation may be viewed from the CLI using the
     #!                 Valid: 'true', 'false'
     #!                 Default: 'true'
     #! @input input_3: Third input.
-    #!                 example: 'someone@mailprovider.com'
+    #!                 Example: 'someone@mailprovider.com'
     #!                 Optional
     #! @input input_4: Fourth input.
     #!                 Format: space delimited list of strings
     #!
     #! @output output_1: First output.
     #!
-    #! @result SUCCESS: Good.
-    #! @result FAILURE: Bad.
+    #! @result SUCCESS: Operation executed successfully.
+    #! @result FAILURE: An error occurred while trying to complete the operation.
     #!!#
     ####################################################################################################################
 
@@ -124,7 +124,6 @@ Description
 
 -  Written as a sentence, beginning with a capital letter and ending with a period.
 -  Written in the present tense, for example, "Prints text.".
--  Does not include "This flow" or "This operation" or anything similar.
 
 Prerequisites
 -------------
@@ -139,8 +138,6 @@ Inputs, Outputs and Results
    capitalized acronym) and does not end with a period.
 -  Usage of the words "the" and "a" are strongly discouraged, especially
    at the beginning of the description.
--  Description does not include "this flow", "this operation", "this field" or
-   anything similar.
 -  Proper names and acronyms that are normally capitalized are
    capitalized, for example, HTTP, Docker, ID.
 
