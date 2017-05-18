@@ -220,7 +220,7 @@ New Code - Complete
             default: '0'
             private: true
         - order_map:
-            default: '{"laptop": 1000, "docking station":200, "monitor": 500, "phone": 100}'
+            default: '{"laptop": 1000, "docking station": 200, "monitor": 500, "phone": 100}'
 
       workflow:
         - print_start:
@@ -264,26 +264,8 @@ New Code - Complete
                 - total_cost: ${str(int(cost) + int(spent))}
               break: []
             navigate:
-              - AVAILABLE: check_min_reqs
-              - UNAVAILABLE: check_min_reqs
-
-        - check_min_reqs:
-            do:
-              base.contains:
-                - container: ${all_missing}
-                - sub: 'laptop'
-            navigate:
-              - DOES_NOT_CONTAIN: print_finish
-              - CONTAINS: print_warning
-
-        - print_warning:
-            do:
-              base.print:
-                - text: >
-                    ${first_name + ' ' + last_name +
-                    ' did not receive all the required equipment'}
-            navigate:
-              - SUCCESS: print_finish
+              - AVAILABLE: print_finish
+              - UNAVAILABLE: print_finish
 
         - print_finish:
             do:

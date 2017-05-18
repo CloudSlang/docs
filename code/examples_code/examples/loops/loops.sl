@@ -18,6 +18,7 @@ flow:
         navigate:
           - SUCCESS: fail3b
           - FAILURE: fail3b
+
     - fail3b:
         loop:
           for: value in [1,2,3,4,5]
@@ -36,6 +37,7 @@ flow:
         navigate:
           - CUSTOM: aggregate
           - SUCCESS: skip_this
+
     - skip_this:
         do:
           print:
@@ -54,6 +56,7 @@ flow:
           break: []
         navigate:
           - SUCCESS: print
+
     - print:
         do:
           print:

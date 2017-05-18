@@ -9,12 +9,12 @@ Prerequisites
 =============
 
 This example uses the CloudSlang CLI to run a flow. See the :doc:`CloudSlang
-CLI <cloudslang_cli>` section for instructions on how to download and run the
+CLI </cloudslang/cloudslang_cli>` section for instructions on how to download and run the
 CLI.
 
 Although CloudSlang files can be composed in any text editor, using a
 modern code editor with support for YAML syntax highlighting is
-recommended. See :doc:`CloudSlang Editors <cloudslang_editors>` for
+recommended. See :doc:`CloudSlang Editors </cloudslang/cloudslang_editors>` for
 instructions on how to download, install and use the CloudSlang language
 package for Atom.
 
@@ -124,4 +124,4 @@ More
 ====
 
 For a more comprehensive walkthrough of the CloudSlang language's
-features, see the :doc:`tutorial <tutorial/01_lesson>`.
+features, see the :doc:`tutorial </tutorial/01_lesson>`.

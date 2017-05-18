@@ -71,11 +71,11 @@ to print. We'll name our input ``text``.
 .. note::
 
    **YAML Note:** The ``inputs`` key maps to a list of inputs. In YAML, a
-   list is signified by prepending a hypen (``-``) and a space to each
+   list is signified by prepending a hyphen (``-``) and a space to each
    item.
 
 The values for the inputs are either passed via the :doc:`CloudSlang
-CLI <../cloudslang_cli>`, as we do below in this lesson, or from a
+CLI </cloudslang/cloudslang_cli>`, as we do below in this lesson, or from a
 step in a flow, as we will do in the next lesson.
 
 Inputs can also have related parameters, such as ``required``, ``default``,
@@ -123,7 +123,7 @@ That's it. Our operation is all ready. Our next step will be to create a
 flow that uses the operation we just wrote, but we can actually just run
 the operation as is.
 
-To do so, save the operation file, fire up the CloundSlang CLI and enter
+To do so, save the operation file, fire up the CloudSlang CLI and enter
 the following at the prompt to run your operation:
 
 .. code-block:: bash

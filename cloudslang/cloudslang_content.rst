@@ -24,7 +24,7 @@ Running CloudSlang Content
 
 The simplest way to get started running ready-made CloudSlang content is to
 download and run the pre-packaged cslang-cli-with-content file as described in
-the :doc:`Get Started <get_started>` section.
+the :doc:`Get Started </overview/get_started>` section.
 
 Alternatively, you can build the CLI from source and download the content
 separately. To build the CLI yourself and for more information on using the CLI,
@@ -45,6 +45,12 @@ that declares a dependency, the required Maven project and all the resources
 specified in its pom's ``dependencies`` will be resolved and downloaded (if
 necessary).
 
+.. note::
+
+    Maven version used in the CLI, Builder and cs-actions is ``3.3.9``
+    There might be some issues while building the Java Actions with
+    other versions.
+
 Running Content Dependent on External Python Modules
 ====================================================
 
@@ -56,7 +62,7 @@ Contributing Content
 ====================
 
 We welcome and encourage community contributions to CloudSlang. Please see the
-:doc:`contribution <developer_contribution>` section to familiarize yourself
+:doc:`contribution </developer/developer_contribution>` section to familiarize yourself
 with the Contribution Guidelines and `Project Roadmap
 <https://github.com/CloudSlang/cloud-slang/wiki/Project-Roadmap>`__
 before contributing.

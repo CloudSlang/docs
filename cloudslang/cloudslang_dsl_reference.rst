@@ -1171,6 +1171,12 @@ that matches a CloudSlang output.
 Release to remote Maven repository
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+.. note::
+
+    Maven version used in the CLI, Builder and cs-actions is ``3.3.9``
+    There might be some issues while building the Java Actions with
+    other versions.
+
 Use Maven to package the project containing the Java action method and release
 it to the remote repository defined in the :ref:`CLI's configuration file
 <configure_cli>`.
@@ -2053,7 +2059,7 @@ Editing the Executable File
 Adding the Package Location to sys.path
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-1. In the action's Pyton script, import the ``sys`` module.
+1. In the action's Python script, import the ``sys`` module.
 2. Use ``sys.path.append()`` to add the path to the desired module.
 3. Import the module and use it.
 
@@ -2352,7 +2358,7 @@ flow finish or to `on_failure <#on-failure>`__ upon a
 `navigation <#navigate>`__ logic that is present.
 
 +----------------+----------+---------+------------+--------------------------+--------------------------------+
-| Propery        | Required | Default | Value Type | Description              | More Info                      |
+| Property        | Required | Default | Value Type | Description              | More Info                     |
 +================+==========+=========+============+==========================+================================+
 | ``on_failure`` | no       | --      | step       | | default navigation     | | `on_failure <#on-failure>`__ |
 |                |          |         |            | | target for ``FAILURE`` | | `step <#step>`__             |

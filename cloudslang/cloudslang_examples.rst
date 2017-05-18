@@ -19,7 +19,7 @@ Each of the examples below can be run by doing the following:
 3. :ref:`Use the CLI <use_the_cli>` to run the flow.
 
 For more information on getting set up to run flows, see the :doc:`CloudSlang
-CLI <cloudslang_cli>` and :doc:`Hello World Example <hello_world>` sections.
+CLI <cloudslang_cli>` and :doc:`Hello World Example </overview/hello_world>` sections.
 
 Example 1 - User-defined Navigation and Publishing Outputs
 ==========================================================

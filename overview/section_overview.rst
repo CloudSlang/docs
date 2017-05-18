@@ -6,6 +6,6 @@ Contents:
 .. toctree::
    :maxdepth: 2
 
-	 The CloudSlang Project <intro>
-	 Get Started <get_started>
+   The CloudSlang Project <intro>
+   Get Started <get_started>
    FAQ <faq>

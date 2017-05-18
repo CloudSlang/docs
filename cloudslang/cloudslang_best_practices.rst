@@ -12,7 +12,7 @@ CloudSlang Content Best Practices
 
 -  The namespace for a file matches the suffix of the file path in which
    the file resides, for example, the send_mail operation is found in the
-   **cloudslang-content/io/cloudslang/base** folder, so it uses the
+   **cloudslang-content/io/cloudslang/base/mail** folder, so it uses the
    namespace ``io.cloudslang.base.mail``.
 -  Namespaces should be comprised of only lowercase alphanumeric
    characters (a-z and 0-9), underscores (_), periods(.) and hyphens
@@ -96,36 +96,34 @@ A flow or operation's documentation may be viewed from the CLI using the
 
 ::
 
-    ####################################################
+    ####################################################################################################################
     #!!
-    #! @description: Does something fantastic.
+    #! @description: This operation does something fantastic.
     #!
     #! @prerequisites: Some Python module.
     #!
-    #! @input input_1: first input
-    #! @input input_2: second input
-    #!                 default: true
-    #!                 valid: true, false
-    #! @input input_3: third input
-    #!                 optional
-    #!                 example: 'someone@mailprovider.com'
-    #! @input input_4: fourth input
-    #!                 format: space delimited list of strings
+    #! @input input_1: First input.
+    #! @input input_2: Second input.
+    #!                 Valid: 'true', 'false'
+    #!                 Default: 'true'
+    #! @input input_3: Third input.
+    #!                 Example: 'someone@mailprovider.com'
+    #!                 Optional
+    #! @input input_4: Fourth input.
+    #!                 Format: space delimited list of strings
     #!
-    #! @output output_1: first output
+    #! @output output_1: First output.
     #!
-    #! @result SUCCESS: good
-    #! @result FAILURE: bad
+    #! @result SUCCESS: Operation executed successfully.
+    #! @result FAILURE: An error occurred while trying to complete the operation.
     #!!#
-    ####################################################
+    ####################################################################################################################
 
 Description
 -----------
 
--  Written as a sentence, beginning with a capital letter and ending
-   with a period.
+-  Written as a sentence, beginning with a capital letter and ending with a period.
 -  Written in the present tense, for example, "Prints text.".
--  Does not include "This flow" or "This operation" or anything similar.
 
 Prerequisites
 -------------
@@ -140,8 +138,6 @@ Inputs, Outputs and Results
    capitalized acronym) and does not end with a period.
 -  Usage of the words "the" and "a" are strongly discouraged, especially
    at the beginning of the description.
--  Description does not include "this flow", "this operation", "this field" or
-   anything similar.
 -  Proper names and acronyms that are normally capitalized are
    capitalized, for example, HTTP, Docker, ID.
 
@@ -149,8 +145,8 @@ Inputs and Outputs
 ------------------
 
 -  Written in the present tense, for example, "true if job exists".
--  Non-required fields contain the "optional" label.
--  Additional labels are "default:", "example:", "valid:" and "format:".
+-  Non-required fields contain the "Optional" label.
+-  Additional labels are "Default:", "Example:", "Valid:" and "Format:".
 
 Results
 -------

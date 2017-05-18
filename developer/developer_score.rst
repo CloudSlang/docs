@@ -281,7 +281,7 @@ Triggering New Executions
 The ``trigger(TriggeringProperties triggeringProperties)`` method starts
 an execution with a given `ExecutionPlan <#executionplan>`__ and the
 additional properties found in the
-`TriggeringProperies <#triggeringproperties>`__ object. The method
+`TriggeringProperties <#triggeringproperties>`__ object. The method
 returns the ID of the new execution.
 
 By default the first executed step will be the execution plan's start
@@ -331,7 +331,7 @@ during the execution of an `ExecutionPlan <#executionplan>`__. During an
 execution, after each `ExecutionStep <#executionstep>`__, the engine
 will check the ExecutionRuntimeServices to see if there have been any
 requests made of it and will respond accordingly. These services can be
-used by a language written on top of Score, as CloundSlang does, to
+used by a language written on top of Score, as CloudSlang does, to
 affect the runtime behavior.
 
 The ExecutionRuntimeServices can be injected into an

@@ -5,7 +5,7 @@ Contents:
 
 .. toctree::
 
-	Overview </overview/section_overview>
+  Overview </overview/section_overview>
   CloudSlang </overview/section_cloudslang>
   Developer </overview/section_developer>
-	Tutorial </overview/section_tutorial>
+  Tutorial </overview/section_tutorial>
