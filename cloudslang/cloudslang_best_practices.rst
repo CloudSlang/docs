@@ -77,6 +77,11 @@ All CloudSlang flows and operations should begin with a documentation
 block that describes the flow or operation, and lists the inputs,
 outputs and results.
 
+.. note::
+   The CloudSlang IntelliJ plugin will warn you in case there of missing documentation for the operation/flow,
+   inputs, outputs, results descriptions.
+
+
 A flow or operation's documentation may be viewed from the CLI using the
 :ref:`inspect <inspect_a_flow_or_operation>` command.
 
