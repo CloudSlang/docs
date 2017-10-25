@@ -67,12 +67,12 @@ to
     </proxies>
 
 
-3 Check the folder **`/maven/repo/io/cloudslang/content/cs-package`** (cs-package will be the dependency that failed to
-  download, delete that folder, as it contains invalid contents and it will not be replaced if you retry the execution.
+3. Check the folder **`/maven/repo/io/cloudslang/content/cs-package`** (cs-package will be the dependency that failed to
+download, delete that folder, as it contains invalid contents and it will not be replaced if you retry the execution.
 
-4 Once all the changes have been applied, open the CLI again and run the operation/flow, that has previously failed.
-  You should see the following message ``Completed downloading maven resources for cs-example-0.0.1`` and the execution
-  will run normally.
+4. Once all the changes have been applied, open the CLI again and run the operation/flow, that has previously failed.
+You should see the following message ``Completed downloading maven resources for cs-example-0.0.1`` and the execution
+will run normally.
 
 .. note::
    In case you still get the same error, there might be a problem with your ``proxy configuration`` (double check, just in case).
