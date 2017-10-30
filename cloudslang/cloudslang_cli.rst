@@ -161,10 +161,14 @@ at ``maven.settings.xml.path``.
 Maven Troubleshooting
 ---------------------
 
-It is possible that the CLI's Maven repository can become corrupted. In such a
-case, delete the entire **repo** folder found at the location indicated by the
+It is possible that the CLI's Maven repository can become corrupted (if running the first time, behind a **proxy**).
+In such a case, delete the entire **repo** folder found at the location indicated by the
 ``cloudslang.maven.repo.local`` key in the :ref:`CLI's configuration file
-<configure_cli>` and rerun the flow. 
+<configure_cli>` and rerun the flow.
+
+To use the default ``cloudslang.maven.repo.local`` behind a **proxy**, please see the
+:doc:`Troubleshooting guide </troubleshooting/troubleshooting>`, where a more detailed explanation on
+how to fix any ``maven`` dependencies issues that might appear.
 
 .. _use_the_cli:
 

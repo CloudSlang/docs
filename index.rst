@@ -9,3 +9,4 @@ Contents:
   CloudSlang </overview/section_cloudslang>
   Developer </overview/section_developer>
   Tutorial </overview/section_tutorial>
+  Troubleshooting </troubleshooting/section_troubleshooting>
