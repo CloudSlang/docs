@@ -85,12 +85,17 @@ dependencies depicted in the diagram below.
 
       -  consul
       -  coreos
+      -  couchbase
       -  digital_ocean
 
          - v2
 
       -  docker
       -  git
+      -  google
+
+         - compute
+
       -  hashicorp
 
          - vault
@@ -104,6 +109,10 @@ dependencies depicted in the diagram below.
       -  jenkins
       -  marathon
       -  maven
+      -  microfocus
+
+         - dca
+
       -  microsoft
 
          - azure
@@ -114,6 +123,7 @@ dependencies depicted in the diagram below.
 
       -  openshift
       -  openstack
+      -  slack
       -  stackato
       -  twilio
 
@@ -131,6 +141,7 @@ dependencies depicted in the diagram below.
    -  cs-azure
    -  cs-commons
    -  cs-couchbase
+   -  cs-microfocus-dca
    -  cs-database
    -  cs-date-time
    -  cs-google
@@ -141,6 +152,7 @@ dependencies depicted in the diagram below.
    -  cs-powershell
    -  cs-rft
    -  cs-ssh
+   -  cs-utilities
    -  cs-vmware
    -  cs-xml
 
@@ -161,6 +173,7 @@ dependencies depicted in the diagram below.
 -  **cloudslang-cli** - npm cloudslang-cli
 -  **cs-intellij-plugin** - CloudSlang Intellij Plugin
 -  **cs-content-generator** - Tool to convert Java Actions to .sl files
+-  **cs-content-packager** - Tool to package CloudSlang content
 
 Contribution Guide
 ==================
