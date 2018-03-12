@@ -19,7 +19,7 @@ Embed Score in a Java Application
     <dependency>
       <groupId>io.cloudslang</groupId>
       <artifactId>score-all</artifactId>
-      <version>0.3.28</version>
+      <version>0.3.48</version>
     </dependency>
 
     <dependency>
@@ -44,7 +44,7 @@ Embed Score in a Java Application
 
       <score:worker uuid="-1"/>
 
-      <bean class="io.openscore.example.ScoreEmbed"/>
+      <bean class="io.cloudslang.example.ScoreEmbed"/>
     </beans>
 
 -  Interact with Score using the `Score API <#score-api>`__.

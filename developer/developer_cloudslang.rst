@@ -19,13 +19,13 @@ Embed CloudSlang in a Java Application
     <dependency>
       <groupId>io.cloudslang</groupId>
       <artifactId>score-all</artifactId>
-      <version>0.3.28</version>
+      <version>0.3.48</version>
     </dependency>
 
     <dependency>
       <groupId>io.cloudslang.lang</groupId>
       <artifactId>cloudslang-all</artifactId>
-      <version>0.9.60</version>
+      <version>1.0.18</version>
     </dependency>
 
     <dependency>

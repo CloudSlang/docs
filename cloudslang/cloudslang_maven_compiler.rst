@@ -24,6 +24,7 @@ The example below shows how to use the compiler:
       <plugins>
         [...]
         <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-compiler-plugin</artifactId>
           <version>3.5.1</version>
           <configuration>
