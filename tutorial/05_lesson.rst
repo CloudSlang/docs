@@ -222,8 +222,6 @@ New Code - Complete
                 - address
             publish:
               - availability: ${available}
-            navigate:
-              - SUCCESS: SUCCESS
 
         - print_finish:
             do:
