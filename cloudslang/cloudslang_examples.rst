@@ -89,7 +89,7 @@ user-defined result of ``ILLEGAL``.
           if divisor == '0':
             quotient = 'division by zero error'
           else:
-            quotient = float(dividend) / float(divisor)
+            quotient = str(float(dividend) / float(divisor))
 
       outputs:
         - quotient
@@ -201,7 +201,7 @@ the success of its first step.
             print x
 
       results:
-        - FAILURE: ${x = 'important thing not done'}
+        - FAILURE: ${x == 'important thing not done'}
         - SUCCESS
 
 **Operation - send_email_mock.sl**
@@ -355,6 +355,25 @@ looped on and various methods for handling loop breaks.
                 - text: ${sum}
             navigate:
               - SUCCESS: SUCCESS
+
+**Operation - fail3.sl**
+
+.. code-block:: yaml
+
+    namespace: examples.loops
+
+    operation:
+      name: fail3
+
+      inputs:
+        - text
+
+      python_action:
+        script: print text
+
+      results:
+        - FAILURE: ${int(text) == 3}
+        - SUCCESS
 
 **Operation - custom3.sl**
 
