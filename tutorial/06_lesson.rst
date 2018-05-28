@@ -93,7 +93,7 @@ New Code - Complete
     
         - check_address:
             do:
-              hiring.check_availability:
+              check_availability:
                 - address
             publish:
               - availability: ${available}
