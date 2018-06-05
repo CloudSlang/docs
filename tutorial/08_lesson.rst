@@ -458,7 +458,7 @@ New Code - Complete
 
 .. code-block:: yaml
 
-    namespace: tutorials_08.hiring
+    namespace: tutorials.hiring
 
     operation:
       name: check_availability

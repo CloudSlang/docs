@@ -288,12 +288,12 @@ New Code - Complete
           if attempt == 1:
             address = first_name[0:1] + '.' + last_name + '@' + domain
           elif attempt == 2:
-            address = first_name + '.' + first_name[0:1] + '@' + domain
+            address = first_name + '.' + last_name[0:1] + '@' + domain
           elif attempt == 3 and middle_name != '':
             address = first_name + '.' + middle_name[0:1] + '.' + last_name + '@' + domain
           else:
             address = ''
-          #print address
+          # print address
 
       outputs:
         - email_address: ${address}
