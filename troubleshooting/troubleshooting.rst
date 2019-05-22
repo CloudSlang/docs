@@ -52,7 +52,7 @@ to
             <port>8080</port> <!--change this value to your proxy port-->
             <username/> <!--change this value to your proxy username (only if required)-->
             <password/> <!--change this value to your proxy password (only if required)-->
-            <nonProxyHosts>www.google.com|*.example.com</nonProxyHosts> <!--add amy hosts that should be ignored-->
+            <nonProxyHosts>www.google.com|*.example.com</nonProxyHosts> <!--add any hosts that should be ignored-->
         </proxy>
         <proxy>
             <id>https-proxy</id>
@@ -62,7 +62,7 @@ to
             <port>8080</port> <!--change this value to your proxy port-->
             <username/> <!--change this value to your proxy username (only if required)-->
             <password/> <!--change this value to your proxy password (only if required)-->
-            <nonProxyHosts>www.google.com|*.example.com</nonProxyHosts> <!--add amy hosts that should be ignored-->
+            <nonProxyHosts>www.google.com|*.example.com</nonProxyHosts> <!--add any hosts that should be ignored-->
         </proxy>
     </proxies>
 
