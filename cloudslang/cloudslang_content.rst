@@ -47,7 +47,7 @@ necessary).
 
 .. note::
 
-    Maven version used in the CLI, Builder and cs-actions is ``3.3.9``
+    Maven version used in the CLI, Builder and cs-actions is ``3.3.9`` with JRE version ``8u282-8.52.0.23``
     There might be some issues while building the Java Actions with
     other versions.
 
