@@ -41,13 +41,13 @@ Running Content Dependent on Java Actions
 
 Some of the content is dependent on Java actions from the cs-actions repository.
 CloudSlang uses Maven to manage these dependencies. When executing an operation
-that declares a dependency, the required Maven project and all the resources 
+that declares a dependency, the required Maven project and all the resources
 specified in its pom's ``dependencies`` will be resolved and downloaded (if
 necessary).
 
 .. note::
 
-    Maven version used in the CLI, Builder and cs-actions is ``3.3.9`` with JRE version ``8u282-8.52.0.23``
+    Maven version used in the CLI, Builder and cs-actions is ``3.3.9`` with JRE version ``8u282-8.52.0.23``.
     There might be some issues while building the Java Actions with
     other versions.
 

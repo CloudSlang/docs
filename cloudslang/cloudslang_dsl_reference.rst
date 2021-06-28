@@ -1845,6 +1845,32 @@ cannot be named ``on_failure``.
    are evaluated are ``SUCCESS`` and ``FAILURE``. Any other results will be
    evaluated as ``SUCCESS``.
 
+run_id
+------
+
+The ``run_id`` returns the run ID of the current execution.
+
+**Example - assign a flow with run_id parameter**
+
+.. code-block:: yaml
+
+   - namespace: run_id
+       flow:
+       name: run_id_usage
+       workflow:
+      - add_numbers:
+          do:
+            io.cloudslang.base.math.add_numbers:
+             - value1: 'integer1'
+             - value2: 'integer2'
+             - run_id: '${run_id}'
+           navigate:
+             - SUCCESS: SUCCESS
+             - FAILURE: on_failure
+           results:
+             - FAILURE
+             - SUCCESS
+
 Flow Results
 ~~~~~~~~~~~~
 
@@ -1994,10 +2020,10 @@ modules:
 Installing Packages into the python-lib Folder
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Prerequisites:  Python 2.7 and pip.
+Prerequisites:  Python 3.8.7 and pip.
 
-You can download Python (version 2.7) from `here <https://www.python.org/>`__.
-Python 2.7.9 and later include pip by default. If you already have Python but
+You can download Python (version 3.8.7) from `here <https://www.python.org/>`__.
+that includes pip by default. If you already have Python but
 don't have pip, see the pip
 `documentation <https://pip.pypa.io/en/latest/installing.html>`__ for
 installation instructions.
@@ -2433,6 +2459,19 @@ value associated with ``expression2``.
           out1 = 'not x' if in1 != 'x' else None
       outputs:
         - out1
+
+.. _regex:
+
+cs_regex(selection, regex, split_lines)
+---------------------------------------
+
+May appear in the value of an `input <#inputs>`__ and `expression <#expressions>`__.
+
+**Example - usage of ``regex`` function in inputs**
+
+.. code-block:: Python
+
+
 
 .. _get:
 
