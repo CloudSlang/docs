@@ -1173,7 +1173,7 @@ Release to remote Maven repository
 
 .. note::
 
-    Maven version used in the CLI, Builder and cs-actions is ``3.3.9``
+    Maven version used in the CLI, Builder and cs-actions is ``3.3.9`` with JRE version ``8u282-8.52.0.23``.
     There might be some issues while building the Java Actions with
     other versions.
 
@@ -1647,8 +1647,8 @@ The key ``properties`` is mapped to a list of ``key:value`` pairs that define
 one or more system properties. Each system property name may in turn be mapped
 to its properties or a value.
 
-System property names (keys) can contain alphanumeric characters (A-Za-z0-9),
-underscores (_) and hyphens (-). The names must conform to the rules for
+System property names (keys) can contain alphanumeric characters (``a``-``z``, ``A``-``Z``
+and ``0``-``9``), underscores (_) and hyphens (-). The names must conform to the rules for
 :ref:`uniqueness <uniqueness_and_case_sensitivity>`.
 
 
@@ -1845,6 +1845,33 @@ cannot be named ``on_failure``.
    are evaluated are ``SUCCESS`` and ``FAILURE``. Any other results will be
    evaluated as ``SUCCESS``.
 
+ROI value
+---------
+
+The key ``ROI`` is an in-built property that can be set to a `flow <#flow>`__ to indicate
+its value among the series of flows in a workflow.
+
+**Example - assign an ROI value to a flow**
+
+.. code-block:: python
+
+   - namespace: ROI_value
+     flow:
+     name: FlowROI
+     workflow:
+      - sleep:
+        do:
+          io.cloudslang.base.utils.sleep:
+            - seconds: '2'
+        navigate:
+          - SUCCESS:
+              next_step: SUCCESS
+              ROI: '4'
+          - FAILURE: on_failure
+       results:
+          - FAILURE
+          - SUCCESS
+
 run_id
 ------
 
@@ -1858,7 +1885,7 @@ The ``run_id`` returns the run ID of the current execution.
        flow:
        name: run_id_usage
        workflow:
-      - add_numbers:
+        - add_numbers:
           do:
             io.cloudslang.base.math.add_numbers:
              - value1: 'integer1'
@@ -2462,15 +2489,149 @@ value associated with ``expression2``.
 
 .. _regex:
 
-cs_regex(selection, regex, split_lines)
+Regex
 ---------------------------------------
 
 May appear in the value of an `input <#inputs>`__ and `expression <#expressions>`__.
 
-**Example - usage of ``regex`` function in inputs**
+**Example - usage of ``regex`` function in expression editor to match e-mail addresses**
 
-.. code-block:: Python
+Apply a regular expression on the selected text as in the following example:
 
+.. code-block:: python
+
+  cs_regex(selection, regex, split_lines)
+
+Wherein, ``selection:`` content to be modified, ``regex:`` the regular expression, and ``split_lines`` (Optional)
+whereby you can split selection into lines and apply regex on each line. If not present, apply regex on the entire selection.
+
+.. code-block:: python
+
+    inputs: selection="test@test.com, t3$~!@1231.123, uuu!@@j@.com, 1#_h!@jkl.co.uk, good-email_me@microfocus.oo, test_me%+-@microfocus13.co.uk"
+    regex="\\b[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}\\b"
+    outputs: cs_regex(selection, "\\b[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}\\b") = ["test@test.com", "good-email_me@microfocus.oo", "test_me%+-@microfocus13.co.uk"]
+
+JSON Path
+---------
+
+May appear in the value of an `input <#inputs>`__ and `expression <#expressions>`__.
+
+**Example - usage of ``json_path`` function in an expression editor to find out the bicycle's color**
+
+JSON ``selection`` example
+
+.. code-block:: python
+
+   selection =  "{
+     "store": {
+        "book": [
+         {
+           "category": "history",
+           "author": "Arnold Joseph Toynbee",
+           "title": "A Study of History",
+           "price": 5.50
+         },
+         {
+           "category": "poem",
+           "author": "Aneirin",
+           "title": "Y Gododdin",
+           "price": 17.00
+         },
+         {
+           "category": "fiction",
+           "author": "James Joyce",
+           "title": "Finnegans Wake",
+           "isbn": "9788804677628",
+           "price": 15.99
+         },
+         {
+           "category": "fiction",
+           "author": "Emily Bronte",
+           "title": "Wuthering Heights",
+           "isbn": "0-486-29256-8",
+           "price": 3.30
+         }
+       ],
+       "bicycle": {
+         "color": "purple",
+         "price": 25.45
+       }
+     },
+     "expensive": 10
+   }"
+
+Input example for ``json_path`` :
+
+.. code:: python
+
+  json_path="$.store.bicycle.color"
+
+Output sample of the result:
+
+.. code:: python
+
+   cs_json_query(selection, "$.store.bicycle.color") = "purple"
+
+XPath
+-----
+
+May appear in the value of an `input <#inputs>`__ and `expression <#expressions>`__.
+
+**Example - usage of ``xpath`` function in an expression editor to find out the title of all books**
+
+xpath ``selection`` example
+
+.. code:: python
+
+   selection =
+  "<root>
+     <store>
+       <book>
+         <category>history</category>
+         <author>Arnold Joseph    Toynbee</author>
+         <title>A Study of History</title>
+         <price>5.5</price>
+       </book>
+       <book>
+         <category>poem</category>
+         <author>Aneirin</author>
+         <title>Y Gododdin</title>
+         <price>17</price>
+       </book>
+       <book>
+         <category>fiction</category>
+         <author>James Joyce</author>
+         <title>Finnegans Wake</title>
+         <isbn>9788804677628</isbn>
+         <price>15.99</price>
+       </book>
+       <book>
+         <category>fiction</category>
+         <author>Emily Bronte</author>
+         <title>Wuthering Heights</title>
+         <isbn>0-486-29256-8</isbn>
+         <price>3.3</price>
+       </book>
+       <bicycle>
+         <color>purple</color>
+         <price>25.45</price>
+       </bicycle>
+     </store>
+     <expensive>10</expensive>
+   </root>"
+
+
+Input example for ``xpath`` :
+
+.. code:: python
+
+  xpath=".//title"
+
+Output sample of the result:
+
+.. code:: python
+
+    cs_xpath_query(selection, ".//title")= <title>A Study of History</title> <title>Y Gododdin</title> <title>Finnegans Wake</title> <title>Wuthering Heights</title>
 
 
 .. _get:
