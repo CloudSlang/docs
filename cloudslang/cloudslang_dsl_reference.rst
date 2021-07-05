@@ -1848,10 +1848,11 @@ cannot be named ``on_failure``.
 ROI value
 ---------
 
-The key ``ROI`` is an in-built property that can be set to a `flow <#flow>`__ to indicate
-its value among the series of flows in a workflow.
+The key ``ROI`` is an in-built property that can be associated to the step navigation of a `flow <#flow>`__ to assess
+the saved investment by moving from manual to automated steps.
+When executing CloudSlang or OO native flows (flows created using OO Desktop Studio), OO Central computes these ROI values to report the business benefit of executing the entire flow.
 
-**Example - assign an ROI value to a flow**
+**Example - assign an ROI value to the step navigation**
 
 .. code-block:: python
 
@@ -2487,10 +2488,8 @@ value associated with ``expression2``.
       outputs:
         - out1
 
-.. _regex:
-
-Regex
----------------------------------------
+cs_regex
+--------
 
 May appear in the value of an `input <#inputs>`__ and `expression <#expressions>`__.
 
@@ -2505,14 +2504,21 @@ Apply a regular expression on the selected text as in the following example:
 Wherein, ``selection:`` content to be modified, ``regex:`` the regular expression, and ``split_lines`` (Optional)
 whereby you can split selection into lines and apply regex on each line. If not present, apply regex on the entire selection.
 
+Input example for ``cs_regex`` :
+
 .. code-block:: python
 
-    inputs: selection="test@test.com, t3$~!@1231.123, uuu!@@j@.com, 1#_h!@jkl.co.uk, good-email_me@microfocus.oo, test_me%+-@microfocus13.co.uk"
+    selection="test@test.com, t3$~!@1231.123, uuu!@@j@.com, 1#_h!@jkl.co.uk, good-email_me@microfocus.oo, test_me%+-@microfocus13.co.uk"
     regex="\\b[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}\\b"
-    outputs: cs_regex(selection, "\\b[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}\\b") = ["test@test.com", "good-email_me@microfocus.oo", "test_me%+-@microfocus13.co.uk"]
 
-JSON Path
----------
+Output sample of the result:
+
+    .. code:: python
+
+    cs_regex(selection, "\\b[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}\\b") = ["test@test.com", "good-email_me@microfocus.oo", "test_me%+-@microfocus13.co.uk"]
+
+cs_json_query
+-------------
 
 May appear in the value of an `input <#inputs>`__ and `expression <#expressions>`__.
 
@@ -2572,8 +2578,8 @@ Output sample of the result:
 
    cs_json_query(selection, "$.store.bicycle.color") = "purple"
 
-XPath
------
+cs_xpath_query
+--------------
 
 May appear in the value of an `input <#inputs>`__ and `expression <#expressions>`__.
 
