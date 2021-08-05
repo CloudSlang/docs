@@ -26,6 +26,39 @@ higher is required.
    -  For Windows : ``cslang.bat``.
    -  For Linux : ``bash cslang``.
 
+Set up python for CloudSlang CLI
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+To use an external python in cloudslang-cli, set the ``use.jython.expressions``
+property to ``false`` in ``cslang-cli/configuration/cslang.properties``.
+
+.. Important::
+
+ By default, the property ``use.jython.expressions=true`` is set to ``true``
+ pointing to use Jython.
+
+#. Unzip the downloaded python 3.8.7 package to any directory. Notice the python-3.8.7 folder after unzipping.
+#. Navigate to **cslang-cli/configuration** and open the **cslang.properties** file using any text editor.
+#. Specify a property ``python.path`` to point it to the following locations based on your Operating System:
+
+  * Windows: **<unzipped_location>/python-3.8.7**
+
+  * Linux: **<unzipped_location>/python-3.8.7/bin**
+
+#. Additionally for Linux environment, perform the following steps to grant permissions:
+
+   a. Open the terminal shell at **/python-3.8.7/bin** folder, and then run the following command:
+
+      .. code:: bash
+
+         ln -sf python3 python
+
+   b. Navigate back to **/python-3.8.7** folder, and then run the following command. The permission to access the folder is granted.
+
+      .. code:: bash
+
+         chmod -R 755 bin
+
 Download, Build and Run CLI
 ===========================
 

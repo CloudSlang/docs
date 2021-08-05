@@ -62,6 +62,13 @@ The following snippets are provided:
 +----------------------------------+-------------------------------------------------------------+
 | result                           | template for a result name and value                        |
 +----------------------------------+-------------------------------------------------------------+
+| run_id                           | template for the run ID of the current execution            |
++----------------------------------+-------------------------------------------------------------+
+| cs_functions                     | | template supporting `cs_function`. See                    |
+|                                  | | :ref:`DSL Reference <cloudslang_dsl_reference>`__         |
++----------------------------------+-------------------------------------------------------------+
+| ROI                              | template to define the ROI from an automated step           |
++----------------------------------+-------------------------------------------------------------+
 | publish                          | template for a published variable name and value            |
 +----------------------------------+-------------------------------------------------------------+
 | import                           | template for an import alias name and namespace             |
