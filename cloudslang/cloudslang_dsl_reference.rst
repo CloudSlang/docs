@@ -2640,6 +2640,298 @@ Output sample of the result:
     cs_xpath_query(selection, ".//title")= <title>A Study of History</title> <title>Y Gododdin</title> <title>Finnegans Wake</title> <title>Wuthering Heights</title>
 
 
+.. _cs_append:
+
+cs_append
+---------
+
+May appear in the value of an `input <#inputs>`__ and `expression <#expressions>`__.
+
+**Example - usage of ``cs_append`` function in an expression editor to append a string to another string value**
+
+.. code:: python
+
+    selection = "hello"
+
+Input example for ``cs_append`` :
+
+.. code:: python
+
+  cs_append(selection, to_append)
+
+Wherein, ``selection`` is the content to append with and ``to_append`` is the value of append.
+
+In this example, ``selection = "hello"`` and ``to_append = "world"``.
+
+Output sample of the result:
+
+.. code:: python
+
+    cs_append(selection, to_append)="helloworld"
+
+.. _cs_extract_number:
+
+cs_extract_number
+-----------------
+
+May appear in the value of an `input <#inputs>`__ and `expression <#expressions>`__.
+
+**Example - usage of ``cs_extract_number`` function to extract a number from text**
+
+.. code:: python
+
+    selection = "aei5ou634"
+
+Scenario 1: Input example for ``cs_extract_number``:
+
+.. code:: python
+
+    cs_extract_number(selection)
+
+Wherein, ``selection`` is the text to count.
+
+Scenario 1: Output sample of the result:
+
+.. code:: python
+
+    cs_extract_number(selection)=5
+
+Scenario 2: Input example for ``cs_extract_number``:
+
+.. code:: python
+
+    cs_extract_number(selection, [n_th])
+
+Wherein, ``selection`` is the text to count, and ``n_th`` is the parameter to return the nth number from the given text.
+
+Scenario 2: Output sample of the result:
+
+.. code:: python
+
+    cs_extract_number(selection, 2)=634
+
+.. Note::
+
+    The parameter ``n_th`` is optional. It returns the required occurrence of the number from the given sequence. If not specified, the first number will be extracted.
+
+.. _cs_substring:
+
+cs_substring
+------------
+
+May appear in the value of an `input <#inputs>`__ and `expression <#expressions>`__.
+
+**Example - usage of ``cs_substring`` function to return the ``substring`` from the text**
+
+.. code:: python
+
+    selection = "helloworld"
+
+Scenario 1: Input example for ``cs_substring(selection, start, [end])``:
+
+.. Note::
+
+   The parameters ``start`` and ``end`` should be constants.
+
+.. code:: python
+
+    cs_substring(selection, 5)
+
+Wherein, ``selection`` is the text to extract the substring and ``5`` is the parameter to extract the substring.
+
+Scenario 1: Output sample of the result:
+
+.. code:: python
+
+    cs_substring(selection, 5)="world"
+
+Scenario 2: Input example for ``cs_substring(selection, start, [end])``:
+
+.. code:: python
+
+    cs_substring(selection, 5, 7)
+
+Wherein, ``selection`` is the text to extract the substrings, and ``5`` and ``7`` are the parameters to extract the substrings.
+
+Scenario 2: Output sample of the result:
+
+.. code:: python
+
+    cs_substring(selection, 5, 7)="wo"
+
+.. Note::
+
+    The parameter ``end`` is optional. It identifies the position of the string. If not present, the extraction evaluates until the end of 'selection' text.
+
+.. _cs_to_lower:
+
+cs_to_lower
+-----------
+
+May appear in the value of an `input <#inputs>`__ and `expression <#expressions>`__.
+
+**Example - usage of ``cs_to_lower`` function in an expression editor to convert the text to lower case**
+
+.. code:: python
+
+    selection = "aeIOU"
+
+Input example for ``cs_to_lower`` :
+
+.. code:: python
+
+    cs_to_lower(selection)
+
+Wherein, ``selection`` is the content to convert to lowercase.
+
+Output sample of the result:
+
+.. code:: python
+
+    cs_to_lower(selection)="aeiou"
+
+.. _cs_to_upper:
+
+cs_to_upper
+-----------
+
+May appear in the value of an `input <#inputs>`__ and `expression <#expressions>`__.
+
+**Example - usage of ``cs_to_upper`` function in an expression editor to convert the text to upper case**
+
+.. code:: python
+
+    selection = "aeIOU"
+
+Input example for ``cs_to_upper`` :
+
+.. code:: python
+
+    cs_to_upper(selection)
+
+Wherein, ``selection`` is the content to convert to lowercase.
+
+Output sample of the result:
+
+.. code:: python
+
+    cs_to_upper(selection)="AEIOU"
+
+.. _cs_prepend:
+
+cs_prepend
+----------
+
+May appear in the value of an `input <#inputs>`__ and `expression <#expressions>`__.
+
+**Example - usage of ``cs_prepend`` function in an expression editor to prepend the text with the required value**
+
+.. code:: python
+
+    selection = "world"
+
+Input example for ``cs_prepend`` :
+
+.. code:: python
+
+    cs_prepend(selection, to_prepend)
+
+Wherein, ``selection`` is the text to prepend, and ``to_prepend`` is the parameter to prepend the selected content.
+
+Output sample of the result:
+
+.. code:: python
+
+    cs_prepend(selection, to_prepend)="helloworld"
+
+.. _cs_replace:
+
+cs_replace
+----------
+
+May appear in the value of an `input <#inputs>`__ and `expression <#expressions>`__.
+
+**Example - usage of ``cs_replace`` function to return the replaced value of the text**
+
+.. code:: python
+
+    selection = "helloworldworldworld"
+
+Scenario 1: Input example for ``cs_replace(old_val, new_val, [count])``:
+
+.. Note::
+
+   The parameter ``count`` is optional and if used it should be a constant.
+
+   It counts the occurrences of replaceable content. If present, only the required number of occurrences will be replaced, else all the occurrences will be replaced.
+
+.. code:: python
+
+    cs_replace(selection, old_val, new_val)
+
+Wherein, ``selection`` is the text to replace, and ``old_val`` is the parameter of an old value and ``new_val`` is the parameter to identify the new value.
+
+In this example, ``old_val = "world"`` and ``new_val = "people"``.
+
+Scenario 1: Output sample of the result:
+
+.. code:: python
+
+    cs_replace(selection, old_val, new_val)=hellopeoplepeoplepeople
+
+Scenario 2: Input example for ``cs_replace(selection, old_val, new_val, 2)``:
+
+.. code:: python
+
+    cs_replace(selection, old_val, new_val, 2)
+
+Where:
+
+- ``selection``: text to replace.
+- ``old_val``: parameter to identify the old value.
+- ``new_val``: parameter to replace the old value with new value.
+- ``2``: parameter to replace the first two occurrences of old value.
+
+Scenario 2: Output sample of the result:
+
+.. code:: python
+
+    cs_replace(selection, old_val, new_val, 2)="hellopeoplepeopleworld"
+
+
+.. _cs_round:
+
+cs_round
+--------
+
+May appear in the value of an `input <#inputs>`__ and `expression <#expressions>`__.
+
+**Example - usage of ``cs_round`` function in an expression editor to round off the decimal number to its nearest value**
+
+.. code:: python
+
+    selection = 2.4
+
+Input example for ``cs_round`` :
+
+.. code:: python
+
+    cs_round(selection)
+
+Wherein, ``selection`` is the number to round off to the nearest value.
+
+Output sample of the result:
+
+.. code:: python
+
+    cs_round(selection)=2
+
+.. Note::
+
+    - if the decimal value of an integer in the ``selection`` is less than (``<`` ) .5 , then the output will return the lower integer value. In this example, it will be ``2``
+
+    - if the decimal value of an integer in the ``selection`` is more than (``>`` ) .5 , then the output will return the next higher integer value. In this example, it will be ``3``
+
 .. _get:
 
 get()

@@ -64,8 +64,8 @@ The following snippets are provided:
 +----------------------------------+-------------------------------------------------------------+
 | run_id                           | template for the run ID of the current execution            |
 +----------------------------------+-------------------------------------------------------------+
-| cs_functions                     | | template supporting `cs_function`. See                    |
-|                                  | | :ref:`DSL Reference <cloudslang_dsl_reference>`__         |
+| cs_functions                     | | template supporting ``cs_function``. See                  |
+|                                  | | :doc:`Functions </cloudslang/cloudslang_dsl_reference>`.  |
 +----------------------------------+-------------------------------------------------------------+
 | ROI                              | template to define the ROI from an automated step           |
 +----------------------------------+-------------------------------------------------------------+

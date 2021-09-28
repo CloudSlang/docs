@@ -62,8 +62,11 @@ property to ``false`` in ``cslang-cli/configuration/cslang.properties``.
 Download, Build and Run CLI
 ===========================
 
-**Prerequisites :** To build the CloudSlang CLI, Java JDK version 7 or
-higher and Maven version 3.0.3 or higher are required.
+**Prerequisites:**
+
+- To build the CloudSlang CLI, Java JDK version 7 or higher and Maven version 3.0.3 or higher are required.
+
+Perform the following tasks:
 
 1. Git clone (or GitHub fork and then clone) the `source
    code <https://github.com/cloudslang/cloud-slang>`__.
@@ -76,29 +79,42 @@ higher and Maven version 3.0.3 or higher are required.
    -  For Windows : ``cslang.bat``.
    -  For Linux : ``bash cslang``.
 
-Download and Install npm Package
-================================
+Download and Install the npm Package
+====================================
 
-**Prerequisites :** To download the package, Node.js is required. To run
-the CloudSlang CLI, Java JRE version 7 or higher is required.
+**Prerequisites:**
 
-1. At a command prompt, enter ``npm install -g cloudslang-cli``.
+- To download the package, **Node.js** is required.
+- To run the CloudSlang CLI, **Java JRE version 7 or higher** is required.
 
-   -  If using Linux, the sudo command might be necessary:
-      ``sudo npm install -g cloudslang-cli``.
+To install:
 
-2. Enter the ``cslang`` command at any command prompt.
+1. For Windows, open the command prompt, and then issue the following command:
+
+.. code:: python
+
+          npm install -g cloudslang-cli
+
+2. For Linux, the ``sudo`` command may be required:
+
+.. code:: python
+
+          sudo npm install -g cloudslang-cli
+
+3. Next, enter the ``cslang`` command at any command prompt.
 
 Docker Image
 ============
 
-There are two CloudSlang Docker images. One (cloudslang/cloudslang) is a
-lightweight image meant to get you running CloudSlang flows as quickly as
-possible. The other image (cloudslang/cloudslang-dev) adds the tools necessary
-to develop CloudSlang flows.
+There are two CloudSlang Docker images available:
+
+1. ``cloudslang/cloudslang`` is a lightweight image meant to get you running CloudSlang flows as quickly as possible.
+
+2. ``cloudslang/cloudslang-dev`` adds the tools necessary to develop CloudSlang flows.
+
 
 cloudslang/cloudslang
----------------------
+^^^^^^^^^^^^^^^^^^^^^
 
 This image includes:
 
@@ -118,7 +134,7 @@ Or, to run the flow without the prompt:
 ``docker run --rm cloudslang/cloudslang run --f ../content/io/cloudslang/.../flow.sl --i input1=value1``
 
 cloudslang/cloudslang-dev
--------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^
 
 This image includes:
 
@@ -174,14 +190,14 @@ Some of the configuration items are listed in the table below:
 +-------------------------------------+---------------------------------------------------------+--------------------------+
 
 Logging Configuration
----------------------
+^^^^^^^^^^^^^^^^^^^^^
 
 The CLI's logging can be configured using the logging configuration file. The
 location of the logging configuration file is defined in the :ref:`CLI's
 configuration file <configure_cli>`.
 
 Maven Configuration
--------------------
+^^^^^^^^^^^^^^^^^^^
 
 The CLI uses Maven to manage Java action dependencies. There are several
 Maven configuration properties found in the :ref:`CLI's
@@ -192,7 +208,7 @@ Additionally, you can edit the proxy settings in the file found
 at ``maven.settings.xml.path``.
 
 Maven Troubleshooting
----------------------
+^^^^^^^^^^^^^^^^^^^^^
 
 It is possible that the CLI's Maven repository can become corrupted (if running the first time, behind a **proxy**).
 In such a case, delete the entire **repo** folder found at the location indicated by the
@@ -220,7 +236,7 @@ scanned and compiled recursively as well.
   back slashes (``\``) can be interpreted as special characters.
 
 Run a Flow or Operation
------------------------
+^^^^^^^^^^^^^^^^^^^^^^^
 
 To run a flow or operation located at ``c:/.../your_flow.sl``, use the
 ``--f`` flag to specify the location of the flow to be run:
@@ -229,8 +245,9 @@ To run a flow or operation located at ``c:/.../your_flow.sl``, use the
 
     cslang>run --f c:/.../your_flow.sl
 
+
 Run with Inputs
----------------
+^^^^^^^^^^^^^^^
 
 From the Command Line
 ~~~~~~~~~~~~~~~~~~~~~
@@ -333,8 +350,8 @@ used and they contain a system property with the same fully qualified name,
 the property in the file that is loaded last will overwrite the others with the
 same name.
 
-System property names (keys) can contain alphanumeric characters (A-Za-z0-9),
-underscores (_) and hyphens (-). For more information on the structure of system
+System property names (keys) can contain alphanumeric characters (``A-Z``, ``a-z``, ``0-9``),
+underscores (``_``) and hyphens (``-``). For more information on the structure of system
 properties files see the :ref:`CloudSlang Files <cloudslang_files>` and
 :ref:`properties <properties>` sections of the DSL Reference.
 
