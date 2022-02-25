@@ -1173,7 +1173,7 @@ Release to remote Maven repository
 
 .. note::
 
-    Maven version used in the CLI, Builder and cs-actions is ``3.3.9``
+    Maven version used in the CLI, Builder and cs-actions is ``3.3.9`` with JRE version ``8u282-8.52.0.23``.
     There might be some issues while building the Java Actions with
     other versions.
 
@@ -1647,8 +1647,8 @@ The key ``properties`` is mapped to a list of ``key:value`` pairs that define
 one or more system properties. Each system property name may in turn be mapped
 to its properties or a value.
 
-System property names (keys) can contain alphanumeric characters (A-Za-z0-9),
-underscores (_) and hyphens (-). The names must conform to the rules for
+System property names (keys) can contain alphanumeric characters (``a``-``z``, ``A``-``Z``
+and ``0``-``9``), underscores (_) and hyphens (-). The names must conform to the rules for
 :ref:`uniqueness <uniqueness_and_case_sensitivity>`.
 
 
@@ -1845,6 +1845,60 @@ cannot be named ``on_failure``.
    are evaluated are ``SUCCESS`` and ``FAILURE``. Any other results will be
    evaluated as ``SUCCESS``.
 
+ROI value
+---------
+
+The key ``ROI`` is an in-built property that can be associated to the step navigation of a `flow <#flow>`__ to assess
+the saved investment by moving from manual to automated steps.
+When executing CloudSlang or OO native flows (flows created using OO Desktop Studio), OO Central computes these ROI values to report the business benefit of executing the entire flow.
+
+**Example - assign an ROI value to the step navigation**
+
+.. code-block:: python
+
+   - namespace: ROI_value
+     flow:
+     name: FlowROI
+     workflow:
+      - sleep:
+        do:
+          io.cloudslang.base.utils.sleep:
+            - seconds: '2'
+        navigate:
+          - SUCCESS:
+              next_step: SUCCESS
+              ROI: '4'
+          - FAILURE: on_failure
+       results:
+          - FAILURE
+          - SUCCESS
+
+run_id
+------
+
+The ``run_id`` returns the run ID of the current execution.
+
+**Example - assign a flow with run_id parameter**
+
+.. code-block:: yaml
+
+   - namespace: run_id
+       flow:
+       name: run_id_usage
+       workflow:
+        - add_numbers:
+          do:
+            io.cloudslang.base.math.add_numbers:
+             - value1: 'integer1'
+             - value2: 'integer2'
+             - run_id: '${run_id}'
+           navigate:
+             - SUCCESS: SUCCESS
+             - FAILURE: on_failure
+           results:
+             - FAILURE
+             - SUCCESS
+
 Flow Results
 ~~~~~~~~~~~~
 
@@ -1994,10 +2048,10 @@ modules:
 Installing Packages into the python-lib Folder
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Prerequisites:  Python 2.7 and pip.
+Prerequisites:  Python 3.8.7 and pip.
 
-You can download Python (version 2.7) from `here <https://www.python.org/>`__.
-Python 2.7.9 and later include pip by default. If you already have Python but
+You can download Python (version 3.8.7) from `here <https://www.python.org/>`__.
+that includes pip by default. If you already have Python but
 don't have pip, see the pip
 `documentation <https://pip.pypa.io/en/latest/installing.html>`__ for
 installation instructions.
@@ -2433,6 +2487,450 @@ value associated with ``expression2``.
           out1 = 'not x' if in1 != 'x' else None
       outputs:
         - out1
+
+cs_regex
+--------
+
+May appear in the value of an `input <#inputs>`__ and `expression <#expressions>`__.
+
+**Example - usage of ``regex`` function in expression editor to match e-mail addresses**
+
+Apply a regular expression on the selected text as in the following example:
+
+.. code-block:: python
+
+  cs_regex(selection, regex, split_lines)
+
+Wherein, ``selection:`` content to be modified, ``regex:`` the regular expression, and ``split_lines`` (Optional)
+whereby you can split selection into lines and apply regex on each line. If not present, apply regex on the entire selection.
+
+Input example for ``cs_regex`` :
+
+.. code-block:: python
+
+    selection="test@test.com, t3$~!@1231.123, uuu!@@j@.com, 1#_h!@jkl.co.uk, good-email_me@microfocus.oo, test_me%+-@microfocus13.co.uk"
+    regex="\\b[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}\\b"
+
+Output sample of the result:
+
+    .. code:: python
+
+    cs_regex(selection, "\\b[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}\\b") = ["test@test.com", "good-email_me@microfocus.oo", "test_me%+-@microfocus13.co.uk"]
+
+cs_json_query
+-------------
+
+May appear in the value of an `input <#inputs>`__ and `expression <#expressions>`__.
+
+**Example - usage of ``json_path`` function in an expression editor to find out the bicycle's color**
+
+JSON ``selection`` example
+
+.. code-block:: python
+
+   selection =  "{
+     "store": {
+        "book": [
+         {
+           "category": "history",
+           "author": "Arnold Joseph Toynbee",
+           "title": "A Study of History",
+           "price": 5.50
+         },
+         {
+           "category": "poem",
+           "author": "Aneirin",
+           "title": "Y Gododdin",
+           "price": 17.00
+         },
+         {
+           "category": "fiction",
+           "author": "James Joyce",
+           "title": "Finnegans Wake",
+           "isbn": "9788804677628",
+           "price": 15.99
+         },
+         {
+           "category": "fiction",
+           "author": "Emily Bronte",
+           "title": "Wuthering Heights",
+           "isbn": "0-486-29256-8",
+           "price": 3.30
+         }
+       ],
+       "bicycle": {
+         "color": "purple",
+         "price": 25.45
+       }
+     },
+     "expensive": 10
+   }"
+
+Input example for ``json_path`` :
+
+.. code:: python
+
+  json_path="$.store.bicycle.color"
+
+Output sample of the result:
+
+.. code:: python
+
+   cs_json_query(selection, "$.store.bicycle.color") = "purple"
+
+cs_xpath_query
+--------------
+
+May appear in the value of an `input <#inputs>`__ and `expression <#expressions>`__.
+
+**Example - usage of ``xpath`` function in an expression editor to find out the title of all books**
+
+xpath ``selection`` example
+
+.. code:: python
+
+   selection =
+  "<root>
+     <store>
+       <book>
+         <category>history</category>
+         <author>Arnold Joseph    Toynbee</author>
+         <title>A Study of History</title>
+         <price>5.5</price>
+       </book>
+       <book>
+         <category>poem</category>
+         <author>Aneirin</author>
+         <title>Y Gododdin</title>
+         <price>17</price>
+       </book>
+       <book>
+         <category>fiction</category>
+         <author>James Joyce</author>
+         <title>Finnegans Wake</title>
+         <isbn>9788804677628</isbn>
+         <price>15.99</price>
+       </book>
+       <book>
+         <category>fiction</category>
+         <author>Emily Bronte</author>
+         <title>Wuthering Heights</title>
+         <isbn>0-486-29256-8</isbn>
+         <price>3.3</price>
+       </book>
+       <bicycle>
+         <color>purple</color>
+         <price>25.45</price>
+       </bicycle>
+     </store>
+     <expensive>10</expensive>
+   </root>"
+
+
+Input example for ``xpath`` :
+
+.. code:: python
+
+  xpath=".//title"
+
+Output sample of the result:
+
+.. code:: python
+
+    cs_xpath_query(selection, ".//title")= <title>A Study of History</title> <title>Y Gododdin</title> <title>Finnegans Wake</title> <title>Wuthering Heights</title>
+
+
+.. _cs_append:
+
+cs_append
+---------
+
+May appear in the value of an `input <#inputs>`__ and `expression <#expressions>`__.
+
+**Example - usage of ``cs_append`` function in an expression editor to append a string to another string value**
+
+.. code:: python
+
+    selection = "hello"
+
+Input example for ``cs_append`` :
+
+.. code:: python
+
+  cs_append(selection, to_append)
+
+Wherein, ``selection`` is the content to append with and ``to_append`` is the value of append.
+
+In this example, ``selection = "hello"`` and ``to_append = "world"``.
+
+Output sample of the result:
+
+.. code:: python
+
+    cs_append(selection, to_append)="helloworld"
+
+.. _cs_extract_number:
+
+cs_extract_number
+-----------------
+
+May appear in the value of an `input <#inputs>`__ and `expression <#expressions>`__.
+
+**Example - usage of ``cs_extract_number`` function to extract a number from text**
+
+.. code:: python
+
+    selection = "aei5ou634"
+
+Scenario 1: Input example for ``cs_extract_number``:
+
+.. code:: python
+
+    cs_extract_number(selection)
+
+Wherein, ``selection`` is the text to count.
+
+Scenario 1: Output sample of the result:
+
+.. code:: python
+
+    cs_extract_number(selection)=5
+
+Scenario 2: Input example for ``cs_extract_number``:
+
+.. code:: python
+
+    cs_extract_number(selection, [n_th])
+
+Wherein, ``selection`` is the text to count, and ``n_th`` is the parameter to return the nth number from the given text.
+
+Scenario 2: Output sample of the result:
+
+.. code:: python
+
+    cs_extract_number(selection, 2)=634
+
+.. Note::
+
+    The parameter ``n_th`` is optional. It returns the required occurrence of the number from the given sequence. If not specified, the first number will be extracted.
+
+.. _cs_substring:
+
+cs_substring
+------------
+
+May appear in the value of an `input <#inputs>`__ and `expression <#expressions>`__.
+
+**Example - usage of ``cs_substring`` function to return the ``substring`` from the text**
+
+.. code:: python
+
+    selection = "helloworld"
+
+Scenario 1: Input example for ``cs_substring(selection, start, [end])``:
+
+.. Note::
+
+   The parameters ``start`` and ``end`` should be constants.
+
+.. code:: python
+
+    cs_substring(selection, 5)
+
+Wherein, ``selection`` is the text to extract the substring and ``5`` is the parameter to extract the substring.
+
+Scenario 1: Output sample of the result:
+
+.. code:: python
+
+    cs_substring(selection, 5)="world"
+
+Scenario 2: Input example for ``cs_substring(selection, start, [end])``:
+
+.. code:: python
+
+    cs_substring(selection, 5, 7)
+
+Wherein, ``selection`` is the text to extract the substrings, and ``5`` and ``7`` are the parameters to extract the substrings.
+
+Scenario 2: Output sample of the result:
+
+.. code:: python
+
+    cs_substring(selection, 5, 7)="wo"
+
+.. Note::
+
+    The parameter ``end`` is optional. It identifies the position of the string. If not present, the extraction evaluates until the end of 'selection' text.
+
+.. _cs_to_lower:
+
+cs_to_lower
+-----------
+
+May appear in the value of an `input <#inputs>`__ and `expression <#expressions>`__.
+
+**Example - usage of ``cs_to_lower`` function in an expression editor to convert the text to lower case**
+
+.. code:: python
+
+    selection = "aeIOU"
+
+Input example for ``cs_to_lower`` :
+
+.. code:: python
+
+    cs_to_lower(selection)
+
+Wherein, ``selection`` is the content to convert to lowercase.
+
+Output sample of the result:
+
+.. code:: python
+
+    cs_to_lower(selection)="aeiou"
+
+.. _cs_to_upper:
+
+cs_to_upper
+-----------
+
+May appear in the value of an `input <#inputs>`__ and `expression <#expressions>`__.
+
+**Example - usage of ``cs_to_upper`` function in an expression editor to convert the text to upper case**
+
+.. code:: python
+
+    selection = "aeIOU"
+
+Input example for ``cs_to_upper`` :
+
+.. code:: python
+
+    cs_to_upper(selection)
+
+Wherein, ``selection`` is the content to convert to lowercase.
+
+Output sample of the result:
+
+.. code:: python
+
+    cs_to_upper(selection)="AEIOU"
+
+.. _cs_prepend:
+
+cs_prepend
+----------
+
+May appear in the value of an `input <#inputs>`__ and `expression <#expressions>`__.
+
+**Example - usage of ``cs_prepend`` function in an expression editor to prepend the text with the required value**
+
+.. code:: python
+
+    selection = "world"
+
+Input example for ``cs_prepend`` :
+
+.. code:: python
+
+    cs_prepend(selection, to_prepend)
+
+Wherein, ``selection`` is the text to prepend, and ``to_prepend`` is the parameter to prepend the selected content.
+
+Output sample of the result:
+
+.. code:: python
+
+    cs_prepend(selection, to_prepend)="helloworld"
+
+.. _cs_replace:
+
+cs_replace
+----------
+
+May appear in the value of an `input <#inputs>`__ and `expression <#expressions>`__.
+
+**Example - usage of ``cs_replace`` function to return the replaced value of the text**
+
+.. code:: python
+
+    selection = "helloworldworldworld"
+
+Scenario 1: Input example for ``cs_replace(old_val, new_val, [count])``:
+
+.. Note::
+
+   The parameter ``count`` is optional and if used it should be a constant.
+
+   It counts the occurrences of replaceable content. If present, only the required number of occurrences will be replaced, else all the occurrences will be replaced.
+
+.. code:: python
+
+    cs_replace(selection, old_val, new_val)
+
+Wherein, ``selection`` is the text to replace, and ``old_val`` is the parameter of an old value and ``new_val`` is the parameter to identify the new value.
+
+In this example, ``old_val = "world"`` and ``new_val = "people"``.
+
+Scenario 1: Output sample of the result:
+
+.. code:: python
+
+    cs_replace(selection, old_val, new_val)=hellopeoplepeoplepeople
+
+Scenario 2: Input example for ``cs_replace(selection, old_val, new_val, 2)``:
+
+.. code:: python
+
+    cs_replace(selection, old_val, new_val, 2)
+
+Where:
+
+- ``selection``: text to replace.
+- ``old_val``: parameter to identify the old value.
+- ``new_val``: parameter to replace the old value with new value.
+- ``2``: parameter to replace the first two occurrences of old value.
+
+Scenario 2: Output sample of the result:
+
+.. code:: python
+
+    cs_replace(selection, old_val, new_val, 2)="hellopeoplepeopleworld"
+
+
+.. _cs_round:
+
+cs_round
+--------
+
+May appear in the value of an `input <#inputs>`__ and `expression <#expressions>`__.
+
+**Example - usage of ``cs_round`` function in an expression editor to round off the decimal number to its nearest value**
+
+.. code:: python
+
+    selection = 2.4
+
+Input example for ``cs_round`` :
+
+.. code:: python
+
+    cs_round(selection)
+
+Wherein, ``selection`` is the number to round off to the nearest value.
+
+Output sample of the result:
+
+.. code:: python
+
+    cs_round(selection)=2
+
+.. Note::
+
+    - if the decimal value of an integer in the ``selection`` is less than (``<`` ) .5 , then the output will return the lower integer value. In this example, it will be ``2``
+
+    - if the decimal value of an integer in the ``selection`` is more than (``>`` ) .5 , then the output will return the next higher integer value. In this example, it will be ``3``
 
 .. _get:
 
