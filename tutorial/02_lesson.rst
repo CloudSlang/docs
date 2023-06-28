@@ -103,9 +103,11 @@ to the action contents.
 
 .. note::
 
-   CloudSlang uses the `Jython <http://www.jython.org/>`__
+   CloudSlang uses by default the `Jython <http://www.jython.org/>`__
    implementation of Python 2.7. For information on Jython's limitations,
    see the `Jython FAQ <https://wiki.python.org/jython/JythonFaq>`__.
+
+   To use Python 3.8.x instead, we need to set ``use_jython`` key to false.
 
 Python scripts that need 3rd party packages may import them using the
 procedures described in lesson :doc:`14 - 3rd Party Python
