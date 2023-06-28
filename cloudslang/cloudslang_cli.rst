@@ -12,10 +12,10 @@ higher is required.
 1. `Download <https://github.com/CloudSlang/cloud-slang/releases/latest>`__
    the CLI with content zip file.
 2. Locate the downloaded file and unzip the archive.
-   The decompressed file contains:
+   The decompressed file contains a **cslang-cli** folder containing itself :
 
-   -  A folder named **cslang-cli** with the CLI tool and its necessary
-      dependencies.
+   -  A folder named **bin** with the CLI tool binary.
+   -  A folder named **lib** with CLI's necessary dependencies.
    -  A folder named **content** with ready-made CloudSlang flows and
       operations.
    -  A folder named **python-lib**.
@@ -24,7 +24,7 @@ higher is required.
 4. Run the executable:
 
    -  For Windows : ``cslang.bat``.
-   -  For Linux : ``bash cslang``.
+   -  For Linux : ``bash cslang`` or ``./cslang``.
 
 Set up python for CloudSlang CLI
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
