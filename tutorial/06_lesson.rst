@@ -98,8 +98,8 @@ New Code - Complete
             publish:
               - availability: ${available}
             navigate:
-              - UNAVAILABLE: print_fail
-              - AVAILABLE: SUCCESS
+              - FAILURE: print_fail
+              - SUCCESS: SUCCESS
 
         - print_finish:
             do:
