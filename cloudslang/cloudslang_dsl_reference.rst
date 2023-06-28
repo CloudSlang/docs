@@ -213,6 +213,7 @@ and concepts are explained in detail below.
 
    -  `python_action <#python-action>`__
 
+      -  `use_jyton <#use-jython>`__
       -  `script <#script>`__
 
    -  `java_action <#java-action>`__
@@ -2355,6 +2356,19 @@ then navigates to a step named "another_step"**
         navigate:
             - SUCCESS: another_step
             - FAILURE: FAILURE
+
+
+.. _use-jython:
+
+use_jython
+-----
+
+The key ``use_jython`` is a property of a `pyhon_action <#python-action>`__ . It
+is mapped to a boolean value.
+
+A value of ``false`` will make the `python_action <#python-action>`__ evaluate
+the `script <#script>`__ using Python instead of Jython.
+
 
 .. _value:
 
