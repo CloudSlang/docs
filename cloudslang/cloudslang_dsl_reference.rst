@@ -213,6 +213,7 @@ and concepts are explained in detail below.
 
    -  `python_action <#python-action>`__
 
+      -  `use_jython <#use-jython>`__
       -  `script <#script>`__
 
    -  `java_action <#java-action>`__
@@ -1820,7 +1821,9 @@ python_action
 -------------
 
 The key ``python_action`` is a property of an `operation <#operation>`__. It is
-mapped to a `script <#script>`__ property that contains the actual Python script.
+mapped to a `script <#script>`__ property that contains the actual Python script
+and to `use_jython <#use-jython>`__ which changes the way in which the Python script
+is evaluated.
 
 .. _results:
 
@@ -2002,14 +2005,15 @@ scope by using the ``del`` keyword before the script exits.
 .. note::
 
    CloudSlang uses the `Jython <http://www.jython.org/>`__
-   implementation of Python 2.7. For information on Jython's limitations,
+   implementation of Python 2.7 by default. For information on Jython's limitations,
    see the `Jython FAQ <https://wiki.python.org/jython/JythonFaq>`__.
+   This can be changed by using the `use_jython <#use-jython>`__ property.
 
-**Example - action with Python script that divides two numbers**
+**Example - action with Python script that divides two numbers evaluated with Jython**
 
 .. code-block:: yaml
 
-    name: divide
+    name: divide_with_jython
 
     inputs:
       - dividend
@@ -2029,11 +2033,47 @@ scope by using the ``del`` keyword before the script exits.
       - ILLEGAL: ${quotient == 'division by zero error'}
       - SUCCESS
 
+**Example - action with Python script that divides two numbers evaluated with Python**
+
+      .. code-block:: yaml
+
+          name: divide_with_python
+
+          inputs:
+            - dividend
+            - divisor
+
+          python_action:
+            use_jython: false
+            script: |-
+              # do not remove the execute function
+              def execute(dividend, divisor):
+                if divisor == '0':
+                  quotient = 'division by zero error'
+                else:
+                  quotient = float(dividend) / float(divisor)
+                return {"quotient": quotient}
+
+              # you can add additional helper methods below.
+
+          outputs:
+            - quotient: '${str(quotient)}'
+
+          results:
+            - ILLEGAL: "${quotient == 'division by zero error'}"
+            - SUCCESS
+
 .. note::
 
    Single-line Python scripts can be written inline with the
    ``script`` key. Multi-line Python scripts can use the YAML pipe
    (``|``) indicator as in the example above.
+
+   The execute function is mandatory when the script is evaluated with
+   Python.
+
+   Additional helper methods can be added at the end of the script when
+   it is evaluted with Python.
 
 Importing External Python Packages
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -2355,6 +2395,19 @@ then navigates to a step named "another_step"**
         navigate:
             - SUCCESS: another_step
             - FAILURE: FAILURE
+
+
+.. _use-jython:
+
+use_jython
+-----
+
+The key ``use_jython`` is a property of a `pyhon_action <#python-action>`__ . It
+is mapped to a boolean value.
+
+A value of ``false`` will make the `python_action <#python-action>`__ evaluate
+the `script <#script>`__ using Python instead of Jython.
+
 
 .. _value:
 
